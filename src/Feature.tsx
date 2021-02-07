@@ -65,7 +65,7 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
             feature = Feature.lastFeatureDragged;
         } else {
             if (Feature.lastFeatureDragged)
-                feature.dispatchEvent(
+                Feature.lastFeatureDragged.dispatchEvent(
                     new MapBrowserEvent('pointerdragend', e.map, e.originalEvent)
                 );
             Feature.lastFeatureDragged = undefined;
