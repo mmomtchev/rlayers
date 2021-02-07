@@ -18,6 +18,7 @@ export interface MapProps {
     onMoveEnd?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPostRender?: (e: MapBrowserEvent) => boolean | void;
 }
 
 export const MapContext = React.createContext(null);

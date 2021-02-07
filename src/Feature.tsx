@@ -15,6 +15,7 @@ export interface FeatureProps {
     geometry?: Geometry;
     style?: StyleLike;
     properties?: Record<string, unknown>;
+    feature?: OLFeature;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerDragEnd?: (e: MapBrowserEvent) => boolean | void;
@@ -43,11 +44,15 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
 
     constructor(props: Readonly<FeatureProps>, context: React.Context<VectorContextType>) {
         super(props, context);
-        this.ol = new OLFeature({
-            ...(props.properties ?? {}),
-            geometry: props.geometry,
-            style: props.style
-        });
+        if (props.feature) this.ol = props.feature;
+        else
+            this.ol = new OLFeature({
+                ...(props.properties ?? {}),
+                geometry: props.geometry,
+                style: props.style
+            });
+        if (!this.context || !this.context.layer)
+            throw new Error('A feature must be part of a vector layer');
         Feature.initEventRelay(this.context.map);
         this.onchange = () => this.forceUpdate();
     }

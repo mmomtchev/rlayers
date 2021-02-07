@@ -99,10 +99,9 @@ var ReactLayersBase = (function (_super) {
         }
     };
     ReactLayersBase.prototype.render = function () {
-        debug_1.default('render', this);
         return null;
     };
     return ReactLayersBase;
-}(react_1.default.Component));
+}(react_1.default.PureComponent));
 exports.ReactLayersBase = ReactLayersBase;
 //# sourceMappingURL=Event.js.map

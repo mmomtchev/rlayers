@@ -1,5 +1,5 @@
 import React from 'react';
-export declare class ReactLayersBase<P, S> extends React.Component<P, S> {
+export declare class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
     ol: any;
     handlers: Record<string, (e: any) => boolean | void>;
     olEventName(ev: string): string;

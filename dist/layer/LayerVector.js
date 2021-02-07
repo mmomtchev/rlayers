@@ -21,7 +21,6 @@ var react_1 = __importDefault(require("react"));
 var layer_1 = require("ol/layer");
 var source_1 = require("ol/source");
 var __1 = require("..");
-var debug_1 = __importDefault(require("../debug"));
 exports.VectorContext = react_1.default.createContext(null);
 var LayerVector = (function (_super) {
     __extends(LayerVector, _super);
@@ -31,6 +30,8 @@ var LayerVector = (function (_super) {
         _this.eventRelay = function (e) {
             if (e.type === 'click' && _this.props.onClick)
                 return _this.props.onClick(e) !== false;
+            if (e.type === 'pointermove' && _this.props.onPointerMove)
+                return _this.props.onPointerMove(e) !== false;
             if (e.type === 'pointerenter' && _this.props.onPointerEnter)
                 return _this.props.onPointerEnter(e) !== false;
             if (e.type === 'pointerleave' && _this.props.onPointerLeave)
@@ -49,10 +50,11 @@ var LayerVector = (function (_super) {
     }
     LayerVector.prototype.refresh = function () {
         var _this = this;
-        debug_1.default('refresh', this.source, this.source.getFeatures().length);
         _super.prototype.refresh.call(this);
         if (this.props.onClick)
             this.source.forEachFeature(function (f) { return f.on('click', _this.eventRelay) && false; });
+        if (this.props.onPointerMove)
+            this.source.forEachFeature(function (f) { return f.on('pointermove', _this.eventRelay) && false; });
         if (this.props.onPointerEnter)
             this.source.forEachFeature(function (f) { return f.on('pointerenter', _this.eventRelay) && false; });
         if (this.props.onPointerLeave)

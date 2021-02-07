@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Style, Stroke, Fill} from 'ol/style';
 import {Map, OSM, LayerTile, LayerVector, Control} from 'react-layers';
-import layersIcon from './layers.svg';
+import layersIcon from './svg/layers.svg';
 
 const layersButton = (
     <button>

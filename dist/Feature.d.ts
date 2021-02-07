@@ -11,6 +11,7 @@ export interface FeatureProps {
     geometry?: Geometry;
     style?: StyleLike;
     properties?: Record<string, unknown>;
+    feature?: OLFeature;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerDragEnd?: (e: MapBrowserEvent) => boolean | void;

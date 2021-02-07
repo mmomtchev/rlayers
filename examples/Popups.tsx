@@ -5,7 +5,7 @@ import {StyleLike} from 'ol/style/Style';
 import {Style, Fill, Stroke, Icon} from 'ol/style';
 import {Polygon, Point} from 'ol/geom';
 import {Map, OSM, LayerVector, Feature, Popup} from 'react-layers';
-import locationIcon from './location.svg';
+import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
     origin: [2.364, 48.82],

@@ -6,7 +6,7 @@ import React from 'react';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import prettier from 'prettier/standalone';
-import parserBabel from 'prettier/parser-babel';
+import parserTypescript from 'prettier/parser-typescript';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ReactMarkdown from 'react-markdown';
 import {agate as styleHighlighter} from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -37,6 +37,9 @@ import PinDropJSX from '!!raw-loader!./PinDrop.tsx';
 import Reprojection from './Reprojection';
 // @ts-ignore
 import ReprojectionJSX from '!!raw-loader!./Reprojection.tsx';
+import IGC from './IGC';
+// @ts-ignore
+import IGCJSX from '!!raw-loader!./IGC.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -54,8 +57,21 @@ const examples = {
     features: {title: 'Load GeoJSON features', comp: Features, code: FeaturesJSX},
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
-    reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX}
+    reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
+    igc: {title: 'IGC', comp: IGC, code: IGCJSX}
 };
+
+// This is expensive to render
+const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
+    return (
+        <SyntaxHighlighter language='typescript' style={styleHighlighter}>
+            {prettier.format(props.code, {
+                parser: 'typescript',
+                plugins: [parserTypescript]
+            })}
+        </SyntaxHighlighter>
+    );
+});
 
 const App = (): JSX.Element => {
     return (
@@ -80,15 +96,7 @@ const App = (): JSX.Element => {
                                 <div className='row'>
                                     <div className='col-12 col-xl-5'>{examples[e].comp()}</div>
                                     <div className='col-12 col-xl-7'>
-                                        <SyntaxHighlighter
-                                            language='typescript'
-                                            style={styleHighlighter}
-                                        >
-                                            {prettier.format(examples[e].code, {
-                                                parser: 'babel',
-                                                plugins: [parserBabel]
-                                            })}
-                                        </SyntaxHighlighter>
+                                        <CodeDisplay code={examples[e].code} />
                                     </div>
                                 </div>
                             </Route>

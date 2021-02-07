@@ -12,6 +12,7 @@ export interface LayerVectorProps extends LayerProps {
     format?: FeatureFormat;
     style?: StyleLike;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
 }

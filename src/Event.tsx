@@ -1,7 +1,7 @@
 import React from 'react';
 import debug from './debug';
 
-export class ReactLayersBase<P, S> extends React.Component<P, S> {
+export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +54,6 @@ export class ReactLayersBase<P, S> extends React.Component<P, S> {
     }
 
     render(): JSX.Element {
-        debug('render', this);
         return null;
     }
 }

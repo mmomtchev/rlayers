@@ -52,7 +52,12 @@ var Feature = (function (_super) {
     function Feature(props, context) {
         var _a;
         var _this = _super.call(this, props, context) || this;
-        _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: props.style }));
+        if (props.feature)
+            _this.ol = props.feature;
+        else
+            _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: props.style }));
+        if (!_this.context || !_this.context.layer)
+            throw new Error('A feature must be part of a vector layer');
         Feature.initEventRelay(_this.context.map);
         _this.onchange = function () { return _this.forceUpdate(); };
         return _this;
@@ -84,7 +89,7 @@ var Feature = (function (_super) {
         }
         else {
             if (Feature.lastFeatureDragged)
-                feature.dispatchEvent(new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
+                Feature.lastFeatureDragged.dispatchEvent(new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
             Feature.lastFeatureDragged = undefined;
         }
         if (e.type === 'pointermove') {

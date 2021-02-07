@@ -15,6 +15,7 @@ export interface MapProps {
     onMoveEnd?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPostRender?: (e: MapBrowserEvent) => boolean | void;
 }
 export declare const MapContext: React.Context<any>;
 export default class Map extends ReactLayersBase<MapProps, null> {

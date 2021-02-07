@@ -34,7 +34,7 @@ export default function Features(): JSX.Element {
                     )}
                     onClick={useCallback(
                         (e: MapBrowserEvent) => {
-                            setFlow([...flow, e.target.getProperties().en].slice(-16));
+                            setFlow([...flow, e.target.get('en')].slice(-16));
                         },
                         [flow]
                     )}
@@ -47,9 +47,7 @@ export default function Features(): JSX.Element {
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                     onPointerEnter={useCallback(
                         (e: MapBrowserEvent) => {
-                            setFlow(
-                                [...flow, 'Entering ' + e.target.getProperties().nom].slice(-16)
-                            );
+                            setFlow([...flow, 'Entering ' + e.target.get('nom')].slice(-16));
                         },
                         [flow]
                     )}

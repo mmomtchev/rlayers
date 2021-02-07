@@ -15,6 +15,7 @@ export interface LayerVectorProps extends LayerProps {
     format?: FeatureFormat;
     style?: StyleLike;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
 }
@@ -47,6 +48,8 @@ class LayerVector extends Layer<LayerVectorProps> {
 
     eventRelay = (e: MapBrowserEvent): boolean => {
         if (e.type === 'click' && this.props.onClick) return this.props.onClick(e) !== false;
+        if (e.type === 'pointermove' && this.props.onPointerMove)
+            return this.props.onPointerMove(e) !== false;
         if (e.type === 'pointerenter' && this.props.onPointerEnter)
             return this.props.onPointerEnter(e) !== false;
         if (e.type === 'pointerleave' && this.props.onPointerLeave)
@@ -55,10 +58,11 @@ class LayerVector extends Layer<LayerVectorProps> {
     };
 
     refresh(): void {
-        debug('refresh', this.source, this.source.getFeatures().length);
         super.refresh();
         if (this.props.onClick)
             this.source.forEachFeature((f) => f.on('click', this.eventRelay) && false);
+        if (this.props.onPointerMove)
+            this.source.forEachFeature((f) => f.on('pointermove', this.eventRelay) && false);
         if (this.props.onPointerEnter)
             this.source.forEachFeature((f) => f.on('pointerenter', this.eventRelay) && false);
         if (this.props.onPointerLeave)
