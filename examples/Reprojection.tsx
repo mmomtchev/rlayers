@@ -5,6 +5,7 @@ import {register} from 'ol/proj/proj4';
 
 import {Map, OSM, LayerWMTS} from 'react-layers';
 
+// British National Grid definition (EPSG:27700)
 proj4.defs(
     'EPSG:27700',
     '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
@@ -14,13 +15,14 @@ proj4.defs(
 );
 register(proj4);
 
-export default function Simple(): JSX.Element {
+export default function Reprojection(): JSX.Element {
     return (
         <Map className='example-map' center={fromLonLat([0, 50])} zoom={5}>
             <OSM />
             <LayerWMTS
                 zIndex={5}
                 projection='EPSG:27700'
+                attributions='Contains OS data © Crown Copyright and database right'
                 url='https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS'
                 layer='OS_Open_Raster'
             />
