@@ -47,20 +47,18 @@ const webpackConfig = (env): Configuration => ({
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './examples/index.html',
-            baseUrl: env.production ? '/react-layers' : ''
+            template: './examples/index.html'
         }),
         new webpack.DefinePlugin({
             process: {
                 env: {
-                    DEBUG: !env.production || env.development,
-                    BASE_URL: JSON.stringify(env.production ? '/react-layers' : '')
+                    DEBUG: !env.production || env.development
                 }
             }
         }),
         new ForkTsCheckerWebpackPlugin({
             eslint: {
-                files: './{src,examples}/**/*.{ts,tsx,js}' // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js`
+                files: './{src,examples}/**/*.{ts,tsx,js}'
             }
         })
     ],

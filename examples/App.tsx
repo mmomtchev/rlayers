@@ -55,7 +55,7 @@ const examples = {
 
 const App = (): JSX.Element => {
     return (
-        <Router basename={process.env.BASE_URL}>
+        <Router>
             <h1>
                 <strong>React Layers Examples</strong>
             </h1>
