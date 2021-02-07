@@ -28,7 +28,7 @@ OpenLayers is a peer dependency - all OpenLayers 6+ versions should be supported
 ## Usage
 
 You can start with the examples:
-<https://mmomtchev.github.io/react-layers/index.html>
+<https://mmomtchev.github.io/react-layers/>
 
 ## Server-side rendering
 

@@ -65,8 +65,7 @@ const webpackConfig = (env): Configuration => ({
         })
     ],
     devServer: {
-        port: 8030,
-        historyApiFallback: true
+        port: 8030
     }
 });
 

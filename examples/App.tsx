@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './example.css';
 import './ghp.css';
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import prettier from 'prettier/standalone';
 import parserBabel from 'prettier/parser-babel';
@@ -36,7 +36,7 @@ import PinDrop from './PinDrop';
 import PinDropJSX from '!!raw-loader!./PinDrop.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
-    <Link to={`/${props.id}`}>
+    <Link to={props.id}>
         <Button block={true} variant='light'>
             {props.title}
         </Button>
@@ -61,7 +61,7 @@ const App = (): JSX.Element => {
             </h1>
             <div className='d-flex flex-row p-3'>
                 <div className='d-flex flex-column left-menu mr-1'>
-                    <LeftMenuItem id={'index.html'} title={'Home'} />
+                    <LeftMenuItem id={''} title={'Home'} />
                     {Object.keys(examples).map((e) => (
                         <LeftMenuItem key={e} id={e} title={examples[e].title} />
                     ))}
@@ -69,9 +69,6 @@ const App = (): JSX.Element => {
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>
                         <Route exact path='/'>
-                            <ReactMarkdown>{README}</ReactMarkdown>
-                        </Route>
-                        <Route path='/index.html'>
                             <ReactMarkdown>{README}</ReactMarkdown>
                         </Route>
                         {Object.keys(examples).map((e) => (
