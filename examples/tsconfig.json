@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "outDir": "./build",
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "allowJs": true,
+        "baseUrl": "./",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "paths": {
+            "react-layers": ["../src"],
+        }
+    },
+    "include": [
+        ".",
+        "./src"
+    ]
+}

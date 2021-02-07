@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable"
+        ],
+        "outDir": "./dist",
+        "declaration": true,
+        "declarationMap": true,
+        "removeComments": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "allowJs": true,
+        "baseUrl": "./",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "downlevelIteration": true,
+        "paths": {
+            "components/*": [ "src/components/*" ],
+        }
+    },
+    "include": [
+        "./src"
+    ]
+}

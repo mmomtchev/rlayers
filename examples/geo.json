@@ -1,0 +1,24 @@
+{
+	"type":"FeatureCollection",
+	"crs": {
+		"properties": {
+			"name": "EPSG:4326"
+		},
+		"type": "name"
+	},
+	"features":[
+		{
+			"type":"Feature",
+			"properties":{
+				"d":1,
+				"en":"Momtchil Momtchev<br><em>IT Consulting: GIS, Node, TCP/IP, Linux</em>",
+				"i":"https://momtchil.momtchev.pro/wp-content/uploads/2018/08/ID_ever_small_icon32x32.jpg",
+				"u":"https://momtchil.momtchev.pro/"
+			},
+			"geometry":{
+				"type":"Point",
+				"coordinates":[2.364010, 48.820224]
+			}
+		}
+	]
+}
