@@ -18,7 +18,7 @@ const webpackConfig = (env): Configuration => ({
         plugins: [new TsconfigPathsPlugin()]
     },
     output: {
-        path: path.join(__dirname, '/examples/www'),
+        path: path.join(__dirname, '/docs'),
         filename: 'bundle.js'
     },
     module: {
