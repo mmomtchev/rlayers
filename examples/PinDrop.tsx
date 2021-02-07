@@ -42,11 +42,11 @@ export default function PinDrop(): JSX.Element {
                             setLoc(toLonLat(coords));
                         }, [])}
                         onPointerEnter={useCallback(
-                            (e) => (e.map.getTargetElement().style.cursor = 'move'),
+                            (e) => (e.map.getTargetElement().style.cursor = 'move' && undefined),
                             []
                         )}
                         onPointerLeave={useCallback(
-                            (e) => (e.map.getTargetElement().style.cursor = 'initial'),
+                            (e) => (e.map.getTargetElement().style.cursor = 'initial' && undefined),
                             []
                         )}
                     >
