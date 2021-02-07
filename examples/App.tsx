@@ -62,7 +62,7 @@ const App = (): JSX.Element => {
             </h1>
             <div className='d-flex flex-row p-3'>
                 <div className='d-flex flex-column left-menu mr-1'>
-                    <LeftMenuItem id={''} title={'Home'} />
+                    <LeftMenuItem id={'index.html'} title={'Home'} />
                     {Object.keys(examples).map((e) => (
                         <LeftMenuItem key={e} id={e} title={examples[e].title} />
                     ))}
@@ -70,7 +70,10 @@ const App = (): JSX.Element => {
                 </div>
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>
-                        <Route key='/' exact path='/'>
+                        <Route exact path='/'>
+                            <ReactMarkdown>{README}</ReactMarkdown>
+                        </Route>
+                        <Route path='/index.html'>
                             <ReactMarkdown>{README}</ReactMarkdown>
                         </Route>
                         {Object.keys(examples).map((e) => (
