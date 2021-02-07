@@ -63,7 +63,6 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
         if (e.dragging) {
             if (!Feature.lastFeatureDragged) Feature.lastFeatureDragged = feature;
             feature = Feature.lastFeatureDragged;
-            if (feature && feature.getListeners('pointerdrag')) e.preventDefault();
         } else {
             if (Feature.lastFeatureDragged)
                 feature.dispatchEvent(

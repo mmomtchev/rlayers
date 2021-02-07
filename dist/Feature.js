@@ -54,10 +54,7 @@ var Feature = (function (_super) {
         var _this = _super.call(this, props, context) || this;
         _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: props.style }));
         Feature.initEventRelay(_this.context.map);
-        _this.onchange = function () {
-            _this.forceUpdate();
-            return true;
-        };
+        _this.onchange = function () { return _this.forceUpdate(); };
         return _this;
     }
     Feature.initEventRelay = function (map) {
@@ -84,8 +81,6 @@ var Feature = (function (_super) {
             if (!Feature.lastFeatureDragged)
                 Feature.lastFeatureDragged = feature;
             feature = Feature.lastFeatureDragged;
-            if (feature && feature.getListeners('pointerdrag'))
-                e.preventDefault();
         }
         else {
             if (Feature.lastFeatureDragged)

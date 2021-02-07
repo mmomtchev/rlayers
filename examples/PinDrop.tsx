@@ -36,17 +36,18 @@ export default function PinDrop(): JSX.Element {
                         onPointerDrag={useCallback((e) => {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
                             e.target.setGeometry(new Point(coords));
+                            e.preventDefault();
                         }, [])}
                         onPointerDragEnd={useCallback((e) => {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
                             setLoc(toLonLat(coords));
                         }, [])}
                         onPointerEnter={useCallback(
-                            (e) => (e.map.getTargetElement().style.cursor = 'move' && undefined),
+                            (e) => (e.map.getTargetElement().style.cursor = 'move') && undefined,
                             []
                         )}
                         onPointerLeave={useCallback(
-                            (e) => (e.map.getTargetElement().style.cursor = 'initial' && undefined),
+                            (e) => (e.map.getTargetElement().style.cursor = 'initial') && undefined,
                             []
                         )}
                     >
