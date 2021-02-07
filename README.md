@@ -34,11 +34,11 @@ You can start with the examples:
 
 Server-side rendering of map components is difficult - there is still no comprehensive solution. Besides the obvious complexities of rendering on canvas outside the browser, one of the major issues is that server-side rendering runs before the browser layout flowing - and thus must work independent of layout and resolution.
 
-The best solution is to use a WMS-compatible server (such as Geoserver) and to serve prerendered maps over WMS - eventually replacing the initial image by a canvas
+The best solution is to use a WMS-compatible server (such as Geoserver) and to serve prerendered maps over WMS - eventually replacing the initial image by a canvas.
 
 An intermediate solution, which does not require extensive server-side investment (such as Geoserver), but is limited to static layout(s), is to prerender one (or one per screen size) image to be used as a temporary place-holder until the map is loading. In this case, at least some devices, will get an ugly looking map for the first few seconds.
 
-Pushing the initial tiles is also an option
+Pushing the initial tiles is also an option:
 * when combined with a WMS-server it could deliver pixel-perfect maps with on the first HTTP request
 * without a WMS-server it could still avoid doing a large number of HTTP requests on the first load
 
