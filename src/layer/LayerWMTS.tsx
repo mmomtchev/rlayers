@@ -5,6 +5,7 @@ import {default as OLSourceWMTS, optionsFromCapabilities} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 import {Map, Layer, LayerProps} from '..';
+import debug from '../debug';
 
 export interface LayerWMTSProps extends LayerProps {
     url: string;
@@ -24,7 +25,7 @@ class LayerWMTS extends Layer<LayerWMTSProps> {
     }
 
     createSource(): Promise<OLSourceWMTS> {
-        console.debug('createSource', this);
+        debug('createSource', this);
         return fetch(this.props.url)
             .then((r) => r.text())
             .then((text) => {

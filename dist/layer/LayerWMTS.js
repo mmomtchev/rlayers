@@ -39,6 +39,7 @@ var layer_1 = require("ol/layer");
 var WMTS_1 = __importStar(require("ol/source/WMTS"));
 var WMTSCapabilities_1 = __importDefault(require("ol/format/WMTSCapabilities"));
 var __1 = require("..");
+var debug_1 = __importDefault(require("../debug"));
 var LayerWMTS = (function (_super) {
     __extends(LayerWMTS, _super);
     function LayerWMTS(props, context) {
@@ -50,7 +51,7 @@ var LayerWMTS = (function (_super) {
     }
     LayerWMTS.prototype.createSource = function () {
         var _this = this;
-        console.debug('createSource', this);
+        debug_1.default('createSource', this);
         return fetch(this.props.url)
             .then(function (r) { return r.text(); })
             .then(function (text) {
