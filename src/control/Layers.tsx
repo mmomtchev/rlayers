@@ -24,7 +24,7 @@ export default class Layers extends ControlBase<LayersProps, LayersState> {
     constructor(props: Readonly<LayersProps>, context: React.Context<OLMap>) {
         super(props, context);
         this.targetRef = React.createRef();
-        this.state = {collapsed: false, visible: [true]};
+        this.state = {collapsed: true, visible: [true]};
     }
 
     componentDidMount(): void {

@@ -29,6 +29,7 @@ var Map = (function (_super) {
         _this.ol = new ol_1.Map({
             controls: props.noDefaultControls ? [] : undefined,
             view: new ol_1.View({
+                projection: props.projection,
                 center: props.center,
                 zoom: props.zoom
             })

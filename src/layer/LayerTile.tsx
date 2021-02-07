@@ -15,7 +15,7 @@ class LayerTile extends Layer<LayerTileProps> {
 
     constructor(props: Readonly<LayerTileProps>, context: React.Context<OLMap>) {
         super(props, context);
-        this.source = new XYZ({url: this.props.url});
+        this.source = new XYZ({url: this.props.url, projection: this.props.projection});
         this.ol = new OLLayerTile({source: this.source});
     }
 

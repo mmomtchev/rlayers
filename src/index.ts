@@ -10,6 +10,7 @@ export {default as Layer, LayerProps, LayerContext} from './layer/Layer';
 export {default as LayerTile, LayerTileProps} from './layer/LayerTile';
 export {default as LayerVector, LayerVectorProps} from './layer/LayerVector';
 export {default as OSM, OSMProps} from './layer/OSM';
+export {default as LayerWMTS, LayerWMTSProps} from './layer/LayerWMTS';
 
 import {default as ScaleLine} from './control/ScaleLine';
 import {default as Attribution} from './control/Attribution';

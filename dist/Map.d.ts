@@ -9,6 +9,7 @@ export interface MapProps {
     width?: number;
     height?: number;
     noDefaultControls?: boolean;
+    projection?: string;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onMoveStart?: (e: MapBrowserEvent) => boolean | void;
     onMoveEnd?: (e: MapBrowserEvent) => boolean | void;

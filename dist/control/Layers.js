@@ -60,7 +60,7 @@ var Layers = (function (_super) {
             _this.setState({ collapsed: !_this.state.collapsed });
         };
         _this.targetRef = react_1.default.createRef();
-        _this.state = { collapsed: false, visible: [true] };
+        _this.state = { collapsed: true, visible: [true] };
         return _this;
     }
     Layers.prototype.componentDidMount = function () {

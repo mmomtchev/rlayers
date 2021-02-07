@@ -12,6 +12,7 @@ export interface MapProps {
     width?: number;
     height?: number;
     noDefaultControls?: boolean;
+    projection?: string;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onMoveStart?: (e: MapBrowserEvent) => boolean | void;
     onMoveEnd?: (e: MapBrowserEvent) => boolean | void;
@@ -31,6 +32,7 @@ export default class Map extends ReactLayersBase<MapProps, null> {
         this.ol = new OLMap({
             controls: props.noDefaultControls ? [] : undefined,
             view: new View({
+                projection: props.projection,
                 center: props.center,
                 zoom: props.zoom
             })

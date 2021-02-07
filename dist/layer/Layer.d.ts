@@ -13,6 +13,7 @@ export interface LayerProps {
     maxZoom?: number;
     attributions?: string;
     properties?: Record<string, unknown>;
+    projection?: string;
 }
 export default class Layer<P extends LayerProps> extends ReactLayersBase<P, null> {
     static contextType: React.Context<any>;

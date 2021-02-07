@@ -71,7 +71,7 @@ var Layer = (function (_super) {
             this.ol.setProperties(this.props.properties);
     };
     Layer.prototype.componentDidMount = function () {
-        debug_1.default('didMount', this.ol);
+        debug_1.default('didMount', this);
         _super.prototype.componentDidMount.call(this);
         this.context.addLayer(this.ol);
     };

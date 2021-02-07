@@ -34,6 +34,9 @@ import FeaturesJSX from '!!raw-loader!./Features.tsx';
 import PinDrop from './PinDrop';
 // @ts-ignore
 import PinDropJSX from '!!raw-loader!./PinDrop.tsx';
+import Reprojection from './Reprojection';
+// @ts-ignore
+import ReprojectionJSX from '!!raw-loader!./Reprojection.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -45,12 +48,13 @@ const LeftMenuItem = (props): JSX.Element => (
 
 const examples = {
     simple: {title: 'Simple map', comp: Simple, code: SimpleJSX},
-    layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     controls: {title: 'Custom controls', comp: Controls, code: ControlsJSX},
     overlays: {title: 'Simple overlay', comp: Overlays, code: OverlaysJSX},
     popups: {title: 'Popups', comp: Popups, code: PopupsJSX},
     features: {title: 'Load GeoJSON features', comp: Features, code: FeaturesJSX},
-    pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX}
+    layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
+    pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
+    reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX}
 };
 
 const App = (): JSX.Element => {

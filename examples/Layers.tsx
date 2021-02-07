@@ -1,6 +1,8 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
-import {Map, OSM, LayerTile, Control} from 'react-layers';
+import GeoJSON from 'ol/format/GeoJSON';
+import {Style, Stroke, Fill} from 'ol/style';
+import {Map, OSM, LayerTile, LayerVector, Control} from 'react-layers';
 import layersIcon from './layers.svg';
 
 const layersButton = (
@@ -8,6 +10,11 @@ const layersButton = (
         <img src={layersIcon} alt='layers' />
     </button>
 );
+
+const blueContours = new Style({
+    stroke: new Stroke({color: '#007bff', width: 3}),
+    fill: new Fill({color: 'transparent'})
+});
 
 export default function Layers(): JSX.Element {
     return (
@@ -31,7 +38,18 @@ export default function Layers(): JSX.Element {
                     properties={{label: 'Transport'}}
                     url='http://tile.thunderforest.com/transport/{z}/{x}/{y}.png'
                 />
+                <LayerTile
+                    properties={{label: 'Watercolor'}}
+                    url='http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
+                />
             </Control.Layers>
+            {/* This one is always visible */}
+            <LayerVector
+                style={blueContours}
+                zIndex={5}
+                format={new GeoJSON({featureProjection: 'EPSG:3857'})}
+                url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
+            />
         </Map>
     );
 }

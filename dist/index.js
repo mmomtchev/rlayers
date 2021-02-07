@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.OSM = exports.LayerVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.MapBrowserEvent = void 0;
+exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.MapBrowserEvent = void 0;
 require("ol/ol.css");
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -21,6 +21,8 @@ var LayerVector_1 = require("./layer/LayerVector");
 Object.defineProperty(exports, "LayerVector", { enumerable: true, get: function () { return __importDefault(LayerVector_1).default; } });
 var OSM_1 = require("./layer/OSM");
 Object.defineProperty(exports, "OSM", { enumerable: true, get: function () { return __importDefault(OSM_1).default; } });
+var LayerWMTS_1 = require("./layer/LayerWMTS");
+Object.defineProperty(exports, "LayerWMTS", { enumerable: true, get: function () { return __importDefault(LayerWMTS_1).default; } });
 var ScaleLine_1 = __importDefault(require("./control/ScaleLine"));
 var Attribution_1 = __importDefault(require("./control/Attribution"));
 var Zoom_1 = __importDefault(require("./control/Zoom"));

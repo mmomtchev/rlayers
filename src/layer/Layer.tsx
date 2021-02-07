@@ -17,6 +17,7 @@ export interface LayerProps {
     maxZoom?: number;
     attributions?: string;
     properties?: Record<string, unknown>;
+    projection?: string;
 }
 
 export default class Layer<P extends LayerProps> extends ReactLayersBase<P, null> {
@@ -50,7 +51,7 @@ export default class Layer<P extends LayerProps> extends ReactLayersBase<P, null
     }
 
     componentDidMount(): void {
-        debug('didMount', this.ol);
+        debug('didMount', this);
         super.componentDidMount();
         this.context.addLayer(this.ol);
     }

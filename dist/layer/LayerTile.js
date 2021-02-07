@@ -20,7 +20,7 @@ var LayerTile = (function (_super) {
     __extends(LayerTile, _super);
     function LayerTile(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.source = new source_1.XYZ({ url: _this.props.url });
+        _this.source = new source_1.XYZ({ url: _this.props.url, projection: _this.props.projection });
         _this.ol = new layer_1.Tile({ source: _this.source });
         return _this;
     }
