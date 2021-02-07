@@ -17,6 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/mmomtchev/react-layers.git"
   },
+  "homepage": "https://mmomtchev.github.io/react-layers/",
   "keywords": [
     "openlayers",
     "gis",
@@ -30,7 +31,6 @@
   "bugs": {
     "url": "https://github.com/mmomtchev/react-layers/issues"
   },
-  "homepage": "https://github.com/mmomtchev/react-layers#readme",
   "peerDependencies": {
     "@types/ol": "^6.4.2",
     "ol": "^6.5.0",

@@ -54,9 +54,8 @@ const examples = {
 };
 
 const App = (): JSX.Element => {
-    const [output, setOutput] = React.useState('');
     return (
-        <Router>
+        <Router basename={process.env.BASE_URL}>
             <h1>
                 <strong>React Layers Examples</strong>
             </h1>
@@ -66,7 +65,6 @@ const App = (): JSX.Element => {
                     {Object.keys(examples).map((e) => (
                         <LeftMenuItem key={e} id={e} title={examples[e].title} />
                     ))}
-                    <div dangerouslySetInnerHTML={{__html: output}} />
                 </div>
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>
