@@ -6,6 +6,7 @@ import {Circle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
 import {Map, LayerStamen, LayerCluster} from 'react-layers';
 
+// Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 const reader = new GeoJSON({featureProjection: 'EPSG:3857'});

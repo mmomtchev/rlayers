@@ -13,8 +13,6 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import IGC from 'ol/format/IGC';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
-import {Vector as OLLayerVector} from 'ol/layer';
-import {Feature as OLFeature} from 'ol';
 import {getVectorContext} from 'ol/render';
 import {LineString, Point} from 'ol/geom';
 
