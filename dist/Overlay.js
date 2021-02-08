@@ -33,10 +33,13 @@ var OverlayBase = (function (_super) {
         _this.containerRef = react_1.default.createRef();
         return _this;
     }
+    OverlayBase.prototype.setPosition = function () {
+        this.ol.setPosition(this.context.location);
+    };
     OverlayBase.prototype.refresh = function () {
         _super.prototype.refresh.call(this);
         this.ol.setElement(this.containerRef.current);
-        this.ol.setPosition(this.context.location);
+        this.setPosition();
     };
     OverlayBase.prototype.componentDidMount = function () {
         _super.prototype.componentDidMount.call(this);
@@ -47,7 +50,7 @@ var OverlayBase = (function (_super) {
         this.context.map.removeOverlay(this.ol);
     };
     OverlayBase.prototype.render = function () {
-        this.ol.setPosition(this.context.location);
+        this.setPosition();
         return (react_1.default.createElement("div", { ref: this.containerRef, className: this.props.className }, this.props.children));
     };
     OverlayBase.contextType = Feature_1.LocationContext;

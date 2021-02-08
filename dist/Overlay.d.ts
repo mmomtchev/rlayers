@@ -16,6 +16,7 @@ export declare class OverlayBase<P extends OverlayProps> extends ReactLayersBase
     context: LocationContextType;
     containerRef: React.RefObject<HTMLDivElement>;
     constructor(props: Readonly<P>, context: React.Context<LocationContextType>);
+    setPosition(): void;
     refresh(): void;
     componentDidMount(): void;
     componentWillUnmount(): void;

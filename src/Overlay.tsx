@@ -28,10 +28,14 @@ export class OverlayBase<P extends OverlayProps> extends ReactLayersBase<P, null
         this.containerRef = React.createRef();
     }
 
+    setPosition(): void {
+        this.ol.setPosition(this.context.location);
+    }
+
     refresh(): void {
         super.refresh();
         this.ol.setElement(this.containerRef.current);
-        this.ol.setPosition(this.context.location);
+        this.setPosition();
     }
 
     componentDidMount(): void {
@@ -45,7 +49,7 @@ export class OverlayBase<P extends OverlayProps> extends ReactLayersBase<P, null
     }
 
     render(): JSX.Element {
-        this.ol.setPosition(this.context.location);
+        this.setPosition();
         return (
             <div ref={this.containerRef} className={this.props.className}>
                 {this.props.children}
