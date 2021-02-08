@@ -75,6 +75,7 @@ export default function IGCComp(): JSX.Element {
     const [point, setPoint] = React.useState(null as Point);
     const [line, setLine] = React.useState(null as LineString);
     const [slider, setSlider] = React.useState(0);
+    const [highlights, setHighlights] = React.useState([]);
     const [flight, setFlight] = React.useState({
         start: Infinity,
         stop: -Infinity,
@@ -87,6 +88,7 @@ export default function IGCComp(): JSX.Element {
 
     // createRef insted of useRef here will severely impact performance
     const igcVectorLayer = React.useRef() as React.RefObject<LayerVector>;
+    const highlightVectorLayer = React.useRef() as React.RefObject<LayerVector>;
     const map = React.useRef() as React.RefObject<Map>;
 
     return (
@@ -174,6 +176,20 @@ export default function IGCComp(): JSX.Element {
                         [igcs]
                     )}
                 </LayerVector>
+                <LayerVector zIndex={10} ref={highlightVectorLayer} style={blueCircle}>
+                    {React.useMemo(
+                        () => (
+                            // This component appears dynamic to React because of the map but it is in fact constant
+                            // useMemo will render it truly constant
+                            <React.Fragment>
+                                {highlights.map((coords, i) => (
+                                    <Feature key={i} geometry={new Point(coords)} />
+                                ))}
+                            </React.Fragment>
+                        ),
+                        [highlights]
+                    )}
+                </LayerVector>
             </Map>
             <div className='d-flex flex-row mb-3 align-items-center'>
                 <div
@@ -195,22 +211,14 @@ export default function IGCComp(): JSX.Element {
                                 setSlider(value);
                                 const source = igcVectorLayer.current.source;
                                 const m = flight.start + (flight.duration * value) / 100;
+                                const newHighlights = [];
                                 source.forEachFeature((feature) => {
                                     if (!feature.get('PLT')) return;
                                     const geometry = feature.getGeometry() as LineString;
                                     const coords = geometry.getCoordinateAtM(m, true);
-                                    let highlight = feature.get('highlight');
-                                    if (highlight === undefined) {
-                                        highlight = new OLFeature({
-                                            geometry: new Point(coords),
-                                            style: blueCircle
-                                        });
-                                        feature.set('highlight', highlight);
-                                        igcVectorLayer.current.source.addFeature(highlight);
-                                    } else {
-                                        highlight.getGeometry().setCoordinates(coords);
-                                    }
+                                    newHighlights.push(coords);
                                 });
+                                setHighlights(newHighlights);
                                 map.current.ol.render();
                             },
                             [igcVectorLayer, flight, map]
