@@ -65,7 +65,10 @@ const examples = {
 const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
     return (
         <SyntaxHighlighter language='typescript' style={styleHighlighter}>
-            {props.code}
+            {prettier.format(props.code, {
+                parser: 'typescript',
+                plugins: [parserTypescript]
+            })}{' '}
         </SyntaxHighlighter>
     );
 });
