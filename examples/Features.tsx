@@ -1,12 +1,11 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {StyleLike} from 'ol/style/Style';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Map, OSM, LayerVector, MapBrowserEvent} from 'react-layers';
 import geojsonFeatures from './geo.json';
 
-const styles: Record<string, StyleLike> = {
+const styles: Record<string, Style> = {
     blueContours: new Style({
         stroke: new Stroke({color: '#007bff', width: 3}),
         fill: new Fill({color: 'transparent'})

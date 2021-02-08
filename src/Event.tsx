@@ -5,13 +5,16 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    eventSources: any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     handlers: Record<string, (e: any) => boolean | void>;
 
     olEventName(ev: string): string {
         return ev.substring(2).toLowerCase();
     }
 
-    refresh(): void {
+    refresh(prevProps?: P): void {
+        const eventSources = this.eventSources ?? [this.ol];
         for (const p of Object.keys(this.props))
             if (p.startsWith('on')) {
                 if (this.handlers === undefined) this.handlers = {};
@@ -23,12 +26,14 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
                         this.handlers[p],
                         this.props[p]
                     );
-                    this.ol.un(this.olEventName(p), this.handlers[p]);
+                    for (const source of eventSources)
+                        source.un(this.olEventName(p), this.handlers[p]);
                     this.handlers[p] = undefined;
                 }
                 if (this.handlers[p] === undefined) {
                     debug('installing handler', this, p, this.props[p]);
-                    this.ol.on(this.olEventName(p), this.props[p]);
+                    for (const source of eventSources)
+                        source.on(this.olEventName(p), this.props[p]);
                     this.handlers[p] = this.props[p];
                 }
             }
@@ -38,18 +43,36 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
         this.refresh();
     }
 
+    propsDiff(prev: P): boolean {
+        if (this.props === null || prev === null) {
+            if (this.props !== prev) {
+                debug('null props differ', this.props, prev);
+                return true;
+            }
+            return false;
+        }
+        for (const k of Object.keys(this.props))
+            if (this.props[k] !== prev[k]) {
+                debug('because of', k, this.props[k], prev[k]);
+                return true;
+            }
+        return false;
+    }
+
     componentDidUpdate(prevProps: P, prev: null, snap: unknown): void {
         if (this.props !== prevProps) {
             debug('willRefresh', this, prevProps, this.props);
-            this.refresh();
-        } else debug('skipRefresh', this, this.props);
+            this.refresh(prevProps);
+        }
     }
 
     componentWillUnmount(): void {
         debug('willUnmount', this, this.handlers);
+        const eventSources = this.eventSources ?? [this.ol];
         for (const h of Object.keys(this.handlers ?? {})) {
             debug('cleaning up handler', this, h, this.handlers[h]);
-            if (this.handlers[h]) this.ol.un(this.olEventName(h), this.handlers[h]);
+            if (this.handlers[h])
+                for (const source of eventSources) source.un(this.olEventName(h), this.handlers[h]);
         }
     }
 

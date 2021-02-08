@@ -1,5 +1,6 @@
 import React from 'react';
-import { Map as OLMap, MapBrowserEvent } from 'ol';
+import { Map as OLMap, MapBrowserEvent, MapEvent } from 'ol';
+import RenderEvent from 'ol/render/Event';
 import { Coordinate } from 'ol/coordinate';
 import { ReactLayersBase } from './Event';
 export interface MapProps {
@@ -11,11 +12,16 @@ export interface MapProps {
     noDefaultControls?: boolean;
     projection?: string;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onSingleClick?: (e: MapBrowserEvent) => boolean | void;
+    onDblClick?: (e: MapBrowserEvent) => boolean | void;
     onMoveStart?: (e: MapBrowserEvent) => boolean | void;
     onMoveEnd?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
-    onPostRender?: (e: MapBrowserEvent) => boolean | void;
+    onPostRender?: (e: MapEvent) => boolean | void;
+    OnPreCompose?: (e: RenderEvent) => boolean | void;
+    OnPostCompose?: (e: RenderEvent) => boolean | void;
+    OnRenderComplete?: (e: RenderEvent) => boolean | void;
 }
 export declare const MapContext: React.Context<any>;
 export default class Map extends ReactLayersBase<MapProps, null> {

@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {StyleLike} from 'ol/style/Style';
 import {Style, Fill, Stroke, Icon} from 'ol/style';
 import {Polygon, Point} from 'ol/geom';
 import {Map, OSM, LayerVector, Feature, Popup} from 'react-layers';
@@ -16,7 +15,7 @@ const coords: Record<string, Coordinate> = {
     Montmartre: [2.342, 48.887]
 };
 
-const styles: Record<string, StyleLike> = {
+const styles: Record<string, Style> = {
     yellow: new Style({
         stroke: new Stroke({color: 'yellow', width: 4}),
         fill: new Fill({color: 'transparent'})

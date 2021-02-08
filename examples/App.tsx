@@ -58,17 +58,14 @@ const examples = {
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
-    igc: {title: 'IGC', comp: IGC, code: IGCJSX}
+    igc: {title: 'Performance', comp: IGC, code: IGCJSX}
 };
 
 // This is expensive to render
 const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
     return (
         <SyntaxHighlighter language='typescript' style={styleHighlighter}>
-            {prettier.format(props.code, {
-                parser: 'typescript',
-                plugins: [parserTypescript]
-            })}
+            {props.code}
         </SyntaxHighlighter>
     );
 });

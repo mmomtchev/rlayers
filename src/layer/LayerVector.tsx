@@ -1,5 +1,7 @@
 import React from 'react';
 import {Map as OLMap, Feature as OLFeature, MapBrowserEvent} from 'ol';
+import {VectorSourceEvent} from 'ol/source/Vector';
+import RenderEvent from 'ol/render/Event';
 import {Vector as OLLayerVector} from 'ol/layer';
 import {Vector as OLSourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
@@ -15,9 +17,12 @@ export interface LayerVectorProps extends LayerProps {
     format?: FeatureFormat;
     style?: StyleLike;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onAddFeature?: (e: VectorSourceEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
+    onPostRender?: (e: RenderEvent) => boolean | void;
+    onPreRender?: (e: RenderEvent) => boolean | void;
 }
 
 export interface VectorContextType {
@@ -40,33 +45,26 @@ class LayerVector extends Layer<LayerVectorProps> {
             format: this.props.format
         });
         this.ol = new OLLayerVector({style: this.props.style, source: this.source});
+        this.eventSources = [this.ol, this.source];
         Feature.initEventRelay(this.context);
         this.ol.on('change', this.onchange);
+        this.refresh();
     }
 
     onchange = (): void => this.refresh();
 
     eventRelay = (e: MapBrowserEvent): boolean => {
-        if (e.type === 'click' && this.props.onClick) return this.props.onClick(e) !== false;
-        if (e.type === 'pointermove' && this.props.onPointerMove)
-            return this.props.onPointerMove(e) !== false;
-        if (e.type === 'pointerenter' && this.props.onPointerEnter)
-            return this.props.onPointerEnter(e) !== false;
-        if (e.type === 'pointerleave' && this.props.onPointerLeave)
-            return this.props.onPointerLeave(e) !== false;
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            if (e.type === ev.toLowerCase() && this.props['On' + ev])
+                return this.props['On' + ev](e) !== false;
         return true;
     };
 
-    refresh(): void {
+    refresh(prevProps?: LayerVectorProps): void {
         super.refresh();
-        if (this.props.onClick)
-            this.source.forEachFeature((f) => f.on('click', this.eventRelay) && false);
-        if (this.props.onPointerMove)
-            this.source.forEachFeature((f) => f.on('pointermove', this.eventRelay) && false);
-        if (this.props.onPointerEnter)
-            this.source.forEachFeature((f) => f.on('pointerenter', this.eventRelay) && false);
-        if (this.props.onPointerLeave)
-            this.source.forEachFeature((f) => f.on('pointerleave', this.eventRelay) && false);
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            if (!prevProps || this.props['On' + ev] !== prevProps['On' + ev])
+                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
     }
 
     render(): JSX.Element {

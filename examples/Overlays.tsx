@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {StyleLike} from 'ol/style/Style';
 import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
 import {Map, OSM, LayerVector, Feature, Overlay} from 'react-layers';
@@ -12,7 +11,7 @@ const coords: Record<string, Coordinate> = {
     ArcDeTriomphe: [2.295, 48.8737]
 };
 
-const styles: Record<string, StyleLike> = {
+const styles: Record<string, Style> = {
     location: new Style({
         image: new Icon({
             src: locationIcon,
