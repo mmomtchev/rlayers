@@ -40,15 +40,14 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
 
     constructor(props: Readonly<P>, context: React.Context<OLMap>) {
         super(props, context);
-        this.source = new OLSourceVector({
-            features: this.props.features,
-            url: this.props.url,
-            format: this.props.format
-        });
         Feature.initEventRelay(this.context);
     }
 
-    onchange = (): void => this.refresh();
+    onchange = (prevProps?: P): void => {
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            if (!prevProps || this.props['On' + ev] !== prevProps['On' + ev])
+                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
+    };
 
     eventRelay = (e: MapBrowserEvent): boolean => {
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
@@ -59,9 +58,8 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
 
     refresh(prevProps?: P): void {
         super.refresh();
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (!prevProps || this.props['On' + ev] !== prevProps['On' + ev])
-                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
+        this.onchange(prevProps);
+        if (!prevProps || prevProps.style !== this.props.style) this.ol.setStyle(this.props.style);
     }
 
     render(): JSX.Element {

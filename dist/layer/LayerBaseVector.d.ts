@@ -32,7 +32,7 @@ declare class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
     source: OLSourceVector;
     context: OLMap;
     constructor(props: Readonly<P>, context: React.Context<OLMap>);
-    onchange: () => void;
+    onchange: (prevProps?: P) => void;
     eventRelay: (e: MapBrowserEvent) => boolean;
     refresh(prevProps?: P): void;
     render(): JSX.Element;

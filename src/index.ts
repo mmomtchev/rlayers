@@ -20,6 +20,7 @@ export {default as OSM, OSMProps} from './layer/OSM';
 export {default as LayerWMTS, LayerWMTSProps} from './layer/LayerWMTS';
 export {default as LayerStamen, LayerStamenProps} from './layer/LayerStamen';
 export {default as LayerHeatmap, LayerHeatmapProps} from './layer/LayerHeatmap';
+export {default as LayerCluster, LayerClusterProps} from './layer/LayerCluster';
 
 import {default as ScaleLine} from './control/ScaleLine';
 import {default as Attribution} from './control/Attribution';

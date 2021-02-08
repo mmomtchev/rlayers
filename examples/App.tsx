@@ -43,6 +43,9 @@ import IGCJSX from '!!raw-loader!./IGC.tsx';
 import Heatmap from './Heatmap';
 // @ts-ignore
 import HeatmapJSX from '!!raw-loader!./Heatmap.tsx';
+import Cluster from './Cluster';
+// @ts-ignore
+import ClusterJSX from '!!raw-loader!./Cluster.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -57,9 +60,10 @@ const examples = {
     controls: {title: 'Custom controls', comp: Controls, code: ControlsJSX},
     overlays: {title: 'Simple overlay', comp: Overlays, code: OverlaysJSX},
     popups: {title: 'Popups', comp: Popups, code: PopupsJSX},
-    features: {title: 'Load GeoJSON features', comp: Features, code: FeaturesJSX},
-    layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
+    cluster: {title: 'Clustering', comp: Cluster, code: ClusterJSX},
     heatmap: {title: 'Heatmap', comp: Heatmap, code: HeatmapJSX},
+    features: {title: 'Load GeoJSON', comp: Features, code: FeaturesJSX},
+    layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}

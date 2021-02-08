@@ -28,18 +28,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var layer_1 = require("ol/layer");
+var source_1 = require("ol/source");
 var LayerBaseVector_1 = __importDefault(require("./LayerBaseVector"));
 var LayerHeatmap = (function (_super) {
     __extends(LayerHeatmap, _super);
     function LayerHeatmap(props, context) {
         var _this = _super.call(this, props, context) || this;
+        _this.source = new source_1.Vector({
+            features: _this.props.features,
+            url: _this.props.url,
+            format: _this.props.format
+        });
         _this.ol = new layer_1.Heatmap(__assign({ source: _this.source }, props));
         _this.eventSources = [_this.ol, _this.source];
         _this.ol.on('change', _this.onchange);
-        _this.refresh();
+        _this.onchange();
         return _this;
     }
     LayerHeatmap.prototype.refresh = function (prev) {
+        _super.prototype.refresh.call(this);
         if (!prev || prev.blur !== this.props.blur)
             this.ol.setBlur(this.props.blur);
         if (!prev || prev.radius !== this.props.radius)

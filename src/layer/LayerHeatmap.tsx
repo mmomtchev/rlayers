@@ -18,13 +18,19 @@ class LayerHeatmap extends LayerBaseVector<LayerHeatmapProps> {
 
     constructor(props: Readonly<LayerHeatmapProps>, context: React.Context<OLMap>) {
         super(props, context);
+        this.source = new OLSourceVector({
+            features: this.props.features,
+            url: this.props.url,
+            format: this.props.format
+        });
         this.ol = new OLLayerHeatmap({source: this.source, ...props});
         this.eventSources = [this.ol, this.source];
         this.ol.on('change', this.onchange);
-        this.refresh();
+        this.onchange();
     }
 
     refresh(prev?: LayerHeatmapProps): void {
+        super.refresh();
         if (!prev || prev.blur !== this.props.blur) this.ol.setBlur(this.props.blur);
         if (!prev || prev.radius !== this.props.radius) this.ol.setRadius(this.props.radius);
     }

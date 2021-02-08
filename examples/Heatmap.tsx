@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
+import {Feature as OLFeature} from 'ol';
 import {Map, LayerStamen, LayerHeatmap} from 'react-layers';
 
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
@@ -10,12 +11,17 @@ const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
 export default function Heatmap(): JSX.Element {
     const [blur, setBlur] = React.useState(15);
     const [radius, setRadius] = React.useState(8);
-    console.log({blur, radius});
     return (
         <React.Fragment>
             <Map className='example-map' center={fromLonLat([0, 0])} zoom={1}>
                 <LayerStamen layer='toner' />
-                <LayerHeatmap blur={blur} radius={radius} format={reader} url={earthquakes} />
+                <LayerHeatmap
+                    blur={blur}
+                    radius={radius}
+                    format={reader}
+                    url={earthquakes}
+                    weight={useCallback((f: OLFeature) => parseFloat(f.get('mag')) - 5, [])}
+                />
             </Map>
             <div className='d-flex flex-row w-100'>
                 <div className='w-50 mr-2'>

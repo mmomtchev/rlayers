@@ -12,10 +12,15 @@ class LayerVector extends LayerBaseVector<LayerBaseVectorProps> {
 
     constructor(props: Readonly<LayerBaseVectorProps>, context: React.Context<OLMap>) {
         super(props, context);
+        this.source = new OLSourceVector({
+            features: this.props.features,
+            url: this.props.url,
+            format: this.props.format
+        });
         this.ol = new OLLayerVector({style: this.props.style, source: this.source});
         this.eventSources = [this.ol, this.source];
         this.ol.on('change', this.onchange);
-        this.refresh();
+        this.onchange();
     }
 }
 

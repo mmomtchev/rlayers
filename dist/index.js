@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.LayerHeatmap = exports.LayerStamen = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.VectorContext = exports.LayerBaseVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.LayerCluster = exports.LayerHeatmap = exports.LayerStamen = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.VectorContext = exports.LayerBaseVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 require("ol/ol.css");
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
@@ -35,6 +35,8 @@ var LayerStamen_1 = require("./layer/LayerStamen");
 Object.defineProperty(exports, "LayerStamen", { enumerable: true, get: function () { return __importDefault(LayerStamen_1).default; } });
 var LayerHeatmap_1 = require("./layer/LayerHeatmap");
 Object.defineProperty(exports, "LayerHeatmap", { enumerable: true, get: function () { return __importDefault(LayerHeatmap_1).default; } });
+var LayerCluster_1 = require("./layer/LayerCluster");
+Object.defineProperty(exports, "LayerCluster", { enumerable: true, get: function () { return __importDefault(LayerCluster_1).default; } });
 var ScaleLine_1 = __importDefault(require("./control/ScaleLine"));
 var Attribution_1 = __importDefault(require("./control/Attribution"));
 var Zoom_1 = __importDefault(require("./control/Zoom"));
