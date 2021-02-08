@@ -69,9 +69,9 @@ const calculateClusterInfo = function (resolution) {
 
 let currentResolution;
 function clusterStyle(feature: OLFeature, resolution: number): Style {
-    if (!this) return null;
+    if (!this.current) return null;
     if (resolution != currentResolution) {
-        calculateClusterInfo.call(this, resolution);
+        calculateClusterInfo.call(this.current, resolution);
         currentResolution = resolution;
     }
     let style;
@@ -102,7 +102,13 @@ export default function Cluster(): JSX.Element {
     const earthquakeLayer = React.useRef();
     return (
         <React.Fragment>
-            <Map className='example-map' center={fromLonLat([0, 0])} zoom={1}>
+            <Map
+                className='example-map'
+                center={fromLonLat([0, 0])}
+                zoom={1}
+                // This needed because the examples app hot-loads components when switching tabs
+                onRenderComplete={useCallback(() => (currentResolution = undefined), [])}
+            >
                 <LayerStamen layer='toner' />
                 <LayerCluster
                     ref={earthquakeLayer}
@@ -110,9 +116,7 @@ export default function Cluster(): JSX.Element {
                     format={reader}
                     url={earthquakes}
                     // eslint-disable-next-line react-hooks/exhaustive-deps
-                    style={useCallback(clusterStyle.bind(earthquakeLayer.current), [
-                        earthquakeLayer.current
-                    ])}
+                    style={useCallback(clusterStyle.bind(earthquakeLayer), [earthquakeLayer])}
                 />
             </Map>
             <div className='w-100'>

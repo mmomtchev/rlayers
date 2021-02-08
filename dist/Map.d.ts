@@ -19,9 +19,9 @@ export interface MapProps {
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
     onPostRender?: (e: MapEvent) => boolean | void;
-    OnPreCompose?: (e: RenderEvent) => boolean | void;
-    OnPostCompose?: (e: RenderEvent) => boolean | void;
-    OnRenderComplete?: (e: RenderEvent) => boolean | void;
+    onPreCompose?: (e: RenderEvent) => boolean | void;
+    onPostCompose?: (e: RenderEvent) => boolean | void;
+    onRenderComplete?: (e: RenderEvent) => boolean | void;
 }
 export declare const MapContext: React.Context<any>;
 export default class Map extends ReactLayersBase<MapProps, null> {
