@@ -28,21 +28,21 @@ import {
     VectorSourceEvent
 } from 'react-layers';
 
-import ClementLatour from '!!raw-loader!./data/igc/Clement-Latour.igc';
-import DamienDeBaenst from '!!raw-loader!./data/igc/Damien-de-Baenst.igc';
-import SylvainDhonneur from '!!raw-loader!./data/igc/Sylvain-Dhonneur.igc';
-import TomPayne from '!!raw-loader!./data/igc/Tom-Payne.igc';
-import UlrichPrinz from '!!raw-loader!./data/igc/Ulrich-Prinz.igc';
+import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
+import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';
+import SylvainDhonneur from '!!file-loader!./data/igc/Sylvain-Dhonneur.igc';
+import TomPayne from '!!file-loader!./data/igc/Tom-Payne.igc';
+import UlrichPrinz from '!!file-loader!./data/igc/Ulrich-Prinz.igc';
 
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 
-const igcs = {
-    'Clement Latour': {c: 'rgba(0, 0, 255, 0.7)', i: ClementLatour},
-    'Damien de Baesnt': {c: 'rgba(0, 215, 255, 0.7)', i: DamienDeBaenst},
-    'Sylvain Dhonneur': {c: 'rgba(0, 165, 255, 0.7)', i: SylvainDhonneur},
-    'Tom Payne': {c: 'rgba(0, 255, 255, 0.7)', i: TomPayne},
-    'Ulrich Prinz': {c: 'rgba(0, 215, 255, 0.7)', i: UlrichPrinz}
-};
+const igcsDesc = [
+    {c: 'rgba(0, 0, 255, 0.7)', i: ClementLatour},
+    {c: 'rgba(0, 215, 255, 0.7)', i: DamienDeBaenst},
+    {c: 'rgba(0, 165, 255, 0.7)', i: SylvainDhonneur},
+    {c: 'rgba(0, 255, 255, 0.7)', i: TomPayne},
+    {c: 'rgba(0, 215, 255, 0.7)', i: UlrichPrinz}
+];
 
 // Don't even think about creating styles dynamically
 const contours = (c: string) =>
@@ -80,6 +80,11 @@ export default function IGCComp(): JSX.Element {
         stop: -Infinity,
         duration: 0
     });
+    const [igcs, setIgcs] = React.useState(() => {
+        Promise.all(igcsDesc.map((i) => fetch(i.i).then((r) => r.text()))).then((r) => setIgcs(r));
+        return [];
+    });
+
     // createRef insted of useRef here will severely impact performance
     const igcVectorLayer = React.useRef() as React.RefObject<LayerVector>;
     const map = React.useRef() as React.RefObject<Map>;
@@ -153,20 +158,20 @@ export default function IGCComp(): JSX.Element {
                             // This component appears dynamic to React because of the map but it is in fact constant
                             // useMemo will render it truly constant
                             <React.Fragment>
-                                {Object.keys(igcs).map((name, i) => (
+                                {igcs.map((igc, idx) => (
                                     <Feature
-                                        key={i}
+                                        key={idx}
                                         feature={
-                                            new IGC().readFeatures(igcs[name].i, {
+                                            new IGC().readFeatures(igc, {
                                                 featureProjection: 'EPSG:3857'
                                             })[0]
                                         }
-                                        style={contours(igcs[name].c)}
+                                        style={contours(igcsDesc[idx].c)}
                                     />
                                 ))}
                             </React.Fragment>
                         ),
-                        []
+                        [igcs]
                     )}
                 </LayerVector>
             </Map>

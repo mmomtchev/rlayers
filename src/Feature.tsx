@@ -7,7 +7,7 @@ import Geometry from 'ol/geom/Geometry';
 import {getCenter} from 'ol/extent';
 import {Coordinate} from 'ol/coordinate';
 
-import {VectorContext, VectorContextType} from './layer/LayerVector';
+import {VectorContext, VectorContextType} from './layer/LayerBaseVector';
 import {ReactLayersBase} from './Event';
 import debug from './debug';
 
@@ -109,13 +109,13 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
         debug('didMount', this.ol);
         super.componentDidMount();
         this.ol.on('change', this.onchange);
-        this.context.layer.getSource().addFeature(this.ol);
+        this.context.source.addFeature(this.ol);
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.ol.un('change', this.onchange);
-        this.context.layer.getSource().removeFeature(this.ol);
+        this.context.source.removeFeature(this.ol);
     }
 
     render(): JSX.Element {

@@ -10,9 +10,16 @@ export {default as Map, MapProps, MapContext} from './Map';
 
 export {default as Layer, LayerProps, LayerContext} from './layer/Layer';
 export {default as LayerTile, LayerTileProps} from './layer/LayerTile';
-export {default as LayerVector, LayerVectorProps, VectorContext} from './layer/LayerVector';
+export {
+    default as LayerBaseVector,
+    LayerBaseVectorProps as LayerVectorProps,
+    VectorContext
+} from './layer/LayerBaseVector';
+export {default as LayerVector} from './layer/LayerVector';
 export {default as OSM, OSMProps} from './layer/OSM';
 export {default as LayerWMTS, LayerWMTSProps} from './layer/LayerWMTS';
+export {default as LayerStamen, LayerStamenProps} from './layer/LayerStamen';
+export {default as LayerHeatmap, LayerHeatmapProps} from './layer/LayerHeatmap';
 
 import {default as ScaleLine} from './control/ScaleLine';
 import {default as Attribution} from './control/Attribution';

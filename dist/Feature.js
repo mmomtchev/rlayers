@@ -43,7 +43,7 @@ var react_1 = __importDefault(require("react"));
 var ol_1 = require("ol");
 var ol_2 = require("ol");
 var extent_1 = require("ol/extent");
-var LayerVector_1 = require("./layer/LayerVector");
+var LayerBaseVector_1 = require("./layer/LayerBaseVector");
 var Event_1 = require("./Event");
 var debug_1 = __importDefault(require("./debug"));
 exports.LocationContext = react_1.default.createContext(null);
@@ -119,12 +119,12 @@ var Feature = (function (_super) {
         debug_1.default('didMount', this.ol);
         _super.prototype.componentDidMount.call(this);
         this.ol.on('change', this.onchange);
-        this.context.layer.getSource().addFeature(this.ol);
+        this.context.source.addFeature(this.ol);
     };
     Feature.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
         this.ol.un('change', this.onchange);
-        this.context.layer.getSource().removeFeature(this.ol);
+        this.context.source.removeFeature(this.ol);
     };
     Feature.prototype.render = function () {
         var _a, _b;
@@ -137,7 +137,7 @@ var Feature = (function (_super) {
                 location: center
             } }, this.props.children));
     };
-    Feature.contextType = LayerVector_1.VectorContext;
+    Feature.contextType = LayerBaseVector_1.VectorContext;
     Feature.hitTolerance = 10;
     return Feature;
 }(Event_1.ReactLayersBase));

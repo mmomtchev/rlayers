@@ -40,6 +40,9 @@ import ReprojectionJSX from '!!raw-loader!./Reprojection.tsx';
 import IGC from './IGC';
 // @ts-ignore
 import IGCJSX from '!!raw-loader!./IGC.tsx';
+import Heatmap from './Heatmap';
+// @ts-ignore
+import HeatmapJSX from '!!raw-loader!./Heatmap.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -56,6 +59,7 @@ const examples = {
     popups: {title: 'Popups', comp: Popups, code: PopupsJSX},
     features: {title: 'Load GeoJSON features', comp: Features, code: FeaturesJSX},
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
+    heatmap: {title: 'Heatmap', comp: Heatmap, code: HeatmapJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}

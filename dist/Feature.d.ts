@@ -5,7 +5,7 @@ import { Feature as OLFeature } from 'ol';
 import { StyleLike } from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import { Coordinate } from 'ol/coordinate';
-import { VectorContextType } from './layer/LayerVector';
+import { VectorContextType } from './layer/LayerBaseVector';
 import { ReactLayersBase } from './Event';
 export interface FeatureProps {
     geometry?: Geometry;
