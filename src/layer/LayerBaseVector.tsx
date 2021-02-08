@@ -43,22 +43,26 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
         Feature.initEventRelay(this.context);
     }
 
-    onchange = (prevProps?: P): void => {
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (!prevProps || this.props['On' + ev] !== prevProps['On' + ev])
-                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
+    onchange = (): void => {
+        this.attachFeatureHandlers();
     };
+
+    attachFeatureHandlers(prevProps?: P): void {
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            if (!prevProps || this.props['on' + ev] !== prevProps['on' + ev])
+                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
+    }
 
     eventRelay = (e: MapBrowserEvent): boolean => {
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (e.type === ev.toLowerCase() && this.props['On' + ev])
-                return this.props['On' + ev](e) !== false;
+            if (e.type === ev.toLowerCase() && this.props['on' + ev])
+                return this.props['on' + ev](e) !== false;
         return true;
     };
 
     refresh(prevProps?: P): void {
         super.refresh();
-        this.onchange(prevProps);
+        this.attachFeatureHandlers(prevProps);
         if (!prevProps || prevProps.style !== this.props.style) this.ol.setStyle(this.props.style);
     }
 

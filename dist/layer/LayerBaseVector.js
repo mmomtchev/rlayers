@@ -35,16 +35,16 @@ var LayerBaseVector = (function (_super) {
     __extends(LayerBaseVector, _super);
     function LayerBaseVector(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.onchange = function (prevProps) {
+        _this.onchange = function () {
+            _this.attachFeatureHandlers();
+        };
+        _this.eventRelay = function (e) {
             var e_1, _a;
-            var _loop_1 = function (ev) {
-                if (!prevProps || _this.props['On' + ev] !== prevProps['On' + ev])
-                    _this.source.forEachFeature(function (f) { return f.on(ev.toLowerCase(), _this.eventRelay) && false; });
-            };
             try {
                 for (var _b = __values(['Click', 'PointerMove', 'PointerEnter', 'PointerLeave']), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var ev = _c.value;
-                    _loop_1(ev);
+                    if (e.type === ev.toLowerCase() && _this.props['on' + ev])
+                        return _this.props['on' + ev](e) !== false;
                 }
             }
             catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -54,31 +54,36 @@ var LayerBaseVector = (function (_super) {
                 }
                 finally { if (e_1) throw e_1.error; }
             }
-        };
-        _this.eventRelay = function (e) {
-            var e_2, _a;
-            try {
-                for (var _b = __values(['Click', 'PointerMove', 'PointerEnter', 'PointerLeave']), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var ev = _c.value;
-                    if (e.type === ev.toLowerCase() && _this.props['On' + ev])
-                        return _this.props['On' + ev](e) !== false;
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
             return true;
         };
         __1.Feature.initEventRelay(_this.context);
         return _this;
     }
+    LayerBaseVector.prototype.attachFeatureHandlers = function (prevProps) {
+        var e_2, _a;
+        var _this = this;
+        var _loop_1 = function (ev) {
+            if (!prevProps || this_1.props['on' + ev] !== prevProps['on' + ev])
+                this_1.source.forEachFeature(function (f) { return f.on(ev.toLowerCase(), _this.eventRelay) && false; });
+        };
+        var this_1 = this;
+        try {
+            for (var _b = __values(['Click', 'PointerMove', 'PointerEnter', 'PointerLeave']), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var ev = _c.value;
+                _loop_1(ev);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+    };
     LayerBaseVector.prototype.refresh = function (prevProps) {
         _super.prototype.refresh.call(this);
-        this.onchange(prevProps);
+        this.attachFeatureHandlers(prevProps);
         if (!prevProps || prevProps.style !== this.props.style)
             this.ol.setStyle(this.props.style);
     };
