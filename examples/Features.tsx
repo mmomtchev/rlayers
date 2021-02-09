@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Map, OSM, LayerVector, MapBrowserEvent} from 'react-layers';
-import geojsonFeatures from './geo.json';
+import geojsonFeatures from './data/geo.json';
 
 const styles: Record<string, Style> = {
     blueContours: new Style({
