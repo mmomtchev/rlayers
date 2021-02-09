@@ -1,5 +1,10 @@
 # react-layers
 
+[![License: LGPL v3](https://img.shields.io/github/license/mmomtchev/react-layers)](https://github.com/mmomtchev/react-layers/blob/master/LICENSE)
+[![Node.js CI](https://github.com/mmomtchev/react-layers/workflows/Node.js%20CI/badge.svg)](https://github.com/mmomtchev/react-layers/actions?query=workflow%3A%22Node.js+CI%22)
+[![codecov](https://codecov.io/gh/mmomtchev/react-layers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/react-layers)
+
+
 react-layers is an opinionated set of React components for OpenLayers.
 
 It's design policy is:
