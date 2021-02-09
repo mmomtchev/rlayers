@@ -54,11 +54,20 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
     }
 
     eventRelay = (e: MapBrowserEvent): boolean => {
+        // TODO fix this loop
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
             if (e.type === ev.toLowerCase() && this.props['on' + ev])
                 return this.props['on' + ev](e) !== false;
         return true;
     };
+
+    componentWillUnmount(): void {
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            this.source.forEachFeature((f) => {
+                f.un(ev.toLowerCase(), this.eventRelay);
+                return false;
+            });
+    }
 
     refresh(prevProps?: P): void {
         super.refresh();

@@ -25,7 +25,6 @@ class LayerHeatmap extends LayerBaseVector<LayerHeatmapProps> {
         });
         this.ol = new OLLayerHeatmap({source: this.source, ...props});
         this.eventSources = [this.ol, this.source];
-        this.ol.on('change', this.onchange);
         this.onchange();
     }
 

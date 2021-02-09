@@ -26,7 +26,6 @@ class LayerCluster extends LayerBaseVector<LayerClusterProps> {
         this.source = new OLSourceCluster({source: this.cluster, distance: this.props.distance});
         this.ol = new OLLayerVector({source: this.source, ...props});
         this.eventSources = [this.ol, this.source];
-        this.ol.on('change', this.onchange);
         this.onchange();
     }
 

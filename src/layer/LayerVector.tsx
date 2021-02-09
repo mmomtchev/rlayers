@@ -19,8 +19,7 @@ class LayerVector extends LayerBaseVector<LayerBaseVectorProps> {
         });
         this.ol = new OLLayerVector({style: this.props.style, source: this.source});
         this.eventSources = [this.ol, this.source];
-        this.ol.on('change', this.onchange);
-        this.onchange();
+        this.refresh();
     }
 }
 

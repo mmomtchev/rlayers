@@ -27,11 +27,18 @@ export default class Layers extends ControlBase<LayersProps, LayersState> {
         this.state = {collapsed: true, visible: [true]};
     }
 
+    onchange = (): void => this.forceUpdate();
+
     componentDidMount(): void {
         this.ol = new OLControl(this.toOLProps(this.props));
         super.componentDidMount();
-        this.context.on('change', () => this.forceUpdate());
+        this.context.on('change', this.onchange);
         this.forceUpdate();
+    }
+
+    componentWillUnmount(): void {
+        super.componentWillUnmount();
+        this.context.un('change', this.onchange);
     }
 
     toOLProps(props: LayersProps): Record<string, unknown> {
