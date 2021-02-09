@@ -16,6 +16,12 @@ export default class ControlBase<P extends ControlProps, S> extends ReactLayersB
     ol: OLControl;
     context: OLMap;
 
+    constructor(props: Readonly<P>, context: React.Context<OLMap>) {
+        super(props, context);
+        if (!this.context || !this.context.addControl)
+            throw new Error('A control must be part of a map');
+    }
+
     toOLProps(props: P): Options {
         return {
             target: props.target?.current

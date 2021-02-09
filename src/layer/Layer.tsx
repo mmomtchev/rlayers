@@ -27,6 +27,8 @@ export default class Layer<P extends LayerProps> extends ReactLayersBase<P, null
 
     constructor(props: Readonly<P>, context: React.Context<OLMap>) {
         super(props, context);
+        if (!this.context || !this.context.addLayer)
+            throw new Error('A layer must be part of a map');
     }
 
     refresh(): void {
