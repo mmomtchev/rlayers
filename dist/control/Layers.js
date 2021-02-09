@@ -56,6 +56,7 @@ var Layers = (function (_super) {
     __extends(Layers, _super);
     function Layers(props, context) {
         var _this = _super.call(this, props, context) || this;
+        _this.onchange = function () { return _this.forceUpdate(); };
         _this.clickCollapse = function () {
             _this.setState({ collapsed: !_this.state.collapsed });
         };
@@ -64,11 +65,14 @@ var Layers = (function (_super) {
         return _this;
     }
     Layers.prototype.componentDidMount = function () {
-        var _this = this;
         this.ol = new control_1.Control(this.toOLProps(this.props));
         _super.prototype.componentDidMount.call(this);
-        this.context.on('change', function () { return _this.forceUpdate(); });
+        this.context.on('change', this.onchange);
         this.forceUpdate();
+    };
+    Layers.prototype.componentWillUnmount = function () {
+        _super.prototype.componentWillUnmount.call(this);
+        this.context.un('change', this.onchange);
     };
     Layers.prototype.toOLProps = function (props) {
         var _a;

@@ -16,7 +16,9 @@ export default class Layers extends ControlBase<LayersProps, LayersState> {
     targetRef: React.RefObject<HTMLDivElement>;
     context: OLMap;
     constructor(props: Readonly<LayersProps>, context: React.Context<OLMap>);
+    onchange: () => void;
     componentDidMount(): void;
+    componentWillUnmount(): void;
     toOLProps(props: LayersProps): Record<string, unknown>;
     clickCollapse: () => void;
     render(): JSX.Element;

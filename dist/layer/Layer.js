@@ -31,7 +31,6 @@ exports.LayerContext = void 0;
 var react_1 = __importDefault(require("react"));
 var Map_1 = require("../Map");
 var Event_1 = require("../Event");
-var debug_1 = __importDefault(require("../debug"));
 var Layer = (function (_super) {
     __extends(Layer, _super);
     function Layer(props, context) {
@@ -74,7 +73,6 @@ var Layer = (function (_super) {
             this.ol.setProperties(this.props.properties);
     };
     Layer.prototype.componentDidMount = function () {
-        debug_1.default('didMount', this);
         _super.prototype.componentDidMount.call(this);
         this.context.addLayer(this.ol);
     };

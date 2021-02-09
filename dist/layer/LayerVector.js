@@ -30,8 +30,9 @@ var LayerVector = (function (_super) {
         });
         _this.ol = new layer_1.Vector({ style: _this.props.style, source: _this.source });
         _this.eventSources = [_this.ol, _this.source];
-        _this.ol.on('change', _this.onchange);
-        _this.onchange();
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
+        _this.refresh();
         return _this;
     }
     return LayerVector;

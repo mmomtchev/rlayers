@@ -32,9 +32,11 @@ declare class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
     source: OLSourceVector;
     context: OLMap;
     constructor(props: Readonly<P>, context: React.Context<OLMap>);
-    onchange: () => void;
-    attachFeatureHandlers(prevProps?: P): void;
+    newFeature: (e: VectorSourceEvent) => void;
+    attachNewFeatureHandlers(features: OLFeature[]): void;
+    attachExistingFeatureHandlers(prevProps?: P): void;
     eventRelay: (e: MapBrowserEvent) => boolean;
+    componentWillUnmount(): void;
     refresh(prevProps?: P): void;
     render(): JSX.Element;
 }

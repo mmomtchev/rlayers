@@ -41,8 +41,9 @@ var LayerHeatmap = (function (_super) {
         });
         _this.ol = new layer_1.Heatmap(__assign({ source: _this.source }, props));
         _this.eventSources = [_this.ol, _this.source];
-        _this.ol.on('change', _this.onchange);
-        _this.onchange();
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
+        _this.refresh();
         return _this;
     }
     LayerHeatmap.prototype.refresh = function (prev) {

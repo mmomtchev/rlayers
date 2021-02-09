@@ -53,7 +53,6 @@ export default class Layer<P extends LayerProps> extends ReactLayersBase<P, null
     }
 
     componentDidMount(): void {
-        debug('didMount', this);
         super.componentDidMount();
         this.context.addLayer(this.ol);
     }

@@ -42,8 +42,9 @@ var LayerCluster = (function (_super) {
         _this.source = new source_1.Cluster({ source: _this.cluster, distance: _this.props.distance });
         _this.ol = new layer_1.Vector(__assign({ source: _this.source }, props));
         _this.eventSources = [_this.ol, _this.source];
-        _this.ol.on('change', _this.onchange);
-        _this.onchange();
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
+        _this.refresh();
         return _this;
     }
     LayerCluster.prototype.refresh = function (prev) {
