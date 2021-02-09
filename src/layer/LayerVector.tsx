@@ -19,7 +19,9 @@ class LayerVector extends LayerBaseVector<LayerBaseVectorProps> {
         });
         this.ol = new OLLayerVector({style: this.props.style, source: this.source});
         this.eventSources = [this.ol, this.source];
-        this.refresh();
+        this.source.on('featuresloadend', this.newFeature);
+        this.source.on('addfeature', this.newFeature);
+        this.attachExistingFeatureHandlers();
     }
 }
 

@@ -43,14 +43,21 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
         Feature.initEventRelay(this.context);
     }
 
-    onchange = (): void => {
-        this.attachFeatureHandlers();
+    newFeature = (e: VectorSourceEvent): void => {
+        if (e.feature) this.attachNewFeatureHandlers([e.feature]);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((e as any).features) this.attachNewFeatureHandlers((e as any).features);
     };
 
-    attachFeatureHandlers(prevProps?: P): void {
+    attachNewFeatureHandlers(features: OLFeature[]): void {
+        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+            for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
+    }
+
+    attachExistingFeatureHandlers(prevProps?: P): void {
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
             if (!prevProps || this.props['on' + ev] !== prevProps['on' + ev])
-                this.source.forEachFeature((f) => f.on(ev.toLowerCase(), this.eventRelay) && false);
+                for (const f of this.source.getFeatures()) f.on(ev.toLowerCase(), this.eventRelay);
     }
 
     eventRelay = (e: MapBrowserEvent): boolean => {
@@ -71,7 +78,7 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
 
     refresh(prevProps?: P): void {
         super.refresh();
-        this.attachFeatureHandlers(prevProps);
+        this.attachExistingFeatureHandlers(prevProps);
         if (!prevProps || prevProps.style !== this.props.style) this.ol.setStyle(this.props.style);
     }
 
