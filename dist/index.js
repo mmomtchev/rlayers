@@ -43,12 +43,14 @@ var Zoom_1 = __importDefault(require("./control/Zoom"));
 var Rotate_1 = __importDefault(require("./control/Rotate"));
 var Custom_1 = __importDefault(require("./control/Custom"));
 var Layers_1 = __importDefault(require("./control/Layers"));
+var OverviewMap_1 = __importDefault(require("./control/OverviewMap"));
 exports.Control = {
     ScaleLine: ScaleLine_1.default,
     Attribution: Attribution_1.default,
     Zoom: Zoom_1.default,
     Rotate: Rotate_1.default,
     Layers: Layers_1.default,
+    OverviewMap: OverviewMap_1.default,
     Custom: Custom_1.default
 };
 var Feature_1 = require("./Feature");

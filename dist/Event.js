@@ -94,6 +94,7 @@ var ReactLayersBase = (function (_super) {
         }
     };
     ReactLayersBase.prototype.componentDidMount = function () {
+        debug_1.default('didMount', this);
         this.refresh();
     };
     ReactLayersBase.prototype.propsDiff = function (prev) {

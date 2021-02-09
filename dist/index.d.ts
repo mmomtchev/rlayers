@@ -19,12 +19,14 @@ import { default as Zoom } from './control/Zoom';
 import { default as Rotate } from './control/Rotate';
 import { default as Custom } from './control/Custom';
 import { default as Layers } from './control/Layers';
+import { default as OverviewMap } from './control/OverviewMap';
 export declare const Control: {
     ScaleLine: typeof ScaleLine;
     Attribution: typeof Attribution;
     Zoom: typeof Zoom;
     Rotate: typeof Rotate;
     Layers: typeof Layers;
+    OverviewMap: typeof OverviewMap;
     Custom: typeof Custom;
 };
 export { default as Feature } from './Feature';
