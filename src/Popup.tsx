@@ -18,8 +18,8 @@ export interface PopupProps extends OverlayProps {
 
 export default class Popup extends OverlayBase<PopupProps> {
     visible: boolean;
-    showing: NodeJS.Timeout | undefined;
-    hiding: NodeJS.Timeout | undefined;
+    showing: number | undefined;
+    hiding: number | undefined;
 
     constructor(props: Readonly<PopupProps>, context: React.Context<LocationContextType>) {
         super(props, context);
@@ -64,8 +64,8 @@ export default class Popup extends OverlayBase<PopupProps> {
 
     show = (e: MapBrowserEvent): void => {
         if (this.showing) return;
-        if (this.hiding) clearTimeout(this.hiding);
-        this.showing = setTimeout(() => {
+        if (this.hiding) window.clearTimeout(this.hiding);
+        this.showing = window.setTimeout(() => {
             this.visible = true;
             this.setPosition();
             this.hiding = this.showing = undefined;
@@ -74,8 +74,8 @@ export default class Popup extends OverlayBase<PopupProps> {
 
     hide = (e: MapBrowserEvent): void => {
         if (this.hiding) return;
-        if (this.showing) clearTimeout(this.showing);
-        this.hiding = setTimeout(() => {
+        if (this.showing) window.clearTimeout(this.showing);
+        this.hiding = window.setTimeout(() => {
             this.visible = false;
             this.setPosition();
             this.hiding = this.showing = undefined;
