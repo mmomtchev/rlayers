@@ -8,7 +8,7 @@ import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
     origin: [2.364, 48.82],
-    ArcDeTriumphe: [2.295, 48.8737],
+    ArcDeTriomphe: [2.295, 48.8737],
     PlaceDItalie: [2.355, 48.831],
     Bastille: [2.369, 48.853],
     TourEiffel: [2.294, 48.858],
@@ -35,7 +35,7 @@ export default function Popups(): JSX.Element {
             <LayerVector zIndex={10}>
                 <Feature
                     style={styles.location}
-                    geometry={new Point(fromLonLat(coords.ArcDeTriumphe))}
+                    geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                 >
                     <Popup trigger={'click'} className='example-overlay'>
                         <div className='card'>

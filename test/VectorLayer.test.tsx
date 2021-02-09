@@ -3,21 +3,9 @@ import * as fs from 'fs';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import {Feature, LayerVector, Map, MapBrowserEvent, OSM} from 'react-layers';
-import {fromLonLat} from 'ol/proj';
 import {GeoJSON} from 'ol/format';
-
-const props = {
-    center: fromLonLat([2.364, 48.82]),
-    width: 100,
-    height: 100,
-    zoom: 11
-};
-
-function createEvent(evname, map) {
-    const event = {clientX: 0, clientY: 0} as unknown;
-    return new MapBrowserEvent(evname.toLowerCase(), map, event as UIEvent);
-}
+import {Feature, LayerVector, Map} from 'react-layers';
+import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
 const features = new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(geojsonFeatures);
@@ -25,7 +13,7 @@ const features = new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(geoj
 describe('<LayerVector>', () => {
     it('should create a vector layer', async () => {
         const {container, unmount} = render(
-            <Map {...props}>
+            <Map {...common.mapProps}>
                 <LayerVector />
             </Map>
         );
@@ -42,7 +30,7 @@ describe('<LayerVector>', () => {
     it('should load GeoJSON features', async () => {
         const ref = React.createRef() as React.RefObject<LayerVector>;
         const {container, unmount} = render(
-            <Map {...props}>
+            <Map {...common.mapProps}>
                 <LayerVector ref={ref} zIndex={10} features={features} />
             </Map>
         );
@@ -53,7 +41,7 @@ describe('<LayerVector>', () => {
     it('should load trigger addFeature', async () => {
         const addFeature = jest.fn();
         const {container, unmount} = render(
-            <Map {...props}>
+            <Map {...common.mapProps}>
                 <LayerVector zIndex={10} onAddFeature={addFeature}>
                     <Feature feature={features[0]} />
                 </LayerVector>
@@ -66,7 +54,7 @@ describe('<LayerVector>', () => {
     it('should load trigger addFeature/w multiple', async () => {
         const addFeature = jest.fn();
         const {container, unmount} = render(
-            <Map {...props}>
+            <Map {...common.mapProps}>
                 <LayerVector zIndex={10} onAddFeature={addFeature}>
                     {features.map((f, i) => (
                         <Feature key={i} feature={f} />
@@ -83,29 +71,27 @@ describe('<LayerVector>', () => {
         const handler = jest.fn();
         const map = React.createRef() as React.RefObject<Map>;
         const layer = React.createRef() as React.RefObject<LayerVector>;
-        const handlers = mapEvents
-            .map((ev) => 'on' + ev)
-            .reduce((ac, a) => ({...ac, [a]: handler}), {});
+        const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
         const render1 = render(
-            <Map ref={map} {...props}>
+            <Map ref={map} {...common.mapProps}>
                 <LayerVector ref={layer} {...handlers} features={features} />
             </Map>
         );
         expect(render1.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
             for (const f of layer.current.ol.getSource().getFeatures())
-                f.dispatchEvent(createEvent(evname, map.current.ol));
+                f.dispatchEvent(common.createEvent(evname, map.current.ol));
         render1.unmount();
         // unmount -> remount -> should render the same
         const render2 = render(
-            <Map ref={map} {...props}>
+            <Map ref={map} {...common.mapProps}>
                 <LayerVector ref={layer} {...handlers} features={features} />
             </Map>
         );
         for (const evname of mapEvents)
             for (const f of layer.current.ol.getSource().getFeatures()) {
                 // do not lose handlers
-                f.dispatchEvent(createEvent(evname, map.current.ol));
+                f.dispatchEvent(common.createEvent(evname, map.current.ol));
                 // do not leak handlers
                 expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
             }
