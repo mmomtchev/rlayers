@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Example",
+            "name": "Launch Examples",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8030",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Unit tests",
+            "program": "node_modules/jest/bin/jest.js",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
     ]
 }

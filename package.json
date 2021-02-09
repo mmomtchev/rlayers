@@ -11,7 +11,11 @@
     "build": "tsc",
     "lint": "eslint './{examples,src}/**/*.{ts,tsx}'",
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
-    "test": "test"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "c8": "npx c8 jest",
+    "lcov": "npx c8 report --reporter=text-lcov > coverage/tests.lcov",
+    "codecov": "curl -s https://codecov.io/bash | env CODECOV_TOKEN='b387a4e1-2f04-421a-8cbb-74557902b9c5' bash"
   },
   "repository": {
     "type": "git",
@@ -38,6 +42,9 @@
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
@@ -46,6 +53,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "bootstrap": "^4.6.0",
+    "c8": "^7.5.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
@@ -56,6 +64,8 @@
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.1.0",
     "html-webpack-plugin": "^5.0.0",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
     "prettier": "^2.2.1",
     "proj4": "^2.7.0",
     "raw-loader": "^4.0.2",
@@ -63,8 +73,10 @@
     "react-markdown": "^5.0.3",
     "react-router-dom": "^5.2.0",
     "react-syntax-highlighter": "^15.4.3",
+    "react-test-renderer": "^17.0.1",
     "style-loader": "^2.0.0",
     "svg-url-loader": "^7.1.1",
+    "ts-jest": "^26.5.0",
     "ts-loader": "^8.0.14",
     "ts-node": "^9.1.1",
     "tsconfig-paths-webpack-plugin": "^3.3.0",

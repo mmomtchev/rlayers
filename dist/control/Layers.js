@@ -50,7 +50,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var control_1 = require("ol/control");
 require("./layers.css");
-var Map_1 = require("src/Map");
+var Map_1 = require("../Map");
 var ControlBase_1 = __importDefault(require("./ControlBase"));
 var Layers = (function (_super) {
     __extends(Layers, _super);

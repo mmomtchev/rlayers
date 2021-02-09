@@ -3,7 +3,7 @@ import {Map as OLMap} from 'ol';
 import {Control as OLControl} from 'ol/control';
 
 import './layers.css';
-import {MapContext} from 'src/Map';
+import {MapContext} from '../Map';
 import {default as ControlBase, ControlProps} from './ControlBase';
 
 export interface LayersProps extends ControlProps {

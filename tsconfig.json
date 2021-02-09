@@ -22,7 +22,7 @@
         "moduleResolution": "node",
         "downlevelIteration": true,
         "paths": {
-            "components/*": [ "src/components/*" ],
+            "react-layers": [ "./src" ]
         }
     },
     "include": [

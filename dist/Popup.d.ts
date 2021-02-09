@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import React from 'react';
 import { MapBrowserEvent } from 'ol';
 import { LocationContextType } from './Feature';
@@ -12,8 +11,8 @@ export interface PopupProps extends OverlayProps {
 }
 export default class Popup extends OverlayBase<PopupProps> {
     visible: boolean;
-    showing: NodeJS.Timeout | undefined;
-    hiding: NodeJS.Timeout | undefined;
+    showing: number | undefined;
+    hiding: number | undefined;
     constructor(props: Readonly<PopupProps>, context: React.Context<LocationContextType>);
     componentWillUnmount(): void;
     setPosition(): void;

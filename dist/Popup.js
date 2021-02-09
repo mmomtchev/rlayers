@@ -27,8 +27,8 @@ var Popup = (function (_super) {
             if (_this.showing)
                 return;
             if (_this.hiding)
-                clearTimeout(_this.hiding);
-            _this.showing = setTimeout(function () {
+                window.clearTimeout(_this.hiding);
+            _this.showing = window.setTimeout(function () {
                 _this.visible = true;
                 _this.setPosition();
                 _this.hiding = _this.showing = undefined;
@@ -39,8 +39,8 @@ var Popup = (function (_super) {
             if (_this.hiding)
                 return;
             if (_this.showing)
-                clearTimeout(_this.showing);
-            _this.hiding = setTimeout(function () {
+                window.clearTimeout(_this.showing);
+            _this.hiding = window.setTimeout(function () {
                 _this.visible = false;
                 _this.setPosition();
                 _this.hiding = _this.showing = undefined;
