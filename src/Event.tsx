@@ -40,6 +40,7 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     componentDidMount(): void {
+        debug('didMount', this);
         this.refresh();
     }
 

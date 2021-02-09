@@ -46,6 +46,9 @@ import HeatmapJSX from '!!raw-loader!./Heatmap.tsx';
 import Cluster from './Cluster';
 // @ts-ignore
 import ClusterJSX from '!!raw-loader!./Cluster.tsx';
+import Overview from './Overview';
+// @ts-ignore
+import OverviewJSX from '!!raw-loader!./Overview.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -59,6 +62,7 @@ const examples = {
     simple: {title: 'Simple map', comp: Simple, code: SimpleJSX},
     controls: {title: 'Custom controls', comp: Controls, code: ControlsJSX},
     overlays: {title: 'Simple overlay', comp: Overlays, code: OverlaysJSX},
+    overview: {title: 'Overview', comp: Overview, code: OverviewJSX},
     popups: {title: 'Popups', comp: Popups, code: PopupsJSX},
     cluster: {title: 'Clustering', comp: Cluster, code: ClusterJSX},
     heatmap: {title: 'Heatmap', comp: Heatmap, code: HeatmapJSX},

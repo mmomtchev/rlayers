@@ -45,3 +45,27 @@
     font-style: italic;
     overflow: hidden;
 }
+
+.example-overview .ol-overviewmap-map {
+    border: none !important;
+    width: 300px !important;
+}
+
+.example-overview .ol-overviewmap-box {
+    border: 2px solid blue;
+}
+
+.example-overview,
+.example-overview.ol-uncollapsible {
+    bottom: auto !important;
+    left: auto !important;
+    right: 0 !important;
+    top: 0 !important;
+}
+
+.example-overview:not(.ol-collapsed) button {
+    bottom: auto !important;
+    left: auto !important;
+    right: 1px !important;
+    top: 1px !important;
+}

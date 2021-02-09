@@ -28,12 +28,14 @@ import {default as Zoom} from './control/Zoom';
 import {default as Rotate} from './control/Rotate';
 import {default as Custom} from './control/Custom';
 import {default as Layers} from './control/Layers';
+import {default as OverviewMap} from './control/OverviewMap';
 export const Control = {
     ScaleLine,
     Attribution,
     Zoom,
     Rotate,
     Layers,
+    OverviewMap,
     Custom
 };
 
