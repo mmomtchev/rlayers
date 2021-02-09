@@ -25,10 +25,7 @@ export default class OverviewMap extends ControlBase<OverviewProps, null> {
 
     constructor(props: Readonly<OverviewProps>, context: React.Context<OLMap>) {
         super(props, context);
-        this.ol = new OLOverviewMap({
-            ...this.toOLProps(props),
-            layers: [new TileLayer({source: new OSM()})]
-        });
+        this.ol = new OLOverviewMap(this.toOLProps(props));
     }
 
     toOLProps(props: OverviewProps): Options {
