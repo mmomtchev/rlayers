@@ -1,6 +1,3 @@
-import 'ol/ol.css';
-import React from 'react';
-
 export {MapEvent, MapBrowserEvent} from 'ol';
 export {default as RenderEvent} from 'ol/render/Event';
 export {VectorSourceEvent} from 'ol/source/Vector';

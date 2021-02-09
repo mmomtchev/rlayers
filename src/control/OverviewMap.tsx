@@ -6,8 +6,6 @@ import {Options} from 'ol/control/OverviewMap';
 import {default as ControlBase, ControlProps} from './ControlBase';
 import Layer from '../layer/Layer';
 import {MapContext} from '../Map';
-import TileLayer from 'ol/layer/Tile';
-import {OSM} from 'ol/source';
 
 export interface OverviewProps extends ControlProps {
     collapsible?: boolean;

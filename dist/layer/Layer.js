@@ -35,7 +35,10 @@ var debug_1 = __importDefault(require("../debug"));
 var Layer = (function (_super) {
     __extends(Layer, _super);
     function Layer(props, context) {
-        return _super.call(this, props, context) || this;
+        var _this = _super.call(this, props, context) || this;
+        if (!_this.context || !_this.context.addLayer)
+            throw new Error('A layer must be part of a map');
+        return _this;
     }
     Layer.prototype.refresh = function () {
         var e_1, _a;

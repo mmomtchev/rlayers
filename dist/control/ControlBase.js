@@ -17,8 +17,11 @@ var Map_1 = require("../Map");
 var Event_1 = require("../Event");
 var ControlBase = (function (_super) {
     __extends(ControlBase, _super);
-    function ControlBase() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function ControlBase(props, context) {
+        var _this = _super.call(this, props, context) || this;
+        if (!_this.context || !_this.context.addControl)
+            throw new Error('A control must be part of a map');
+        return _this;
     }
     ControlBase.prototype.toOLProps = function (props) {
         var _a;

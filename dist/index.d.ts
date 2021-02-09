@@ -1,4 +1,3 @@
-import 'ol/ol.css';
 export { MapEvent, MapBrowserEvent } from 'ol';
 export { default as RenderEvent } from 'ol/render/Event';
 export { VectorSourceEvent } from 'ol/source/Vector';

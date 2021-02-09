@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.LayerCluster = exports.LayerHeatmap = exports.LayerStamen = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.VectorContext = exports.LayerBaseVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
-require("ol/ol.css");
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });

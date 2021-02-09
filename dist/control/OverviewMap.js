@@ -31,13 +31,11 @@ var react_1 = __importDefault(require("react"));
 var control_1 = require("ol/control");
 var ControlBase_1 = __importDefault(require("./ControlBase"));
 var Map_1 = require("../Map");
-var Tile_1 = __importDefault(require("ol/layer/Tile"));
-var source_1 = require("ol/source");
 var OverviewMap = (function (_super) {
     __extends(OverviewMap, _super);
     function OverviewMap(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.ol = new control_1.OverviewMap(__assign(__assign({}, _this.toOLProps(props)), { layers: [new Tile_1.default({ source: new source_1.OSM() })] }));
+        _this.ol = new control_1.OverviewMap(_this.toOLProps(props));
         return _this;
     }
     OverviewMap.prototype.toOLProps = function (props) {

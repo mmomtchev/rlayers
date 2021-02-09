@@ -11,6 +11,7 @@ export default class ControlBase<P extends ControlProps, S> extends ReactLayersB
     static contextType: React.Context<any>;
     ol: OLControl;
     context: OLMap;
+    constructor(props: Readonly<P>, context: React.Context<OLMap>);
     toOLProps(props: P): Options;
     refresh(): void;
     componentDidMount(): void;
