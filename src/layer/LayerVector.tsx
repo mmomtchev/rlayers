@@ -21,7 +21,7 @@ class LayerVector extends LayerBaseVector<LayerBaseVectorProps> {
         this.eventSources = [this.ol, this.source];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);
-        this.attachExistingFeatureHandlers();
+        this.refresh();
     }
 }
 

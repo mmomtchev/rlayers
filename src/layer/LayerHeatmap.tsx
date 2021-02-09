@@ -27,7 +27,7 @@ class LayerHeatmap extends LayerBaseVector<LayerHeatmapProps> {
         this.eventSources = [this.ol, this.source];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);
-        this.attachExistingFeatureHandlers();
+        this.refresh();
     }
 
     refresh(prev?: LayerHeatmapProps): void {
