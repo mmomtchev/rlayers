@@ -14,7 +14,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "c8": "npx c8 jest",
-    "lcov": "npx c8 report --reporter=text-lcov > coverage/tests.lcov",
+    "lcov": "npx c8 report --reporter=json",
     "codecov": "curl -s https://codecov.io/bash | env CODECOV_TOKEN='b387a4e1-2f04-421a-8cbb-74557902b9c5' bash"
   },
   "repository": {

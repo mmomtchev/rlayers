@@ -14,5 +14,6 @@ module.exports = {
         '@testing-library/jest-dom/extend-expect'
     ],
     testRegex: '/test/.*\\.test\\.tsx?$',
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    coverageReporters: ['json']
 };
