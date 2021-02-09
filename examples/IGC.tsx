@@ -63,7 +63,7 @@ const blueCircle = new Style({
 });
 
 // A constant avoids re-rendering of the component
-// a property initialied with an anonymous object is not constant
+// a property initialized with an anonymous object is not constant
 // it will recreate a new instance at every evaluation
 const origin = fromLonLat([6, 45.7]);
 
