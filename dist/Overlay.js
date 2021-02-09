@@ -26,6 +26,8 @@ var OverlayBase = (function (_super) {
     function OverlayBase(props, context) {
         var _a;
         var _this = _super.call(this, props, context) || this;
+        if (!_this.context || !_this.context.layer)
+            throw new Error('An overlay must be part of a location provider (ie feature)');
         _this.ol = new ol_1.Overlay({
             autoPan: (_a = props.autoPan) !== null && _a !== void 0 ? _a : true,
             autoPanAnimation: props.autoPanAnimation

@@ -21,6 +21,8 @@ export class OverlayBase<P extends OverlayProps> extends ReactLayersBase<P, null
 
     constructor(props: Readonly<P>, context: React.Context<LocationContextType>) {
         super(props, context);
+        if (!this.context || !this.context.layer)
+            throw new Error('An overlay must be part of a location provider (ie feature)');
         this.ol = new OLOverlay({
             autoPan: props.autoPan ?? true,
             autoPanAnimation: props.autoPanAnimation

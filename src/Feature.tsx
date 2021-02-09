@@ -44,6 +44,8 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
 
     constructor(props: Readonly<FeatureProps>, context: React.Context<VectorContextType>) {
         super(props, context);
+        if (!this.context || !this.context.layer)
+            throw new Error('A feature must be part of a vector layer');
         if (props.feature) this.ol = props.feature;
         else
             this.ol = new OLFeature({
@@ -51,8 +53,6 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
                 geometry: props.geometry,
                 style: props.style
             });
-        if (!this.context || !this.context.layer)
-            throw new Error('A feature must be part of a vector layer');
         Feature.initEventRelay(this.context.map);
         this.onchange = () => this.forceUpdate();
     }
