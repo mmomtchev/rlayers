@@ -40,55 +40,55 @@ var ReactLayersBase = (function (_super) {
     };
     ReactLayersBase.prototype.refresh = function (prevProps) {
         var e_1, _a, e_2, _b, e_3, _c;
-        var _d;
+        var _d, _e;
         var eventSources = (_d = this.eventSources) !== null && _d !== void 0 ? _d : [this.ol];
+        var newEvents = Object.keys(this.props).filter(function (p) { return p.startsWith('on'); });
+        var eventsToCheck = newEvents.concat(Object.keys((_e = this.handlers) !== null && _e !== void 0 ? _e : {}).filter(function (ev) { return !newEvents.includes(ev); }));
         try {
-            for (var _e = __values(Object.keys(this.props)), _f = _e.next(); !_f.done; _f = _e.next()) {
-                var p = _f.value;
-                if (p.startsWith('on')) {
-                    if (this.handlers === undefined)
-                        this.handlers = {};
-                    if (this.handlers[p] !== undefined && this.handlers[p] !== this.props[p]) {
-                        debug_1.default('removing previously installed handler', this, p, this.handlers[p], this.props[p]);
-                        try {
-                            for (var eventSources_1 = (e_2 = void 0, __values(eventSources)), eventSources_1_1 = eventSources_1.next(); !eventSources_1_1.done; eventSources_1_1 = eventSources_1.next()) {
-                                var source = eventSources_1_1.value;
-                                source.un(this.olEventName(p), this.handlers[p]);
-                            }
+            for (var eventsToCheck_1 = __values(eventsToCheck), eventsToCheck_1_1 = eventsToCheck_1.next(); !eventsToCheck_1_1.done; eventsToCheck_1_1 = eventsToCheck_1.next()) {
+                var p = eventsToCheck_1_1.value;
+                if (this.handlers === undefined)
+                    this.handlers = {};
+                if (this.handlers[p] !== undefined && this.handlers[p] !== this.props[p]) {
+                    debug_1.default('removing previously installed handler', this, p, this.handlers[p], this.props[p]);
+                    try {
+                        for (var eventSources_1 = (e_2 = void 0, __values(eventSources)), eventSources_1_1 = eventSources_1.next(); !eventSources_1_1.done; eventSources_1_1 = eventSources_1.next()) {
+                            var source = eventSources_1_1.value;
+                            source.un(this.olEventName(p), this.handlers[p]);
                         }
-                        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                        finally {
-                            try {
-                                if (eventSources_1_1 && !eventSources_1_1.done && (_b = eventSources_1.return)) _b.call(eventSources_1);
-                            }
-                            finally { if (e_2) throw e_2.error; }
-                        }
-                        this.handlers[p] = undefined;
                     }
-                    if (this.handlers[p] === undefined) {
-                        debug_1.default('installing handler', this, p, this.props[p]);
+                    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                    finally {
                         try {
-                            for (var eventSources_2 = (e_3 = void 0, __values(eventSources)), eventSources_2_1 = eventSources_2.next(); !eventSources_2_1.done; eventSources_2_1 = eventSources_2.next()) {
-                                var source = eventSources_2_1.value;
-                                source.on(this.olEventName(p), this.props[p]);
-                            }
+                            if (eventSources_1_1 && !eventSources_1_1.done && (_b = eventSources_1.return)) _b.call(eventSources_1);
                         }
-                        catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                        finally {
-                            try {
-                                if (eventSources_2_1 && !eventSources_2_1.done && (_c = eventSources_2.return)) _c.call(eventSources_2);
-                            }
-                            finally { if (e_3) throw e_3.error; }
-                        }
-                        this.handlers[p] = this.props[p];
+                        finally { if (e_2) throw e_2.error; }
                     }
+                    this.handlers[p] = undefined;
+                }
+                if (this.handlers[p] === undefined) {
+                    debug_1.default('installing handler', this, p, this.props[p]);
+                    try {
+                        for (var eventSources_2 = (e_3 = void 0, __values(eventSources)), eventSources_2_1 = eventSources_2.next(); !eventSources_2_1.done; eventSources_2_1 = eventSources_2.next()) {
+                            var source = eventSources_2_1.value;
+                            source.on(this.olEventName(p), this.props[p]);
+                        }
+                    }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    finally {
+                        try {
+                            if (eventSources_2_1 && !eventSources_2_1.done && (_c = eventSources_2.return)) _c.call(eventSources_2);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                    }
+                    this.handlers[p] = this.props[p];
                 }
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
         finally {
             try {
-                if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+                if (eventsToCheck_1_1 && !eventsToCheck_1_1.done && (_a = eventsToCheck_1.return)) _a.call(eventsToCheck_1);
             }
             finally { if (e_1) throw e_1.error; }
         }
