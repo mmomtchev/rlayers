@@ -7,7 +7,6 @@
 
 react-layers is an opinionated set of React components for *OpenLayers*.
 
-![](https://media.tenor.com/images/917f26746c6d0fb761751d1c598cca8b/tenor.png)
 It's design policy is:
 * Fully Typescript-typed
 * Do everything that faces the user the React way and not the *OpenLayers* way - `onClick` and `onPointerEnter`/`onPoinerLeave` handlers are typical examples
@@ -19,6 +18,8 @@ It's design policy is:
 * zero-dependency when built except for React and OpenLayers (the examples have some dependencies)
 
 It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In fact, it is more inspired by *react-leaflet* than *react-openlayers*.
+
+![](https://media.tenor.com/images/917f26746c6d0fb761751d1c598cca8b/tenor.png)
 
 ## Installation
 
