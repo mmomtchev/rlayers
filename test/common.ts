@@ -12,9 +12,14 @@ export const mapProps = {
     zoom: 11
 };
 
-export function createEvent(evname: string, map: PluggableMap): MapBrowserEvent {
-    const event = {clientX: 10, clientY: 10} as unknown;
-    return new MapBrowserEvent(evname.toLowerCase(), map, event as UIEvent);
+export function createEvent(
+    evname: string,
+    map: PluggableMap,
+    coords?: number,
+    dragging?: boolean
+): MapBrowserEvent {
+    const event = {clientX: coords ?? 10, clientY: coords ?? 10} as unknown;
+    return new MapBrowserEvent(evname.toLowerCase(), map, event as UIEvent, dragging);
 }
 
 export const _coords: Record<string, Coordinate> = {

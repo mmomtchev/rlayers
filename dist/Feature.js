@@ -65,7 +65,7 @@ var Feature = (function (_super) {
     Feature.initEventRelay = function (map) {
         var e_1, _a;
         try {
-            for (var _b = __values(['click', 'pointerdrag', 'pointermove']), _c = _b.next(); !_c.done; _c = _b.next()) {
+            for (var _b = __values(['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick']), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var ev = _c.value;
                 map.on(ev, Feature.eventRelay);
             }

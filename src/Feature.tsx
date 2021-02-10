@@ -17,6 +17,8 @@ export interface FeatureProps {
     properties?: Record<string, unknown>;
     feature?: OLFeature;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onSingleClick?: (e: MapBrowserEvent) => boolean | void;
+    onDblClick?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerDragEnd?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
@@ -58,7 +60,8 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
     }
 
     static initEventRelay(map: OLMap): void {
-        for (const ev of ['click', 'pointerdrag', 'pointermove']) map.on(ev, Feature.eventRelay);
+        for (const ev of ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'])
+            map.on(ev, Feature.eventRelay);
     }
 
     static eventRelay(e: MapBrowserEvent): boolean {

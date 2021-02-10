@@ -13,6 +13,8 @@ export interface FeatureProps {
     properties?: Record<string, unknown>;
     feature?: OLFeature;
     onClick?: (e: MapBrowserEvent) => boolean | void;
+    onSingleClick?: (e: MapBrowserEvent) => boolean | void;
+    onDblClick?: (e: MapBrowserEvent) => boolean | void;
     onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
     onPointerDragEnd?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
