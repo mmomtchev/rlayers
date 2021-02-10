@@ -60,7 +60,7 @@ export default class Layers extends ControlBase<LayersProps, LayersState> {
         }) as boolean[];
         const labels = React.Children.map(this.props.children, (child) => {
             if (React.isValidElement(child)) {
-                return child.props.properties.label ?? 'no label';
+                return child.props.properties?.label ?? 'no label';
             }
         }) as string[];
         return (

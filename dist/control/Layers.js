@@ -88,9 +88,9 @@ var Layers = (function (_super) {
             }
         });
         var labels = react_1.default.Children.map(this.props.children, function (child) {
-            var _a;
+            var _a, _b;
             if (react_1.default.isValidElement(child)) {
-                return (_a = child.props.properties.label) !== null && _a !== void 0 ? _a : 'no label';
+                return (_b = (_a = child.props.properties) === null || _a === void 0 ? void 0 : _a.label) !== null && _b !== void 0 ? _b : 'no label';
             }
         });
         return (react_1.default.createElement(react_1.default.Fragment, null,
