@@ -13,8 +13,6 @@
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "c8": "npx c8 jest",
-    "lcov": "npx c8 report --reporter=json",
     "codecov": "curl -s https://codecov.io/bash | env CODECOV_TOKEN='b387a4e1-2f04-421a-8cbb-74557902b9c5' bash"
   },
   "repository": {
@@ -53,7 +51,6 @@
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "bootstrap": "^4.6.0",
-    "c8": "^7.5.0",
     "css-loader": "^5.0.1",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
