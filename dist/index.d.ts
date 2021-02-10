@@ -5,7 +5,7 @@ export { ReactLayersBase } from './Event';
 export { default as Map, MapProps, MapContext } from './Map';
 export { default as Layer, LayerProps, LayerContext } from './layer/Layer';
 export { default as LayerTile, LayerTileProps } from './layer/LayerTile';
-export { default as LayerBaseVector, LayerBaseVectorProps as LayerVectorProps, VectorContext } from './layer/LayerBaseVector';
+export { default as LayerBaseVector, LayerBaseVectorProps as LayerVectorProps, VectorContext, VectorContextType } from './layer/LayerBaseVector';
 export { default as LayerVector } from './layer/LayerVector';
 export { default as OSM, OSMProps } from './layer/OSM';
 export { default as LayerWMTS, LayerWMTSProps } from './layer/LayerWMTS';
@@ -28,7 +28,7 @@ export declare const Control: {
     OverviewMap: typeof OverviewMap;
     Custom: typeof Custom;
 };
-export { default as Feature } from './Feature';
+export { default as Feature, FeatureProps, LocationContext, LocationContextType } from './Feature';
 export { default as Overlay } from './Overlay';
 export { default as Popup } from './Popup';
 //# sourceMappingURL=index.d.ts.map

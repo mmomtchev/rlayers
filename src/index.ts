@@ -10,7 +10,8 @@ export {default as LayerTile, LayerTileProps} from './layer/LayerTile';
 export {
     default as LayerBaseVector,
     LayerBaseVectorProps as LayerVectorProps,
-    VectorContext
+    VectorContext,
+    VectorContextType
 } from './layer/LayerBaseVector';
 export {default as LayerVector} from './layer/LayerVector';
 export {default as OSM, OSMProps} from './layer/OSM';
@@ -36,6 +37,6 @@ export const Control = {
     Custom
 };
 
-export {default as Feature} from './Feature';
+export {default as Feature, FeatureProps, LocationContext, LocationContextType} from './Feature';
 export {default as Overlay} from './Overlay';
 export {default as Popup} from './Popup';

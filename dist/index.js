@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Popup = exports.Overlay = exports.Feature = exports.Control = exports.LayerCluster = exports.LayerHeatmap = exports.LayerStamen = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.VectorContext = exports.LayerBaseVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.Popup = exports.Overlay = exports.LocationContext = exports.Feature = exports.Control = exports.LayerCluster = exports.LayerHeatmap = exports.LayerStamen = exports.LayerWMTS = exports.OSM = exports.LayerVector = exports.VectorContext = exports.LayerBaseVector = exports.LayerTile = exports.LayerContext = exports.Layer = exports.MapContext = exports.Map = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -54,6 +54,7 @@ exports.Control = {
 };
 var Feature_1 = require("./Feature");
 Object.defineProperty(exports, "Feature", { enumerable: true, get: function () { return __importDefault(Feature_1).default; } });
+Object.defineProperty(exports, "LocationContext", { enumerable: true, get: function () { return Feature_1.LocationContext; } });
 var Overlay_1 = require("./Overlay");
 Object.defineProperty(exports, "Overlay", { enumerable: true, get: function () { return __importDefault(Overlay_1).default; } });
 var Popup_1 = require("./Popup");

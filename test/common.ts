@@ -42,3 +42,16 @@ export const styles: Record<string, Style> = {
         })
     })
 };
+
+export function safeStringify(value: unknown): string {
+    const seen = new Set();
+    return JSON.stringify(value, (k, v) => {
+        if (seen.has(v)) {
+            return '...';
+        }
+        if (typeof v === 'object') {
+            seen.add(v);
+        }
+        return v;
+    });
+}
