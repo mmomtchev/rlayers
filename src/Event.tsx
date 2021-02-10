@@ -15,28 +15,29 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
 
     refresh(prevProps?: P): void {
         const eventSources = this.eventSources ?? [this.ol];
-        for (const p of Object.keys(this.props))
-            if (p.startsWith('on')) {
-                if (this.handlers === undefined) this.handlers = {};
-                if (this.handlers[p] !== undefined && this.handlers[p] !== this.props[p]) {
-                    debug(
-                        'removing previously installed handler',
-                        this,
-                        p,
-                        this.handlers[p],
-                        this.props[p]
-                    );
-                    for (const source of eventSources)
-                        source.un(this.olEventName(p), this.handlers[p]);
-                    this.handlers[p] = undefined;
-                }
-                if (this.handlers[p] === undefined) {
-                    debug('installing handler', this, p, this.props[p]);
-                    for (const source of eventSources)
-                        source.on(this.olEventName(p), this.props[p]);
-                    this.handlers[p] = this.props[p];
-                }
+        const newEvents = Object.keys(this.props).filter((p) => p.startsWith('on'));
+        const eventsToCheck = newEvents.concat(
+            Object.keys(this.handlers ?? {}).filter((ev) => !newEvents.includes(ev))
+        );
+        for (const p of eventsToCheck) {
+            if (this.handlers === undefined) this.handlers = {};
+            if (this.handlers[p] !== undefined && this.handlers[p] !== this.props[p]) {
+                debug(
+                    'removing previously installed handler',
+                    this,
+                    p,
+                    this.handlers[p],
+                    this.props[p]
+                );
+                for (const source of eventSources) source.un(this.olEventName(p), this.handlers[p]);
+                this.handlers[p] = undefined;
             }
+            if (this.handlers[p] === undefined) {
+                debug('installing handler', this, p, this.props[p]);
+                for (const source of eventSources) source.on(this.olEventName(p), this.props[p]);
+                this.handlers[p] = this.props[p];
+            }
+        }
     }
 
     componentDidMount(): void {
@@ -44,6 +45,7 @@ export class ReactLayersBase<P, S> extends React.PureComponent<P, S> {
         this.refresh();
     }
 
+    /* istanbul ignore next */
     propsDiff(prev: P): boolean {
         if (this.props === null || prev === null) {
             if (this.props !== prev) {

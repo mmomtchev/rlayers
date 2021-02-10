@@ -6,6 +6,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature, LayerVector, LocationContext, Map} from 'react-layers';
 import * as common from './common';
+import VectorLayer from 'ol/layer/Vector';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
 const features = new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(geojsonFeatures);
@@ -57,9 +58,10 @@ describe('<LayerVector>', () => {
     });
     it('should load trigger addFeature/w multiple', async () => {
         const addFeature = jest.fn();
+        const vector = React.createRef() as React.RefObject<LayerVector>;
         const {container, unmount, rerender} = render(
             <Map {...common.mapProps}>
-                <LayerVector zIndex={10} onAddFeature={addFeature}>
+                <LayerVector ref={vector} zIndex={10} onAddFeature={addFeature}>
                     {features.map((f, i) => (
                         <Feature key={i} feature={f}>
                             <LocationContext.Consumer>
@@ -74,7 +76,7 @@ describe('<LayerVector>', () => {
         expect(addFeature.mock.calls.length).toBe(features.length);
         rerender(
             <Map {...common.mapProps}>
-                <LayerVector zIndex={9}>
+                <LayerVector ref={vector} zIndex={9}>
                     {features.map((f, i) => (
                         <Feature style={common.styles.blueDot} key={i} feature={f}>
                             <LocationContext.Consumer>
@@ -85,6 +87,8 @@ describe('<LayerVector>', () => {
                 </LayerVector>
             </Map>
         );
+        expect(addFeature.mock.calls.length).toBe(features.length);
+        expect(vector.current.ol.getListeners('addfeature')).toBeUndefined();
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });
