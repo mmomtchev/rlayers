@@ -17,7 +17,7 @@ export function createEvent(evname: string, map: PluggableMap): MapBrowserEvent 
     return new MapBrowserEvent(evname.toLowerCase(), map, event as UIEvent);
 }
 
-export const coords: Record<string, Coordinate> = {
+export const _coords: Record<string, Coordinate> = {
     origin: [2.364, 48.82],
     ArcDeTriomphe: [2.295, 48.8737],
     PlaceDItalie: [2.355, 48.831],
@@ -25,6 +25,10 @@ export const coords: Record<string, Coordinate> = {
     TourEiffel: [2.294, 48.858],
     Montmartre: [2.342, 48.887]
 };
+export const coords = Object.keys(_coords).reduce(
+    (ac, p) => ({...ac, [p]: _coords[p]}),
+    {}
+) as Record<string, Coordinate>;
 
 export const styles: Record<string, Style> = {
     yellow: new Style({

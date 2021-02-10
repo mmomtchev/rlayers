@@ -27,6 +27,9 @@ describe('<Control>', () => {
                         }}
                     </MapContext.Consumer>
                 </Control.Custom>
+                <Control.OverviewMap className='ol-overviewmap example-overview'>
+                    <OSM />
+                </Control.OverviewMap>
             </Map>
         );
         expect(container.innerHTML).toMatchSnapshot();

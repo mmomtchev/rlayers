@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import {fromLonLat} from 'ol/proj';
 import {Polygon, Point} from 'ol/geom';
 import {Feature, LayerVector, Map} from 'react-layers';
 import * as common from './common';
@@ -25,7 +24,7 @@ describe('<Feature>', () => {
                         ref={ref[0]}
                         {...handlers}
                         style={common.styles.blueDot}
-                        geometry={new Point(fromLonLat(common.coords.ArcDeTriomphe))}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
                     ></Feature>
                     <Feature
                         ref={ref[1]}
@@ -34,10 +33,10 @@ describe('<Feature>', () => {
                         geometry={
                             new Polygon([
                                 [
-                                    fromLonLat(common.coords.PlaceDItalie),
-                                    fromLonLat(common.coords.Bastille),
-                                    fromLonLat(common.coords.TourEiffel),
-                                    fromLonLat(common.coords.PlaceDItalie)
+                                    common.coords.PlaceDItalie,
+                                    common.coords.Bastille,
+                                    common.coords.TourEiffel,
+                                    common.coords.PlaceDItalie
                                 ]
                             ])
                         }

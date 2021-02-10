@@ -51,12 +51,16 @@ class LayerBaseVector<P extends LayerBaseVectorProps> extends Layer<P> {
 
     attachNewFeatureHandlers(features: OLFeature[]): void {
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
+            if (this.props['on' + ev])
+                for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
     }
 
     attachExistingFeatureHandlers(prevProps?: P): void {
         for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (!prevProps || this.props['on' + ev] !== prevProps['on' + ev])
+            if (
+                (!prevProps || this.props['on' + ev] !== prevProps['on' + ev]) &&
+                this.props['on' + ev]
+            )
                 for (const f of this.source.getFeatures()) f.on(ev.toLowerCase(), this.eventRelay);
     }
 

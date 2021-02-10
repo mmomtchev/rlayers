@@ -33,13 +33,18 @@ class LayerWMTS extends Layer<LayerWMTSProps> {
                 const options = optionsFromCapabilities(caps, {
                     layer: this.props.layer
                 });
-                options.attributions = this.props.attributions;
+                if (this.props.attributions) options.attributions = this.props.attributions;
                 options.crossOrigin = '';
-                options.projection = this.props.projection;
+                if (this.props.projection) options.projection = this.props.projection;
                 options.wrapX = false;
                 this.source = new OLSourceWMTS(options);
                 this.ol.setSource(this.source);
                 return this.source;
+            })
+            .catch((e) => {
+                console.error('failed loading WMTS capabilites', e);
+                this.source = undefined;
+                return null;
             });
     }
 

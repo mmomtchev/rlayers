@@ -59,13 +59,20 @@ var LayerWMTS = (function (_super) {
             var options = WMTS_1.optionsFromCapabilities(caps, {
                 layer: _this.props.layer
             });
-            options.attributions = _this.props.attributions;
+            if (_this.props.attributions)
+                options.attributions = _this.props.attributions;
             options.crossOrigin = '';
-            options.projection = _this.props.projection;
+            if (_this.props.projection)
+                options.projection = _this.props.projection;
             options.wrapX = false;
             _this.source = new WMTS_1.default(options);
             _this.ol.setSource(_this.source);
             return _this.source;
+        })
+            .catch(function (e) {
+            console.error('failed loading WMTS capabilites', e);
+            _this.source = undefined;
+            return null;
         });
     };
     LayerWMTS.prototype.refresh = function () {

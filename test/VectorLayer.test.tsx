@@ -83,11 +83,13 @@ describe('<LayerVector>', () => {
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
         render1.unmount();
         // unmount -> remount -> should render the same
-        const render2 = render(
+        const comp = (
             <Map ref={map} {...common.mapProps}>
                 <LayerVector ref={layer} {...handlers} features={features} />
             </Map>
         );
+        const render2 = render(comp);
+        expect(render2.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
             for (const f of layer.current.ol.getSource().getFeatures()) {
                 // do not lose handlers
@@ -95,7 +97,16 @@ describe('<LayerVector>', () => {
                 // do not leak handlers
                 expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
             }
-        render2.unmount();
-        expect(handler.mock.calls.length).toBe(mapEvents.length * features.length * 2);
+        // rerender -> should render the same
+        render2.rerender(comp);
+        for (const evname of mapEvents)
+            for (const f of layer.current.ol.getSource().getFeatures()) {
+                // do not lose handlers
+                f.dispatchEvent(common.createEvent(evname, map.current.ol));
+                // do not leak handlers
+                expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
+            }
+        expect(render2.container.innerHTML).toMatchSnapshot();
+        expect(handler.mock.calls.length).toBe(mapEvents.length * features.length * 3);
     });
 });

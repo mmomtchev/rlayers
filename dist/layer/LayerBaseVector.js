@@ -67,19 +67,20 @@ var LayerBaseVector = (function (_super) {
         try {
             for (var _c = __values(['Click', 'PointerMove', 'PointerEnter', 'PointerLeave']), _d = _c.next(); !_d.done; _d = _c.next()) {
                 var ev = _d.value;
-                try {
-                    for (var features_1 = (e_3 = void 0, __values(features)), features_1_1 = features_1.next(); !features_1_1.done; features_1_1 = features_1.next()) {
-                        var f = features_1_1.value;
-                        f.on(ev.toLowerCase(), this.eventRelay);
-                    }
-                }
-                catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                finally {
+                if (this.props['on' + ev])
                     try {
-                        if (features_1_1 && !features_1_1.done && (_b = features_1.return)) _b.call(features_1);
+                        for (var features_1 = (e_3 = void 0, __values(features)), features_1_1 = features_1.next(); !features_1_1.done; features_1_1 = features_1.next()) {
+                            var f = features_1_1.value;
+                            f.on(ev.toLowerCase(), this.eventRelay);
+                        }
                     }
-                    finally { if (e_3) throw e_3.error; }
-                }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                    finally {
+                        try {
+                            if (features_1_1 && !features_1_1.done && (_b = features_1.return)) _b.call(features_1);
+                        }
+                        finally { if (e_3) throw e_3.error; }
+                    }
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -95,7 +96,8 @@ var LayerBaseVector = (function (_super) {
         try {
             for (var _c = __values(['Click', 'PointerMove', 'PointerEnter', 'PointerLeave']), _d = _c.next(); !_d.done; _d = _c.next()) {
                 var ev = _d.value;
-                if (!prevProps || this.props['on' + ev] !== prevProps['on' + ev])
+                if ((!prevProps || this.props['on' + ev] !== prevProps['on' + ev]) &&
+                    this.props['on' + ev])
                     try {
                         for (var _e = (e_5 = void 0, __values(this.source.getFeatures())), _f = _e.next(); !_f.done; _f = _e.next()) {
                             var f = _f.value;
