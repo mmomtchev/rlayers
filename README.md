@@ -33,17 +33,17 @@ npm --save install react react-dom  # if you haven't already done so
 ## Usage
 
 react-layers is a set of reusable React components that can be nested in various ways to create map applications for the web.
-The components follow very closely the *OpenLayers* hierarchy with one notable exception: the layers and the sources abstraction levels have been fused in one.
+The components follow very closely the *OpenLayers* hierarchy with one notable exception: the layers and the sources abstraction levels have been fused into one single level.
 
 Some care must be taken to avoid confusion between the *OpenLayers* classes and the react-layers classes which sometimes have the same names - this is probably something that will be solved before the initial release. Using separate namespaces is highly recommended.
 
-The most important element is the <Map>. Every other element requires a parent to function - a <Layer> must be part of a map, a <Feature> must be part of a <LayerVector>, a <Control> must also be part of a map. Nesting works by using React Contexts. Every nested element uses the context of its nearest parent.
+The most important element is the `<Map>`. Every other element requires a parent to function - a `<Layer>` must be part of a map, a `<Feature>` must be part of a `<LayerVector>`, a `<Control>` must also be part of a map. Nesting works by using React Contexts. Every nested element uses the context of its nearest parent.
 
 Currently there are 4 types of contexts:
 * `MapContext` provided by a map, every other element must have a MapContext
 * `LayerContext` provided by every layer, not required by anything at the moment
-* `VectorLayerContext` provided by vector layers only - required for <Feature>
-* `LocationContext` provided by a map feature - required for <Overlay> and <Popup>
+* `VectorLayerContext` provided by vector layers only - required for `<Feature>`
+* `LocationContext` provided by a map feature - required for `<Overlay>` and `<Popup>`
 
 The context objects can be accessed by using  `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/react-layers/#/controls) contains an example for using the *MapContext*. Accessing elements outside their contexts is possible by using `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/react-layers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component. This is also something that could potentially change before the first release.
 
