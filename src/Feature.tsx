@@ -1,6 +1,6 @@
 import React from 'react';
 import {Map as OLMap, MapBrowserEvent} from 'ol';
-import {Vector as OLLayerVector} from 'ol/layer';
+import {Vector as OLLayerVector, Layer as OLLayer} from 'ol/layer';
 import {Feature as OLFeature} from 'ol';
 import {StyleLike} from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
@@ -10,7 +10,6 @@ import {Coordinate} from 'ol/coordinate';
 import {VectorContext, VectorContextType} from './layer/LayerBaseVector';
 import {ReactLayersBase} from './Event';
 import debug from './debug';
-
 export interface FeatureProps {
     geometry?: Geometry;
     style?: StyleLike;
@@ -36,6 +35,7 @@ export interface LocationContextType {
 export const LocationContext = React.createContext(null);
 
 export default class Feature extends ReactLayersBase<FeatureProps, null> {
+    static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static contextType = VectorContext;
     static lastFeatureEntered: undefined | OLFeature;
     static lastFeatureDragged: undefined | OLFeature;
@@ -60,10 +60,10 @@ export default class Feature extends ReactLayersBase<FeatureProps, null> {
     }
 
     static initEventRelay(map: OLMap): void {
-        for (const ev of ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'])
-            map.on(ev, Feature.eventRelay);
+        for (const ev of Feature.pointerEvents) map.on(ev, Feature.eventRelay);
     }
 
+    // This doesn't support overlappig features (yet?)
     static eventRelay(e: MapBrowserEvent): boolean {
         let feature = e.map.forEachFeatureAtPixel(e.pixel, (f: OLFeature) => f.dispatchEvent && f, {
             hitTolerance: Feature.hitTolerance

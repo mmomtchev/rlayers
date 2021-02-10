@@ -24,6 +24,14 @@ export default function Controls(): JSX.Element {
                 <Control.ScaleLine />
                 <Control.Attribution />
                 <Control.Zoom />
+                <Control.FullScreen />
+                <Control.FullScreen
+                    // Take a look at index.html and example.css for this one
+                    className='example-fullscreen'
+                    source='fullscreen'
+                    label='&#x6269;'
+                    labelActive='&#x564f;'
+                />
                 <Control.Custom className='example-control'>
                     <MapContext.Consumer>
                         {(map: OLMap) => (

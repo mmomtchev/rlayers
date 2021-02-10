@@ -29,6 +29,7 @@ export interface LocationContextType {
 }
 export declare const LocationContext: React.Context<any>;
 export default class Feature extends ReactLayersBase<FeatureProps, null> {
+    static pointerEvents: string[];
     static contextType: React.Context<any>;
     static lastFeatureEntered: undefined | OLFeature;
     static lastFeatureDragged: undefined | OLFeature;

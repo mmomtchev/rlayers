@@ -4,17 +4,18 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Map as OLMap} from 'ol';
 
-import {Map, MapContext, Control, OSM} from 'react-layers';
+import {Map, MapContext, Control, OSM, LayerStamen} from 'react-layers';
 import * as common from './common';
 
 const controlButton = <button>X</button>;
 
 describe('<Control>', () => {
     it('should render all the controls', async () => {
-        const {container} = render(
+        const comp = (
             <Map {...common.mapProps} noDefaultControls={true}>
                 <Control.Layers>
                     <OSM />
+                    <LayerStamen layer='toner' properties={{label: 'toner'}} />
                 </Control.Layers>
                 <Control.ScaleLine />
                 <Control.Attribution />
@@ -27,11 +28,30 @@ describe('<Control>', () => {
                         }}
                     </MapContext.Consumer>
                 </Control.Custom>
+                <Control.Rotate />
+                <Control.FullScreen />
+                <Control.FullScreen
+                    className='example-fullscreen'
+                    source='fullscreen'
+                    label='&#x6269;'
+                    labelActive='&#x564f;'
+                />
                 <Control.OverviewMap className='ol-overviewmap example-overview'>
                     <OSM />
                 </Control.OverviewMap>
             </Map>
         );
+        const {container, getByText, rerender} = render(comp);
+        expect(container.innerHTML).toMatchSnapshot();
+
+        const button = container.querySelector('span>button');
+        fireEvent.click(button);
+        rerender(comp);
+
+        const radio = getByText('toner') as HTMLInputElement;
+        expect(radio.checked).toBeFalsy();
+        radio.checked = true;
+        rerender(comp);
         expect(container.innerHTML).toMatchSnapshot();
     });
     it('should throw an error without a Map', () => {

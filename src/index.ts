@@ -27,6 +27,7 @@ import {default as Rotate} from './control/Rotate';
 import {default as Custom} from './control/Custom';
 import {default as Layers} from './control/Layers';
 import {default as OverviewMap} from './control/OverviewMap';
+import {default as FullScreen} from './control/Fullscreen';
 export const Control = {
     ScaleLine,
     Attribution,
@@ -34,6 +35,7 @@ export const Control = {
     Rotate,
     Layers,
     OverviewMap,
+    FullScreen,
     Custom
 };
 

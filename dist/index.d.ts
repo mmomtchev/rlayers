@@ -19,6 +19,7 @@ import { default as Rotate } from './control/Rotate';
 import { default as Custom } from './control/Custom';
 import { default as Layers } from './control/Layers';
 import { default as OverviewMap } from './control/OverviewMap';
+import { default as FullScreen } from './control/Fullscreen';
 export declare const Control: {
     ScaleLine: typeof ScaleLine;
     Attribution: typeof Attribution;
@@ -26,6 +27,7 @@ export declare const Control: {
     Rotate: typeof Rotate;
     Layers: typeof Layers;
     OverviewMap: typeof OverviewMap;
+    FullScreen: typeof FullScreen;
     Custom: typeof Custom;
 };
 export { default as Feature, FeatureProps, LocationContext, LocationContextType } from './Feature';
