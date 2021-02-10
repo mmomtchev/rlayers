@@ -89,8 +89,8 @@ const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
 const App = (): JSX.Element => {
     return (
         <Router>
-            <h1>
-                <strong>React Layers Examples</strong>
+            <h1 className='m-2'>
+                <strong>react-layers Examples</strong>
             </h1>
             <div className='d-flex flex-row p-3'>
                 <div className='d-flex flex-column left-menu mr-1'>
@@ -102,7 +102,9 @@ const App = (): JSX.Element => {
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>
                         <Route exact path='/'>
-                            <ReactMarkdown>{README}</ReactMarkdown>
+                            <div className='ml-2'>
+                                <ReactMarkdown>{README}</ReactMarkdown>
+                            </div>
                         </Route>
                         {Object.keys(examples).map((e) => (
                             <Route key={e} path={`/${e}`}>
