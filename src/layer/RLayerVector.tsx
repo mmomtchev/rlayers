@@ -27,8 +27,8 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
         });
         this.ol = new LayerVector({style: this.props.style, source: this.source});
         this.eventSources = [this.ol, this.source];
-        this.source.on('RFeaturesloadend', this.newFeature);
-        this.source.on('addRFeature', this.newFeature);
+        this.source.on('featuresloadend', this.newFeature);
+        this.source.on('addfeature', this.newFeature);
         this.refresh();
     }
 }

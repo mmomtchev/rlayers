@@ -4,6 +4,8 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {GeoJSON} from 'ol/format';
+import {Feature} from 'ol';
+import {Point} from 'ol/geom';
 import {RFeature, RLayerVector, RLocationContext, RMap} from 'react-layers';
 import * as common from './common';
 
@@ -36,6 +38,21 @@ describe('<RLayerVector>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current.source.getFeatures().length).toBe(geojsonFeatures.features.length);
+        unmount();
+    });
+    it('should attach event handlers to features added after creation', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const ref = React.createRef() as React.RefObject<RLayerVector>;
+        const handler = jest.fn();
+        const {container, unmount} = render(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerVector ref={ref} zIndex={10} onClick={handler} />
+            </RMap>
+        );
+        const f = new Feature(new Point([0, 0]));
+        ref.current.source.addFeature(f);
+        f.dispatchEvent(common.createEvent('click', map.current.ol));
+        expect(handler.mock.calls.length).toBe(1);
         unmount();
     });
     it('should load trigger addFeature', async () => {
