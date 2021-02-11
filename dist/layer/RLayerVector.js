@@ -30,8 +30,8 @@ var RLayerVector = (function (_super) {
         });
         _this.ol = new layer_1.Vector({ style: _this.props.style, source: _this.source });
         _this.eventSources = [_this.ol, _this.source];
-        _this.source.on('RFeaturesloadend', _this.newFeature);
-        _this.source.on('addRFeature', _this.newFeature);
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
         _this.refresh();
         return _this;
     }

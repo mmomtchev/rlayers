@@ -1,6 +1,7 @@
 window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
+import {createXYZ} from 'ol/tilegrid';
 
 import {RMap, RLayerTile, RLayerWMTS, RLayerStamen} from 'react-layers';
 import * as common from './common';
@@ -17,6 +18,26 @@ describe('<RLayerTile>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+    });
+
+    it('should support custom projection and TileGrid', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerTile>;
+        render(
+            <RMap {...common.mapProps}>
+                <RLayerTile
+                    ref={layer}
+                    projection={'EPSG:4326'}
+                    tileGrid={createXYZ({
+                        maxResolution: 111,
+                        maxZoom: 20,
+                        tileSize: [512, 512]
+                    })}
+                    url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                />
+            </RMap>
+        );
+        expect(layer.current.source.getTileGrid().getMaxZoom()).toBe(20);
+        expect(layer.current.source.getProjection().getCode()).toBe('EPSG:4326');
     });
 });
 

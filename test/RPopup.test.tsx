@@ -79,6 +79,30 @@ describe('<RPopup>', () => {
             }, 60);
         });
     });
+    it('should support updating the props', async () => {
+        const comp = (trigger, text) => (
+            <RMap {...common.mapProps}>
+                <ROSM />
+                <RLayerVector>
+                    <RFeature
+                        style={common.styles.blueDot}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    >
+                        <RPopup trigger={trigger} delay={{show: 50, hide: 50}}>
+                            <div id='target'>{text}</div>
+                        </RPopup>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        const {getByText, rerender, container, unmount} = render(comp('click', 'text1'));
+        expect(getByText('text1')).toBeInstanceOf(HTMLDivElement);
+        expect(container.innerHTML).toMatchSnapshot();
+        rerender(comp('trigger', 'text2'));
+        expect(getByText('text2')).toBeInstanceOf(HTMLDivElement);
+        expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
     it('should throw an error without a Feature', () => {
         jest.spyOn(console, 'error');
         const err = console.error;

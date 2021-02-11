@@ -22,6 +22,26 @@ describe('<RMap>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
     });
+    it('should display an OSM map w/zoom', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const {container} = render(
+            <RMap {...common.mapProps} ref={map} minZoom={1} maxZoom={10}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current.ol.getView().getMinZoom()).toBe(1);
+        expect(map.current.ol.getView().getMaxZoom()).toBe(10);
+    });
+    it('should display an OSM map w/resolution', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        render(
+            <RMap {...common.mapProps} ref={map} minResolution={1250} maxResolution={10000}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current.ol.getView().getMinResolution()).toBe(1250);
+        expect(map.current.ol.getView().getMaxResolution()).toBe(10000);
+    });
     it('should handle Map events w/update', async () => {
         const mapEvents = [
             'Click',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, MapBrowserEvent, MapEvent } from 'ol';
 import RenderEvent from 'ol/render/Event';
+import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
 import { ReactLayersBase } from './REvent';
 export interface RMapProps {
@@ -22,12 +23,19 @@ export interface RMapProps {
     onPreCompose?: (e: RenderEvent) => boolean | void;
     onPostCompose?: (e: RenderEvent) => boolean | void;
     onRenderComplete?: (e: RenderEvent) => boolean | void;
+    properties?: Record<string, unknown>;
+    extent?: Extent;
+    minResolution?: number;
+    maxResolution?: number;
+    minZoom?: number;
+    maxZoom?: number;
 }
 export default class RMap extends ReactLayersBase<RMapProps, null> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
     constructor(props: Readonly<RMapProps>);
     componentDidMount(): void;
+    refresh(prevProps?: RMapProps): void;
     render(): JSX.Element;
 }
 //# sourceMappingURL=RMap.d.ts.map

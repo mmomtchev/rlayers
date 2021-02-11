@@ -1,6 +1,8 @@
 import React from 'react';
 import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
+import {Extent} from 'ol/extent';
+
 import {Coordinate} from 'ol/coordinate';
 
 import {RMapContext} from './context';
@@ -11,9 +13,9 @@ import {ReactLayersBase} from './REvent';
  * All other components should be part of a `Map`
  */
 export interface RMapProps {
-    /** The initial center coordinates, mandatory */
+    /** The initial center coordinates */
     center: Coordinate;
-    /** The initial zoom level, mandatory */
+    /** The initial zoom level */
     zoom: number;
     /** CSS class */
     className?: string;
@@ -21,9 +23,13 @@ export interface RMapProps {
     width?: number;
     /** Height when not using CSS */
     height?: number;
-    /** Do not include any default controls */
+    /** Do not include any default controls
+     * @default false
+     */
     noDefaultControls?: boolean;
-    /** View projection, defaults to Web Mercator ESPG:3857 */
+    /** View projection
+     * @default 'ESPG:3857'
+     */
     projection?: string;
     /** Called immediately on click */
     onClick?: (e: MapBrowserEvent) => boolean | void;
@@ -44,6 +50,20 @@ export interface RMapProps {
     onPreCompose?: (e: RenderEvent) => boolean | void;
     onPostCompose?: (e: RenderEvent) => boolean | void;
     onRenderComplete?: (e: RenderEvent) => boolean | void;
+    /** A set of properties that can be accessed later by .get()/.getProperties() */
+    properties?: Record<string, unknown>;
+    /** Extent of the map, cannot be dynamically modified
+     * @default world
+     */
+    extent?: Extent;
+    /** Minimum resolution, cannot be dynamically modified */
+    minResolution?: number;
+    /** Maximum resolution, cannot be dynamically modified */
+    maxResolution?: number;
+    /** Minimum zoom level */
+    minZoom?: number;
+    /** Maximum zoom level */
+    maxZoom?: number;
 }
 
 export default class RMap extends ReactLayersBase<RMapProps, null> {
@@ -58,7 +78,12 @@ export default class RMap extends ReactLayersBase<RMapProps, null> {
             view: new View({
                 projection: props.projection,
                 center: props.center,
-                zoom: props.zoom
+                zoom: props.zoom,
+                extent: props.extent,
+                minResolution: props.minResolution,
+                maxResolution: props.maxResolution,
+                minZoom: props.minZoom,
+                maxZoom: props.maxZoom
             })
         });
     }
@@ -66,6 +91,21 @@ export default class RMap extends ReactLayersBase<RMapProps, null> {
     componentDidMount(): void {
         super.componentDidMount();
         this.ol.setTarget(this.target.current);
+    }
+
+    refresh(prevProps?: RMapProps): void {
+        super.refresh();
+        const view = this.ol.getView();
+        for (const p of ['minResolution', 'maxResolution', 'minZoom', 'maxZoom']) {
+            const m = p.charAt(0).toUpperCase() + p.substring(1);
+            if (
+                this.props[p] !== undefined &&
+                view['set' + m] &&
+                this.props[p] !== view['get' + m]()
+            )
+                view['set' + m](this.props[p]);
+        }
+        if (this.props.properties) this.ol.setProperties(this.props.properties);
     }
 
     render(): JSX.Element {

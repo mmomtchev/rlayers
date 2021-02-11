@@ -23,13 +23,23 @@ var RLayerTile = (function (_super) {
     __extends(RLayerTile, _super);
     function RLayerTile(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.source = new source_1.XYZ({ url: _this.props.url, projection: _this.props.projection });
+        _this.source = new source_1.XYZ({
+            url: _this.props.url,
+            projection: _this.props.projection,
+            tileGrid: _this.props.tileGrid
+        });
         _this.ol = new layer_1.Tile({ source: _this.source });
         return _this;
     }
-    RLayerTile.prototype.refresh = function () {
+    RLayerTile.prototype.refresh = function (prevProps) {
         var _a;
         _super.prototype.refresh.call(this);
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.tileGrid) !== this.props.tileGrid)
+            this.source = new source_1.XYZ({
+                url: this.props.url,
+                projection: this.props.projection,
+                tileGrid: this.props.tileGrid
+            });
         if (this.props.url && ((_a = this.source) === null || _a === void 0 ? void 0 : _a.getUrls()[0]) !== this.props.url)
             this.source.setUrl(this.props.url);
     };
