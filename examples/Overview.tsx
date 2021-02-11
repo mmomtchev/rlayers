@@ -1,6 +1,6 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
-import {Map, OSM, Control} from 'react-layers';
+import {RMap, ROSM, RControl} from 'react-layers';
 
 const origin = [2.364, 48.82];
 
@@ -9,11 +9,11 @@ const origin = [2.364, 48.82];
 
 export default function Overview(): JSX.Element {
     return (
-        <Map className='example-map' center={fromLonLat(origin)} zoom={11}>
-            <OSM />
-            <Control.OverviewMap className='ol-overviewmap example-overview'>
-                <OSM />
-            </Control.OverviewMap>
-        </Map>
+        <RMap className='example-map' center={fromLonLat(origin)} zoom={11}>
+            <ROSM />
+            <RControl.ROverviewMap className='ol-overviewmap example-overview'>
+                <ROSM />
+            </RControl.ROverviewMap>
+        </RMap>
     );
 }

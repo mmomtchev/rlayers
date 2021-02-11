@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
-import {Map, OSM, LayerVector, MapBrowserEvent} from 'react-layers';
+import {RMap, ROSM, RLayerVector, MapBrowserEvent} from 'react-layers';
 import geojsonFeatures from './data/geo.json';
 
 const styles: Record<string, Style> = {
@@ -22,10 +22,10 @@ export default function Features(): JSX.Element {
     const [flow, setFlow] = React.useState([]);
     return (
         <div className='d-flex flex-row'>
-            <Map className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
-                <OSM />
+            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+                <ROSM />
                 {/* From a static file included at bundling time */}
-                <LayerVector
+                <RLayerVector
                     style={styles.blueDot}
                     zIndex={10}
                     features={new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(
@@ -39,7 +39,7 @@ export default function Features(): JSX.Element {
                     )}
                 />
                 {/* From an URL */}
-                <LayerVector
+                <RLayerVector
                     style={styles.blueContours}
                     zIndex={5}
                     format={new GeoJSON({featureProjection: 'EPSG:3857'})}
@@ -51,7 +51,7 @@ export default function Features(): JSX.Element {
                         [flow]
                     )}
                 />
-            </Map>
+            </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow example-list'>
                 <p>Your actions</p>
                 <ul

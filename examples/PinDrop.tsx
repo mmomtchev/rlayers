@@ -3,7 +3,7 @@ import {fromLonLat, toLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
-import {Map, OSM, LayerVector, Feature, Overlay} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -24,14 +24,14 @@ export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
     return (
         <React.Fragment>
-            <Map className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-                <OSM />
-                <LayerVector>
-                    <Feature
+            <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+                <ROSM />
+                <RLayerVector>
+                    <RFeature
                         style={styles.location}
                         geometry={new Point(fromLonLat(loc))}
                         // useCallback is here for performance reasons
-                        // without it Feature will have its props updated at every call
+                        // without it RFeature will have its props updated at every call
                         onPointerDrag={useCallback((e) => {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
                             e.target.setGeometry(new Point(coords));
@@ -50,10 +50,10 @@ export default function PinDrop(): JSX.Element {
                             []
                         )}
                     >
-                        <Overlay className='example-overlay'>Move me</Overlay>
-                    </Feature>
-                </LayerVector>
-            </Map>
+                        <ROverlay className='example-overlay'>Move me</ROverlay>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow shadow'>
                 <p>
                     Pin location is <strong>{`${loc[1].toFixed(3)} : ${loc[0].toFixed(3)}`}</strong>

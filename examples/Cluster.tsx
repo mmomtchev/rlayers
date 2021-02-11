@@ -1,10 +1,10 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Feature as OLFeature} from 'ol';
+import {Feature} from 'ol';
 import {Circle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
-import {Map, LayerStamen, LayerCluster} from 'react-layers';
+import {RMap, RLayerStamen, RLayerCluster} from 'react-layers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
@@ -69,7 +69,7 @@ const calculateClusterInfo = function (resolution) {
 };
 
 let currentResolution;
-function clusterStyle(feature: OLFeature, resolution: number): Style {
+function clusterStyle(feature: Feature, resolution: number): Style {
     if (!this.current) return null;
     if (resolution != currentResolution) {
         calculateClusterInfo.call(this.current, resolution);
@@ -103,15 +103,15 @@ export default function Cluster(): JSX.Element {
     const earthquakeLayer = React.useRef();
     return (
         <React.Fragment>
-            <Map
+            <RMap
                 className='example-map'
                 center={fromLonLat([0, 0])}
                 zoom={1}
                 // This needed because the examples app hot-loads components when switching tabs
                 onRenderComplete={useCallback(() => (currentResolution = undefined), [])}
             >
-                <LayerStamen layer='toner' />
-                <LayerCluster
+                <RLayerStamen layer='toner' />
+                <RLayerCluster
                     ref={earthquakeLayer}
                     distance={distance}
                     format={reader}
@@ -119,7 +119,7 @@ export default function Cluster(): JSX.Element {
                     // eslint-disable-next-line react-hooks/exhaustive-deps
                     style={useCallback(clusterStyle.bind(earthquakeLayer), [earthquakeLayer])}
                 />
-            </Map>
+            </RMap>
             <div className='w-100'>
                 <label htmlFor='distance'>Clustering distance</label>
                 <div className='w-100'>

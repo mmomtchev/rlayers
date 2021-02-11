@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
-import {Map as OLMap, MapBrowserEvent} from 'ol';
+import {Map, MapBrowserEvent} from 'ol';
 import {fromLonLat, toLonLat} from 'ol/proj';
-import {Map, MapContext, OSM, Control} from 'react-layers';
+import {RMap, RMapContext, ROSM, RControl} from 'react-layers';
 
 const origin = [2.364, 48.82];
 
@@ -9,7 +9,7 @@ export default function Controls(): JSX.Element {
     const [loc, setLoc] = React.useState(origin);
     return (
         <React.Fragment>
-            <Map
+            <RMap
                 className='example-map'
                 center={fromLonLat(origin)}
                 zoom={11}
@@ -20,28 +20,28 @@ export default function Controls(): JSX.Element {
                     setLoc(lonlat);
                 }, [])}
             >
-                <OSM />
-                <Control.ScaleLine />
-                <Control.Attribution />
-                <Control.Zoom />
-                <Control.FullScreen />
-                <Control.FullScreen
+                <ROSM />
+                <RControl.RScaleLine />
+                <RControl.RAttribution />
+                <RControl.RZoom />
+                <RControl.RFullScreen />
+                <RControl.RFullScreen
                     // Take a look at index.html and example.css for this one
                     className='example-fullscreen'
                     source='fullscreen'
                     label='&#x6269;'
                     labelActive='&#x564f;'
                 />
-                <Control.Custom className='example-control'>
-                    <MapContext.Consumer>
-                        {(map: OLMap) => (
+                <RControl.RCustom className='example-control'>
+                    <RMapContext.Consumer>
+                        {(map: Map) => (
                             <button onClick={() => map.getView().setCenter(fromLonLat(loc))}>
                                 o
                             </button>
                         )}
-                    </MapContext.Consumer>
-                </Control.Custom>
-            </Map>
+                    </RMapContext.Consumer>
+                </RControl.RCustom>
+            </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow'>
                 <p>
                     Last click location is{' '}

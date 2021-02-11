@@ -1,8 +1,8 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Feature as OLFeature} from 'ol';
-import {Map, LayerStamen, LayerHeatmap} from 'react-layers';
+import {Feature} from 'ol';
+import {RMap, RLayerStamen, RLayerHeatmap} from 'react-layers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
@@ -14,16 +14,16 @@ export default function Heatmap(): JSX.Element {
     const [radius, setRadius] = React.useState(8);
     return (
         <React.Fragment>
-            <Map className='example-map' center={fromLonLat([0, 0])} zoom={1}>
-                <LayerStamen layer='toner' />
-                <LayerHeatmap
+            <RMap className='example-map' center={fromLonLat([0, 0])} zoom={1}>
+                <RLayerStamen layer='toner' />
+                <RLayerHeatmap
                     blur={blur}
                     radius={radius}
                     format={reader}
                     url={earthquakes}
-                    weight={useCallback((f: OLFeature) => parseFloat(f.get('mag')) - 5, [])}
+                    weight={useCallback((f: Feature) => parseFloat(f.get('mag')) - 5, [])}
                 />
-            </Map>
+            </RMap>
             <div className='d-flex flex-row w-100'>
                 <div className='w-50 mr-2'>
                     <label htmlFor='blur'>Blur</label>

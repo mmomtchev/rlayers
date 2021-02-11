@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
-import {Map, OSM, LayerVector, Feature, Overlay} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -22,10 +22,10 @@ const styles: Record<string, Style> = {
 
 export default function Overlays(): JSX.Element {
     return (
-        <Map className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-            <OSM />
-            <LayerVector zIndex={10}>
-                <Feature
+        <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+            <ROSM />
+            <RLayerVector zIndex={10}>
+                <RFeature
                     style={styles.location}
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                     onClick={useCallback(
@@ -37,13 +37,13 @@ export default function Overlays(): JSX.Element {
                         []
                     )}
                 >
-                    <Overlay className='example-overlay'>
+                    <ROverlay className='example-overlay'>
                         Arc de Triomphe
                         <br />
                         <em>click to zoom</em>
-                    </Overlay>
-                </Feature>
-            </LayerVector>
-        </Map>
+                    </ROverlay>
+                </RFeature>
+            </RLayerVector>
+        </RMap>
     );
 }

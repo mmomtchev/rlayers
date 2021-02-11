@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Fill, Stroke, Icon} from 'ol/style';
 import {Polygon, Point} from 'ol/geom';
-import {Map, OSM, LayerVector, Feature, Popup} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -30,23 +30,23 @@ const styles: Record<string, Style> = {
 
 export default function Popups(): JSX.Element {
     return (
-        <Map className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-            <OSM />
-            <LayerVector zIndex={10}>
-                <Feature
+        <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+            <ROSM />
+            <RLayerVector zIndex={10}>
+                <RFeature
                     style={styles.location}
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                 >
-                    <Popup trigger={'click'} className='example-overlay'>
+                    <RPopup trigger={'click'} className='example-overlay'>
                         <div className='card'>
                             <p className='card-header'>
                                 <strong>Arc de Triomphe</strong>
                             </p>
                             <p className='card-body text-center'>Popup on click</p>
                         </div>
-                    </Popup>
-                </Feature>
-                <Feature
+                    </RPopup>
+                </RFeature>
+                <RFeature
                     style={styles.yellow}
                     geometry={
                         new Polygon([
@@ -66,16 +66,16 @@ export default function Popups(): JSX.Element {
                         []
                     )}
                 >
-                    <Popup trigger={'hover'} className='example-overlay'>
+                    <RPopup trigger={'hover'} className='example-overlay'>
                         <p>
                             <strong>Les catacombes</strong>
                         </p>
                         <p>
                             <em>Popup on hover, pan on click</em>
                         </p>
-                    </Popup>
-                </Feature>
-            </LayerVector>
-        </Map>
+                    </RPopup>
+                </RFeature>
+            </RLayerVector>
+        </RMap>
     );
 }

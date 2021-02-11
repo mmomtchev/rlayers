@@ -17,10 +17,10 @@ import {getVectorContext} from 'ol/render';
 import {LineString, Point} from 'ol/geom';
 
 import {
-    Map,
-    LayerTile,
-    LayerVector,
-    Feature,
+    RMap,
+    RLayerTile,
+    RLayerVector,
+    RFeature,
     RenderEvent,
     MapBrowserEvent,
     VectorSourceEvent
@@ -85,13 +85,13 @@ export default function IGCComp(): JSX.Element {
     });
 
     // createRef insted of useRef here will severely impact performance
-    const igcVectorLayer = React.useRef() as React.RefObject<LayerVector>;
-    const highlightVectorLayer = React.useRef() as React.RefObject<LayerVector>;
-    const map = React.useRef() as React.RefObject<Map>;
+    const igcVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
+    const highlightVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
+    const map = React.useRef() as React.RefObject<RMap>;
 
     return (
         <React.Fragment>
-            <Map
+            <RMap
                 className='example-map'
                 center={origin}
                 zoom={9}
@@ -118,12 +118,12 @@ export default function IGCComp(): JSX.Element {
                     [igcVectorLayer]
                 )}
             >
-                <LayerTile
+                <RLayerTile
                     zIndex={5}
                     url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                     attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                 />
-                <LayerVector
+                <RLayerVector
                     zIndex={10}
                     ref={igcVectorLayer}
                     onAddFeature={useCallback(
@@ -159,7 +159,7 @@ export default function IGCComp(): JSX.Element {
                             // useMemo will render it truly constant
                             <React.Fragment>
                                 {igcs.map((igc, idx) => (
-                                    <Feature
+                                    <RFeature
                                         key={idx}
                                         feature={
                                             new IGC().readFeatures(igc, {
@@ -173,22 +173,22 @@ export default function IGCComp(): JSX.Element {
                         ),
                         [igcs]
                     )}
-                </LayerVector>
-                <LayerVector zIndex={10} ref={highlightVectorLayer} style={blueCircle}>
+                </RLayerVector>
+                <RLayerVector zIndex={10} ref={highlightVectorLayer} style={blueCircle}>
                     {React.useMemo(
                         () => (
                             // This component appears dynamic to React because of the map but it is in fact constant
                             // useMemo will render it truly constant
                             <React.Fragment>
                                 {highlights.map((coords, i) => (
-                                    <Feature key={i} geometry={new Point(coords)} />
+                                    <RFeature key={i} geometry={new Point(coords)} />
                                 ))}
                             </React.Fragment>
                         ),
                         [highlights]
                     )}
-                </LayerVector>
-            </Map>
+                </RLayerVector>
+            </RMap>
             <div className='d-flex flex-row mb-3 align-items-center'>
                 <div
                     className='jumbotron py-1 px-3 m-0 mr-3 w-50'

@@ -1,3 +1,4 @@
 webpack.config.ts
 jest.config.js
+styleguide.config.js
 *.jsx

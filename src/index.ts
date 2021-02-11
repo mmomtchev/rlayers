@@ -2,43 +2,50 @@ export {MapEvent, MapBrowserEvent} from 'ol';
 export {default as RenderEvent} from 'ol/render/Event';
 export {VectorSourceEvent} from 'ol/source/Vector';
 
-export {ReactLayersBase} from './Event';
-export {default as Map, MapProps, MapContext} from './Map';
-
-export {default as Layer, LayerProps, LayerContext} from './layer/Layer';
-export {default as LayerTile, LayerTileProps} from './layer/LayerTile';
+export {ReactLayersBase} from './REvent';
 export {
-    default as LayerBaseVector,
-    LayerBaseVectorProps as LayerVectorProps,
-    VectorContext,
-    VectorContextType
-} from './layer/LayerBaseVector';
-export {default as LayerVector} from './layer/LayerVector';
-export {default as OSM, OSMProps} from './layer/OSM';
-export {default as LayerWMTS, LayerWMTSProps} from './layer/LayerWMTS';
-export {default as LayerStamen, LayerStamenProps} from './layer/LayerStamen';
-export {default as LayerHeatmap, LayerHeatmapProps} from './layer/LayerHeatmap';
-export {default as LayerCluster, LayerClusterProps} from './layer/LayerCluster';
+    RMapContext,
+    RLayerContext,
+    RVectorContext,
+    RVectorContextType,
+    RLocationContext,
+    RLocationContextType
+} from './context';
+export {default as RMap, RMapProps} from './RMap';
 
-import {default as ScaleLine} from './control/ScaleLine';
-import {default as Attribution} from './control/Attribution';
-import {default as Zoom} from './control/Zoom';
-import {default as Rotate} from './control/Rotate';
-import {default as Custom} from './control/Custom';
-import {default as Layers} from './control/Layers';
-import {default as OverviewMap} from './control/OverviewMap';
-import {default as FullScreen} from './control/Fullscreen';
-export const Control = {
-    ScaleLine,
-    Attribution,
-    Zoom,
-    Rotate,
-    Layers,
-    OverviewMap,
-    FullScreen,
-    Custom
+export {default as RLayer, RLayerProps} from './layer/RLayer';
+export {default as RLayerTile, RLayerTileProps} from './layer/RLayerTile';
+export {
+    default as RLayerBaseVector,
+    RLayerBaseVectorProps as RLayerVectorProps
+} from './layer/RLayerBaseVector';
+
+export {default as RLayerVector} from './layer/RLayerVector';
+export {default as ROSM, ROSMProps} from './layer/ROSM';
+export {default as RLayerWMTS, RLayerWMTSProps} from './layer/RLayerWMTS';
+export {default as RLayerStamen, RLayerStamenProps} from './layer/RLayerStamen';
+export {default as RLayerHeatmap, RLayerHeatmapProps} from './layer/RLayerHeatmap';
+export {default as RLayerCluster, RLayerClusterProps} from './layer/RLayerCluster';
+
+import {default as RScaleLine} from './control/RScaleLine';
+import {default as RAttribution} from './control/RAttribution';
+import {default as RZoom} from './control/RZoom';
+import {default as RRotate} from './control/RRotate';
+import {default as RCustom} from './control/RCustom';
+import {default as RLayers} from './control/RLayers';
+import {default as ROverviewMap} from './control/ROverviewMap';
+import {default as RFullScreen} from './control/RFullScreen';
+export const RControl = {
+    RScaleLine,
+    RAttribution,
+    RZoom,
+    RRotate,
+    RLayers,
+    ROverviewMap,
+    RFullScreen,
+    RCustom
 };
 
-export {default as Feature, FeatureProps, LocationContext, LocationContextType} from './Feature';
-export {default as Overlay} from './Overlay';
-export {default as Popup} from './Popup';
+export {default as RFeature, RFeatureProps} from './RFeature';
+export {default as ROverlay} from './ROverlay';
+export {default as RPopup} from './RPopup';
