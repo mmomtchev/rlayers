@@ -26,11 +26,9 @@ It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In
 **(will be when it is published)**
 ```bash
 npm --save install react-layers
-npm --save install ol @types/ol # if you haven't already done so
-npm --save install react react-dom  # if you haven't already done so
 ```
 
-*OpenLayers* is a peer dependency - all *OpenLayers* 6+ versions should be supported.
+All *OpenLayers* 6+ versions should be supported.
 
 ## Usage
 
