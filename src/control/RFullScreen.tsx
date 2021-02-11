@@ -18,7 +18,7 @@ export interface RFullScreenProps extends RControlProps {
     tipLabel?: string;
 }
 
-/** A control for switching to full-screen moe */
+/** A control for switching to full-screen mode */
 export default class RFullScreen extends RControlBase<RFullScreenProps, null> {
     ol: FullScreen;
 

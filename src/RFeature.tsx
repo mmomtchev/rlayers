@@ -43,19 +43,20 @@ export interface RFeatureProps {
 }
 
 /**
- * Component for a single vector RFeature
+ * Component for a single vector feature
  *
  * Vector features can be either
  *
- * * implicit, when loaded from a file as props of `RLayerVector`
+ * * implicit, when loaded from a file as props of a `RLayerVector`
  * * explicit, when declared as JSX with this component
  *
  * Requires a vector layer context `RVectorContext`
+ *
  * Provides a location context `RLocationContext`
  *
  * [Example for explicit RFeatures](https://mmomtchev.github.io/react-layers/#/overlays)
  *
- * [Example fro implicit RFeatures](https://mmomtchev.github.io/react-layers/#/RFeatures)
+ * [Example for implicit RFeatures](https://mmomtchev.github.io/react-layers/#/RFeatures)
  *
  */
 

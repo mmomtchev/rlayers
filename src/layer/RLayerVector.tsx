@@ -9,9 +9,9 @@ import debug from '../debug';
 /**
  * A vector layer
  *
- * Supports loading of RFeatures from external sources
+ * Supports loading of features from external sources
  *
- * Provides a `RVectorContext` for JSX-declared RFeatures
+ * Provides a `RVectorContext` for JSX-declared `RFeature`s
  */
 export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
     ol: LayerVector;
