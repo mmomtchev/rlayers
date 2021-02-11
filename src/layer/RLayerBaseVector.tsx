@@ -12,7 +12,6 @@ import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature} from '../RFeature';
 
 import debug from '../debug';
-
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */
     url?: string;
@@ -46,6 +45,12 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     ol: BaseVector;
     source: SourceVector;
     context: Map;
+    static relayedEvents = {
+        click: 'Click',
+        pointermove: 'PointerMove',
+        pointerenter: 'PointerEnter',
+        pointerleave: 'PointerLeave'
+    };
 
     constructor(props: Readonly<P>, context: React.Context<Map>) {
         super(props, context);
@@ -53,36 +58,28 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     }
 
     newFeature = (e: VectorSourceEvent): void => {
-        if (e.feature) this.attachNewFeatureHandlers([e.feature]);
+        if (e.feature) this.attachFeatureHandlers([e.feature]);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((e as any).features) this.attachNewFeatureHandlers((e as any).features);
+        if ((e as any).features) this.attachFeatureHandlers((e as any).features);
     };
 
-    attachNewFeatureHandlers(RFeatures: Feature[]): void {
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (this.props['on' + ev])
-                for (const f of RFeatures) f.on(ev.toLowerCase(), this.eventRelay);
-    }
-
-    attachExistingFeatureHandlers(prevProps?: P): void {
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+    attachFeatureHandlers(features: Feature[], prevProps?: P): void {
+        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
             if (
                 (!prevProps || this.props['on' + ev] !== prevProps['on' + ev]) &&
                 this.props['on' + ev]
             )
-                for (const f of this.source.getFeatures()) f.on(ev.toLowerCase(), this.eventRelay);
+                for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
     }
 
     eventRelay = (e: MapBrowserEvent): boolean => {
-        // TODO fix this loop
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
-            if (e.type === ev.toLowerCase() && this.props['on' + ev])
-                return this.props['on' + ev](e) !== false;
+        if (this.props['on' + RLayerBaseVector.relayedEvents[e.type]])
+            return this.props['on' + RLayerBaseVector.relayedEvents[e.type]](e) !== false;
         return true;
     };
 
     componentWillUnmount(): void {
-        for (const ev of ['Click', 'PointerMove', 'PointerEnter', 'PointerLeave'])
+        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
             this.source.forEachFeature((f) => {
                 f.un(ev.toLowerCase(), this.eventRelay);
                 return false;
@@ -91,7 +88,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     refresh(prevProps?: P): void {
         super.refresh();
-        this.attachExistingFeatureHandlers(prevProps);
+        this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (!prevProps || prevProps.style !== this.props.style) this.ol.setStyle(this.props.style);
     }
 

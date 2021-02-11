@@ -25,10 +25,15 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     ol: BaseVector;
     source: SourceVector;
     context: Map;
+    static relayedEvents: {
+        click: string;
+        pointermove: string;
+        pointerenter: string;
+        pointerleave: string;
+    };
     constructor(props: Readonly<P>, context: React.Context<Map>);
     newFeature: (e: VectorSourceEvent) => void;
-    attachNewFeatureHandlers(RFeatures: Feature[]): void;
-    attachExistingFeatureHandlers(prevProps?: P): void;
+    attachFeatureHandlers(features: Feature[], prevProps?: P): void;
     eventRelay: (e: MapBrowserEvent) => boolean;
     componentWillUnmount(): void;
     refresh(prevProps?: P): void;
