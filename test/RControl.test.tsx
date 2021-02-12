@@ -41,17 +41,15 @@ describe('<RControl>', () => {
                 </RControl.ROverviewMap>
             </RMap>
         );
-        const {container, getByText, rerender} = render(comp);
+        const {container, getByLabelText, rerender} = render(comp);
         expect(container.innerHTML).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
         fireEvent.click(button);
         rerender(comp);
 
-        const radio = getByText('toner') as HTMLInputElement;
-        expect(radio.checked).toBeFalsy();
-        radio.checked = true;
-        rerender(comp);
+        const radio = getByLabelText('toner') as HTMLInputElement;
+        fireEvent.click(radio);
         expect(container.innerHTML).toMatchSnapshot();
     });
     it('should throw an error without a Map', () => {
