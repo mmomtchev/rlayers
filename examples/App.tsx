@@ -53,6 +53,10 @@ import OverviewJSX from '!!raw-loader!./Overview.tsx';
 import VectorTiles from './VectorTiles';
 // @ts-ignore
 import VectorTilesJSX from '!!raw-loader!./VectorTiles.tsx';
+import DragBox from './DragBox';
+// @ts-ignore
+import DragBoxJSX from '!!raw-loader!./DragBox.tsx';
+
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
         <Button block={true} variant='light'>
@@ -72,6 +76,7 @@ const examples = {
     features: {title: 'Load GeoJSON', comp: Features, code: FeaturesJSX},
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
+    dragbox: {title: 'Dragbox', comp: DragBox, code: DragBoxJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}

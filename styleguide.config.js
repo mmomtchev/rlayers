@@ -48,7 +48,8 @@ module.exports = {
         {
             name: 'Interaction',
             description: 'Components for handling interactions',
-            components: 'src/interaction/R[A-Z]*.tsx'
+            components: 'src/interaction/R[A-Z]*.tsx',
+            ignore: 'src/control/RPointer.tsx'
         }
     ],
     resolver: require('react-docgen').resolver.findAllComponentDefinitions,

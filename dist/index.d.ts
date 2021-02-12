@@ -14,24 +14,8 @@ export { default as RLayerStamen, RLayerStamenProps } from './layer/RLayerStamen
 export { default as RLayerHeatmap, RLayerHeatmapProps } from './layer/RLayerHeatmap';
 export { default as RLayerCluster, RLayerClusterProps } from './layer/RLayerCluster';
 export { default as RLayerVectorTile, RLayerVectorTileProps } from './layer/RLayerVectorTile';
-import { default as RScaleLine } from './control/RScaleLine';
-import { default as RAttribution } from './control/RAttribution';
-import { default as RZoom } from './control/RZoom';
-import { default as RRotate } from './control/RRotate';
-import { default as RCustom } from './control/RCustom';
-import { default as RLayers } from './control/RLayers';
-import { default as ROverviewMap } from './control/ROverviewMap';
-import { default as RFullScreen } from './control/RFullScreen';
-export declare const RControl: {
-    RScaleLine: typeof RScaleLine;
-    RAttribution: typeof RAttribution;
-    RZoom: typeof RZoom;
-    RRotate: typeof RRotate;
-    RLayers: typeof RLayers;
-    ROverviewMap: typeof ROverviewMap;
-    RFullScreen: typeof RFullScreen;
-    RCustom: typeof RCustom;
-};
+export * as RControl from './control';
+export * as RInteraction from './interaction';
 export { default as RFeature, RFeatureProps } from './RFeature';
 export { default as ROverlay } from './ROverlay';
 export { default as RPopup } from './RPopup';
