@@ -91,8 +91,8 @@ export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
     }
 
     static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean {
-        if (!event.target) event.target = feature;
         if (feature.dispatchEvent) return feature.dispatchEvent(event);
+        if (!event.target) event.target = feature;
         if (layer?.get('_on' + event.type)) return layer.get('_on' + event.type)(event);
         return true;
     }

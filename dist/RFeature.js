@@ -77,10 +77,10 @@ var RFeature = (function (_super) {
         }
     };
     RFeature.dispatchEvent = function (feature, layer, event) {
-        if (!event.target)
-            event.target = feature;
         if (feature.dispatchEvent)
             return feature.dispatchEvent(event);
+        if (!event.target)
+            event.target = feature;
         if (layer === null || layer === void 0 ? void 0 : layer.get('_on' + event.type))
             return layer.get('_on' + event.type)(event);
         return true;
