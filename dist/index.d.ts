@@ -13,6 +13,7 @@ export { default as RLayerWMTS, RLayerWMTSProps } from './layer/RLayerWMTS';
 export { default as RLayerStamen, RLayerStamenProps } from './layer/RLayerStamen';
 export { default as RLayerHeatmap, RLayerHeatmapProps } from './layer/RLayerHeatmap';
 export { default as RLayerCluster, RLayerClusterProps } from './layer/RLayerCluster';
+export { default as RLayerVectorTile, RLayerVectorTileProps } from './layer/RLayerVectorTile';
 import { default as RScaleLine } from './control/RScaleLine';
 import { default as RAttribution } from './control/RAttribution';
 import { default as RZoom } from './control/RZoom';

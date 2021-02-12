@@ -1,4 +1,5 @@
 webpack.config.ts
 jest.config.js
 styleguide.config.js
-*.jsx
+examples/geojson-vt-server
+*.mjs

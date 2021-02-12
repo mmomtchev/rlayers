@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RPopup = exports.ROverlay = exports.RFeature = exports.RControl = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.RPopup = exports.ROverlay = exports.RFeature = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -38,6 +38,8 @@ var RLayerHeatmap_1 = require("./layer/RLayerHeatmap");
 Object.defineProperty(exports, "RLayerHeatmap", { enumerable: true, get: function () { return __importDefault(RLayerHeatmap_1).default; } });
 var RLayerCluster_1 = require("./layer/RLayerCluster");
 Object.defineProperty(exports, "RLayerCluster", { enumerable: true, get: function () { return __importDefault(RLayerCluster_1).default; } });
+var RLayerVectorTile_1 = require("./layer/RLayerVectorTile");
+Object.defineProperty(exports, "RLayerVectorTile", { enumerable: true, get: function () { return __importDefault(RLayerVectorTile_1).default; } });
 var RScaleLine_1 = __importDefault(require("./control/RScaleLine"));
 var RAttribution_1 = __importDefault(require("./control/RAttribution"));
 var RZoom_1 = __importDefault(require("./control/RZoom"));

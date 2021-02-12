@@ -4,9 +4,9 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
+import {Pixel} from 'ol/pixel';
 import {RFeature, RLayerVector, RMap, RLocationContext} from 'react-layers';
 import * as common from './common';
-import {Pixel} from 'ol/pixel';
 
 describe('<RFeature>', () => {
     it('should create features', async () => {

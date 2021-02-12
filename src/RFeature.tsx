@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
+import {Layer} from 'ol/layer';
 import {StyleLike} from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import {getCenter} from 'ol/extent';
@@ -63,8 +64,8 @@ export interface RFeatureProps {
 export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static contextType = RVectorContext;
-    static lastFeatureEntered: undefined | Feature;
-    static lastFeatureDragged: undefined | Feature;
+    static lastFeatureEntered: undefined | {feature: Feature; layer: Layer};
+    static lastFeatureDragged: undefined | {feature: Feature; layer: Layer};
     static hitTolerance = 10;
     ol: Feature;
     context: RVectorContextType;
@@ -89,37 +90,60 @@ export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
+    static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean {
+        if (!event.target) event.target = feature;
+        if (feature.dispatchEvent) return feature.dispatchEvent(event);
+        if (layer?.get('_on' + event.type)) return layer.get('_on' + event.type)(event);
+        return true;
+    }
+
     // This doesn't support overlappig RFeatures (yet?)
     static eventRelay(e: MapBrowserEvent): boolean {
-        let feature = e.map.forEachFeatureAtPixel(e.pixel, (f: Feature) => f.dispatchEvent && f, {
-            hitTolerance: RFeature.hitTolerance
-        });
+        let {feature, layer} =
+            e.map.forEachFeatureAtPixel(
+                e.pixel,
+                (f: Feature, l: Layer) => ({feature: f, layer: l}),
+                {
+                    hitTolerance: RFeature.hitTolerance
+                }
+            ) ?? {};
         if (e.dragging) {
-            if (!RFeature.lastFeatureDragged) RFeature.lastFeatureDragged = feature;
-            feature = RFeature.lastFeatureDragged;
+            if (!RFeature.lastFeatureDragged?.feature)
+                RFeature.lastFeatureDragged = {feature, layer};
+            ({feature, layer} = RFeature.lastFeatureDragged);
         } else {
-            if (RFeature.lastFeatureDragged)
-                RFeature.lastFeatureDragged.dispatchEvent(
+            if (RFeature.lastFeatureDragged?.feature)
+                RFeature.dispatchEvent(
+                    RFeature.lastFeatureDragged.feature,
+                    RFeature.lastFeatureDragged.layer,
                     new MapBrowserEvent('pointerdragend', e.map, e.originalEvent)
                 );
             RFeature.lastFeatureDragged = undefined;
         }
 
         if (e.type === 'pointermove') {
-            if (RFeature.lastFeatureEntered !== feature) {
-                if (RFeature.lastFeatureEntered)
-                    RFeature.lastFeatureEntered.dispatchEvent(
+            if (RFeature.lastFeatureEntered?.feature !== feature) {
+                if (RFeature.lastFeatureEntered?.feature)
+                    RFeature.dispatchEvent(
+                        RFeature.lastFeatureEntered.feature,
+                        RFeature.lastFeatureEntered.layer,
                         new MapBrowserEvent('pointerleave', e.map, e.originalEvent)
                     );
-                RFeature.lastFeatureEntered = feature;
+                RFeature.lastFeatureEntered = {feature, layer};
                 if (feature)
-                    feature.dispatchEvent(
+                    RFeature.dispatchEvent(
+                        feature,
+                        layer,
                         new MapBrowserEvent('pointerenter', e.map, e.originalEvent)
                     );
             }
         }
         if (feature) {
-            return feature.dispatchEvent(new MapBrowserEvent(e.type, e.map, e.originalEvent));
+            return RFeature.dispatchEvent(
+                feature,
+                layer,
+                new MapBrowserEvent(e.type, e.map, e.originalEvent)
+            );
         }
         return true;
     }

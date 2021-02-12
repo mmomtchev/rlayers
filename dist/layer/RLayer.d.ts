@@ -20,7 +20,7 @@ export default class RLayer<P extends RLayerProps> extends ReactLayersBase<P, nu
     ol: Layer;
     source: Source;
     constructor(props: Readonly<P>, context: React.Context<Map>);
-    refresh(): void;
+    refresh(prevProps?: P): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
 }

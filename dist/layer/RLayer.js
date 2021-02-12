@@ -34,9 +34,9 @@ var RLayer = (function (_super) {
             throw new Error('A layer must be part of a map');
         return _this;
     }
-    RLayer.prototype.refresh = function () {
+    RLayer.prototype.refresh = function (prevProps) {
         var e_1, _a;
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         try {
             for (var _b = __values([
                 'visible',

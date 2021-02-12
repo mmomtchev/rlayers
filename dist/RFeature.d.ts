@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map as Map, MapBrowserEvent } from 'ol';
 import { Feature } from 'ol';
+import { Layer } from 'ol/layer';
 import { StyleLike } from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import { RVectorContextType } from './context';
@@ -22,14 +23,21 @@ export interface RFeatureProps {
 export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
     static pointerEvents: string[];
     static contextType: React.Context<any>;
-    static lastFeatureEntered: undefined | Feature;
-    static lastFeatureDragged: undefined | Feature;
+    static lastFeatureEntered: undefined | {
+        feature: Feature;
+        layer: Layer;
+    };
+    static lastFeatureDragged: undefined | {
+        feature: Feature;
+        layer: Layer;
+    };
     static hitTolerance: number;
     ol: Feature;
     context: RVectorContextType;
     onchange: () => boolean | void;
     constructor(props: Readonly<RFeatureProps>, context: React.Context<RVectorContextType>);
     static initEventRelay(map: Map): void;
+    static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean;
     static eventRelay(e: MapBrowserEvent): boolean;
     refresh(): void;
     componentDidMount(): void;

@@ -41,8 +41,8 @@ export default class RLayer<P extends RLayerProps> extends ReactLayersBase<P, nu
             throw new Error('A layer must be part of a map');
     }
 
-    refresh(): void {
-        super.refresh();
+    refresh(prevProps?: P): void {
+        super.refresh(prevProps);
         for (const p of [
             'visible',
             'opacity',

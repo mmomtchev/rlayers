@@ -76,31 +76,42 @@ var RFeature = (function (_super) {
             finally { if (e_1) throw e_1.error; }
         }
     };
+    RFeature.dispatchEvent = function (feature, layer, event) {
+        if (!event.target)
+            event.target = feature;
+        if (feature.dispatchEvent)
+            return feature.dispatchEvent(event);
+        if (layer === null || layer === void 0 ? void 0 : layer.get('_on' + event.type))
+            return layer.get('_on' + event.type)(event);
+        return true;
+    };
     RFeature.eventRelay = function (e) {
-        var feature = e.map.forEachFeatureAtPixel(e.pixel, function (f) { return f.dispatchEvent && f; }, {
+        var _a;
+        var _b, _c, _d, _e, _f;
+        var _g = (_b = e.map.forEachFeatureAtPixel(e.pixel, function (f, l) { return ({ feature: f, layer: l }); }, {
             hitTolerance: RFeature.hitTolerance
-        });
+        })) !== null && _b !== void 0 ? _b : {}, feature = _g.feature, layer = _g.layer;
         if (e.dragging) {
-            if (!RFeature.lastFeatureDragged)
-                RFeature.lastFeatureDragged = feature;
-            feature = RFeature.lastFeatureDragged;
+            if (!((_c = RFeature.lastFeatureDragged) === null || _c === void 0 ? void 0 : _c.feature))
+                RFeature.lastFeatureDragged = { feature: feature, layer: layer };
+            (_a = RFeature.lastFeatureDragged, feature = _a.feature, layer = _a.layer);
         }
         else {
-            if (RFeature.lastFeatureDragged)
-                RFeature.lastFeatureDragged.dispatchEvent(new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
+            if ((_d = RFeature.lastFeatureDragged) === null || _d === void 0 ? void 0 : _d.feature)
+                RFeature.dispatchEvent(RFeature.lastFeatureDragged.feature, RFeature.lastFeatureDragged.layer, new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
             RFeature.lastFeatureDragged = undefined;
         }
         if (e.type === 'pointermove') {
-            if (RFeature.lastFeatureEntered !== feature) {
-                if (RFeature.lastFeatureEntered)
-                    RFeature.lastFeatureEntered.dispatchEvent(new ol_1.MapBrowserEvent('pointerleave', e.map, e.originalEvent));
-                RFeature.lastFeatureEntered = feature;
+            if (((_e = RFeature.lastFeatureEntered) === null || _e === void 0 ? void 0 : _e.feature) !== feature) {
+                if ((_f = RFeature.lastFeatureEntered) === null || _f === void 0 ? void 0 : _f.feature)
+                    RFeature.dispatchEvent(RFeature.lastFeatureEntered.feature, RFeature.lastFeatureEntered.layer, new ol_1.MapBrowserEvent('pointerleave', e.map, e.originalEvent));
+                RFeature.lastFeatureEntered = { feature: feature, layer: layer };
                 if (feature)
-                    feature.dispatchEvent(new ol_1.MapBrowserEvent('pointerenter', e.map, e.originalEvent));
+                    RFeature.dispatchEvent(feature, layer, new ol_1.MapBrowserEvent('pointerenter', e.map, e.originalEvent));
             }
         }
         if (feature) {
-            return feature.dispatchEvent(new ol_1.MapBrowserEvent(e.type, e.map, e.originalEvent));
+            return RFeature.dispatchEvent(feature, layer, new ol_1.MapBrowserEvent(e.type, e.map, e.originalEvent));
         }
         return true;
     };
