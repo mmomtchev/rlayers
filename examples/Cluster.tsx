@@ -14,6 +14,8 @@ const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
 // Styles are copied with (almost) no modification from
 // https://openlayers.org/en/latest/examples/earthquake-clusters.html
 
+// RStyle is still missing some features to fully support this
+
 // Scroll down to "export default function Cluster()" for the react-layers code
 
 const earthquakeFill = new Fill({

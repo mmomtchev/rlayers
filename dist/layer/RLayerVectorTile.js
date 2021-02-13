@@ -31,6 +31,7 @@ var layer_1 = require("ol/layer");
 var source_1 = require("ol/source");
 var RLayer_1 = __importDefault(require("./RLayer"));
 var RFeature_1 = __importDefault(require("../RFeature"));
+var RStyle_1 = __importDefault(require("../style/RStyle"));
 var RLayerVectorTile = (function (_super) {
     __extends(RLayerVectorTile, _super);
     function RLayerVectorTile(props, context) {
@@ -39,7 +40,10 @@ var RLayerVectorTile = (function (_super) {
             url: _this.props.url,
             format: _this.props.format
         });
-        _this.ol = new layer_1.VectorTile({ style: _this.props.style, source: _this.source });
+        _this.ol = new layer_1.VectorTile({
+            style: RStyle_1.default.getStyle(_this.props.style),
+            source: _this.source
+        });
         _this.eventSources = [_this.ol, _this.source];
         RFeature_1.default.initEventRelay(_this.context);
         return _this;

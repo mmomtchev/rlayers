@@ -7,13 +7,17 @@ import FeatureFormat from 'ol/format/Feature';
 
 import {default as RLayer, RLayerProps} from './RLayer';
 import RFeature from '../RFeature';
+import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
 export interface RLayerVectorTileProps extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */
     url: string;
-    /** Style to be used for rendering the features */
-    style: StyleLike;
+    /** Style to be used for rendering the features
+     * You can use a dynamic style, but the property value must stay the same
+     * ie switching from a static OpenLayers style to a RefObject is not supported
+     */
+    style: RStyleLike;
     /** Vector tile format */
     format: FeatureFormat;
     /** onClick handler for loaded features */
@@ -29,6 +33,8 @@ export interface RLayerVectorTileProps extends RLayerProps {
  *
  * Supports loading of features from vector tile servers
  *
+ * Only the handlers can be dynamically modified
+ *
  * It does not provide a `RVectorContext` for JSX-declared `RFeature`s
  * and it is not compatible with RLayerVector
  */
@@ -43,7 +49,10 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
             url: this.props.url,
             format: this.props.format
         });
-        this.ol = new LayerVectorTile({style: this.props.style, source: this.source});
+        this.ol = new LayerVectorTile({
+            style: RStyle.getStyle(this.props.style),
+            source: this.source
+        });
         this.eventSources = [this.ol, this.source];
         RFeature.initEventRelay(this.context);
     }

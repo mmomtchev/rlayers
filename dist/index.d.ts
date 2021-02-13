@@ -2,7 +2,7 @@ export { MapEvent, MapBrowserEvent } from 'ol';
 export { default as RenderEvent } from 'ol/render/Event';
 export { VectorSourceEvent } from 'ol/source/Vector';
 export { ReactLayersBase } from './REvent';
-export { RMapContext, RLayerContext, RVectorContext, RVectorContextType, RLocationContext, RLocationContextType } from './context';
+export { RMapContext, RLayerContext, RVectorContext, RVectorContextType, RLocationContext, RLocationContextType, RStyleContext } from './context';
 export { default as RMap, RMapProps } from './RMap';
 export { default as RLayer, RLayerProps } from './layer/RLayer';
 export { default as RLayerTile, RLayerTileProps } from './layer/RLayerTile';
@@ -16,6 +16,7 @@ export { default as RLayerCluster, RLayerClusterProps } from './layer/RLayerClus
 export { default as RLayerVectorTile, RLayerVectorTileProps } from './layer/RLayerVectorTile';
 export * as RControl from './control';
 export * as RInteraction from './interaction';
+export * as RStyle from './style';
 export { default as RFeature, RFeatureProps } from './RFeature';
 export { default as ROverlay } from './ROverlay';
 export { default as RPopup } from './RPopup';

@@ -5,14 +5,14 @@ import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import { Vector as SourceVector } from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
-import { StyleLike } from 'ol/style/Style';
 import { default as RLayer, RLayerProps } from './RLayer';
+import { RStyleLike } from '../style/RStyle';
 export interface RLayerBaseVectorProps extends RLayerProps {
     url?: string;
     renderBuffer?: number;
     features?: Feature[];
     format?: FeatureFormat;
-    style?: StyleLike;
+    style?: RStyleLike;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onAddFeature?: (e: VectorSourceEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;

@@ -13,13 +13,14 @@ import {
     RLocationContextType
 } from './context';
 import {ReactLayersBase} from './REvent';
+import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
 export interface RFeatureProps {
     /** OpenLayers geometry, mutually exclusive with RFeature */
     geometry?: Geometry;
     /** OpenLayers style */
-    style?: StyleLike;
+    style?: RStyleLike;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** An OpenLayers RFeature, mutually exclusive with geometry */
@@ -148,14 +149,14 @@ export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
         return true;
     }
 
-    refresh(): void {
-        super.refresh();
+    refresh(prevProps: RFeatureProps): void {
+        super.refresh(prevProps);
         if (this.props.properties && this.props.properties !== this.ol.getProperties())
             this.ol.setProperties(this.props.properties);
         if (this.props.geometry && this.props.geometry !== this.ol.getGeometry())
             this.ol.setGeometry(this.props.geometry);
-        if (this.props.style && this.props.style !== this.ol.getStyle())
-            this.ol.setStyle(this.props.style);
+        if (this.props.style && this.props.style !== prevProps?.style)
+            this.ol.setStyle(RStyle.getStyle(this.props.style));
     }
 
     componentDidMount(): void {

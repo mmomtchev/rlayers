@@ -44,6 +44,7 @@ var ol_2 = require("ol");
 var extent_1 = require("ol/extent");
 var context_1 = require("./context");
 var REvent_1 = require("./REvent");
+var RStyle_1 = __importDefault(require("./style/RStyle"));
 var debug_1 = __importDefault(require("./debug"));
 var RFeature = (function (_super) {
     __extends(RFeature, _super);
@@ -115,14 +116,14 @@ var RFeature = (function (_super) {
         }
         return true;
     };
-    RFeature.prototype.refresh = function () {
-        _super.prototype.refresh.call(this);
+    RFeature.prototype.refresh = function (prevProps) {
+        _super.prototype.refresh.call(this, prevProps);
         if (this.props.properties && this.props.properties !== this.ol.getProperties())
             this.ol.setProperties(this.props.properties);
         if (this.props.geometry && this.props.geometry !== this.ol.getGeometry())
             this.ol.setGeometry(this.props.geometry);
-        if (this.props.style && this.props.style !== this.ol.getStyle())
-            this.ol.setStyle(this.props.style);
+        if (this.props.style && this.props.style !== (prevProps === null || prevProps === void 0 ? void 0 : prevProps.style))
+            this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
     };
     RFeature.prototype.componentDidMount = function () {
         debug_1.default('didMount', this.ol);

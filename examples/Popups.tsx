@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Fill, Stroke, Icon} from 'ol/style';
 import {Polygon, Point} from 'ol/geom';
-import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, RPopup, RStyle} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -15,22 +15,20 @@ const coords: Record<string, Coordinate> = {
     Montmartre: [2.342, 48.887]
 };
 
-const styles: Record<string, Style> = {
-    yellow: new Style({
-        stroke: new Stroke({color: 'yellow', width: 4}),
-        fill: new Fill({color: 'transparent'})
-    }),
-    location: new Style({
-        image: new Icon({
-            src: locationIcon,
-            anchor: [0.5, 0.8]
-        })
-    })
-};
-
 export default function Popups(): JSX.Element {
+    const styles = {
+        yellow: React.useRef() as RStyle.RStyleRef,
+        location: React.useRef() as RStyle.RStyleRef
+    };
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+            <RStyle.RStyle ref={styles.location}>
+                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+            </RStyle.RStyle>
+            <RStyle.RStyle ref={styles.yellow}>
+                <RStyle.RStroke color='yellow' width={4} />
+                <RStyle.RFill color='transparent' />
+            </RStyle.RStyle>
             <ROSM />
             <RLayerVector zIndex={10}>
                 <RFeature

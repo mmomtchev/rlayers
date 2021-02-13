@@ -1,9 +1,8 @@
 import React, {useCallback} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
-import {RMap, ROSM, RLayerVector, RFeature, ROverlay} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -11,24 +10,19 @@ const coords: Record<string, Coordinate> = {
     Montmartre: [2.342, 48.887]
 };
 
-const styles: Record<string, Style> = {
-    location: new Style({
-        image: new Icon({
-            src: locationIcon,
-            anchor: [0.5, 0.8]
-        })
-    })
-};
-
 export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
+    const location = React.useRef() as RStyle.RStyleRef;
     return (
         <React.Fragment>
+            <RStyle.RStyle ref={location}>
+                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+            </RStyle.RStyle>
             <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
                 <ROSM />
                 <RLayerVector>
                     <RFeature
-                        style={styles.location}
+                        style={location}
                         geometry={new Point(fromLonLat(loc))}
                         // useCallback is here for performance reasons
                         // without it RFeature will have its props updated at every call

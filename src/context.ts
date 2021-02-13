@@ -33,3 +33,5 @@ export interface RVectorContextType {
 }
 
 export const RVectorContext = React.createContext(null);
+
+export const RStyleContext = React.createContext(null);

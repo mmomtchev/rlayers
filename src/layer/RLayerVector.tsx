@@ -4,6 +4,7 @@ import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
+import {default as RStyle} from '../style/RStyle';
 import debug from '../debug';
 
 /**
@@ -25,7 +26,7 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
             url: this.props.url,
             format: this.props.format
         });
-        this.ol = new LayerVector({style: this.props.style, source: this.source});
+        this.ol = new LayerVector({style: RStyle.getStyle(this.props.style), source: this.source});
         this.eventSources = [this.ol, this.source];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);

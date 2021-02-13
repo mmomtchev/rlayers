@@ -20,4 +20,5 @@ export interface RVectorContextType {
     source: SourceVector;
 }
 export declare const RVectorContext: React.Context<any>;
+export declare const RStyleContext: React.Context<any>;
 //# sourceMappingURL=context.d.ts.map

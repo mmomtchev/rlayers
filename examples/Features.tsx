@@ -2,26 +2,26 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
-import {RMap, ROSM, RLayerVector, MapBrowserEvent} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'react-layers';
 import geojsonFeatures from './data/geo.json';
-
-const styles: Record<string, Style> = {
-    blueContours: new Style({
-        stroke: new Stroke({color: '#007bff', width: 3}),
-        fill: new Fill({color: 'transparent'})
-    }),
-    blueDot: new Style({
-        image: new Circle({
-            radius: 5,
-            fill: new Fill({color: 'blue'})
-        })
-    })
-};
 
 export default function Features(): JSX.Element {
     const [flow, setFlow] = React.useState([]);
+    const styles = {
+        blueDot: React.useRef() as RStyle.RStyleRef,
+        blueContours: React.useRef() as RStyle.RStyleRef
+    };
     return (
         <div className='d-flex flex-row'>
+            <RStyle.RStyle ref={styles.blueContours}>
+                <RStyle.RStroke color='#007bff' width={3} />
+                <RStyle.RFill color='transparent' />
+            </RStyle.RStyle>
+            <RStyle.RStyle ref={styles.blueDot}>
+                <RStyle.RCircle radius={5}>
+                    <RStyle.RFill color='blue' />
+                </RStyle.RCircle>
+            </RStyle.RStyle>
             <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
                 <ROSM />
                 {/* From a static file included at bundling time */}

@@ -19,6 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var layer_1 = require("ol/layer");
 var source_1 = require("ol/source");
 var RLayerBaseVector_1 = __importDefault(require("./RLayerBaseVector"));
+var RStyle_1 = __importDefault(require("../style/RStyle"));
 var RLayerVector = (function (_super) {
     __extends(RLayerVector, _super);
     function RLayerVector(props, context) {
@@ -28,7 +29,7 @@ var RLayerVector = (function (_super) {
             url: _this.props.url,
             format: _this.props.format
         });
-        _this.ol = new layer_1.Vector({ style: _this.props.style, source: _this.source });
+        _this.ol = new layer_1.Vector({ style: RStyle_1.default.getStyle(_this.props.style), source: _this.source });
         _this.eventSources = [_this.ol, _this.source];
         _this.source.on('featuresloadend', _this.newFeature);
         _this.source.on('addfeature', _this.newFeature);

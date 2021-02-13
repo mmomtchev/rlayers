@@ -5,11 +5,11 @@ import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
-import {StyleLike} from 'ol/style/Style';
 
 import {RVectorContext, RVectorContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature} from '../RFeature';
+import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
 export interface RLayerBaseVectorProps extends RLayerProps {
@@ -24,7 +24,7 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     /** Format of the features when `url` is used */
     format?: FeatureFormat;
     /** OpenLayers default style for features without `style` */
-    style?: StyleLike;
+    style?: RStyleLike;
     /** Default onClick handler for loaded features */
     onClick?: (e: MapBrowserEvent) => boolean | void;
     /** Called when a feature is added, not called for features
@@ -89,7 +89,8 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     refresh(prevProps?: P): void {
         super.refresh();
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
-        if (!prevProps || prevProps.style !== this.props.style) this.ol.setStyle(this.props.style);
+        if (!prevProps || prevProps.style !== this.props.style)
+            this.ol.setStyle(RStyle.getStyle(this.props.style));
     }
 
     render(): JSX.Element {

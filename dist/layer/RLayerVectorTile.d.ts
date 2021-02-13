@@ -2,12 +2,12 @@ import React from 'react';
 import { Map, MapBrowserEvent } from 'ol';
 import { VectorTile as LayerVectorTile } from 'ol/layer';
 import { VectorTile as SourceVectorTile } from 'ol/source';
-import { StyleLike } from 'ol/style/Style';
 import FeatureFormat from 'ol/format/Feature';
 import { default as RLayer, RLayerProps } from './RLayer';
+import { RStyleLike } from '../style/RStyle';
 export interface RLayerVectorTileProps extends RLayerProps {
     url: string;
-    style: StyleLike;
+    style: RStyleLike;
     format: FeatureFormat;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;

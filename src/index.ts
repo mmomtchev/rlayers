@@ -9,7 +9,8 @@ export {
     RVectorContext,
     RVectorContextType,
     RLocationContext,
-    RLocationContextType
+    RLocationContextType,
+    RStyleContext
 } from './context';
 export {default as RMap, RMapProps} from './RMap';
 
@@ -30,6 +31,7 @@ export {default as RLayerVectorTile, RLayerVectorTileProps} from './layer/RLayer
 
 export * as RControl from './control';
 export * as RInteraction from './interaction';
+export * as RStyle from './style';
 
 export {default as RFeature, RFeatureProps} from './RFeature';
 export {default as ROverlay} from './ROverlay';

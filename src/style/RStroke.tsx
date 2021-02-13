@@ -1,0 +1,38 @@
+import React from 'react';
+import {ColorLike} from 'ol/colorlike';
+import {Stroke} from 'ol/style';
+
+import {default as RStyleBase, RStyleBaseProps} from './RStyleBase';
+import debug from '../debug';
+
+export interface RStrokeProps extends RStyleBaseProps {
+    /** color */
+    color: ColorLike;
+    /** width */
+    width: number;
+    /** Canvas line cap style: 'butt', 'round' or 'square'
+     * @default 'round'
+     */
+    lineCap?: CanvasLineCap;
+    /** Canvas line join style: 'bevel', 'round' or 'miter
+     * @default 'round
+     */
+    lineJoin?: CanvasLineJoin;
+}
+
+/** A component for setting the stroke properties of a style */
+export default class RStroke extends RStyleBase<RStrokeProps> {
+    static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
+    ol: Stroke;
+
+    create(props: RStrokeProps): Stroke {
+        this.classProps = RStroke.classProps;
+        return new Stroke(props);
+    }
+
+    set(ol: Stroke): void {
+        if (this.context.setStroke) return this.context.setStroke(ol);
+        /* istanbul ignore next */
+        throw new Error('Parent element does not support a stroke');
+    }
+}

@@ -30,6 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var layer_1 = require("ol/layer");
 var source_1 = require("ol/source");
 var RLayerBaseVector_1 = __importDefault(require("./RLayerBaseVector"));
+var RStyle_1 = __importDefault(require("../style/RStyle"));
 var RLayerCluster = (function (_super) {
     __extends(RLayerCluster, _super);
     function RLayerCluster(props, context) {
@@ -40,7 +41,7 @@ var RLayerCluster = (function (_super) {
             format: _this.props.format
         });
         _this.source = new source_1.Cluster({ source: _this.cluster, distance: _this.props.distance });
-        _this.ol = new layer_1.Vector(__assign({ source: _this.source }, props));
+        _this.ol = new layer_1.Vector(__assign(__assign({}, props), { source: _this.source, style: RStyle_1.default.getStyle(props.style) }));
         _this.eventSources = [_this.ol, _this.source];
         _this.source.on('RFeaturesloadend', _this.newFeature);
         _this.source.on('addRFeature', _this.newFeature);

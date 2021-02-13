@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
-import {RMap, ROSM, RLayerVector, RFeature, ROverlay} from 'react-layers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'react-layers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -11,22 +11,17 @@ const coords: Record<string, Coordinate> = {
     ArcDeTriomphe: [2.295, 48.8737]
 };
 
-const styles: Record<string, Style> = {
-    location: new Style({
-        image: new Icon({
-            src: locationIcon,
-            anchor: [0.5, 0.8]
-        })
-    })
-};
-
 export default function Overlays(): JSX.Element {
+    const style = React.useRef() as RStyle.RStyleRef;
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+            <RStyle.RStyle ref={style}>
+                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+            </RStyle.RStyle>
             <ROSM />
             <RLayerVector zIndex={10}>
                 <RFeature
-                    style={styles.location}
+                    style={style}
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                     onClick={useCallback(
                         (e) =>

@@ -46,6 +46,12 @@ module.exports = {
             ignore: 'src/control/RControlBase.tsx'
         },
         {
+            name: 'Style',
+            description: 'Components for creating styles',
+            components: 'src/style/R[A-Z]*.tsx',
+            ignore: 'src/style/R@(StyleBase|Image).tsx'
+        },
+        {
             name: 'Interaction',
             description: 'Components for handling interactions',
             components: 'src/interaction/R[A-Z]*.tsx',

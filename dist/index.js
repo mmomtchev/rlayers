@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RPopup = exports.ROverlay = exports.RFeature = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.RPopup = exports.ROverlay = exports.RFeature = exports.RStyle = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RStyleContext = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -37,6 +37,7 @@ Object.defineProperty(exports, "RMapContext", { enumerable: true, get: function 
 Object.defineProperty(exports, "RLayerContext", { enumerable: true, get: function () { return context_1.RLayerContext; } });
 Object.defineProperty(exports, "RVectorContext", { enumerable: true, get: function () { return context_1.RVectorContext; } });
 Object.defineProperty(exports, "RLocationContext", { enumerable: true, get: function () { return context_1.RLocationContext; } });
+Object.defineProperty(exports, "RStyleContext", { enumerable: true, get: function () { return context_1.RStyleContext; } });
 var RMap_1 = require("./RMap");
 Object.defineProperty(exports, "RMap", { enumerable: true, get: function () { return __importDefault(RMap_1).default; } });
 var RLayer_1 = require("./layer/RLayer");
@@ -61,6 +62,7 @@ var RLayerVectorTile_1 = require("./layer/RLayerVectorTile");
 Object.defineProperty(exports, "RLayerVectorTile", { enumerable: true, get: function () { return __importDefault(RLayerVectorTile_1).default; } });
 exports.RControl = __importStar(require("./control"));
 exports.RInteraction = __importStar(require("./interaction"));
+exports.RStyle = __importStar(require("./style"));
 var RFeature_1 = require("./RFeature");
 Object.defineProperty(exports, "RFeature", { enumerable: true, get: function () { return __importDefault(RFeature_1).default; } });
 var ROverlay_1 = require("./ROverlay");

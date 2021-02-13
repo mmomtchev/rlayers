@@ -31,6 +31,7 @@ var react_1 = __importDefault(require("react"));
 var context_1 = require("../context");
 var RLayer_1 = __importDefault(require("./RLayer"));
 var RFeature_1 = __importDefault(require("../RFeature"));
+var RStyle_1 = __importDefault(require("../style/RStyle"));
 var RLayerBaseVector = (function (_super) {
     __extends(RLayerBaseVector, _super);
     function RLayerBaseVector(props, context) {
@@ -107,7 +108,7 @@ var RLayerBaseVector = (function (_super) {
         _super.prototype.refresh.call(this);
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (!prevProps || prevProps.style !== this.props.style)
-            this.ol.setStyle(this.props.style);
+            this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
     };
     RLayerBaseVector.prototype.render = function () {
         return (react_1.default.createElement(context_1.RVectorContext.Provider, { value: { map: this.context, layer: this.ol, source: this.source } }, this.props.children));

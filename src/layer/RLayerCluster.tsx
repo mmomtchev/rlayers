@@ -4,6 +4,7 @@ import {Vector as OLRLayerVector} from 'ol/layer';
 import {Vector as OLSourceVector, Cluster as OLSourceCluster} from 'ol/source';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
+import {default as RStyle} from '../style/RStyle';
 
 export interface RLayerClusterProps extends RLayerBaseVectorProps {
     /** Clustering distance */
@@ -31,7 +32,11 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
             format: this.props.format
         });
         this.source = new OLSourceCluster({source: this.cluster, distance: this.props.distance});
-        this.ol = new OLRLayerVector({source: this.source, ...props});
+        this.ol = new OLRLayerVector({
+            ...props,
+            source: this.source,
+            style: RStyle.getStyle(props.style)
+        });
         this.eventSources = [this.ol, this.source];
         this.source.on('RFeaturesloadend', this.newFeature);
         this.source.on('addRFeature', this.newFeature);

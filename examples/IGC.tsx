@@ -21,6 +21,7 @@ import {
     RLayerTile,
     RLayerVector,
     RFeature,
+    RStyle,
     RenderEvent,
     MapBrowserEvent,
     VectorSourceEvent
@@ -42,25 +43,14 @@ const igcsDesc = [
     {c: 'rgba(0, 215, 255, 0.7)', i: UlrichPrinz}
 ];
 
-// Don't even think about creating styles dynamically
+// A dynamic RStyle will create a new object at every render
+// In the future RStyle will have a caching ability but
+// at the moment this is still not the case
 const contours = (c: string) =>
     new Style({
         stroke: new Stroke({color: c, width: 3}),
         fill: new Fill({color: 'transparent'})
     });
-const redCircle = new Style({
-    stroke: new Stroke({color: 'red', width: 1}),
-    image: new Circle({
-        stroke: new Stroke({color: 'red', width: 2}),
-        radius: 6
-    })
-});
-const blueCircle = new Style({
-    image: new Circle({
-        stroke: new Stroke({color: 'blue', width: 2}),
-        radius: 6
-    })
-});
 
 // A constant avoids re-rendering of the component
 // a property initialized with an anonymous object is not constant
@@ -84,6 +74,11 @@ export default function IGCComp(): JSX.Element {
         return [];
     });
 
+    const styles = {
+        redCircle: React.useRef() as RStyle.RStyleRef,
+        blueCircle: React.useRef() as RStyle.RStyleRef
+    };
+
     // createRef insted of useRef here will severely impact performance
     const igcVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
     const highlightVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
@@ -91,6 +86,17 @@ export default function IGCComp(): JSX.Element {
 
     return (
         <React.Fragment>
+            <RStyle.RStyle ref={styles.redCircle}>
+                <RStyle.RStroke color='red' width={1} />
+                <RStyle.RCircle radius={6}>
+                    <RStyle.RFill color='red' />
+                </RStyle.RCircle>
+            </RStyle.RStyle>
+            <RStyle.RStyle ref={styles.blueCircle}>
+                <RStyle.RCircle radius={6}>
+                    <RStyle.RFill color='blue' />
+                </RStyle.RCircle>
+            </RStyle.RStyle>
             <RMap
                 className='example-map'
                 center={origin}
@@ -144,13 +150,13 @@ export default function IGCComp(): JSX.Element {
                         // LayerVector is re-rendered every time point/line change
                         (e: RenderEvent) => {
                             const vectorContext = getVectorContext(e);
-                            vectorContext.setStyle(redCircle);
+                            vectorContext.setStyle(styles.redCircle.current.ol as Style);
                             if (point && line) {
                                 vectorContext.drawGeometry(point);
                                 vectorContext.drawGeometry(line);
                             }
                         },
-                        [point, line]
+                        [point, line, styles.redCircle]
                     )}
                 >
                     {React.useMemo(
@@ -174,7 +180,7 @@ export default function IGCComp(): JSX.Element {
                         [igcs]
                     )}
                 </RLayerVector>
-                <RLayerVector zIndex={10} ref={highlightVectorLayer} style={blueCircle}>
+                <RLayerVector zIndex={10} ref={highlightVectorLayer} style={styles.blueCircle}>
                     {React.useMemo(
                         () => (
                             // This component appears dynamic to React because of the map but it is in fact constant

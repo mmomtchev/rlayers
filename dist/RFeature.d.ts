@@ -2,13 +2,13 @@ import React from 'react';
 import { Map as Map, MapBrowserEvent } from 'ol';
 import { Feature } from 'ol';
 import { Layer } from 'ol/layer';
-import { StyleLike } from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import { RVectorContextType } from './context';
 import { ReactLayersBase } from './REvent';
+import { RStyleLike } from './style/RStyle';
 export interface RFeatureProps {
     geometry?: Geometry;
-    style?: StyleLike;
+    style?: RStyleLike;
     properties?: Record<string, unknown>;
     feature?: Feature;
     onClick?: (e: MapBrowserEvent) => boolean | void;
@@ -39,7 +39,7 @@ export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
     static initEventRelay(map: Map): void;
     static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean;
     static eventRelay(e: MapBrowserEvent): boolean;
-    refresh(): void;
+    refresh(prevProps: RFeatureProps): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;
