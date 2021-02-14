@@ -5,7 +5,8 @@ module.exports = {
     },
     transformIgnorePatterns: ['/node_modules/(?!ol)'],
     moduleNameMapper: {
-        'react-layers': ['../src'],
+        '^react-layers$': '<rootDir>/src',
+        '^react-layers\/(.*)$': '<rootDir>/src/$1',
         '\\.(css|less)$': '<rootDir>/test/css.js'
     },
     setupFiles: ['jest-canvas-mock'],
@@ -15,6 +16,7 @@ module.exports = {
     ],
     testRegex: '/test/.*\\.test\\.tsx?$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    //moduleDirectories: ['<rootDir>/src', '<rootDir>/src/style', '<rootDir>/node_modules'],
     collectCoverage: true,
     coverageReporters: ['json', 'lcov', 'text', 'clover']
 };

@@ -49,7 +49,7 @@ module.exports = {
             name: 'Style',
             description: 'Components for creating styles',
             components: 'src/style/R[A-Z]*.tsx',
-            ignore: 'src/style/R@(StyleBase|Image).tsx'
+            ignore: 'src/style/R@(Base|Image).tsx'
         },
         {
             name: 'Interaction',

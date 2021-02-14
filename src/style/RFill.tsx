@@ -2,16 +2,16 @@ import React from 'react';
 import {ColorLike} from 'ol/colorlike';
 import {Fill} from 'ol/style';
 
-import {default as RStyleBase, RStyleBaseProps} from './RStyleBase';
+import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
-export interface RFillProps extends RStyleBaseProps {
+export interface RFillProps extends RBaseProps {
     /** color */
     color?: ColorLike;
 }
 
 /** A component for adding a fill to a Style */
-export default class RFill extends RStyleBase<RFillProps> {
+export default class RFill extends RBase<RFillProps> {
     static classProps = ['color'];
     ol: Fill;
 

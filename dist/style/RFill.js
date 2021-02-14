@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var style_1 = require("ol/style");
-var RStyleBase_1 = __importDefault(require("./RStyleBase"));
+var RBase_1 = __importDefault(require("./RBase"));
 var RFill = (function (_super) {
     __extends(RFill, _super);
     function RFill() {
@@ -34,6 +34,6 @@ var RFill = (function (_super) {
     };
     RFill.classProps = ['color'];
     return RFill;
-}(RStyleBase_1.default));
+}(RBase_1.default));
 exports.default = RFill;
 //# sourceMappingURL=RFill.js.map

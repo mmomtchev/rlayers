@@ -21,7 +21,6 @@ describe('<RDragBox>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RInteraction.RDragBox />)).toThrow('must be part of a');

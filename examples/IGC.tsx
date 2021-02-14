@@ -12,7 +12,6 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import IGC from 'ol/format/IGC';
-import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {getVectorContext} from 'ol/render';
 import {LineString, Point} from 'ol/geom';
 
@@ -21,11 +20,11 @@ import {
     RLayerTile,
     RLayerVector,
     RFeature,
-    RStyle,
     RenderEvent,
     MapBrowserEvent,
     VectorSourceEvent
 } from 'react-layers';
+import {RStyle, RStyleRef, RCircle, RFill, RStroke} from 'react-layers/style';
 
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
 import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';
@@ -36,21 +35,12 @@ import UlrichPrinz from '!!file-loader!./data/igc/Ulrich-Prinz.igc';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 
 const igcsDesc = [
-    {c: 'rgba(0, 0, 255, 0.7)', i: ClementLatour},
-    {c: 'rgba(0, 215, 255, 0.7)', i: DamienDeBaenst},
-    {c: 'rgba(0, 165, 255, 0.7)', i: SylvainDhonneur},
-    {c: 'rgba(0, 255, 255, 0.7)', i: TomPayne},
-    {c: 'rgba(0, 215, 255, 0.7)', i: UlrichPrinz}
+    {c: 'rgba(0, 0, 250, 0.7)', i: ClementLatour},
+    {c: 'rgba(0, 50, 200, 0.7)', i: DamienDeBaenst},
+    {c: 'rgba(0, 100, 150, 0.7)', i: SylvainDhonneur},
+    {c: 'rgba(0, 150, 200, 0.7)', i: TomPayne},
+    {c: 'rgba(0, 200, 50, 0.7)', i: UlrichPrinz}
 ];
-
-// A dynamic RStyle will create a new object at every render
-// In the future RStyle will have a caching ability but
-// at the moment this is still not the case
-const contours = (c: string) =>
-    new Style({
-        stroke: new Stroke({color: c, width: 3}),
-        fill: new Fill({color: 'transparent'})
-    });
 
 // A constant avoids re-rendering of the component
 // a property initialized with an anonymous object is not constant
@@ -75,8 +65,11 @@ export default function IGCComp(): JSX.Element {
     });
 
     const styles = {
-        redCircle: React.useRef() as RStyle.RStyleRef,
-        blueCircle: React.useRef() as RStyle.RStyleRef
+        redCircle: React.useRef() as RStyleRef,
+        blueCircle: React.useRef() as RStyleRef,
+        // This is a technique for an array of React.RefObjects
+        // It is ugly but it works
+        flightPath: React.useRef([]) as React.RefObject<RStyle[]>
     };
 
     // createRef insted of useRef here will severely impact performance
@@ -86,17 +79,28 @@ export default function IGCComp(): JSX.Element {
 
     return (
         <React.Fragment>
-            <RStyle.RStyle ref={styles.redCircle}>
-                <RStyle.RStroke color='red' width={1} />
-                <RStyle.RCircle radius={6}>
-                    <RStyle.RFill color='red' />
-                </RStyle.RCircle>
-            </RStyle.RStyle>
-            <RStyle.RStyle ref={styles.blueCircle}>
-                <RStyle.RCircle radius={6}>
-                    <RStyle.RFill color='blue' />
-                </RStyle.RCircle>
-            </RStyle.RStyle>
+            {React.useMemo(
+                // This is not a dynamic RStyle, these are 5 static RStyle's
+                // Thus the useMemo
+                () =>
+                    igcsDesc.map((igc, idx) => (
+                        <RStyle key={idx} ref={(el) => (styles.flightPath.current[idx] = el)}>
+                            <RStroke color={igc.c} width={3} />
+                        </RStyle>
+                    )),
+                [styles.flightPath]
+            )}
+            <RStyle ref={styles.redCircle}>
+                <RStroke color='red' width={1} />
+                <RCircle radius={6}>
+                    <RFill color='red' />
+                </RCircle>
+            </RStyle>
+            <RStyle ref={styles.blueCircle}>
+                <RCircle radius={6}>
+                    <RFill color='blue' />
+                </RCircle>
+            </RStyle>
             <RMap
                 className='example-map'
                 center={origin}
@@ -150,7 +154,7 @@ export default function IGCComp(): JSX.Element {
                         // LayerVector is re-rendered every time point/line change
                         (e: RenderEvent) => {
                             const vectorContext = getVectorContext(e);
-                            vectorContext.setStyle(styles.redCircle.current.ol as Style);
+                            vectorContext.setStyle(RStyle.getStyleStatic(styles.redCircle));
                             if (point && line) {
                                 vectorContext.drawGeometry(point);
                                 vectorContext.drawGeometry(line);
@@ -172,12 +176,12 @@ export default function IGCComp(): JSX.Element {
                                                 featureProjection: 'EPSG:3857'
                                             })[0]
                                         }
-                                        style={contours(igcsDesc[idx].c)}
+                                        style={styles.flightPath.current[idx]}
                                     />
                                 ))}
                             </React.Fragment>
                         ),
-                        [igcs]
+                        [igcs, styles.flightPath]
                     )}
                 </RLayerVector>
                 <RLayerVector zIndex={10} ref={highlightVectorLayer} style={styles.blueCircle}>

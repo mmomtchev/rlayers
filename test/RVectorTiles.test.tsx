@@ -25,7 +25,6 @@ describe('<RLayerVectorTiles>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RLayerVectorTile {...props} />)).toThrow('must be part of');

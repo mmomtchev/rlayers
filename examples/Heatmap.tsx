@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
+
 import {RMap, RLayerStamen, RLayerHeatmap} from 'react-layers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)

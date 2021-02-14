@@ -1,8 +1,8 @@
 /// <reference types="react" />
 import { Text } from 'ol/style';
 import { Size } from 'ol/size';
-import { default as RStyleBase, RStyleBaseProps } from './RStyleBase';
-export interface RTextProps extends RStyleBaseProps {
+import { default as RBase, RBaseProps } from './RBase';
+export interface RTextProps extends RBaseProps {
     text: string;
     font?: string;
     offsetx?: number;
@@ -13,7 +13,7 @@ export interface RTextProps extends RStyleBaseProps {
     textAlign?: string;
     padding?: number[];
 }
-export default class RText extends RStyleBase<RTextProps> {
+export default class RText extends RBase<RTextProps> {
     static classProps: string[];
     ol: Text;
     create(props: RTextProps): Text;

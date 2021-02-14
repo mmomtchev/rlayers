@@ -19,7 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var style_1 = require("ol/style");
 var context_1 = require("../context");
-var RStyleBase_1 = __importDefault(require("./RStyleBase"));
+var RBase_1 = __importDefault(require("./RBase"));
 var RText = (function (_super) {
     __extends(RText, _super);
     function RText() {
@@ -40,6 +40,6 @@ var RText = (function (_super) {
     };
     RText.classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     return RText;
-}(RStyleBase_1.default));
+}(RBase_1.default));
 exports.default = RText;
 //# sourceMappingURL=RText.js.map

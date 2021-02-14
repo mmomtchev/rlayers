@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Style, Icon} from 'ol/style';
 import {Point} from 'ol/geom';
 import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'react-layers';
 import locationIcon from './svg/location.svg';

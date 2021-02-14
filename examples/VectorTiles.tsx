@@ -58,7 +58,7 @@ export default function VectorTiles(): JSX.Element {
                     );
                 }}
             />
-            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={8}>
                 {/* This is the background raster map */}
                 <RLayerTile
                     properties={{label: 'Watercolor'}}

@@ -2,7 +2,7 @@ import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Style, Stroke, Fill} from 'ol/style';
-import {RMap, ROSM, RLayerTile, RLayerVector, RControl} from 'react-layers';
+import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle} from 'react-layers';
 import layersIcon from './svg/layers.svg';
 
 const layersButton = (
@@ -11,14 +11,14 @@ const layersButton = (
     </button>
 );
 
-const blueContours = new Style({
-    stroke: new Stroke({color: '#007bff', width: 3}),
-    fill: new Fill({color: 'transparent'})
-});
-
 export default function Layers(): JSX.Element {
+    const blueContours = React.useRef() as RStyle.RStyleRef;
     return (
         <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+            <RStyle.RStyle ref={blueContours}>
+                <RStyle.RStroke color='#007bff' width={3} />
+                <RStyle.RFill color='transparent' />
+            </RStyle.RStyle>
             <RControl.RLayers element={layersButton}>
                 <ROSM properties={{label: 'OpenStreetMap'}} />
                 <RLayerTile

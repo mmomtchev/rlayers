@@ -22,7 +22,8 @@
         "moduleResolution": "node",
         "downlevelIteration": true,
         "paths": {
-            "react-layers": [ "./src" ]
+            "react-layers": [ "./src" ],
+            "react-layers/*": [ "./src/*" ]
         }
     },
     "include": [

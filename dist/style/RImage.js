@@ -16,7 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var RStyleBase_1 = __importDefault(require("./RStyleBase"));
+var RBase_1 = __importDefault(require("./RBase"));
 var RImage = (function (_super) {
     __extends(RImage, _super);
     function RImage() {
@@ -32,6 +32,6 @@ var RImage = (function (_super) {
     };
     RImage.classProps = ['opacity', 'rotateWithView', 'rotation', 'scale', 'displacement'];
     return RImage;
-}(RStyleBase_1.default));
+}(RBase_1.default));
 exports.default = RImage;
 //# sourceMappingURL=RImage.js.map

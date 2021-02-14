@@ -1,9 +1,11 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Style, Fill, Stroke, Icon} from 'ol/style';
 import {Polygon, Point} from 'ol/geom';
-import {RMap, ROSM, RLayerVector, RFeature, RPopup, RStyle} from 'react-layers';
+
+import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
+import {RStyle, RStyleRef, RIcon, RFill, RStroke} from 'react-layers/style';
+
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -17,18 +19,18 @@ const coords: Record<string, Coordinate> = {
 
 export default function Popups(): JSX.Element {
     const styles = {
-        yellow: React.useRef() as RStyle.RStyleRef,
-        location: React.useRef() as RStyle.RStyleRef
+        yellow: React.useRef() as RStyleRef,
+        location: React.useRef() as RStyleRef
     };
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-            <RStyle.RStyle ref={styles.location}>
-                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-            </RStyle.RStyle>
-            <RStyle.RStyle ref={styles.yellow}>
-                <RStyle.RStroke color='yellow' width={4} />
-                <RStyle.RFill color='transparent' />
-            </RStyle.RStyle>
+            <RStyle ref={styles.location}>
+                <RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+            </RStyle>
+            <RStyle ref={styles.yellow}>
+                <RStroke color='yellow' width={4} />
+                <RFill color='transparent' />
+            </RStyle>
             <ROSM />
             <RLayerVector zIndex={10}>
                 <RFeature

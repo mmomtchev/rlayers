@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {fromLonLat, toLonLat} from 'ol/proj';
+
 import {RMap, RMapContext, ROSM, RControl} from 'react-layers';
 
 const origin = [2.364, 48.82];

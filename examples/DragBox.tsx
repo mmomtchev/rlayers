@@ -3,6 +3,7 @@ import {fromLonLat, toLonLat} from 'ol/proj';
 import {DragBoxEvent} from 'ol/interaction/DragBox';
 import {Coordinate} from 'ol/coordinate';
 import {shiftKeyOnly} from 'ol/events/condition';
+
 import {RMap, ROSM, RInteraction} from 'react-layers';
 
 export default function DragBox(): JSX.Element {

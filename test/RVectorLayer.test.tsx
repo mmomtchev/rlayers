@@ -23,7 +23,6 @@ describe('<RLayerVector>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RLayerVector />)).toThrow('must be part of');

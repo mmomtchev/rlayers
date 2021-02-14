@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var style_1 = require("ol/style");
-var RStyleBase_1 = __importDefault(require("./RStyleBase"));
+var RBase_1 = __importDefault(require("./RBase"));
 var RStroke = (function (_super) {
     __extends(RStroke, _super);
     function RStroke() {
@@ -34,6 +34,6 @@ var RStroke = (function (_super) {
     };
     RStroke.classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     return RStroke;
-}(RStyleBase_1.default));
+}(RBase_1.default));
 exports.default = RStroke;
 //# sourceMappingURL=RStroke.js.map

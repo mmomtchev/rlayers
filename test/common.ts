@@ -1,4 +1,5 @@
-import {PluggableMap} from 'ol';
+/* istanbul ignore file */
+import {Map} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
@@ -14,7 +15,7 @@ export const mapProps = {
 
 export function createEvent(
     evname: string,
-    map: PluggableMap,
+    map: Map,
     coords?: number,
     dragging?: boolean
 ): MapBrowserEvent {

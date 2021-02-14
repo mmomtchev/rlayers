@@ -6,10 +6,10 @@ import {Size} from 'ol/size';
 
 import {RStyleContext} from '../context';
 import RStyle from './RStyle';
-import {default as RStyleBase, RStyleBaseProps} from './RStyleBase';
+import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
-export interface RTextProps extends RStyleBaseProps {
+export interface RTextProps extends RBaseProps {
     /** The text that will be displayed */
     text: string;
     /** Font */
@@ -31,7 +31,7 @@ export interface RTextProps extends RStyleBaseProps {
 }
 
 /** Text element of a style */
-export default class RText extends RStyleBase<RTextProps> {
+export default class RText extends RBase<RTextProps> {
     static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     ol: Text;
 

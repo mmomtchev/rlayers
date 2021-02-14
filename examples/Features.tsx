@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Style, Stroke, Circle, Fill} from 'ol/style';
+
 import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'react-layers';
+
 import geojsonFeatures from './data/geo.json';
 
 export default function Features(): JSX.Element {

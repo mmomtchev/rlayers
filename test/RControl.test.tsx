@@ -41,7 +41,7 @@ describe('<RControl>', () => {
                 </RControl.ROverviewMap>
             </RMap>
         );
-        const {container, getByLabelText, rerender} = render(comp);
+        const {container, getByLabelText, rerender, unmount} = render(comp);
         expect(container.innerHTML).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
@@ -51,9 +51,9 @@ describe('<RControl>', () => {
         const radio = getByLabelText('toner') as HTMLInputElement;
         fireEvent.click(radio);
         expect(container.innerHTML).toMatchSnapshot();
+        unmount();
     });
     it('should throw an error without a Map', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RControl.RZoom />)).toThrow('must be part of');

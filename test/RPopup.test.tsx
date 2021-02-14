@@ -104,7 +104,6 @@ describe('<RPopup>', () => {
         unmount();
     });
     it('should throw an error without a Feature', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() =>

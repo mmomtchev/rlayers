@@ -34,7 +34,7 @@ var RStyle = (function (_super) {
             react_dom_1.default.render(render, document.createElement('div'));
             return style;
         };
-        if (_this.props.render)
+        if (props.render)
             _this.ol = _this.style;
         else
             _this.ol = new Style_1.default({});
@@ -43,12 +43,6 @@ var RStyle = (function (_super) {
     RStyle.prototype.refresh = function (prevProps) {
         _super.prototype.refresh.call(this, prevProps);
     };
-    RStyle.prototype.componentDidMount = function () {
-        _super.prototype.componentDidMount.call(this);
-    };
-    RStyle.prototype.componentWillUnmount = function () {
-        _super.prototype.componentWillUnmount.call(this);
-    };
     RStyle.prototype.render = function () {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(context_1.RStyleContext.Provider, { value: this.ol }, this.props.render ? null : this.props.children)));
@@ -56,9 +50,26 @@ var RStyle = (function (_super) {
     RStyle.getStyle = function (style) {
         if (style === null || style === undefined)
             return style;
-        if (!Object.keys(style).includes('current'))
+        if (style.constructor.name === 'RStyle')
+            return function (f) { return style.style(f); };
+        if (Object.keys(style).includes('current'))
+            return function (f) { return style.current.style(f); };
+        return style;
+    };
+    RStyle.getStyleStatic = function (style) {
+        if (style === null || style === undefined)
             return style;
-        return function (f) { return style.current.style(f); };
+        var asRStyle;
+        if (style.constructor.name === 'RStyle')
+            asRStyle = style;
+        if (Object.keys(style).includes('current'))
+            asRStyle = style.current;
+        if (asRStyle) {
+            if (asRStyle.ol !== undefined && typeof asRStyle.ol !== 'function')
+                return asRStyle.ol;
+            throw new TypeError('RStyle is dynamic and cannot be converted to Style');
+        }
+        return style;
     };
     return RStyle;
 }(REvent_1.ReactLayersBase));

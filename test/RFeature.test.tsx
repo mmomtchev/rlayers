@@ -186,7 +186,6 @@ describe('<RFeature>', () => {
         expect(handlerProps['onPointerDragEnd'].mock.calls.length).toBe(1);
     });
     it('should throw an error without a Layer', () => {
-        jest.spyOn(console, 'error');
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RFeature />)).toThrow('must be part of');

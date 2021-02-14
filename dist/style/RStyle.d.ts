@@ -6,15 +6,14 @@ export interface RStyleProps {
     render?: (f: Feature) => React.ReactElement;
 }
 export declare type RStyleRef = React.RefObject<RStyle>;
-export declare type RStyleLike = RStyleRef | StyleLike;
+export declare type RStyleLike = RStyleRef | RStyle | StyleLike;
 export default class RStyle extends ReactLayersBase<RStyleProps, null> {
     ol: StyleLike;
     constructor(props: Readonly<RStyleProps>, context: React.Context<Map>);
-    style: (f: Feature) => Style;
+    style: (f: Feature) => Style | Style[];
     refresh(prevProps?: RStyleProps): void;
-    componentDidMount(): void;
-    componentWillUnmount(): void;
     render(): JSX.Element;
     static getStyle(style: RStyleLike): StyleLike;
+    static getStyleStatic(style: RStyleLike): Style;
 }
 //# sourceMappingURL=RStyle.d.ts.map
