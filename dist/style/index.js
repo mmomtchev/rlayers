@@ -3,9 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RIcon = exports.RText = exports.RCircle = exports.RFill = exports.RStroke = exports.RStyle = void 0;
+exports.RIcon = exports.RText = exports.RCircle = exports.RFill = exports.RStroke = exports.createRStyle = exports.useRStyle = exports.RStyle = void 0;
 var RStyle_1 = require("./RStyle");
 Object.defineProperty(exports, "RStyle", { enumerable: true, get: function () { return __importDefault(RStyle_1).default; } });
+Object.defineProperty(exports, "useRStyle", { enumerable: true, get: function () { return RStyle_1.useRStyle; } });
+Object.defineProperty(exports, "createRStyle", { enumerable: true, get: function () { return RStyle_1.createRStyle; } });
 var RStroke_1 = require("./RStroke");
 Object.defineProperty(exports, "RStroke", { enumerable: true, get: function () { return __importDefault(RStroke_1).default; } });
 var RFill_1 = require("./RFill");

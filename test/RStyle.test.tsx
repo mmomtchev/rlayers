@@ -5,13 +5,13 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {Feature} from 'ol';
 import {Style, Circle, Image} from 'ol/style';
 
-import {RStyle, RStroke, RFill, RCircle, RText, RIcon, RStyleRef} from 'react-layers/style';
+import {RStyle, RStroke, RFill, RCircle, RText, RIcon, createRStyle} from 'react-layers/style';
 import {Point} from 'ol/geom';
 import * as common from './common';
 
 describe('<RStyle>', () => {
     it('should create a basic icon style', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle ref={ref}>
                 <RIcon src={'/icon'} />
@@ -20,7 +20,7 @@ describe('<RStyle>', () => {
         expect((RStyle.getStyle(ref) as () => Style)().getImage()).toBeInstanceOf(Image);
     });
     it('should create a basic dot style', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle ref={ref}>
                 <RStroke color='#007bff' width={3} />
@@ -32,7 +32,7 @@ describe('<RStyle>', () => {
         expect(RStyle.getStyleStatic(ref).getFill().getColor()).toBe('#000001');
     });
     it('should create a basic circle style', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle ref={ref}>
                 <RCircle radius={5}>
@@ -46,7 +46,7 @@ describe('<RStyle>', () => {
         );
     });
     it('should create a basic circle style', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle ref={ref}>
                 <RCircle radius={5}>
@@ -60,7 +60,7 @@ describe('<RStyle>', () => {
         );
     });
     it('should support updating the style', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         const {rerender} = render(
             <RStyle ref={ref}>
                 <RCircle radius={5}>
@@ -93,7 +93,7 @@ describe('<RStyle>', () => {
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getStroke().getWidth()).toBe(1);
     });
     it('should support dynamic styles', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle
                 ref={ref}
@@ -116,7 +116,7 @@ describe('<RStyle>', () => {
 
 describe('RStyle.getStyle', () => {
     it('should always return the same object', async () => {
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle ref={ref}>
                 <RIcon src={'/icon'} />
@@ -137,7 +137,7 @@ describe('RStyle.getStyle', () => {
     it('throw on dynamic styles', async () => {
         const err = console.error;
         console.error = () => undefined;
-        const ref = React.createRef() as RStyleRef;
+        const ref = createRStyle();
         render(
             <RStyle
                 ref={ref}

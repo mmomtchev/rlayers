@@ -9,8 +9,8 @@ import geojsonFeatures from './data/geo.json';
 export default function Features(): JSX.Element {
     const [flow, setFlow] = React.useState([]);
     const styles = {
-        blueDot: React.useRef() as RStyle.RStyleRef,
-        blueContours: React.useRef() as RStyle.RStyleRef
+        blueDot: RStyle.useRStyle(),
+        blueContours: RStyle.useRStyle()
     };
     return (
         <div className='d-flex flex-row'>

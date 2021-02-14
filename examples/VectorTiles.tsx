@@ -19,8 +19,8 @@ const fonts = {
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
     const styles = {
-        borders: React.useRef() as RStyle.RStyleRef,
-        towns: React.useRef() as RStyle.RStyleRef
+        borders: RStyle.useRStyle(),
+        towns: RStyle.useRStyle()
     };
     return (
         <React.Fragment>

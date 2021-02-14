@@ -12,7 +12,7 @@ const layersButton = (
 );
 
 export default function Layers(): JSX.Element {
-    const blueContours = React.useRef() as RStyle.RStyleRef;
+    const blueContours = RStyle.useRStyle();
     return (
         <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
             <RStyle.RStyle ref={blueContours}>

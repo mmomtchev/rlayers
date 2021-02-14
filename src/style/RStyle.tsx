@@ -18,6 +18,8 @@ export interface RStyleProps {
 
 export type RStyleRef = React.RefObject<RStyle>;
 export type RStyleLike = RStyleRef | RStyle | StyleLike;
+export const useRStyle = (): RStyleRef => React.useRef();
+export const createRStyle = (): RStyleRef => React.createRef();
 
 /** A style, all other style components must be descendants of `RStyle` */
 export default class RStyle extends ReactLayersBase<RStyleProps, null> {

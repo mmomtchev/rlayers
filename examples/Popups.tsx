@@ -4,7 +4,7 @@ import {Coordinate} from 'ol/coordinate';
 import {Polygon, Point} from 'ol/geom';
 
 import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
-import {RStyle, RStyleRef, RIcon, RFill, RStroke} from 'react-layers/style';
+import {RStyle, RStyleRef, RIcon, RFill, RStroke, useRStyle} from 'react-layers/style';
 
 import locationIcon from './svg/location.svg';
 
@@ -19,8 +19,8 @@ const coords: Record<string, Coordinate> = {
 
 export default function Popups(): JSX.Element {
     const styles = {
-        yellow: React.useRef() as RStyleRef,
-        location: React.useRef() as RStyleRef
+        yellow: useRStyle(),
+        location: useRStyle()
     };
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>

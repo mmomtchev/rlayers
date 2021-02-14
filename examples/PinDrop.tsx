@@ -12,7 +12,7 @@ const coords: Record<string, Coordinate> = {
 
 export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
-    const location = React.useRef() as RStyle.RStyleRef;
+    const location = RStyle.useRStyle();
     return (
         <React.Fragment>
             <RStyle.RStyle ref={location}>

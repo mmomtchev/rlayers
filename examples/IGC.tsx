@@ -24,7 +24,7 @@ import {
     MapBrowserEvent,
     VectorSourceEvent
 } from 'react-layers';
-import {RStyle, RStyleRef, RCircle, RFill, RStroke} from 'react-layers/style';
+import {RStyle, RCircle, RFill, RStroke, useRStyle} from 'react-layers/style';
 
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
 import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';
@@ -65,8 +65,8 @@ export default function IGCComp(): JSX.Element {
     });
 
     const styles = {
-        redCircle: React.useRef() as RStyleRef,
-        blueCircle: React.useRef() as RStyleRef,
+        redCircle: useRStyle(),
+        blueCircle: useRStyle(),
         // This is a technique for an array of React.RefObjects
         // It is ugly but it works
         flightPath: React.useRef([]) as React.RefObject<RStyle[]>

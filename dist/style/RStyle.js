@@ -16,11 +16,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createRStyle = exports.useRStyle = void 0;
 var react_1 = __importDefault(require("react"));
 var react_dom_1 = __importDefault(require("react-dom"));
 var Style_1 = __importDefault(require("ol/style/Style"));
 var context_1 = require("../context");
 var REvent_1 = require("../REvent");
+var useRStyle = function () { return react_1.default.useRef(); };
+exports.useRStyle = useRStyle;
+var createRStyle = function () { return react_1.default.createRef(); };
+exports.createRStyle = createRStyle;
 var RStyle = (function (_super) {
     __extends(RStyle, _super);
     function RStyle(props, context) {

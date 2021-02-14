@@ -7,6 +7,8 @@ export interface RStyleProps {
 }
 export declare type RStyleRef = React.RefObject<RStyle>;
 export declare type RStyleLike = RStyleRef | RStyle | StyleLike;
+export declare const useRStyle: () => RStyleRef;
+export declare const createRStyle: () => RStyleRef;
 export default class RStyle extends ReactLayersBase<RStyleProps, null> {
     ol: StyleLike;
     constructor(props: Readonly<RStyleProps>, context: React.Context<Map>);
