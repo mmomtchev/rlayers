@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
+import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'react-layers';
 

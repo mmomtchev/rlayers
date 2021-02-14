@@ -2,9 +2,10 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Polygon, Point} from 'ol/geom';
+import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
-import {RStyle, RStyleRef, RIcon, RFill, RStroke, useRStyle} from 'react-layers/style';
+import {RStyle, RIcon, RFill, RStroke, useRStyle} from 'react-layers/style';
 
 import locationIcon from './svg/location.svg';
 

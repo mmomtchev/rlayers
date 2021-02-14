@@ -25,6 +25,7 @@ import {
     VectorSourceEvent
 } from 'react-layers';
 import {RStyle, RCircle, RFill, RStroke, useRStyle} from 'react-layers/style';
+import 'ol/ol.css';
 
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
 import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';

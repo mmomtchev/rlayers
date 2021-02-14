@@ -2,6 +2,7 @@ import React from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
+import 'ol/ol.css';
 
 import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent, RStyle} from 'react-layers';
 

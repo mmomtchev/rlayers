@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run build:css",
+    "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
     "build:examples": "webpack --mode=production --env production",
     "build:doc": "npx styleguidist build",
     "dev": "webpack-cli serve --mode=development --env development --open --hot",

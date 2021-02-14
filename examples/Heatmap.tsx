@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
+import 'ol/ol.css';
 
 import {RMap, RLayerStamen, RLayerHeatmap} from 'react-layers';
 

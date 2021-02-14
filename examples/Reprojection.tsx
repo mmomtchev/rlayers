@@ -2,6 +2,7 @@ import React from 'react';
 import proj4 from 'proj4';
 import {fromLonLat} from 'ol/proj';
 import {register} from 'ol/proj/proj4';
+import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerWMTS} from 'react-layers';
 

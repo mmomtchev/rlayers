@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import 'ol/ol.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './example.css';
 import './ghp.css';

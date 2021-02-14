@@ -4,6 +4,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
 import {Circle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
+import 'ol/ol.css';
 
 import {RMap, RLayerStamen, RLayerCluster} from 'react-layers';
 

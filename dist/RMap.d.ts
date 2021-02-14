@@ -8,8 +8,8 @@ export interface RMapProps {
     center: Coordinate;
     zoom: number;
     className?: string;
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     noDefaultControls?: boolean;
     projection?: string;
     onClick?: (e: MapBrowserEvent) => boolean | void;

@@ -20,9 +20,9 @@ export interface RMapProps {
     /** CSS class */
     className?: string;
     /** Width when not using CSS */
-    width?: number;
+    width?: number | string;
     /** Height when not using CSS */
-    height?: number;
+    height?: number | string;
     /** Do not include any default controls
      * @default false
      */
