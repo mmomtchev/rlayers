@@ -15,7 +15,7 @@
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "codecov": "curl -s https://codecov.io/bash | env CODECOV_TOKEN='b387a4e1-2f04-421a-8cbb-74557902b9c5' bash",
+    "codecov": "curl -s https://codecov.io/bash | bash",
     "preversion": "npm run test",
     "version": "npm run build && npm run build:examples && npm run build:doc && git add package.json dist docs",
     "postversion": "git push && git push --tags"
