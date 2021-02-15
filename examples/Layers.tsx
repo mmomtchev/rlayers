@@ -1,7 +1,7 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle} from 'react-layers';
+import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle} from 'reactlayers';
 import layersIcon from './svg/layers.svg';
 import 'ol/ol.css';
 

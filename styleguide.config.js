@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 
 module.exports = {
-    title: 'react-layers API',
+    title: 'reactlayers API',
     components: 'src/[A-Z]*.tsx',
     usageMode: 'expand',
     webpackConfig: {

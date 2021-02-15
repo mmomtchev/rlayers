@@ -2,7 +2,7 @@ import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RControl} from 'react-layers';
+import {RMap, ROSM, RControl} from 'reactlayers';
 
 const origin = [2.364, 48.82];
 

@@ -4,7 +4,7 @@ import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 
-import {MapBrowserEvent} from 'react-layers';
+import {MapBrowserEvent} from 'reactlayers';
 
 export const mapProps = {
     center: fromLonLat([2.364, 48.82]),

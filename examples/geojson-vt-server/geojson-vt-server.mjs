@@ -81,7 +81,7 @@ process.on('SIGTERM', () => {
     console.log('Exiting on SIGTERM');
     process.exit(0);
 });
-process.title = 'velivole geodata for react-layers';
+process.title = 'velivole geodata for reactlayers';
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

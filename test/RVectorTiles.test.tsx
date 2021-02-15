@@ -5,11 +5,11 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {MVT} from 'ol/format';
 import {Pixel} from 'ol/pixel';
-import {RLayerVectorTile, RMap} from 'react-layers';
+import {RLayerVectorTile, RMap} from 'reactlayers';
 import * as common from './common';
 
 const props = {
-    url: 'https://react-layers.meteo.guru/tiles/admin/{z}/{x}/{y}',
+    url: 'https://reactlayers.meteo.guru/tiles/admin/{z}/{x}/{y}',
     style: common.styles.yellow,
     format: new MVT()
 };

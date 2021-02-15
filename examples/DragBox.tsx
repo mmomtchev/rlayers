@@ -5,7 +5,7 @@ import {Coordinate} from 'ol/coordinate';
 import {shiftKeyOnly} from 'ol/events/condition';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RInteraction} from 'react-layers';
+import {RMap, ROSM, RInteraction} from 'reactlayers';
 
 export default function DragBox(): JSX.Element {
     const [startDragBox, setStartDragBox] = React.useState(null as Coordinate);

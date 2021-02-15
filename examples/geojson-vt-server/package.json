@@ -1,5 +1,5 @@
 {
-  "name": "react-layers-geojson-vt-server",
+  "name": "reactlayers-geojson-vt-server",
   "version": "1.0.0",
   "description": "The server part for the vector tiles examples",
   "main": "geojson-vt-server.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmomtchev/react-layers.git"
+    "url": "git+https://github.com/mmomtchev/reactlayers.git"
   },
   "author": "Momtchil Momtchev <momtchil@momtchev.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mmomtchev/react-layers/issues"
+    "url": "https://github.com/mmomtchev/reactlayers/issues"
   },
-  "homepage": "https://github.com/mmomtchev/react-layers#readme",
+  "homepage": "https://github.com/mmomtchev/reactlayers#readme",
   "dependencies": {
     "express": "^4.17.1",
     "geojson-vt": "^3.2.1",

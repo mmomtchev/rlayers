@@ -5,8 +5,8 @@ module.exports = {
     },
     transformIgnorePatterns: ['/node_modules/(?!ol)'],
     moduleNameMapper: {
-        '^react-layers$': '<rootDir>/src',
-        '^react-layers\/(.*)$': '<rootDir>/src/$1',
+        '^reactlayers$': '<rootDir>/src',
+        '^reactlayers\/(.*)$': '<rootDir>/src/$1',
         '\\.(css|less)$': '<rootDir>/test/css.js'
     },
     setupFiles: ['jest-canvas-mock'],

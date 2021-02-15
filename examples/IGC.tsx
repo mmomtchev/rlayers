@@ -23,8 +23,8 @@ import {
     RenderEvent,
     MapBrowserEvent,
     VectorSourceEvent
-} from 'react-layers';
-import {RStyle, RCircle, RFill, RStroke, useRStyle} from 'react-layers/style';
+} from 'reactlayers';
+import {RStyle, RCircle, RFill, RStroke, useRStyle} from 'reactlayers/style';
 import 'ol/ol.css';
 
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';

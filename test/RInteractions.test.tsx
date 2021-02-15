@@ -2,7 +2,7 @@ window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import {RMap, RInteraction} from 'react-layers';
+import {RMap, RInteraction} from 'reactlayers';
 import * as common from './common';
 
 describe('<RDragBox>', () => {

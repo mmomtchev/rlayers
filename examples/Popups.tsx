@@ -4,8 +4,8 @@ import {Coordinate} from 'ol/coordinate';
 import {Polygon, Point} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'react-layers';
-import {RStyle, RIcon, RFill, RStroke, useRStyle} from 'react-layers/style';
+import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'reactlayers';
+import {RStyle, RIcon, RFill, RStroke, useRStyle} from 'reactlayers/style';
 
 import locationIcon from './svg/location.svg';
 

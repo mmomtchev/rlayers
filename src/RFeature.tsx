@@ -56,9 +56,9 @@ export interface RFeatureProps {
  *
  * Provides a location context `RLocationContext`
  *
- * [Example for explicit RFeatures](https://mmomtchev.github.io/react-layers/#/overlays)
+ * [Example for explicit RFeatures](https://mmomtchev.github.io/reactlayers/#/overlays)
  *
- * [Example for implicit RFeatures](https://mmomtchev.github.io/react-layers/#/RFeatures)
+ * [Example for implicit RFeatures](https://mmomtchev.github.io/reactlayers/#/RFeatures)
  *
  */
 

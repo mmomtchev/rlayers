@@ -6,7 +6,7 @@ import {Circle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
 import 'ol/ol.css';
 
-import {RMap, RLayerStamen, RLayerCluster} from 'react-layers';
+import {RMap, RLayerStamen, RLayerCluster} from 'reactlayers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
@@ -18,7 +18,7 @@ const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
 
 // RStyle is still missing some features to fully support this
 
-// Scroll down to "export default function Cluster()" for the react-layers code
+// Scroll down to "export default function Cluster()" for the reactlayers code
 
 const earthquakeFill = new Fill({
     color: 'rgba(255, 153, 0, 0.8)'

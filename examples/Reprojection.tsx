@@ -4,7 +4,7 @@ import {fromLonLat} from 'ol/proj';
 import {register} from 'ol/proj/proj4';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerWMTS} from 'react-layers';
+import {RMap, ROSM, RLayerWMTS} from 'reactlayers';
 
 // British National Grid definition (EPSG:27700)
 proj4.defs(

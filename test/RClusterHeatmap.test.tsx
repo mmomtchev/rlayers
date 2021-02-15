@@ -4,7 +4,7 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {GeoJSON} from 'ol/format';
-import {RLayerCluster, RLayerHeatmap, RMap} from 'react-layers';
+import {RLayerCluster, RLayerHeatmap, RMap} from 'reactlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/earthquakes.geojson', 'utf-8'));

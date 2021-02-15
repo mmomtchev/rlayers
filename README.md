@@ -1,11 +1,11 @@
-# react-layers
+# reactlayers
 
-[![License: LGPL v3](https://img.shields.io/github/license/mmomtchev/react-layers)](https://github.com/mmomtchev/react-layers/blob/master/LICENSE)
-[![Node.js CI](https://github.com/mmomtchev/react-layers/workflows/Node.js%20CI/badge.svg)](https://github.com/mmomtchev/react-layers/actions?query=workflow%3A%22Node.js+CI%22)
-[![codecov](https://codecov.io/gh/mmomtchev/react-layers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/react-layers)
+[![License: LGPL v3](https://img.shields.io/github/license/mmomtchev/reactlayers)](https://github.com/mmomtchev/reactlayers/blob/master/LICENSE)
+[![Node.js CI](https://github.com/mmomtchev/reactlayers/workflows/Node.js%20CI/badge.svg)](https://github.com/mmomtchev/reactlayers/actions?query=workflow%3A%22Node.js+CI%22)
+[![codecov](https://codecov.io/gh/mmomtchev/reactlayers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/reactlayers)
 
 
-react-layers is an opinionated set of React components for *OpenLayers*.
+reactlayers is an opinionated set of React components for *OpenLayers*.
 
 It's design policy is:
 * Fully Typescript-typed
@@ -24,17 +24,17 @@ It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In
 ## Installation
 
 ```bash
-npm --save install react-layers
+npm --save install reactlayers
 ```
 
 All *OpenLayers* 6+ versions should be supported.
 
 ## Usage
 
-react-layers is a set of reusable React components that can be nested in various ways to create map applications for the web through React composition in the true **spirit of React**.
+reactlayers is a set of reusable React components that can be nested in various ways to create map applications for the web through React composition in the true **spirit of React**.
 The components follow very closely the *OpenLayers* hierarchy with with some abstraction layers fused into one: the layers and the sources abstraction levels have been fused into one single level and the map and the view are also represented by a single component.
 
-In order to avoid confusion between the *OpenLayers* classes and the *react-layers* classes which sometimes have the same names - all *react-layers* classes are prefixed with **R**. If a class begins with **R**, it is from *react-layers*, otherwise it is an *OpenLayers* class.
+In order to avoid confusion between the *OpenLayers* classes and the *reactlayers* classes which sometimes have the same names - all *reactlayers* classes are prefixed with **R**. If a class begins with **R**, it is from *reactlayers*, otherwise it is an *OpenLayers* class.
 
 The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - a `<RLayer>` must be part of a map, a `<RFeature>` must be part of a `<RLayerVector>`, a `<RControl>` must also be part of a map. Nesting works by using React Contexts. Every nested element uses the context of its nearest parent.
 
@@ -44,23 +44,23 @@ Currently there are 4 types of contexts:
 * `RLocationContext` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
 * `RStyleContext` provided by a style definition - which can be outside of a map
 
-The context objects can be accessed by using  `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/react-layers/#/controls) contains an example for using the *MapContext*. Accessing elements outside their contexts is possible by using `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/react-layers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component. This is also something that could potentially change before the first release.
+The context objects can be accessed by using  `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/reactlayers/#/controls) contains an example for using the *MapContext*. Accessing elements outside their contexts is possible by using `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/reactlayers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component. This is also something that could potentially change before the first release.
 
 ### Styles
 
-Style definitions can be placed anywhere inside the DOM and must be referenced with a React reference. react-layers includes two special types for dealing with styles:
+Style definitions can be placed anywhere inside the DOM and must be referenced with a React reference. reactlayers includes two special types for dealing with styles:
 * `RStyleRef` which is an alias to `React.RefObject<RStyle>` is a React reference to an `<RStyle>` element. It can be transparently used everywhere where a classical *OpenLayers* `StyleLike` is required
 * `RStyleLike` is the new union type that allows for `StyleLike` or a `RStyleRef`
 
-A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. In the future *react-layers* will include its own caching mechanism for styles but this is currently not the case.
+A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. In the future *reactlayers* will include its own caching mechanism for styles but this is currently not the case.
 
-See <https://mmomtchev.github.io/react-layers/#/features> for a basic example with static styles or <https://mmomtchev.github.io/react-layers/#/vectortiles> for a more complete example with dynamic styles.
+See <https://mmomtchev.github.io/reactlayers/#/features> for a basic example with static styles or <https://mmomtchev.github.io/reactlayers/#/vectortiles> for a more complete example with dynamic styles.
 
 Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the **React way**.
 ## Examples
 
 The examples can be found here:
-<https://mmomtchev.github.io/react-layers/>
+<https://mmomtchev.github.io/reactlayers/>
 
 ## Server-Side Rendering
 
@@ -76,7 +76,7 @@ Pushing the initial tiles is also an option:
 
 ## API
 
-You can browse the full documentation at <https://mmomtchev.github.io/react-layers/api>
+You can browse the full documentation at <https://mmomtchev.github.io/reactlayers/api>
 
 ## License
 [ISC](https://choosealicense.com/licenses/isc/)
