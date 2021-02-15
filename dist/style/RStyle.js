@@ -34,7 +34,7 @@ var RStyle = (function (_super) {
             if (_this.ol !== _this.style)
                 return _this.ol;
             var style = new Style_1.default({});
-            var render = (react_1.default.createElement("div", null,
+            var render = (react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(context_1.RStyleContext.Provider, { value: style }, _this.props.render(f))));
             react_dom_1.default.render(render, document.createElement('div'));
             return style;
@@ -45,17 +45,14 @@ var RStyle = (function (_super) {
             _this.ol = new Style_1.default({});
         return _this;
     }
-    RStyle.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this, prevProps);
-    };
     RStyle.prototype.render = function () {
-        return (react_1.default.createElement("div", null,
+        return (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement(context_1.RStyleContext.Provider, { value: this.ol }, this.props.render ? null : this.props.children)));
     };
     RStyle.getStyle = function (style) {
         if (style === null || style === undefined)
             return style;
-        if (style.constructor.name === 'RStyle')
+        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
             return function (f) { return style.style(f); };
         if (Object.keys(style).includes('current'))
             return function (f) { return style.current.style(f); };
@@ -65,7 +62,7 @@ var RStyle = (function (_super) {
         if (style === null || style === undefined)
             return style;
         var asRStyle;
-        if (style.constructor.name === 'RStyle')
+        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
             asRStyle = style;
         if (Object.keys(style).includes('current'))
             asRStyle = style.current;

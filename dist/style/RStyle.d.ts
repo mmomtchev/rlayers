@@ -11,9 +11,9 @@ export declare const useRStyle: () => RStyleRef;
 export declare const createRStyle: () => RStyleRef;
 export default class RStyle extends ReactLayersBase<RStyleProps, null> {
     ol: StyleLike;
+    childRefs: RStyleRef[];
     constructor(props: Readonly<RStyleProps>, context: React.Context<Map>);
     style: (f: Feature) => Style | Style[];
-    refresh(prevProps?: RStyleProps): void;
     render(): JSX.Element;
     static getStyle(style: RStyleLike): StyleLike;
     static getStyleStatic(style: RStyleLike): Style;

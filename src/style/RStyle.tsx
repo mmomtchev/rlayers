@@ -23,6 +23,7 @@ export const createRStyle = (): RStyleRef => React.createRef();
 /** A style, all other style components must be descendants of `RStyle` */
 export default class RStyle extends ReactLayersBase<RStyleProps, null> {
     ol: StyleLike;
+    childRefs: RStyleRef[];
 
     constructor(props: Readonly<RStyleProps>, context: React.Context<Map>) {
         super(props, context);
@@ -44,10 +45,6 @@ export default class RStyle extends ReactLayersBase<RStyleProps, null> {
         return style;
     };
 
-    refresh(prevProps?: RStyleProps): void {
-        super.refresh(prevProps);
-    }
-
     render(): JSX.Element {
         return (
             <React.Fragment>
@@ -66,7 +63,8 @@ export default class RStyle extends ReactLayersBase<RStyleProps, null> {
      */
     static getStyle(style: RStyleLike): StyleLike {
         if (style === null || style === undefined) return style as StyleLike;
-        if (style.constructor.name === 'RStyle') return (f: Feature) => (style as RStyle).style(f);
+        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
+            return (f: Feature) => (style as RStyle).style(f);
         /* React.RefObjects are just plain JS objects after JS transpilation */
         if (Object.keys(style).includes('current'))
             return (f: Feature) => (style as RStyleRef).current.style(f);
@@ -87,7 +85,8 @@ export default class RStyle extends ReactLayersBase<RStyleProps, null> {
         if (style === null || style === undefined) return style as Style;
 
         let asRStyle;
-        if (style.constructor.name === 'RStyle') asRStyle = (style as unknown) as RStyle;
+        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
+            asRStyle = (style as unknown) as RStyle;
         /* React.RefObjects are just plain JS objects after JS transpilation */
         if (Object.keys(style).includes('current'))
             asRStyle = ((style as unknown) as RStyleRef).current;
