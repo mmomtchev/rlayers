@@ -1,4 +1,6 @@
-tsconfig.json
-src
-webpack.config.ts
+.vscode
+.github
+node_modules
+package-lock.json
+coverage
 GIS-hall-of-shame.md
