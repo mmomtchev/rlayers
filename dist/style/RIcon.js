@@ -24,10 +24,10 @@ var RIcon = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     RIcon.prototype.create = function (props) {
-        this.classProps = RIcon.classProps.concat(RImage_1.default.classProps);
+        this.classProps = RIcon.classProps;
         return new style_1.Icon(props);
     };
-    RIcon.classProps = [
+    RIcon.classProps = RImage_1.default.classProps.concat([
         'anchor',
         'anchorXUnits',
         'anchorYUnits',
@@ -39,7 +39,7 @@ var RIcon = (function (_super) {
         'size',
         'imgSize',
         'src'
-    ];
+    ]);
     return RIcon;
 }(RImage_1.default));
 exports.default = RIcon;

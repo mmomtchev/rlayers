@@ -25,7 +25,7 @@ export interface RIconProps extends RImageProps {
 
 /** An icon */
 export default class RIcon extends RImage<RIconProps> {
-    static classProps = [
+    static classProps = RImage.classProps.concat([
         'anchor',
         'anchorXUnits',
         'anchorYUnits',
@@ -37,11 +37,11 @@ export default class RIcon extends RImage<RIconProps> {
         'size',
         'imgSize',
         'src'
-    ];
+    ]);
     ol: Icon;
 
     create(props: RIconProps): Icon {
-        this.classProps = RIcon.classProps.concat(RImage.classProps);
+        this.classProps = RIcon.classProps;
         return new Icon(props);
     }
 }

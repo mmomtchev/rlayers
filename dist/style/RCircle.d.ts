@@ -1,17 +1,11 @@
-/// <reference types="react" />
-import { Circle, Fill, Stroke } from 'ol/style';
-import RImage, { RImageProps } from './RImage';
-export interface RCircleProps extends RImageProps {
+import { Circle } from 'ol/style';
+import RRegularBase, { RRegularBaseProps } from './RRegularBase';
+export interface RCircleProps extends RRegularBaseProps {
     radius: number;
 }
-export default class RCircle extends RImage<RCircleProps> {
+export default class RCircle extends RRegularBase<RCircleProps> {
     static classProps: string[];
     ol: Circle;
-    stroke: Stroke;
-    fill: Fill;
     create(props: RCircleProps): Circle;
-    setStroke(s: Stroke): void;
-    setFill(f: Fill): void;
-    render(): JSX.Element;
 }
 //# sourceMappingURL=RCircle.d.ts.map

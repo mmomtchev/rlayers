@@ -1,15 +1,14 @@
-/// <reference types="react" />
 import { RegularShape } from 'ol/style';
-import RImage, { RImageProps } from './RImage';
-export interface RRegularShapeProps extends RImageProps {
-    radius1: number;
-    radius2: number;
+import RRegularBase, { RRegularBaseProps } from './RRegularBase';
+export interface RRegularShapeProps extends RRegularBaseProps {
+    radius1?: number;
+    radius2?: number;
     points: number;
+    angle?: number;
 }
-export default class RRegularShape extends RImage<RRegularShapeProps> {
+export default class RRegularShape extends RRegularBase<RRegularShapeProps> {
     static classProps: string[];
     ol: RegularShape;
     create(props: RRegularShapeProps): RegularShape;
-    render(): JSX.Element;
 }
 //# sourceMappingURL=RRegularShape.d.ts.map

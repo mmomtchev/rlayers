@@ -3,11 +3,12 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Feature} from 'ol';
-import {Style, Circle, Image} from 'ol/style';
+import {Style, Circle, Image, RegularShape} from 'ol/style';
 
 import {
     RStyle,
     RStyleArray,
+    RRegularShape,
     RStroke,
     RFill,
     RCircle,
@@ -34,11 +35,17 @@ describe('<RStyle>', () => {
             <RStyle ref={ref}>
                 <RStroke color='#007bff' width={3} />
                 <RFill color='#000001' />
+                <RRegularShape points={5} radius1={10} radius2={5}>
+                    <RFill color='#000003' />
+                </RRegularShape>
             </RStyle>
         );
         expect(RStyle.getStyleStatic(ref).getStroke().getColor()).toBe('#007bff');
         expect(RStyle.getStyleStatic(ref).getStroke().getWidth()).toBe(3);
         expect(RStyle.getStyleStatic(ref).getFill().getColor()).toBe('#000001');
+        expect((RStyle.getStyleStatic(ref).getImage() as RegularShape).getFill().getColor()).toBe(
+            '#000003'
+        );
     });
     it('should create a basic circle style', async () => {
         const ref = createRStyle();
