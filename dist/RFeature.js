@@ -56,7 +56,7 @@ var RFeature = (function (_super) {
         if (props.feature)
             _this.ol = props.feature;
         else
-            _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: props.style }));
+            _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: RStyle_1.default.getStyle(props.style) }));
         RFeature.initEventRelay(_this.context.map);
         _this.onchange = function () { return _this.forceUpdate(); };
         return _this;
