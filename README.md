@@ -23,7 +23,6 @@ It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In
 
 ## Installation
 
-**(will be when it is published)**
 ```bash
 npm --save install react-layers
 ```
@@ -33,15 +32,14 @@ All *OpenLayers* 6+ versions should be supported.
 ## Usage
 
 react-layers is a set of reusable React components that can be nested in various ways to create map applications for the web through React composition in the true **spirit of React**.
-The components follow very closely the *OpenLayers* hierarchy with one notable exception: the layers and the sources abstraction levels have been fused into one single level.
+The components follow very closely the *OpenLayers* hierarchy with with some abstraction layers fused into one: the layers and the sources abstraction levels have been fused into one single level and the map and the view are also represented by a single component.
 
 In order to avoid confusion between the *OpenLayers* classes and the *react-layers* classes which sometimes have the same names - all *react-layers* classes are prefixed with **R**. If a class begins with **R**, it is from *react-layers*, otherwise it is an *OpenLayers* class.
 
 The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - a `<RLayer>` must be part of a map, a `<RFeature>` must be part of a `<RLayerVector>`, a `<RControl>` must also be part of a map. Nesting works by using React Contexts. Every nested element uses the context of its nearest parent.
 
-Currently there are 5 types of contexts:
+Currently there are 4 types of contexts:
 * `RMapContext` provided by a map, every other element must have a MapContext
-* `RLayerContext` provided by every layer, not required by anything at the moment
 * `RVectorLayerContext` provided by vector layers only - required for `<RFeature>`
 * `RLocationContext` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
 * `RStyleContext` provided by a style definition - which can be outside of a map
