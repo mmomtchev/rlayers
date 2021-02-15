@@ -64,6 +64,9 @@ const webpackConfig = (env): Configuration => ({
     ],
     devServer: {
         port: 8030
+    },
+    optimization: {
+        minimize: false
     }
 });
 
