@@ -1,5 +1,5 @@
 {
-  "name": "react-layers",
+  "name": "@mmomtchev/react-layers",
   "version": "0.99.0",
   "description": "React Components for OpenLayers",
   "main": "dist/index.js",
