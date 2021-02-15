@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
-import {Stroke, Fill, Circle} from 'ol/style';
 
 import {RStyleContext} from '../context';
 import {ReactLayersBase} from '../REvent';
@@ -35,11 +34,11 @@ export default class RStyle extends ReactLayersBase<RStyleProps, null> {
         if (this.ol !== this.style) return this.ol as Style;
         const style = new Style({});
         const render = (
-            <div>
+            <React.Fragment>
                 <RStyleContext.Provider value={style}>
                     {this.props.render(f)}
                 </RStyleContext.Provider>
-            </div>
+            </React.Fragment>
         );
         ReactDOM.render(render, document.createElement('div'));
         return style;
@@ -51,11 +50,11 @@ export default class RStyle extends ReactLayersBase<RStyleProps, null> {
 
     render(): JSX.Element {
         return (
-            <div>
+            <React.Fragment>
                 <RStyleContext.Provider value={this.ol}>
                     {this.props.render ? null : this.props.children}
                 </RStyleContext.Provider>
-            </div>
+            </React.Fragment>
         );
     }
 
