@@ -52,7 +52,7 @@ var RStyle = (function (_super) {
     RStyle.getStyle = function (style) {
         if (style === null || style === undefined)
             return style;
-        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
+        if (typeof style.style === 'function')
             return function (f) { return style.style(f); };
         if (Object.keys(style).includes('current'))
             return function (f) { return style.current.style(f); };
@@ -62,7 +62,7 @@ var RStyle = (function (_super) {
         if (style === null || style === undefined)
             return style;
         var asRStyle;
-        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
+        if (typeof style.style === 'function')
             asRStyle = style;
         if (Object.keys(style).includes('current'))
             asRStyle = style.current;
