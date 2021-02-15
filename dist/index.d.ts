@@ -1,7 +1,7 @@
 export { MapEvent, MapBrowserEvent } from 'ol';
 export { default as RenderEvent } from 'ol/render/Event';
 export { VectorSourceEvent } from 'ol/source/Vector';
-export { ReactLayersBase } from './REvent';
+export { RlayersBase } from './REvent';
 export { RMapContext, RLayerContext, RVectorContext, RVectorContextType, RLocationContext, RLocationContextType, RStyleContext } from './context';
 export { default as RMap, RMapProps } from './RMap';
 export { default as RLayer, RLayerProps } from './layer/RLayer';

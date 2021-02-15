@@ -1,7 +1,7 @@
 import React from 'react';
 import { Overlay } from 'ol';
 import { RLocationContextType } from './context';
-import { ReactLayersBase } from './REvent';
+import { RlayersBase } from './REvent';
 export interface ROverlayProps {
     content?: string | HTMLElement | React.ElementType;
     className?: string;
@@ -10,7 +10,7 @@ export interface ROverlayProps {
         duration: number;
     };
 }
-export declare class ROverlayBase<P extends ROverlayProps> extends ReactLayersBase<P, null> {
+export declare class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
     static contextType: React.Context<any>;
     ol: Overlay;
     context: RLocationContextType;

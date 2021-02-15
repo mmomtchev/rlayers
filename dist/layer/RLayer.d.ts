@@ -2,7 +2,7 @@ import React from 'react';
 import { Map } from 'ol';
 import { Layer } from 'ol/layer';
 import { Source } from 'ol/source';
-import { ReactLayersBase } from '../REvent';
+import { RlayersBase } from '../REvent';
 export interface RLayerProps {
     visible?: boolean;
     opacity?: number;
@@ -15,7 +15,7 @@ export interface RLayerProps {
     properties?: Record<string, unknown>;
     projection?: string;
 }
-export default class RLayer<P extends RLayerProps> extends ReactLayersBase<P, null> {
+export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
     static contextType: React.Context<any>;
     ol: Layer;
     source: Source;

@@ -4,7 +4,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
 import 'ol/ol.css';
 
-import {RMap, RLayerStamen, RLayerHeatmap} from 'reactlayers';
+import {RMap, RLayerStamen, RLayerHeatmap} from 'rlayers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';

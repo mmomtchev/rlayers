@@ -4,7 +4,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Map} from 'ol';
 
-import {RMap, RMapContext, RControl, ROSM, RLayerStamen} from 'reactlayers';
+import {RMap, RMapContext, RControl, ROSM, RLayerStamen} from 'rlayers';
 import * as common from './common';
 
 const RControlButton = <button>X</button>;

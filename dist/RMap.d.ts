@@ -3,7 +3,7 @@ import { Map, MapBrowserEvent, MapEvent } from 'ol';
 import RenderEvent from 'ol/render/Event';
 import { Extent } from 'ol/extent';
 import { Coordinate } from 'ol/coordinate';
-import { ReactLayersBase } from './REvent';
+import { RlayersBase } from './REvent';
 export interface RMapProps {
     center: Coordinate;
     zoom: number;
@@ -30,7 +30,7 @@ export interface RMapProps {
     minZoom?: number;
     maxZoom?: number;
 }
-export default class RMap extends ReactLayersBase<RMapProps, null> {
+export default class RMap extends RlayersBase<RMapProps, null> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
     constructor(props: Readonly<RMapProps>);

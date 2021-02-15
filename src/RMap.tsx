@@ -6,7 +6,7 @@ import {Extent} from 'ol/extent';
 import {Coordinate} from 'ol/coordinate';
 
 import {RMapContext} from './context';
-import {ReactLayersBase} from './REvent';
+import {RlayersBase} from './REvent';
 
 /** Main map component *
  *
@@ -66,7 +66,7 @@ export interface RMapProps {
     maxZoom?: number;
 }
 
-export default class RMap extends ReactLayersBase<RMapProps, null> {
+export default class RMap extends RlayersBase<RMapProps, null> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
 

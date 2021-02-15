@@ -74,6 +74,6 @@ var RStyle = (function (_super) {
         return style;
     };
     return RStyle;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RStyle;
 //# sourceMappingURL=RStyle.js.map

@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import {createXYZ} from 'ol/tilegrid';
 
-import {RMap, RLayerTile, RLayerWMTS, RLayerStamen} from 'reactlayers';
+import {RMap, RLayerTile, RLayerWMTS, RLayerStamen} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerTile>', () => {

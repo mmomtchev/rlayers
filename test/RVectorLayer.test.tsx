@@ -6,7 +6,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
 import {Point} from 'ol/geom';
-import {RFeature, RLayerVector, RLocationContext, RMap} from 'reactlayers';
+import {RFeature, RLayerVector, RLocationContext, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));

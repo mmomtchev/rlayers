@@ -4,7 +4,7 @@ import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
 import {RStyleContext} from '../context';
-import {ReactLayersBase} from '../REvent';
+import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 export interface RStyleProps {
@@ -21,7 +21,7 @@ export const useRStyle = (): RStyleRef => React.useRef();
 export const createRStyle = (): RStyleRef => React.createRef();
 
 /** A style, all other style components must be descendants of `RStyle` */
-export default class RStyle extends ReactLayersBase<RStyleProps, null> {
+export default class RStyle extends RlayersBase<RStyleProps, null> {
     ol: StyleLike;
     childRefs: RStyleRef[];
 

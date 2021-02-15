@@ -10,7 +10,7 @@ const webpackConfig = (env): Configuration => ({
     ...(env.production || !env.development ? {} : {devtool: 'eval-source-map'}),
     resolve: {
         alias: {
-            'reactlayers': path.resolve(__dirname, 'src')
+            'rlayers': path.resolve(__dirname, 'src')
         },
         extensions: ['.ts', '.tsx', '.js'],
         //TODO waiting on https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/61

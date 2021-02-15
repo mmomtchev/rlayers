@@ -7,7 +7,7 @@ import {default as RControlBase, RControlProps} from './RControlBase';
 /** A custom control that can contain an HTMLElement
  * All provided children will be rendered as an OpenLayers control
  *
- * [See this for an example](https://mmomtchev.github.io/reactlayers/#/controls)
+ * [See this for an example](https://mmomtchev.github.io/rlayers/#/controls)
  */
 export default class Custom extends RControlBase<RControlProps, null> {
     ol: Control;

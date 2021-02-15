@@ -23,8 +23,8 @@ import {
     RenderEvent,
     MapBrowserEvent,
     VectorSourceEvent
-} from 'reactlayers';
-import {RStyle, RCircle, RFill, RStroke, useRStyle} from 'reactlayers/style';
+} from 'rlayers';
+import {RStyle, RStroke, RFill, RCircle, useRStyle} from 'rlayers/style';
 import 'ol/ol.css';
 
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
@@ -182,7 +182,10 @@ export default function IGCComp(): JSX.Element {
                                 ))}
                             </React.Fragment>
                         ),
-                        [igcs, styles.flightPath]
+                        // The array trick renders it impossible for React to track the useMemo dependencies
+                        // -> we do it manually
+                        // eslint-disable-next-line react-hooks/exhaustive-deps
+                        [igcs, styles.flightPath, styles.flightPath.current[0]]
                     )}
                 </RLayerVector>
                 <RLayerVector zIndex={10} ref={highlightVectorLayer} style={styles.blueCircle}>

@@ -4,7 +4,7 @@ import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 
 import {RMapContext} from '../context';
-import {ReactLayersBase} from '../REvent';
+import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 export interface RLayerProps {
@@ -30,7 +30,7 @@ export interface RLayerProps {
     projection?: string;
 }
 
-export default class RLayer<P extends RLayerProps> extends ReactLayersBase<P, null> {
+export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
     static contextType = RMapContext;
     ol: Layer;
     source: Source;

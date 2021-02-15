@@ -3,7 +3,7 @@ import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'reactlayers';
+import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'rlayers';
 
 import geojsonFeatures from './data/geo.json';
 

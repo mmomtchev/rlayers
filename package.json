@@ -1,5 +1,5 @@
 {
-  "name": "reactlayers",
+  "name": "rlayers",
   "version": "0.99.0",
   "description": "React Components for OpenLayers",
   "main": "dist/index.js",
@@ -23,9 +23,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmomtchev/reactlayers.git"
+    "url": "git+https://github.com/mmomtchev/rlayers.git"
   },
-  "homepage": "https://mmomtchev.github.io/reactlayers/",
+  "homepage": "https://mmomtchev.github.io/rlayers/",
   "keywords": [
     "openlayers",
     "gis",
@@ -37,7 +37,7 @@
   "author": "Momtchil Momtchev <momtchil@momtchev.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mmomtchev/reactlayers/issues"
+    "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
     "@types/ol": "^6.4.2",

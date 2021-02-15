@@ -4,7 +4,7 @@ import { Feature } from 'ol';
 import { Layer } from 'ol/layer';
 import Geometry from 'ol/geom/Geometry';
 import { RVectorContextType } from './context';
-import { ReactLayersBase } from './REvent';
+import { RlayersBase } from './REvent';
 import { RStyleLike } from './style/RStyle';
 export interface RFeatureProps {
     geometry?: Geometry;
@@ -20,7 +20,7 @@ export interface RFeatureProps {
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
 }
-export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
+export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents: string[];
     static contextType: React.Context<any>;
     static lastFeatureEntered: undefined | {

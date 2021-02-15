@@ -151,6 +151,6 @@ var RFeature = (function (_super) {
     RFeature.contextType = context_1.RVectorContext;
     RFeature.hitTolerance = 10;
     return RFeature;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RFeature;
 //# sourceMappingURL=RFeature.js.map

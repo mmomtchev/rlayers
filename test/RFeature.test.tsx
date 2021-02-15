@@ -5,7 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
-import {RFeature, RLayerVector, RMap, RLocationContext} from 'reactlayers';
+import {RFeature, RLayerVector, RMap, RLocationContext} from 'rlayers';
 import * as common from './common';
 
 describe('<RFeature>', () => {

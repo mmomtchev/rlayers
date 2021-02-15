@@ -3,7 +3,7 @@ import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
 import {RMapContext} from '../context';
-import {ReactLayersBase} from '../REvent';
+import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 export interface RPointerProps {
@@ -24,7 +24,7 @@ export interface RPointerProps {
 /** A basic pointer interaction component
  * It is meant to be be extended by more specific interactions
  */
-export default class RPointer<P> extends ReactLayersBase<P, null> {
+export default class RPointer<P> extends RlayersBase<P, null> {
     static contextType = RMapContext;
     static classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     classProps: string[];

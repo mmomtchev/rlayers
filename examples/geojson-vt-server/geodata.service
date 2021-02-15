@@ -1,5 +1,5 @@
 [Unit]	
-Description=velivole geodata for reactlayers
+Description=velivole geodata for rlayers
 
 [Service]
 Type=simple

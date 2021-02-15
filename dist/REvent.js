@@ -27,18 +27,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReactLayersBase = void 0;
+exports.RlayersBase = void 0;
 var react_1 = __importDefault(require("react"));
 var debug_1 = __importDefault(require("./debug"));
-var ReactLayersBase = (function (_super) {
-    __extends(ReactLayersBase, _super);
-    function ReactLayersBase() {
+var RlayersBase = (function (_super) {
+    __extends(RlayersBase, _super);
+    function RlayersBase() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ReactLayersBase.prototype.olEventName = function (ev) {
+    RlayersBase.prototype.olEventName = function (ev) {
         return ev.substring(2).toLowerCase();
     };
-    ReactLayersBase.prototype.refresh = function (prevProps) {
+    RlayersBase.prototype.refresh = function (prevProps) {
         var e_1, _a, e_2, _b, e_3, _c;
         var _d, _e;
         var eventSources = (_d = this.eventSources) !== null && _d !== void 0 ? _d : [this.ol];
@@ -93,11 +93,11 @@ var ReactLayersBase = (function (_super) {
             finally { if (e_1) throw e_1.error; }
         }
     };
-    ReactLayersBase.prototype.componentDidMount = function () {
+    RlayersBase.prototype.componentDidMount = function () {
         debug_1.default('didMount', this);
         this.refresh();
     };
-    ReactLayersBase.prototype.propsDiff = function (prev) {
+    RlayersBase.prototype.propsDiff = function (prev) {
         var e_4, _a;
         if (this.props === null || prev === null) {
             if (this.props !== prev) {
@@ -124,13 +124,13 @@ var ReactLayersBase = (function (_super) {
         }
         return false;
     };
-    ReactLayersBase.prototype.componentDidUpdate = function (prevProps, prev, snap) {
+    RlayersBase.prototype.componentDidUpdate = function (prevProps, prev, snap) {
         if (this.props !== prevProps) {
             debug_1.default('willRefresh', this, prevProps, this.props);
             this.refresh(prevProps);
         }
     };
-    ReactLayersBase.prototype.componentWillUnmount = function () {
+    RlayersBase.prototype.componentWillUnmount = function () {
         var e_5, _a, e_6, _b;
         var _c, _d;
         debug_1.default('willUnmount', this, this.handlers);
@@ -163,10 +163,10 @@ var ReactLayersBase = (function (_super) {
             finally { if (e_5) throw e_5.error; }
         }
     };
-    ReactLayersBase.prototype.render = function () {
+    RlayersBase.prototype.render = function () {
         return null;
     };
-    return ReactLayersBase;
+    return RlayersBase;
 }(react_1.default.PureComponent));
-exports.ReactLayersBase = ReactLayersBase;
+exports.RlayersBase = RlayersBase;
 //# sourceMappingURL=REvent.js.map

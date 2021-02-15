@@ -57,7 +57,7 @@ var ROverlayBase = (function (_super) {
     };
     ROverlayBase.contextType = context_1.RLocationContext;
     return ROverlayBase;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.ROverlayBase = ROverlayBase;
 var ROverlay = (function (_super) {
     __extends(ROverlay, _super);

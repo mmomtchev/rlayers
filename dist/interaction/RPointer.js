@@ -78,6 +78,6 @@ var RPointer = (function (_super) {
     RPointer.contextType = context_1.RMapContext;
     RPointer.classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     return RPointer;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RPointer;
 //# sourceMappingURL=RPointer.js.map

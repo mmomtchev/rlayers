@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, fireEvent, getByText, queryByText, render} from '@testing-library/react';
 
 import {Point} from 'ol/geom';
-import {RMap, ROSM, RFeature, RLayerVector, ROverlay} from 'reactlayers';
+import {RMap, ROSM, RFeature, RLayerVector, ROverlay} from 'rlayers';
 import * as common from './common';
 
 describe('<ROverlay>', () => {

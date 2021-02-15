@@ -16,7 +16,7 @@ import debug from '../debug';
  * Every style in the array must be a static style and not a function
  *
  * Arrays of style functions are not supported by OpenLayers and won't
- * be supported reactlayers either
+ * be supported rlayers either
  */
 export default class RStyleArray extends RStyle {
     ol: StyleLike;

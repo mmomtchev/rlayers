@@ -12,7 +12,7 @@ import {
     RLocationContext,
     RLocationContextType
 } from './context';
-import {ReactLayersBase} from './REvent';
+import {RlayersBase} from './REvent';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
@@ -56,13 +56,13 @@ export interface RFeatureProps {
  *
  * Provides a location context `RLocationContext`
  *
- * [Example for explicit RFeatures](https://mmomtchev.github.io/reactlayers/#/overlays)
+ * [Example for explicit RFeatures](https://mmomtchev.github.io/rlayers/#/overlays)
  *
- * [Example for implicit RFeatures](https://mmomtchev.github.io/reactlayers/#/RFeatures)
+ * [Example for implicit RFeatures](https://mmomtchev.github.io/rlayers/#/RFeatures)
  *
  */
 
-export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
+export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static contextType = RVectorContext;
     static lastFeatureEntered: undefined | {feature: Feature; layer: Layer};
@@ -81,7 +81,7 @@ export default class RFeature extends ReactLayersBase<RFeatureProps, null> {
             this.ol = new Feature({
                 ...(props.properties ?? {}),
                 geometry: props.geometry,
-                style: props.style
+                style: RStyle.getStyle(props.style)
             });
         RFeature.initEventRelay(this.context.map);
         this.onchange = () => this.forceUpdate();

@@ -2,7 +2,7 @@ import React from 'react';
 import {Overlay} from 'ol';
 
 import {RLocationContext, RLocationContextType} from './context';
-import {ReactLayersBase} from './REvent';
+import {RlayersBase} from './REvent';
 
 export interface ROverlayProps {
     /** Content to be displayed */
@@ -26,7 +26,7 @@ export interface ROverlayProps {
  *
  * @visibleName Overlay
  */
-export class ROverlayBase<P extends ROverlayProps> extends ReactLayersBase<P, null> {
+export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
     static contextType = RLocationContext;
     ol: Overlay;
     context: RLocationContextType;

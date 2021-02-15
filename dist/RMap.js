@@ -84,6 +84,6 @@ var RMap = (function (_super) {
             react_1.default.createElement(context_1.RMapContext.Provider, { value: this.ol }, this.props.children)));
     };
     return RMap;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RMap;
 //# sourceMappingURL=RMap.js.map

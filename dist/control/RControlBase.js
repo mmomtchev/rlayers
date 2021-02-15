@@ -43,6 +43,6 @@ var RControlBase = (function (_super) {
     };
     RControlBase.contextType = context_1.RMapContext;
     return RControlBase;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RControlBase;
 //# sourceMappingURL=RControlBase.js.map

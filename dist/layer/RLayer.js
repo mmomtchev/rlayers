@@ -77,6 +77,6 @@ var RLayer = (function (_super) {
     };
     RLayer.contextType = context_1.RMapContext;
     return RLayer;
-}(REvent_1.ReactLayersBase));
+}(REvent_1.RlayersBase));
 exports.default = RLayer;
 //# sourceMappingURL=RLayer.js.map

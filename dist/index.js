@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RPopup = exports.ROverlay = exports.RFeature = exports.RStyle = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RStyleContext = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.ReactLayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.RPopup = exports.ROverlay = exports.RFeature = exports.RStyle = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RStyleContext = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.RlayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -31,7 +31,7 @@ Object.defineProperty(exports, "RenderEvent", { enumerable: true, get: function 
 var Vector_1 = require("ol/source/Vector");
 Object.defineProperty(exports, "VectorSourceEvent", { enumerable: true, get: function () { return Vector_1.VectorSourceEvent; } });
 var REvent_1 = require("./REvent");
-Object.defineProperty(exports, "ReactLayersBase", { enumerable: true, get: function () { return REvent_1.ReactLayersBase; } });
+Object.defineProperty(exports, "RlayersBase", { enumerable: true, get: function () { return REvent_1.RlayersBase; } });
 var context_1 = require("./context");
 Object.defineProperty(exports, "RMapContext", { enumerable: true, get: function () { return context_1.RMapContext; } });
 Object.defineProperty(exports, "RLayerContext", { enumerable: true, get: function () { return context_1.RLayerContext; } });

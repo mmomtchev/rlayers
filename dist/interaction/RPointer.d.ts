@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map, MapBrowserEvent } from 'ol';
 import Pointer from 'ol/interaction/Pointer';
-import { ReactLayersBase } from '../REvent';
+import { RlayersBase } from '../REvent';
 export interface RPointerProps {
     handleDownEvent?: (e: MapBrowserEvent) => boolean;
     handleDragEvent?: (e: MapBrowserEvent) => boolean;
@@ -9,7 +9,7 @@ export interface RPointerProps {
     handleMoveEvent?: (e: MapBrowserEvent) => boolean;
     handleUpEvent?: (e: MapBrowserEvent) => boolean;
 }
-export default class RPointer<P> extends ReactLayersBase<P, null> {
+export default class RPointer<P> extends RlayersBase<P, null> {
     static contextType: React.Context<any>;
     static classProps: string[];
     classProps: string[];

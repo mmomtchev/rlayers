@@ -4,7 +4,7 @@ import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
-import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent, RStyle} from 'reactlayers';
+import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent, RStyle} from 'rlayers';
 
 const degree = 111319.49079327358;
 const fonts = {

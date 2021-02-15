@@ -15,7 +15,7 @@ import {
     RText,
     RIcon,
     createRStyle
-} from 'reactlayers/style';
+} from 'rlayers/style';
 import {Point} from 'ol/geom';
 import * as common from './common';
 

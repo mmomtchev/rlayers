@@ -4,7 +4,7 @@ import {Coordinate} from 'ol/coordinate';
 import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'reactlayers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
 import locationIcon from './svg/location.svg';
 
 const coords: Record<string, Coordinate> = {
