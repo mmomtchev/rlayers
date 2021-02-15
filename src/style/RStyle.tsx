@@ -62,12 +62,19 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
      * @public
      */
     static getStyle(style: RStyleLike): StyleLike {
+        // style is undefined or null
         if (style === null || style === undefined) return style as StyleLike;
-        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
+
+        // style is RStyle or RStyleArray
+        if (typeof (style as RStyle).style === 'function')
             return (f: Feature) => (style as RStyle).style(f);
-        /* React.RefObjects are just plain JS objects after JS transpilation */
+
+        // style is a React.RefObject
+        // React.RefObjects are just plain JS objects after JS transpilation */
         if (Object.keys(style).includes('current'))
             return (f: Feature) => (style as RStyleRef).current.style(f);
+
+        // style is an OpenLayers StyleLike
         return style as StyleLike;
     }
 
@@ -82,19 +89,29 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
      * @public
      */
     static getStyleStatic(style: RStyleLike): Style {
+        // style is undefined or null
         if (style === null || style === undefined) return style as Style;
 
         let asRStyle;
-        if (style.constructor.name === 'RStyle' || style.constructor.name === 'RStyleArray')
-            asRStyle = (style as unknown) as RStyle;
-        /* React.RefObjects are just plain JS objects after JS transpilation */
+
+        // style is RStyle or RStyleArray
+        if (typeof (style as RStyle).style === 'function') asRStyle = style as RStyle;
+
+        // style is a React.RefObject
+        // React.RefObjects are just plain JS objects after JS transpilation
         if (Object.keys(style).includes('current'))
             asRStyle = ((style as unknown) as RStyleRef).current;
+
         if (asRStyle) {
+            // style is a static RStyle or RStyleArray or reference
             if (asRStyle.ol !== undefined && typeof asRStyle.ol !== 'function')
                 return asRStyle.ol as Style;
+
+            // style is a dynamic RStyle or RStyleArray or reference
             throw new TypeError('RStyle is dynamic and cannot be converted to Style');
         }
+
+        // style is an OpenLayers StyleLike
         return style as Style;
     }
 }
