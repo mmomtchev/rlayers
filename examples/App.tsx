@@ -7,9 +7,9 @@ import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import prettier from 'prettier/standalone';
 import parserTypescript from 'prettier/parser-typescript';
-import SyntaxHighlighter from 'react-syntax-highlighter';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import ReactMarkdown from 'react-markdown';
-import {agate as styleHighlighter} from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import {darcula as styleHighlighter} from 'react-syntax-highlighter/dist/esm/styles/prism';
 // @ts-ignore
 import README from '!!raw-loader!../README.md';
 
@@ -88,7 +88,7 @@ const examples = {
 // This is expensive to render
 const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
     return (
-        <SyntaxHighlighter language='typescript' style={styleHighlighter}>
+        <SyntaxHighlighter language='tsx' style={styleHighlighter}>
             {prettier.format(props.code, {
                 parser: 'typescript',
                 plugins: [parserTypescript]

@@ -7,7 +7,7 @@ import 'ol/ol.css';
 // This example illustrates the versatility of a dynamic RStyle
 // It also makes use of its caching abilities
 import {RMap, RLayerStamen, RLayerCluster} from 'rlayers';
-import {RStyle, RFill, RStroke, RRegularShape, RCircle, RText, useRStyle} from 'rlayers/style';
+import {RStyle, RFill, RStroke, RRegularShape, RCircle, RText} from 'rlayers/style';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
