@@ -19,25 +19,14 @@ const coords: Record<string, Coordinate> = {
 };
 
 export default function Popups(): JSX.Element {
-    const styles = {
-        yellow: useRStyle(),
-        location: useRStyle()
-    };
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-            <RStyle ref={styles.location}>
-                <RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-            </RStyle>
-            <RStyle ref={styles.yellow}>
-                <RStroke color='yellow' width={4} />
-                <RFill color='transparent' />
-            </RStyle>
             <ROSM />
             <RLayerVector zIndex={10}>
-                <RFeature
-                    style={styles.location}
-                    geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
-                >
+                <RFeature geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
+                    <RStyle>
+                        <RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+                    </RStyle>
                     <RPopup trigger={'click'} className='example-overlay'>
                         <div className='card'>
                             <p className='card-header'>
@@ -48,7 +37,6 @@ export default function Popups(): JSX.Element {
                     </RPopup>
                 </RFeature>
                 <RFeature
-                    style={styles.yellow}
                     geometry={
                         new Polygon([
                             [
@@ -67,6 +55,10 @@ export default function Popups(): JSX.Element {
                         []
                     )}
                 >
+                    <RStyle>
+                        <RStroke color='yellow' width={4} />
+                        <RFill color='transparent' />
+                    </RStyle>
                     <RPopup trigger={'hover'} className='example-overlay'>
                         <p>
                             <strong>Les catacombes</strong>

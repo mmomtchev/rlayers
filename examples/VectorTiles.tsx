@@ -4,7 +4,8 @@ import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
-import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent, RStyle} from 'rlayers';
+import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent} from 'rlayers';
+import {useRStyle, RStyle, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 
 const degree = 111319.49079327358;
 const fonts = {
@@ -20,18 +21,18 @@ const fonts = {
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
     const styles = {
-        borders: RStyle.useRStyle(),
-        towns: RStyle.useRStyle()
+        borders: useRStyle(),
+        towns: useRStyle()
     };
     return (
         <React.Fragment>
-            <RStyle.RStyle ref={styles.borders}>
+            <RStyle ref={styles.borders}>
                 {/* This is the borders style */}
-                <RStyle.RStroke color='#007bff' width={2} />
-                <RStyle.RFill color='transparent' />
-            </RStyle.RStyle>
+                <RStroke color='#007bff' width={2} />
+                <RFill color='transparent' />
+            </RStyle>
 
-            <RStyle.RStyle
+            <RStyle
                 ref={styles.towns}
                 render={(feature: Feature) => {
                     /* This is a the towns style
@@ -47,14 +48,14 @@ export default function VectorTiles(): JSX.Element {
                         feature.get('c').charAt(0).toString('hex').substring(0, 2).padStart(2, '0');
                     return (
                         <React.Fragment>
-                            <RStyle.RCircle radius={width}>
-                                <RStyle.RStroke color={'#007bff'} width={width} />
-                                <RStyle.RFill color={'#007bff'} />
-                            </RStyle.RCircle>
-                            <RStyle.RText font='helvetica' text={feature.get('n')}>
-                                <RStyle.RStroke color={'#007bff'} width={2} />
-                                <RStyle.RFill color={color} />
-                            </RStyle.RText>
+                            <RCircle radius={width}>
+                                <RStroke color={'#007bff'} width={width} />
+                                <RFill color={'#007bff'} />
+                            </RCircle>
+                            <RText font='helvetica' text={feature.get('n')}>
+                                <RStroke color={'#007bff'} width={2} />
+                                <RFill color={color} />
+                            </RText>
                         </React.Fragment>
                     );
                 }}

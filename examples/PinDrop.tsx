@@ -14,17 +14,12 @@ const coords: Record<string, Coordinate> = {
 
 export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
-    const location = RStyle.useRStyle();
     return (
         <React.Fragment>
-            <RStyle.RStyle ref={location}>
-                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-            </RStyle.RStyle>
             <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
                 <ROSM />
                 <RLayerVector>
                     <RFeature
-                        style={location}
                         geometry={new Point(fromLonLat(loc))}
                         // useCallback is here for performance reasons
                         // without it RFeature will have its props updated at every call
@@ -46,6 +41,9 @@ export default function PinDrop(): JSX.Element {
                             []
                         )}
                     >
+                        <RStyle.RStyle>
+                            <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+                        </RStyle.RStyle>
                         <ROverlay className='example-overlay'>Move me</ROverlay>
                     </RFeature>
                 </RLayerVector>

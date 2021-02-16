@@ -5,7 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {Feature} from 'ol';
 import {Style, Circle, Image, RegularShape} from 'ol/style';
 
-import {RMap, RLayerVector} from 'rlayers';
+import {RMap, RLayerVector, RFeature} from 'rlayers';
 import {
     RStyle,
     RStyleArray,
@@ -166,6 +166,25 @@ describe('<RStyle>', () => {
         expect(style.getText().getText()).toBe('text9');
         expect(style.getText().getStroke().getWidth()).toBe(9);
     });
+    it('should apply to features', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refFeature = React.createRef() as React.RefObject<RFeature>;
+        render(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={refVector}>
+                    <RFeature ref={refFeature}>
+                        <RStyle>
+                            <RStroke color='#000100' width={13} />
+                        </RStyle>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        const styleF = refFeature.current.ol.getStyle() as Style;
+        const styleV = refVector.current.ol.getStyle();
+        expect(styleF.getStroke().getWidth()).toBe(13);
+        expect(typeof styleV).toBe('function');
+    });
 });
 
 describe('RStyle.getStyle', () => {
@@ -188,7 +207,7 @@ describe('RStyle.getStyle', () => {
         expect(RStyle.getStyle([obj])[0]).toBe(obj);
         expect(RStyle.getStyleStatic([obj])[0]).toBe(obj);
     });
-    it('throw on dynamic styles', async () => {
+    it('should throw on dynamic RStyle', async () => {
         const err = console.error;
         console.error = () => undefined;
         const ref = createRStyle();
@@ -203,6 +222,12 @@ describe('RStyle.getStyle', () => {
             />
         );
         expect(() => RStyle.getStyleStatic(ref)).toThrow('dynamic');
+        console.error = err;
+    });
+    it('should throw on dynamic StyleLike', async () => {
+        const err = console.error;
+        console.error = () => undefined;
+        expect(() => RStyle.getStyleStatic(() => new Style({}))).toThrow('dynamic');
         console.error = err;
     });
 });
