@@ -59,7 +59,7 @@ describe('<RFeature>', () => {
                     common.createEvent(evname.toLowerCase(), map.current.ol)
                 );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(handler.mock.calls.length).toBe(mapEvents.length * 2);
+        expect(handler).toHaveBeenCalledTimes(mapEvents.length * 2);
         unmount();
     });
 
@@ -135,8 +135,8 @@ describe('<RFeature>', () => {
             map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
             map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
         }
-        expect(handlers[0].mock.calls.length).toBe(mapEvents.length);
-        expect(handlers[1].mock.calls.length).toBe(mapEvents.length);
+        expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
     });
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
@@ -181,9 +181,9 @@ describe('<RFeature>', () => {
         map.current.ol.dispatchEvent(common.createEvent('pointerdrag', map.current.ol, 10, true));
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
 
-        expect(handlerProps['onPointerEnter'].mock.calls.length).toBe(2);
-        expect(handlerProps['onPointerLeave'].mock.calls.length).toBe(2);
-        expect(handlerProps['onPointerDragEnd'].mock.calls.length).toBe(1);
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(1);
     });
     it('should throw an error without a Layer', () => {
         const err = console.error;

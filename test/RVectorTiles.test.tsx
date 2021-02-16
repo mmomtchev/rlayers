@@ -47,7 +47,7 @@ describe('<RLayerVectorTiles>', () => {
         });
         for (const ev of mapEvents)
             map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol));
-        expect(handler.mock.calls.length).toBe(mapEvents.length);
+        expect(handler).toHaveBeenCalledTimes(mapEvents.length);
         unmount();
     });
     it('should generate events to features ', async () => {
@@ -66,32 +66,32 @@ describe('<RLayerVectorTiles>', () => {
             return undefined;
         });
 
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(0);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(0);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(0);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(0);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(1);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(0);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(1);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(2);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(1);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(1);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(2);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(2);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(3);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(2);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-        expect(handlers.onPointerEnter.mock.calls.length).toBe(3);
-        expect(handlers.onPointerLeave.mock.calls.length).toBe(3);
+        expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
+        expect(handlers.onPointerLeave).toHaveBeenCalledTimes(3);
 
         unmount();
     });

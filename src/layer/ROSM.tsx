@@ -3,13 +3,13 @@ import {Map} from 'ol';
 import {Tile as LayerTile} from 'ol/layer';
 import {OSM} from 'ol/source';
 
-import {default as Layer, RLayerProps} from './RLayer';
+import {default as LayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ROSMProps extends RLayerProps {}
+export interface ROSMProps extends RLayerRasterProps {}
 
 /** An OpenStreetMap layer */
-export default class ROSM extends Layer<ROSMProps> {
+export default class ROSM extends LayerRaster<ROSMProps> {
     source: OSM;
 
     constructor(props: Readonly<ROSMProps>, context: React.Context<Map>) {

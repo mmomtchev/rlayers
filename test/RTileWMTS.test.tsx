@@ -40,6 +40,26 @@ describe('<RLayerTile>', () => {
         expect(layer.current.source.getTileGrid().getMaxZoom()).toBe(20);
         expect(layer.current.source.getProjection().getCode()).toBe('EPSG:4326');
     });
+
+    it('should relay tile events', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const layer = React.createRef() as React.RefObject<RLayerTile>;
+        const handler = jest.fn();
+        const events = ['TileEnd', 'TileStart', 'TileError'];
+        const handlers = events.reduce((props, ev) => ({...props, ['on' + ev]: handler}), {});
+        render(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerTile
+                    ref={layer}
+                    {...handlers}
+                    url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                />
+            </RMap>
+        );
+        for (const ev of events)
+            layer.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol));
+        expect(handler).toHaveBeenCalledTimes(events.length);
+    });
 });
 
 const WMTSCaps =

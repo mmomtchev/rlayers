@@ -77,6 +77,6 @@ describe('<RMap>', () => {
         ).toMatchSnapshot();
         for (const evname of mapEvents)
             map.current.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
-        expect(handler.mock.calls.length).toBe(mapEvents.length * 2);
+        expect(handler).toHaveBeenCalledTimes(mapEvents.length * 2);
     });
 });

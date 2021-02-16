@@ -4,10 +4,10 @@ import {Tile as OLRLayerTile} from 'ol/layer';
 import {default as OLSourceWMTS, optionsFromCapabilities, Options} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
-import {default as RLayer, RLayerProps} from './RLayer';
+import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
-export interface RLayerWMTSProps extends RLayerProps {
+export interface RLayerWMTSProps extends RLayerRasterProps {
     /** URL for the WMTS getCapabilites request */
     url: string;
     /** Layer name */
@@ -17,7 +17,7 @@ export interface RLayerWMTSProps extends RLayerProps {
 }
 
 /** A layer for WMTS-compatible raster tile servers */
-export default class RLayerWMTS extends RLayer<RLayerWMTSProps> {
+export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     ol: OLRLayerTile;
     source: OLSourceWMTS;
     parser: WMTSCapabilities;

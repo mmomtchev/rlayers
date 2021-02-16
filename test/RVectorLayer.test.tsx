@@ -51,7 +51,7 @@ describe('<RLayerVector>', () => {
         const f = new Feature(new Point([0, 0]));
         ref.current.source.addFeature(f);
         f.dispatchEvent(common.createEvent('click', map.current.ol));
-        expect(handler.mock.calls.length).toBe(1);
+        expect(handler).toHaveBeenCalledTimes(1);
         unmount();
     });
     it('should load trigger addFeature', async () => {
@@ -68,7 +68,7 @@ describe('<RLayerVector>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(addFeature.mock.calls.length).toBe(1);
+        expect(addFeature).toHaveBeenCalledTimes(1);
         unmount();
     });
     it('should load trigger addFeature/w multiple', async () => {
@@ -88,7 +88,7 @@ describe('<RLayerVector>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(addFeature.mock.calls.length).toBe(features.length);
+        expect(addFeature).toHaveBeenCalledTimes(features.length);
         rerender(
             <RMap {...common.mapProps}>
                 <RLayerVector ref={vector} zIndex={9}>
@@ -102,7 +102,7 @@ describe('<RLayerVector>', () => {
                 </RLayerVector>
             </RMap>
         );
-        expect(addFeature.mock.calls.length).toBe(features.length);
+        expect(addFeature).toHaveBeenCalledTimes(features.length);
         expect(vector.current.ol.getListeners('addfeature')).toBeUndefined();
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
@@ -148,6 +148,6 @@ describe('<RLayerVector>', () => {
                 expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
             }
         expect(render2.container.innerHTML).toMatchSnapshot();
-        expect(handler.mock.calls.length).toBe(mapEvents.length * features.length * 3);
+        expect(handler).toHaveBeenCalledTimes(mapEvents.length * features.length * 3);
     });
 });

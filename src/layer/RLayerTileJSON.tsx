@@ -4,16 +4,16 @@ import {Tile as OLRLayerTile} from 'ol/layer';
 import {TileJSON} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {default as RLayer, RLayerProps} from './RLayer';
+import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
-export interface RLayerTileJSONProps extends RLayerProps {
+export interface RLayerTileJSONProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;
     projection?: never;
 }
 
 /** A layer with data from TileJSON tiles */
-export default class RLayerTileJSON extends RLayer<RLayerTileJSONProps> {
+export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
     ol: OLRLayerTile;
     source: TileJSON;
 

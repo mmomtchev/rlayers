@@ -4,9 +4,9 @@ import {Tile as OLRLayerTile} from 'ol/layer';
 import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {default as RLayer, RLayerProps} from './RLayer';
+import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
-export interface RLayerTileProps extends RLayerProps {
+export interface RLayerTileProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;
     /** Custom OpenLayers TileGrid for sources that do not cover the world
@@ -18,7 +18,7 @@ export interface RLayerTileProps extends RLayerProps {
 }
 
 /** A layer with XYZ raster tiles */
-export default class RLayerTile extends RLayer<RLayerTileProps> {
+export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: OLRLayerTile;
     source: XYZ;
 
