@@ -1,10 +1,10 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
+import {Pixel} from 'ol/pixel';
 import {default as DragBox, DragBoxEvent} from 'ol/interaction/DragBox';
 
 import {default as RPointer} from './RPointer';
 import debug from '../debug';
-import {Pixel} from 'ol/pixel';
 
 export interface RDragBoxProps {
     /** A CSS class to be used for the box */
@@ -36,9 +36,5 @@ export default class RDragBox extends RPointer<RDragBoxProps> {
                 .filter((p) => this.classProps.includes(p))
                 .reduce((ac, p) => ({...ac, [p]: props[p]}), {})
         );
-    }
-
-    refresh(prevProps: RDragBoxProps): void {
-        super.refresh(prevProps);
     }
 }

@@ -12,6 +12,10 @@ const coords: Record<string, Coordinate> = {
     Montmartre: [2.342, 48.887]
 };
 
+// This example is meant to illustrate the use of the various RFeature callbacks
+// If you simply want to implement a translation interaction, the Interactions
+// example has a method which handles the pointer movements internally
+// with a much better performance
 export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
     return (

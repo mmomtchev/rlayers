@@ -52,9 +52,9 @@ import OverviewJSX from '!!raw-loader!./Overview.tsx';
 import VectorTiles from './VectorTiles';
 // @ts-ignore
 import VectorTilesJSX from '!!raw-loader!./VectorTiles.tsx';
-import DragBox from './DragBox';
+import Interactions from './Interactions';
 // @ts-ignore
-import DragBoxJSX from '!!raw-loader!./DragBox.tsx';
+import InteractionsJSX from '!!raw-loader!./Interactions.tsx';
 import Spinner from './Spinner';
 // @ts-ignore
 import SpinnerJSX from '!!raw-loader!./Spinner.tsx';
@@ -79,7 +79,7 @@ const examples = {
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     spinner: {title: 'Spinner', comp: Spinner, code: SpinnerJSX},
-    dragbox: {title: 'Dragbox', comp: DragBox, code: DragBoxJSX},
+    interactions: {title: 'Interactions', comp: Interactions, code: InteractionsJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}

@@ -30,6 +30,15 @@ describe('<RStyle>', () => {
         );
         expect((RStyle.getStyle(ref) as () => Style)().getImage()).toBeInstanceOf(Image);
     });
+    it('should supprt icon with a size style', async () => {
+        const ref = createRStyle();
+        render(
+            <RStyle ref={ref}>
+                <RIcon src={'/icon'} size={[16, 16]} />
+            </RStyle>
+        );
+        expect((RStyle.getStyle(ref) as () => Style)().getImage().getSize()).toEqual([16, 16]);
+    });
     it('should create a basic dot style', async () => {
         const ref = createRStyle();
         render(

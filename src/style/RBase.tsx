@@ -26,15 +26,18 @@ export default class RBase<P extends RBaseProps> extends React.PureComponent<P, 
 
     refresh(prevProps?: P): void {
         debug('refreshStyle', this);
+        if (!prevProps) return;
         for (const p of this.classProps) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);
             if ((prevProps && prevProps[p]) !== this.props[p]) {
                 if (this.ol['set' + m]) {
                     this.ol['set' + m](this.props[p]);
                 } else {
+                    // TODO: find a solution for anonymous arrays
                     /* istanbul ignore next */
-                    throw new Error(
-                        'Underlying OpenLayers object does not support updating of ' + p
+                    console.log(
+                        'Underlying OpenLayers object does not support updating of ' + p,
+                        this
                     );
                 }
             }
