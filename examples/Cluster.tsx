@@ -29,7 +29,6 @@ const extentFeatures = (features, resolution) => {
 export default function Cluster(): JSX.Element {
     const [distance, setDistance] = React.useState(20);
     const earthquakeLayer = React.useRef();
-    const styleRef = useRStyle();
     return (
         <React.Fragment>
             <RMap className='example-map' center={fromLonLat([0, 0])} zoom={1}>
@@ -41,7 +40,6 @@ export default function Cluster(): JSX.Element {
                     url={earthquakes}
                 >
                     <RStyle
-                        ref={styleRef}
                         cacheSize={1024}
                         cacheId={(feature, resolution) =>
                             // This is the hashing function, it takes a feature as its input
