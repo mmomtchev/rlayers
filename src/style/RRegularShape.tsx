@@ -1,5 +1,5 @@
 import React from 'react';
-import {RegularShape, Fill, Stroke} from 'ol/style';
+import {RegularShape} from 'ol/style';
 
 import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';

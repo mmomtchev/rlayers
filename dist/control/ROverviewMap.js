@@ -29,8 +29,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var control_1 = require("ol/control");
-var RControlBase_1 = __importDefault(require("./RControlBase"));
 var context_1 = require("../context");
+var RControlBase_1 = __importDefault(require("./RControlBase"));
 var ROverviewMap = (function (_super) {
     __extends(ROverviewMap, _super);
     function ROverviewMap(props, context) {
@@ -43,7 +43,7 @@ var ROverviewMap = (function (_super) {
     };
     ROverviewMap.prototype.render = function () {
         return (react_1.default.createElement("div", { className: this.props.className, style: { width: this.props.width, height: this.props.height } },
-            react_1.default.createElement(context_1.RMapContext.Provider, { value: this.ol.getOverviewMap() }, this.props.children)));
+            react_1.default.createElement(context_1.RContext.Provider, { value: this.ol.getOverviewMap() }, this.props.children)));
     };
     return ROverviewMap;
 }(RControlBase_1.default));

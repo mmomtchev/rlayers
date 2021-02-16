@@ -81,7 +81,7 @@ var RMap = (function (_super) {
     };
     RMap.prototype.render = function () {
         return (react_1.default.createElement("div", { className: this.props.className, style: { width: this.props.width, height: this.props.height }, ref: this.target },
-            react_1.default.createElement(context_1.RMapContext.Provider, { value: this.ol }, this.props.children)));
+            react_1.default.createElement(context_1.RContext.Provider, { value: { map: this.ol } }, this.props.children)));
     };
     return RMap;
 }(REvent_1.RlayersBase));

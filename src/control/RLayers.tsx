@@ -1,9 +1,8 @@
 import React from 'react';
-import {Map} from 'ol';
 import {Control} from 'ol/control';
 
 import './layers.css';
-import {RMapContext} from '../context';
+import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 export interface LayersProps extends RControlProps {
@@ -21,12 +20,10 @@ export interface LayersState {
  * Every layer should have a `label` property
  */
 export default class RLayers extends RControlBase<LayersProps, LayersState> {
-    static contextType = RMapContext;
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
-    context: Map;
 
-    constructor(props: Readonly<LayersProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<LayersProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.targetRef = React.createRef();
         this.state = {collapsed: true, visible: [true]};
@@ -37,13 +34,13 @@ export default class RLayers extends RControlBase<LayersProps, LayersState> {
     componentDidMount(): void {
         this.ol = new Control(this.toOLProps(this.props));
         super.componentDidMount();
-        this.context.on('change', this.onchange);
+        this.context.map.on('change', this.onchange);
         this.forceUpdate();
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.context.un('change', this.onchange);
+        this.context.map.un('change', this.onchange);
     }
 
     toOLProps(props: LayersProps): Record<string, unknown> {

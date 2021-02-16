@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -35,7 +46,7 @@ var RStyle = (function (_super) {
                 return _this.ol;
             var style = new Style_1.default({});
             var render = (react_1.default.createElement(react_1.default.Fragment, null,
-                react_1.default.createElement(context_1.RStyleContext.Provider, { value: style }, _this.props.render(f))));
+                react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, _this.context), { style: style }) }, _this.props.render(f))));
             react_dom_1.default.render(render, document.createElement('div'));
             return style;
         };
@@ -48,12 +59,12 @@ var RStyle = (function (_super) {
     RStyle.prototype.refresh = function (prevProps) {
         var _a, _b, _c, _d;
         _super.prototype.refresh.call(this, prevProps);
-        if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.layer) === null || _b === void 0 ? void 0 : _b.setStyle)
-            (_d = (_c = this.context) === null || _c === void 0 ? void 0 : _c.layer) === null || _d === void 0 ? void 0 : _d.setStyle(this.ol);
+        if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.vectorlayer) === null || _b === void 0 ? void 0 : _b.setStyle)
+            (_d = (_c = this.context) === null || _c === void 0 ? void 0 : _c.vectorlayer) === null || _d === void 0 ? void 0 : _d.setStyle(this.ol);
     };
     RStyle.prototype.render = function () {
         return (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement(context_1.RStyleContext.Provider, { value: this.ol }, this.props.render ? null : this.props.children)));
+            react_1.default.createElement(context_1.RContext.Provider, { value: this.ol }, this.props.render ? null : this.props.children)));
     };
     RStyle.getStyle = function (style) {
         if (style === null || style === undefined)
@@ -77,9 +88,10 @@ var RStyle = (function (_super) {
                 return asRStyle.ol;
             throw new TypeError('RStyle is dynamic and cannot be converted to Style');
         }
+        if (typeof style === 'function')
+            throw new TypeError('StyleLike is dynamic and cannot be converted to Style');
         return style;
     };
-    RStyle.contextType = context_1.RVectorContext;
     return RStyle;
 }(REvent_1.RlayersBase));
 exports.default = RStyle;

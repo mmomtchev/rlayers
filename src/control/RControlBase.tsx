@@ -1,9 +1,8 @@
 import React from 'react';
-import {Map as Map} from 'ol';
 import {Control as Control} from 'ol/control';
 import {Options} from 'ol/control/Control';
 
-import {RMapContext} from '../context';
+import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 
 export interface RControlProps {
@@ -12,14 +11,11 @@ export interface RControlProps {
 }
 
 export default class RControlBase<P extends RControlProps, S> extends RlayersBase<P, S> {
-    static contextType = RMapContext;
     ol: Control;
-    context: Map;
 
-    constructor(props: Readonly<P>, context: React.Context<Map>) {
+    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
-        if (!this.context || !this.context.addControl)
-            throw new Error('A control must be part of a map');
+        if (!this.context?.map) throw new Error('A control must be part of a map');
     }
 
     toOLProps(props: P): Options {
@@ -35,11 +31,11 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
 
     componentDidMount(): void {
         super.componentDidMount();
-        this.context.addControl(this.ol);
+        this.context.map.addControl(this.ol);
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.context.removeControl(this.ol);
+        this.context.map.removeControl(this.ol);
     }
 }

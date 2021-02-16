@@ -1,7 +1,7 @@
 import React from 'react';
-import { Map } from 'ol';
 import { Layer } from 'ol/layer';
 import { Source } from 'ol/source';
+import { RContextType } from '../context';
 import { RlayersBase } from '../REvent';
 export interface RLayerProps {
     visible?: boolean;
@@ -16,10 +16,9 @@ export interface RLayerProps {
     projection?: string;
 }
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
-    static contextType: React.Context<any>;
     ol: Layer;
     source: Source;
-    constructor(props: Readonly<P>, context: React.Context<Map>);
+    constructor(props: Readonly<P>, context: React.Context<RContextType>);
     refresh(prevProps?: P): void;
     componentDidMount(): void;
     componentWillUnmount(): void;

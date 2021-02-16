@@ -5,7 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
-import {RFeature, RLayerVector, RMap, RLocationContext} from 'rlayers';
+import {RFeature, RLayerVector, RMap, RContext} from 'rlayers';
 import * as common from './common';
 
 describe('<RFeature>', () => {
@@ -27,9 +27,9 @@ describe('<RFeature>', () => {
                         style={common.styles.blueDot}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     >
-                        <RLocationContext.Consumer>
+                        <RContext.Consumer>
                             {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                        </RLocationContext.Consumer>
+                        </RContext.Consumer>
                     </RFeature>
                     <RFeature
                         ref={ref[1]}
@@ -46,9 +46,9 @@ describe('<RFeature>', () => {
                             ])
                         }
                     >
-                        <RLocationContext.Consumer>
+                        <RContext.Consumer>
                             {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                        </RLocationContext.Consumer>
+                        </RContext.Consumer>
                     </RFeature>
                 </RLayerVector>
             </RMap>
@@ -71,9 +71,9 @@ describe('<RFeature>', () => {
                         properties={{name: 'Arc de Triomphe'}}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     >
-                        <RLocationContext.Consumer>
+                        <RContext.Consumer>
                             {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                        </RLocationContext.Consumer>
+                        </RContext.Consumer>
                     </RFeature>
                 </RLayerVector>
             </RMap>
@@ -86,9 +86,9 @@ describe('<RFeature>', () => {
                         properties={{name: "Place d'Italie"}}
                         geometry={new Point(common.coords.PlaceDItalie)}
                     >
-                        <RLocationContext.Consumer>
+                        <RContext.Consumer>
                             {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                        </RLocationContext.Consumer>
+                        </RContext.Consumer>
                     </RFeature>
                 </RLayerVector>
             </RMap>

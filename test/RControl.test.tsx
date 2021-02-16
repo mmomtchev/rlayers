@@ -4,7 +4,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Map} from 'ol';
 
-import {RMap, RMapContext, RControl, ROSM, RLayerStamen} from 'rlayers';
+import {RMap, RContext, RControl, ROSM, RLayerStamen} from 'rlayers';
 import * as common from './common';
 
 const RControlButton = <button>X</button>;
@@ -21,12 +21,12 @@ describe('<RControl>', () => {
                 <RControl.RAttribution />
                 <RControl.RZoom />
                 <RControl.RCustom className='example-RControl'>
-                    <RMapContext.Consumer>
-                        {(map: Map) => {
+                    <RContext.Consumer>
+                        {({map}) => {
                             expect(map).toBeInstanceOf(Map);
                             return RControlButton;
                         }}
-                    </RMapContext.Consumer>
+                    </RContext.Consumer>
                 </RControl.RCustom>
                 <RControl.RRotate />
                 <RControl.RFullScreen />

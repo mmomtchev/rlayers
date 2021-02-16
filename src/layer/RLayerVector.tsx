@@ -3,6 +3,7 @@ import {Map as Map} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 
+import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 import debug from '../debug';
@@ -12,14 +13,13 @@ import debug from '../debug';
  *
  * Supports loading of features from external sources
  *
- * Provides a `RVectorContext` for JSX-declared `RFeature`s
+ * Provides a `RContext` for JSX-declared `RFeature`s
  */
 export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
     ol: LayerVector;
     source: SourceVector;
-    context: Map;
 
-    constructor(props: Readonly<RLayerBaseVectorProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerBaseVectorProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.source = new SourceVector({
             features: this.props.features,

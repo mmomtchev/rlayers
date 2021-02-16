@@ -29,6 +29,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RlayersBase = void 0;
 var react_1 = __importDefault(require("react"));
+var context_1 = require("./context");
 var debug_1 = __importDefault(require("./debug"));
 var RlayersBase = (function (_super) {
     __extends(RlayersBase, _super);
@@ -166,6 +167,7 @@ var RlayersBase = (function (_super) {
     RlayersBase.prototype.render = function () {
         return null;
     };
+    RlayersBase.contextType = context_1.RContext;
     return RlayersBase;
 }(react_1.default.PureComponent));
 exports.RlayersBase = RlayersBase;

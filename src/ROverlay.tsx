@@ -1,7 +1,7 @@
 import React from 'react';
 import {Overlay} from 'ol';
 
-import {RLocationContext, RLocationContextType} from './context';
+import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
 export interface ROverlayProps {
@@ -20,21 +20,19 @@ export interface ROverlayProps {
 /**
  * A basic overlay
  *
- * Requires a location context `RLocationContext`
+ * Requires a location context `RContext`
  *
  * (ie it must be descendant of a `RFeature`)
  *
  * @visibleName Overlay
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
-    static contextType = RLocationContext;
     ol: Overlay;
-    context: RLocationContextType;
     containerRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<P>, context: React.Context<RLocationContextType>) {
+    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
-        if (!this.context || !this.context.layer)
+        if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
             autoPan: props.autoPan ?? true,

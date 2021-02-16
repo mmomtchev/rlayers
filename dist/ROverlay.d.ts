@@ -1,6 +1,6 @@
 import React from 'react';
 import { Overlay } from 'ol';
-import { RLocationContextType } from './context';
+import { RContextType } from './context';
 import { RlayersBase } from './REvent';
 export interface ROverlayProps {
     content?: string | HTMLElement | React.ElementType;
@@ -11,11 +11,9 @@ export interface ROverlayProps {
     };
 }
 export declare class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
-    static contextType: React.Context<any>;
     ol: Overlay;
-    context: RLocationContextType;
     containerRef: React.RefObject<HTMLDivElement>;
-    constructor(props: Readonly<P>, context: React.Context<RLocationContextType>);
+    constructor(props: Readonly<P>, context: React.Context<RContextType>);
     setPosition(): void;
     refresh(): void;
     componentDidMount(): void;

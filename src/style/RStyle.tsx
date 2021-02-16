@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
-import {RStyleContext, RVectorContext, RVectorContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -29,12 +29,10 @@ export const createRStyle = (): RStyleRef => React.createRef();
  * automatically assigned as the default style of that layer
  */
 export default class RStyle extends RlayersBase<RStyleProps, null> {
-    static contextType = RVectorContext;
     ol: StyleLike;
     childRefs: RStyleRef[];
-    context: RVectorContextType;
 
-    constructor(props: Readonly<RStyleProps>, context: React.Context<RVectorContextType>) {
+    constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
         if (props.render) this.ol = this.style;
         else this.ol = new Style({});
@@ -45,9 +43,9 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
         const style = new Style({});
         const render = (
             <React.Fragment>
-                <RStyleContext.Provider value={style}>
+                <RContext.Provider value={{...this.context, style}}>
                     {this.props.render(f)}
-                </RStyleContext.Provider>
+                </RContext.Provider>
             </React.Fragment>
         );
         ReactDOM.render(render, document.createElement('div'));
@@ -56,15 +54,17 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
 
     refresh(prevProps?: RStyleProps): void {
         super.refresh(prevProps);
-        if (this.context?.layer?.setStyle) this.context?.layer?.setStyle(this.ol);
+        if (this.context?.vectorlayer?.setStyle) this.context?.vectorlayer?.setStyle(this.ol);
     }
 
     render(): JSX.Element {
         return (
             <React.Fragment>
-                <RStyleContext.Provider value={this.ol}>
-                    {this.props.render ? null : this.props.children}
-                </RStyleContext.Provider>
+                {this.props.render ? null : (
+                    <RContext.Provider value={{...this.context, style: this.ol as Style}}>
+                        {this.props.children}
+                    </RContext.Provider>
+                )}
             </React.Fragment>
         );
     }
@@ -126,6 +126,8 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
         }
 
         // style is an OpenLayers StyleLike
+        if (typeof style === 'function')
+            throw new TypeError('StyleLike is dynamic and cannot be converted to Style');
         return style as Style;
     }
 }

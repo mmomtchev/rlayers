@@ -5,7 +5,7 @@ import {Extent} from 'ol/extent';
 
 import {Coordinate} from 'ol/coordinate';
 
-import {RMapContext} from './context';
+import {RContext} from './context';
 import {RlayersBase} from './REvent';
 
 /** Main map component *
@@ -115,7 +115,7 @@ export default class RMap extends RlayersBase<RMapProps, null> {
                 style={{width: this.props.width, height: this.props.height}}
                 ref={this.target}
             >
-                <RMapContext.Provider value={this.ol}>{this.props.children}</RMapContext.Provider>
+                <RContext.Provider value={{map: this.ol}}>{this.props.children}</RContext.Provider>
             </div>
         );
     }

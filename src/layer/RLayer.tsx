@@ -3,7 +3,7 @@ import {Map} from 'ol';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 
-import {RMapContext} from '../context';
+import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -31,14 +31,12 @@ export interface RLayerProps {
 }
 
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
-    static contextType = RMapContext;
     ol: Layer;
     source: Source;
 
-    constructor(props: Readonly<P>, context: React.Context<Map>) {
+    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
-        if (!this.context || !this.context.addLayer)
-            throw new Error('A layer must be part of a map');
+        if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }
 
     refresh(prevProps?: P): void {
@@ -64,11 +62,11 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> 
 
     componentDidMount(): void {
         super.componentDidMount();
-        this.context.addLayer(this.ol);
+        this.context.map.addLayer(this.ol);
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.context.removeLayer(this.ol);
+        this.context.map.removeLayer(this.ol);
     }
 }

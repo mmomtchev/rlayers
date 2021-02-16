@@ -28,7 +28,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
-var context_1 = require("../context");
 var debug_1 = __importDefault(require("../debug"));
 var RBase = (function (_super) {
     __extends(RBase, _super);
@@ -83,7 +82,6 @@ var RBase = (function (_super) {
     RBase.prototype.render = function () {
         return null;
     };
-    RBase.contextType = context_1.RStyleContext;
     RBase.classProps = [];
     return RBase;
 }(react_1.default.PureComponent));

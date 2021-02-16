@@ -28,14 +28,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Pointer_1 = __importDefault(require("ol/interaction/Pointer"));
-var context_1 = require("../context");
 var REvent_1 = require("../REvent");
 var debug_1 = __importDefault(require("../debug"));
 var RPointer = (function (_super) {
     __extends(RPointer, _super);
     function RPointer(props, context) {
+        var _a, _b;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.addInteraction)
+        if (!((_b = (_a = _this.context) === null || _a === void 0 ? void 0 : _a.map) === null || _b === void 0 ? void 0 : _b.addInteraction))
             throw new Error('An interaction must be part of a map');
         _this.ol = _this.createOL(props);
         return _this;
@@ -51,9 +51,9 @@ var RPointer = (function (_super) {
                 var p = _c.value;
                 if (prevProps && prevProps[p] !== this.props[p]) {
                     debug_1.default('Replacing interaction', this, prevProps);
-                    this.context.removeInteraction(this.ol);
+                    this.context.map.removeInteraction(this.ol);
                     this.ol = this.createOL(this.props);
-                    this.context.addInteraction(this.ol);
+                    this.context.map.addInteraction(this.ol);
                     break;
                 }
             }
@@ -69,13 +69,12 @@ var RPointer = (function (_super) {
     };
     RPointer.prototype.componentDidMount = function () {
         _super.prototype.componentDidMount.call(this);
-        this.context.addInteraction(this.ol);
+        this.context.map.addInteraction(this.ol);
     };
     RPointer.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
-        this.context.removeInteraction(this.ol);
+        this.context.map.removeInteraction(this.ol);
     };
-    RPointer.contextType = context_1.RMapContext;
     RPointer.classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     return RPointer;
 }(REvent_1.RlayersBase));

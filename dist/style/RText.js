@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -30,13 +41,13 @@ var RText = (function (_super) {
         return new style_1.Text(props);
     };
     RText.prototype.set = function (ol) {
-        if (!this.context.setStroke)
+        if (!this.context.style.setStroke)
             throw new Error('Parent element does not support a text');
-        this.context.setText(ol);
+        this.context.style.setText(ol);
     };
     RText.prototype.render = function () {
         return (react_1.default.createElement("div", null,
-            react_1.default.createElement(context_1.RStyleContext.Provider, { value: this.ol }, this.props.children)));
+            react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, this.context), { style: this.ol }) }, this.props.children)));
     };
     RText.classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     return RText;

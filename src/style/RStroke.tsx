@@ -31,7 +31,7 @@ export default class RStroke extends RBase<RStrokeProps> {
     }
 
     set(ol: Stroke): void {
-        if (this.context.setStroke) return this.context.setStroke(ol);
+        if (this.context.style.setStroke) return this.context.style.setStroke(ol);
         /* istanbul ignore next */
         throw new Error('Parent element does not support a stroke');
     }

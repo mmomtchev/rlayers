@@ -2,7 +2,6 @@ import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {default as DragBox, DragBoxEvent} from 'ol/interaction/DragBox';
 
-import {RMapContext} from '../context';
 import {default as RPointer} from './RPointer';
 import debug from '../debug';
 import {Pixel} from 'ol/pixel';
@@ -27,10 +26,8 @@ export interface RDragBoxProps {
  * It is meant to be be extended by more specific interactions
  */
 export default class RDragBox extends RPointer<RDragBoxProps> {
-    static contextType = RMapContext;
     static classProps = ['className', 'condition', 'minArea', 'boxEndCondition'];
     ol: DragBox;
-    context: Map;
 
     createOL(props: RDragBoxProps): DragBox {
         this.classProps = RDragBox.classProps;

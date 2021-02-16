@@ -1,37 +1,26 @@
 import React from 'react';
 import {Map as Map} from 'ol';
 import BaseVector from 'ol/layer/BaseVector';
-import {Vector as LayerVector} from 'ol/layer';
-import {Vector as SourceVector} from 'ol/source';
+import SourceVector from 'ol/source/Vector';
 import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
+import Style from 'ol/style/Style';
 
-export const RMapContext = React.createContext(null);
-
-export const RLayerContext = React.createContext(null);
+export const RContext = React.createContext(null as RContextType);
 
 /**
- * Location context type
+ * Context type
  */
-export interface RLocationContextType {
+export interface RContextType {
     /** The current map */
-    map: Map;
-    /** The current layer */
-    layer: LayerVector;
+    map?: Map;
+    /** The current vector layer */
+    vectorlayer?: BaseVector;
+    vectorsource?: SourceVector;
     /** The current RFeature */
-    feature: Feature;
+    feature?: Feature;
     /** The current location */
-    location: Coordinate;
+    location?: Coordinate;
+    /** The current style */
+    style?: Style;
 }
-
-export const RLocationContext = React.createContext(null);
-
-export interface RVectorContextType {
-    map: Map;
-    layer: BaseVector;
-    source: SourceVector;
-}
-
-export const RVectorContext = React.createContext(null);
-
-export const RStyleContext = React.createContext(null);

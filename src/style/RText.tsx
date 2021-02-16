@@ -1,11 +1,8 @@
 import React from 'react';
-import {Map, Feature} from 'ol';
-import {ColorLike} from 'ol/colorlike';
-import {Style, Text} from 'ol/style';
 import {Size} from 'ol/size';
+import {Text, Style} from 'ol/style';
 
-import {RStyleContext} from '../context';
-import RStyle from './RStyle';
+import {RContext} from '../context';
 import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
@@ -41,16 +38,17 @@ export default class RText extends RBase<RTextProps> {
     }
 
     set(ol: Text): void {
-        if (!this.context.setStroke) throw new Error('Parent element does not support a text');
-        this.context.setText(ol);
+        if (!this.context.style.setStroke)
+            throw new Error('Parent element does not support a text');
+        this.context.style.setText(ol);
     }
 
     render(): JSX.Element {
         return (
             <div>
-                <RStyleContext.Provider value={this.ol}>
+                <RContext.Provider value={{...this.context, style: (this.ol as unknown) as Style}}>
                     {this.props.children}
-                </RStyleContext.Provider>
+                </RContext.Provider>
             </div>
         );
     }

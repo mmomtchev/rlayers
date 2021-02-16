@@ -13,13 +13,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var context_1 = require("../context");
 var REvent_1 = require("../REvent");
 var RControlBase = (function (_super) {
     __extends(RControlBase, _super);
     function RControlBase(props, context) {
+        var _a;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.addControl)
+        if (!((_a = _this.context) === null || _a === void 0 ? void 0 : _a.map))
             throw new Error('A control must be part of a map');
         return _this;
     }
@@ -35,13 +35,12 @@ var RControlBase = (function (_super) {
     };
     RControlBase.prototype.componentDidMount = function () {
         _super.prototype.componentDidMount.call(this);
-        this.context.addControl(this.ol);
+        this.context.map.addControl(this.ol);
     };
     RControlBase.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
-        this.context.removeControl(this.ol);
+        this.context.map.removeControl(this.ol);
     };
-    RControlBase.contextType = context_1.RMapContext;
     return RControlBase;
 }(REvent_1.RlayersBase));
 exports.default = RControlBase;

@@ -51,7 +51,7 @@ var RFeature = (function (_super) {
     function RFeature(props, context) {
         var _a;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.layer)
+        if (!_this.context || !_this.context.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');
         if (props.feature)
             _this.ol = props.feature;
@@ -129,26 +129,26 @@ var RFeature = (function (_super) {
         debug_1.default('didMount', this.ol);
         _super.prototype.componentDidMount.call(this);
         this.ol.on('change', this.onchange);
-        this.context.source.addFeature(this.ol);
+        this.context.vectorsource.addFeature(this.ol);
     };
     RFeature.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
         this.ol.un('change', this.onchange);
-        this.context.source.removeFeature(this.ol);
+        this.context.vectorsource.removeFeature(this.ol);
     };
     RFeature.prototype.render = function () {
         var _a, _b;
         var extent = (_b = (_a = this.ol) === null || _a === void 0 ? void 0 : _a.getGeometry()) === null || _b === void 0 ? void 0 : _b.getExtent();
         var center = extent && extent_1.getCenter(extent);
-        return (react_1.default.createElement(context_1.RLocationContext.Provider, { value: {
+        return (react_1.default.createElement(context_1.RContext.Provider, { value: {
                 map: this.context.map,
-                layer: this.context.layer,
+                layer: this.context.vectorlayer,
+                source: this.context.vectorsource,
                 feature: this.ol,
                 location: center
             } }, this.props.children));
     };
     RFeature.pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
-    RFeature.contextType = context_1.RVectorContext;
     RFeature.hitTolerance = 10;
     return RFeature;
 }(REvent_1.RlayersBase));

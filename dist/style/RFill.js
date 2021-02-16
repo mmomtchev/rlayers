@@ -28,8 +28,8 @@ var RFill = (function (_super) {
         return new style_1.Fill(props);
     };
     RFill.prototype.set = function (ol) {
-        if (this.context.setFill)
-            return this.context.setFill(ol);
+        if (this.context.style.setFill)
+            return this.context.style.setFill(ol);
         throw new Error('Parent element does not support a fill');
     };
     RFill.classProps = ['color'];

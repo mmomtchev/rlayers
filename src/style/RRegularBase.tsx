@@ -1,7 +1,7 @@
 import React from 'react';
-import {Image, Fill, Stroke} from 'ol/style';
+import {Image, Fill, Stroke, Style} from 'ol/style';
 
-import {RStyleContext} from '../context';
+import {RContext} from '../context';
 import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 
@@ -24,7 +24,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
 
     setStroke(s: Stroke): void {
         /* This a sneaky way around OpenLayers not supporting
-         * setStroke/setFill on RegularBase-dervied classes */
+         * setStroke/setFill on RegularBase-derived classes */
         this.stroke = s;
         this.ol = this.create(this.props);
         super.set(this.ol);
@@ -32,7 +32,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
 
     setFill(f: Fill): void {
         /* This a sneaky way around OpenLayers not supporting
-         * setStroke/setFill on RegularBase-dervied classes */
+         * setStroke/setFill on RegularBase-derived classes */
         this.fill = f;
         this.ol = this.create(this.props);
         super.set(this.ol);
@@ -41,7 +41,9 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
     render(): JSX.Element {
         return (
             <div>
-                <RStyleContext.Provider value={this}>{this.props.children}</RStyleContext.Provider>
+                <RContext.Provider value={{...this.context, style: (this as unknown) as Style}}>
+                    {this.props.children}
+                </RContext.Provider>
             </div>
         );
     }

@@ -28,8 +28,8 @@ var RStroke = (function (_super) {
         return new style_1.Stroke(props);
     };
     RStroke.prototype.set = function (ol) {
-        if (this.context.setStroke)
-            return this.context.setStroke(ol);
+        if (this.context.style.setStroke)
+            return this.context.style.setStroke(ol);
         throw new Error('Parent element does not support a stroke');
     };
     RStroke.classProps = ['color', 'width', 'lineCap', 'lineJoin'];

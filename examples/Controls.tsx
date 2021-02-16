@@ -3,7 +3,7 @@ import {Map, MapBrowserEvent} from 'ol';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import 'ol/ol.css';
 
-import {RMap, RMapContext, ROSM, RControl} from 'rlayers';
+import {RMap, RContext, ROSM, RControl} from 'rlayers';
 
 const origin = [2.364, 48.82];
 
@@ -35,13 +35,13 @@ export default function Controls(): JSX.Element {
                     labelActive='&#x564f;'
                 />
                 <RControl.RCustom className='example-control'>
-                    <RMapContext.Consumer>
-                        {(map: Map) => (
+                    <RContext.Consumer>
+                        {({map}) => (
                             <button onClick={() => map.getView().setCenter(fromLonLat(loc))}>
                                 o
                             </button>
                         )}
-                    </RMapContext.Consumer>
+                    </RContext.Consumer>
                 </RControl.RCustom>
             </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow'>

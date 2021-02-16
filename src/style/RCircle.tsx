@@ -1,7 +1,6 @@
 import React from 'react';
-import {Circle, Fill, Stroke} from 'ol/style';
+import {Circle} from 'ol/style';
 
-import {RStyleContext} from '../context';
 import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Map } from 'ol';
 import { OverviewMap } from 'ol/control';
 import { Options } from 'ol/control/OverviewMap';
+import { RContextType } from '../context';
 import { default as RControlBase, RControlProps } from './RControlBase';
 export interface OverviewProps extends RControlProps {
     collapsible?: boolean;
@@ -13,7 +13,7 @@ export interface OverviewProps extends RControlProps {
 }
 export default class ROverviewMap extends RControlBase<OverviewProps, null> {
     ol: OverviewMap;
-    constructor(props: Readonly<OverviewProps>, context: React.Context<Map>);
+    constructor(props: Readonly<OverviewProps>, context: React.Context<RContextType>);
     toOLProps(props: OverviewProps): Options;
     render(): JSX.Element;
 }

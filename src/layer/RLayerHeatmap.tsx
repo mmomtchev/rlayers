@@ -3,6 +3,7 @@ import {Map, Feature} from 'ol';
 import {Heatmap as OLRLayerHeatmap} from 'ol/layer';
 import {Vector as OLSourceVector} from 'ol/source';
 
+import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
@@ -18,14 +19,13 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  *
  * Compatible with RLayerVector
  *
- * Provides a `RVectorContext` for JSX-declared RFeatures
+ * Provides a `RContext` for JSX-declared RFeatures
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: OLRLayerHeatmap;
     source: OLSourceVector;
-    context: Map;
 
-    constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.source = new OLSourceVector({
             features: this.props.features,

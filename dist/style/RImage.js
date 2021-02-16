@@ -26,9 +26,9 @@ var RImage = (function (_super) {
         throw new Error('RImage is an abstract class');
     };
     RImage.prototype.set = function (ol) {
-        if (!this.context.setImage)
+        if (!this.context.style.setImage)
             throw new Error('Parent element does not support an image');
-        this.context.setImage(ol);
+        this.context.style.setImage(ol);
     };
     RImage.classProps = ['opacity', 'rotateWithView', 'rotation', 'scale', 'displacement'];
     return RImage;

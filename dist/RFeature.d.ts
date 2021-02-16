@@ -3,7 +3,7 @@ import { Map as Map, MapBrowserEvent } from 'ol';
 import { Feature } from 'ol';
 import { Layer } from 'ol/layer';
 import Geometry from 'ol/geom/Geometry';
-import { RVectorContextType } from './context';
+import { RContextType } from './context';
 import { RlayersBase } from './REvent';
 import { RStyleLike } from './style/RStyle';
 export interface RFeatureProps {
@@ -22,7 +22,6 @@ export interface RFeatureProps {
 }
 export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents: string[];
-    static contextType: React.Context<any>;
     static lastFeatureEntered: undefined | {
         feature: Feature;
         layer: Layer;
@@ -33,9 +32,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
     };
     static hitTolerance: number;
     ol: Feature;
-    context: RVectorContextType;
     onchange: () => boolean | void;
-    constructor(props: Readonly<RFeatureProps>, context: React.Context<RVectorContextType>);
+    constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>);
     static initEventRelay(map: Map): void;
     static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean;
     static eventRelay(e: MapBrowserEvent): boolean;

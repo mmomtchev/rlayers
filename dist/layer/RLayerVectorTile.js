@@ -45,7 +45,7 @@ var RLayerVectorTile = (function (_super) {
             source: _this.source
         });
         _this.eventSources = [_this.ol, _this.source];
-        RFeature_1.default.initEventRelay(_this.context);
+        RFeature_1.default.initEventRelay(_this.context.map);
         return _this;
     }
     RLayerVectorTile.prototype.refresh = function (prevProps) {

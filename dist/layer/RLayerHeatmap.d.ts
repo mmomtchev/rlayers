@@ -1,7 +1,8 @@
 import React from 'react';
-import { Map, Feature } from 'ol';
+import { Feature } from 'ol';
 import { Heatmap as OLRLayerHeatmap } from 'ol/layer';
 import { Vector as OLSourceVector } from 'ol/source';
+import { RContextType } from '../context';
 import { default as RLayerBaseVector, RLayerBaseVectorProps } from './RLayerBaseVector';
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     blur?: number;
@@ -11,8 +12,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: OLRLayerHeatmap;
     source: OLSourceVector;
-    context: Map;
-    constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<Map>);
+    constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<RContextType>);
     refresh(prev?: RLayerHeatmapProps): void;
 }
 //# sourceMappingURL=RLayerHeatmap.d.ts.map

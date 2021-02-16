@@ -38,11 +38,11 @@ In order to avoid confusion between the *OpenLayers* classes and the *rlayers* c
 
 The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - a `<RLayer>` must be part of a map, a `<RFeature>` must be part of a `<RLayerVector>`, a `<RControl>` must also be part of a map. Nesting works by using React Contexts. Every nested element uses the context of its nearest parent.
 
-Currently there are 4 types of contexts:
-* `RMapContext` provided by a map, every other element must have a MapContext
-* `RVectorLayerContext` provided by vector layers only - required for `<RFeature>`
-* `RLocationContext` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
-* `RStyleContext` provided by a style definition - which can be outside of a map
+Currently a context can contain the following elements:
+* `RContext.map` provided by a map, every other element must have a MapContext
+* `RContext.vectorlayer` and `RContext.vectorsource` provided by vector layers only - required for `<RFeature>`
+* `RContext.location` and `RContext.feature` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
+* `RContext.style` provided by a style definition - the only one which can be outside of a map
 
 The context objects can be accessed by using  `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/rlayers/#/controls) contains an example for using the *MapContext*. Accessing elements outside their contexts is possible by using `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/rlayers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component. This is also something that could potentially change before the first release.
 

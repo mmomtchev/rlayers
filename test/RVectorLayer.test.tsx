@@ -6,7 +6,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
 import {Point} from 'ol/geom';
-import {RFeature, RLayerVector, RLocationContext, RMap} from 'rlayers';
+import {RFeature, RLayerVector, RContext, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
@@ -60,9 +60,9 @@ describe('<RLayerVector>', () => {
             <RMap {...common.mapProps}>
                 <RLayerVector zIndex={10} onAddFeature={addFeature}>
                     <RFeature feature={features[0]}>
-                        <RLocationContext.Consumer>
+                        <RContext.Consumer>
                             {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                        </RLocationContext.Consumer>
+                        </RContext.Consumer>
                     </RFeature>
                 </RLayerVector>
             </RMap>
@@ -79,9 +79,9 @@ describe('<RLayerVector>', () => {
                 <RLayerVector ref={vector} zIndex={10} onAddFeature={addFeature}>
                     {features.map((f, i) => (
                         <RFeature key={i} feature={f}>
-                            <RLocationContext.Consumer>
+                            <RContext.Consumer>
                                 {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                            </RLocationContext.Consumer>
+                            </RContext.Consumer>
                         </RFeature>
                     ))}
                 </RLayerVector>
@@ -94,9 +94,9 @@ describe('<RLayerVector>', () => {
                 <RLayerVector ref={vector} zIndex={9}>
                     {features.map((f, i) => (
                         <RFeature style={common.styles.blueDot} key={i} feature={f}>
-                            <RLocationContext.Consumer>
+                            <RContext.Consumer>
                                 {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
-                            </RLocationContext.Consumer>
+                            </RContext.Consumer>
                         </RFeature>
                     ))}
                 </RLayerVector>

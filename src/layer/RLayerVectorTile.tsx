@@ -2,9 +2,9 @@ import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
-import {StyleLike} from 'ol/style/Style';
 import FeatureFormat from 'ol/format/Feature';
 
+import {RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import RFeature from '../RFeature';
 import RStyle, {RStyleLike} from '../style/RStyle';
@@ -35,15 +35,14 @@ export interface RLayerVectorTileProps extends RLayerProps {
  *
  * Only the handlers can be dynamically modified
  *
- * It does not provide a `RVectorContext` for JSX-declared `RFeature`s
+ * It does not provide a `RContext` for JSX-declared `RFeature`s
  * and it is not compatible with RLayerVector
  */
 export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
     ol: LayerVectorTile;
     source: SourceVectorTile;
-    context: Map;
 
-    constructor(props: Readonly<RLayerVectorTileProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerVectorTileProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.source = new SourceVectorTile({
             url: this.props.url,
@@ -54,7 +53,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
             source: this.source
         });
         this.eventSources = [this.ol, this.source];
-        RFeature.initEventRelay(this.context);
+        RFeature.initEventRelay(this.context.map);
     }
 
     refresh(prevProps?: RLayerVectorTileProps): void {

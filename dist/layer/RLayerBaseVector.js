@@ -47,7 +47,7 @@ var RLayerBaseVector = (function (_super) {
                 return _this.props['on' + RLayerBaseVector.relayedEvents[e.type]](e) !== false;
             return true;
         };
-        RFeature_1.default.initEventRelay(_this.context);
+        RFeature_1.default.initEventRelay(_this.context.map);
         return _this;
     }
     RLayerBaseVector.prototype.attachFeatureHandlers = function (features, prevProps) {
@@ -110,7 +110,11 @@ var RLayerBaseVector = (function (_super) {
             this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
     };
     RLayerBaseVector.prototype.render = function () {
-        return (react_1.default.createElement(context_1.RVectorContext.Provider, { value: { map: this.context, layer: this.ol, source: this.source } }, this.props.children));
+        return (react_1.default.createElement(context_1.RContext.Provider, { value: {
+                map: this.context,
+                vectorlayer: this.ol,
+                vectorsource: this.source
+            } }, this.props.children));
     };
     RLayerBaseVector.relayedEvents = {
         click: 'Click',

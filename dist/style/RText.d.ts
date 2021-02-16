@@ -1,6 +1,6 @@
 /// <reference types="react" />
-import { Text } from 'ol/style';
 import { Size } from 'ol/size';
+import { Text } from 'ol/style';
 import { default as RBase, RBaseProps } from './RBase';
 export interface RTextProps extends RBaseProps {
     text: string;

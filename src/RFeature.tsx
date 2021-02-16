@@ -6,12 +6,7 @@ import {StyleLike} from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import {getCenter} from 'ol/extent';
 
-import {
-    RVectorContext,
-    RVectorContextType,
-    RLocationContext,
-    RLocationContextType
-} from './context';
+import {RContext, RContextType} from './context';
 import {RlayersBase} from './REvent';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
@@ -52,9 +47,9 @@ export interface RFeatureProps {
  * * implicit, when loaded from a file as props of a `RLayerVector`
  * * explicit, when declared as JSX with this component
  *
- * Requires a vector layer context `RVectorContext`
+ * Requires a vector layer context
  *
- * Provides a location context `RLocationContext`
+ * Provides a location context
  *
  * [Example for explicit RFeatures](https://mmomtchev.github.io/rlayers/#/overlays)
  *
@@ -64,17 +59,15 @@ export interface RFeatureProps {
 
 export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
-    static contextType = RVectorContext;
     static lastFeatureEntered: undefined | {feature: Feature; layer: Layer};
     static lastFeatureDragged: undefined | {feature: Feature; layer: Layer};
     static hitTolerance = 10;
     ol: Feature;
-    context: RVectorContextType;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps>, context: React.Context<RVectorContextType>) {
+    constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>) {
         super(props, context);
-        if (!this.context || !this.context.layer)
+        if (!this?.context?.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');
         if (props.feature) this.ol = props.feature;
         else
@@ -163,31 +156,32 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
         debug('didMount', this.ol);
         super.componentDidMount();
         this.ol.on('change', this.onchange);
-        this.context.source.addFeature(this.ol);
+        this.context.vectorsource.addFeature(this.ol);
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.ol.un('change', this.onchange);
-        this.context.source.removeFeature(this.ol);
+        this.context.vectorsource.removeFeature(this.ol);
     }
 
     render(): JSX.Element {
         const extent = this.ol?.getGeometry()?.getExtent();
         const center = extent && getCenter(extent);
         return (
-            <RLocationContext.Provider
+            <RContext.Provider
                 value={
                     {
                         map: this.context.map,
-                        layer: this.context.layer,
+                        layer: this.context.vectorlayer,
+                        source: this.context.vectorsource,
                         feature: this.ol,
                         location: center
-                    } as RLocationContextType
+                    } as RContextType
                 }
             >
                 {this.props.children}
-            </RLocationContext.Provider>
+            </RContext.Provider>
         );
     }
 }

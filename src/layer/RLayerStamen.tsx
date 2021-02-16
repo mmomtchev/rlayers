@@ -3,6 +3,7 @@ import {Map as Map} from 'ol';
 import {Tile as OLRLayerTile} from 'ol/layer';
 import {Stamen} from 'ol/source';
 
+import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 export interface RLayerStamenProps extends RLayerRasterProps {
@@ -15,7 +16,7 @@ export default class RLayerStamen extends RLayerRaster<RLayerStamenProps> {
     ol: OLRLayerTile;
     source: Stamen;
 
-    constructor(props: Readonly<RLayerStamenProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerStamenProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.source = new Stamen({layer: this.props.layer});
         this.ol = new OLRLayerTile({source: this.source});

@@ -4,6 +4,7 @@ import {Tile as OLRLayerTile} from 'ol/layer';
 import {default as OLSourceWMTS, optionsFromCapabilities, Options} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
+import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
@@ -22,7 +23,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     source: OLSourceWMTS;
     parser: WMTSCapabilities;
 
-    constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OLRLayerTile({source: this.source});
         this.parser = new WMTSCapabilities();

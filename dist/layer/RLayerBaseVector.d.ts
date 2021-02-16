@@ -1,10 +1,11 @@
 import React from 'react';
-import { Map, Feature, MapBrowserEvent } from 'ol';
+import { Feature, MapBrowserEvent } from 'ol';
 import { VectorSourceEvent } from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import { Vector as SourceVector } from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
+import { RContextType } from '../context';
 import { default as RLayer, RLayerProps } from './RLayer';
 import { RStyleLike } from '../style/RStyle';
 export interface RLayerBaseVectorProps extends RLayerProps {
@@ -24,14 +25,13 @@ export interface RLayerBaseVectorProps extends RLayerProps {
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
     ol: BaseVector;
     source: SourceVector;
-    context: Map;
     static relayedEvents: {
         click: string;
         pointermove: string;
         pointerenter: string;
         pointerleave: string;
     };
-    constructor(props: Readonly<P>, context: React.Context<Map>);
+    constructor(props: Readonly<P>, context: React.Context<RContextType>);
     newFeature: (e: VectorSourceEvent) => void;
     attachFeatureHandlers(features: Feature[], prevProps?: P): void;
     eventRelay: (e: MapBrowserEvent) => boolean;

@@ -2,7 +2,7 @@ export { MapEvent, MapBrowserEvent } from 'ol';
 export { default as RenderEvent } from 'ol/render/Event';
 export { VectorSourceEvent } from 'ol/source/Vector';
 export { RlayersBase } from './REvent';
-export { RMapContext, RLayerContext, RVectorContext, RVectorContextType, RLocationContext, RLocationContextType, RStyleContext } from './context';
+export { RContext, RContextType } from './context';
 export { default as RMap, RMapProps } from './RMap';
 export { default as RLayer, RLayerProps } from './layer/RLayer';
 export { default as RLayerTile, RLayerTileProps } from './layer/RLayerTile';

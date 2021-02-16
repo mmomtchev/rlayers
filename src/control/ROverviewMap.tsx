@@ -1,10 +1,9 @@
 import React from 'react';
-import {Map} from 'ol';
 import {OverviewMap} from 'ol/control';
 import {Options} from 'ol/control/OverviewMap';
 
+import {RContext, RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
-import {RMapContext} from '../context';
 
 export interface OverviewProps extends RControlProps {
     /** User-collapsible */
@@ -22,12 +21,12 @@ export interface OverviewProps extends RControlProps {
 }
 
 /** An overview map component
- * It acts as an RMapContext provider, allowing to nest layers in it
+ * It acts as an RContext provider, allowing to nest layers in it
  */
 export default class ROverviewMap extends RControlBase<OverviewProps, null> {
     ol: OverviewMap;
 
-    constructor(props: Readonly<OverviewProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<OverviewProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OverviewMap(this.toOLProps(props));
     }
@@ -49,9 +48,9 @@ export default class ROverviewMap extends RControlBase<OverviewProps, null> {
                 className={this.props.className}
                 style={{width: this.props.width, height: this.props.height}}
             >
-                <RMapContext.Provider value={this.ol.getOverviewMap()}>
+                <RContext.Provider value={{map: this.ol.getOverviewMap()}}>
                     {this.props.children}
-                </RMapContext.Provider>
+                </RContext.Provider>
             </div>
         );
     }

@@ -6,7 +6,7 @@ import BaseVector from 'ol/layer/BaseVector';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 
-import {RVectorContext, RVectorContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
@@ -44,7 +44,6 @@ export interface RLayerBaseVectorProps extends RLayerProps {
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
     ol: BaseVector;
     source: SourceVector;
-    context: Map;
     static relayedEvents = {
         click: 'Click',
         pointermove: 'PointerMove',
@@ -52,9 +51,9 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         pointerleave: 'PointerLeave'
     };
 
-    constructor(props: Readonly<P>, context: React.Context<Map>) {
+    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
-        RFeature.initEventRelay(this.context);
+        RFeature.initEventRelay(this.context.map);
     }
 
     newFeature = (e: VectorSourceEvent): void => {
@@ -92,13 +91,17 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     render(): JSX.Element {
         return (
-            <RVectorContext.Provider
+            <RContext.Provider
                 value={
-                    {map: this.context, layer: this.ol, source: this.source} as RVectorContextType
+                    {
+                        ...this.context,
+                        vectorlayer: this.ol,
+                        vectorsource: this.source
+                    } as RContextType
                 }
             >
                 {this.props.children}
-            </RVectorContext.Provider>
+            </RContext.Provider>
         );
     }
 }

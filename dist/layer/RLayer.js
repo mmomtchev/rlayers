@@ -24,13 +24,13 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var context_1 = require("../context");
 var REvent_1 = require("../REvent");
 var RLayer = (function (_super) {
     __extends(RLayer, _super);
     function RLayer(props, context) {
+        var _a, _b;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.addLayer)
+        if (!((_b = (_a = _this.context) === null || _a === void 0 ? void 0 : _a.map) === null || _b === void 0 ? void 0 : _b.addLayer))
             throw new Error('A layer must be part of a map');
         return _this;
     }
@@ -69,13 +69,12 @@ var RLayer = (function (_super) {
     };
     RLayer.prototype.componentDidMount = function () {
         _super.prototype.componentDidMount.call(this);
-        this.context.addLayer(this.ol);
+        this.context.map.addLayer(this.ol);
     };
     RLayer.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
-        this.context.removeLayer(this.ol);
+        this.context.map.removeLayer(this.ol);
     };
-    RLayer.contextType = context_1.RMapContext;
     return RLayer;
 }(REvent_1.RlayersBase));
 exports.default = RLayer;

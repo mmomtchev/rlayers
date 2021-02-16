@@ -4,7 +4,6 @@ import IconOrigin from 'ol/style/IconOrigin';
 import {Size} from 'ol/size';
 import {Color} from 'ol/color';
 
-import {RStyleContext} from '../context';
 import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';

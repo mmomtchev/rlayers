@@ -28,7 +28,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var DragBox_1 = __importDefault(require("ol/interaction/DragBox"));
-var context_1 = require("../context");
 var RPointer_1 = __importDefault(require("./RPointer"));
 var RDragBox = (function (_super) {
     __extends(RDragBox, _super);
@@ -48,7 +47,6 @@ var RDragBox = (function (_super) {
     RDragBox.prototype.refresh = function (prevProps) {
         _super.prototype.refresh.call(this, prevProps);
     };
-    RDragBox.contextType = context_1.RMapContext;
     RDragBox.classProps = ['className', 'condition', 'minArea', 'boxEndCondition'];
     return RDragBox;
 }(RPointer_1.default));

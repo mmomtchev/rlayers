@@ -2,7 +2,7 @@ import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
-import {RMapContext} from '../context';
+import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -25,15 +25,13 @@ export interface RPointerProps {
  * It is meant to be be extended by more specific interactions
  */
 export default class RPointer<P> extends RlayersBase<P, null> {
-    static contextType = RMapContext;
     static classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     classProps: string[];
     ol: Pointer;
-    context: Map;
 
-    constructor(props: P, context: React.Context<Map>) {
+    constructor(props: P, context: React.Context<RContextType>) {
         super(props, context);
-        if (!this.context || !this.context.addInteraction)
+        if (!this.context?.map?.addInteraction)
             throw new Error('An interaction must be part of a map');
         this.ol = this.createOL(props);
     }
@@ -47,9 +45,9 @@ export default class RPointer<P> extends RlayersBase<P, null> {
         for (const p of this.classProps)
             if (prevProps && prevProps[p] !== this.props[p]) {
                 debug('Replacing interaction', this, prevProps);
-                this.context.removeInteraction(this.ol);
+                this.context.map.removeInteraction(this.ol);
                 this.ol = this.createOL(this.props);
-                this.context.addInteraction(this.ol);
+                this.context.map.addInteraction(this.ol);
                 break;
             }
         super.refresh();
@@ -57,11 +55,11 @@ export default class RPointer<P> extends RlayersBase<P, null> {
 
     componentDidMount(): void {
         super.componentDidMount();
-        this.context.addInteraction(this.ol);
+        this.context.map.addInteraction(this.ol);
     }
 
     componentWillUnmount(): void {
         super.componentWillUnmount();
-        this.context.removeInteraction(this.ol);
+        this.context.map.removeInteraction(this.ol);
     }
 }

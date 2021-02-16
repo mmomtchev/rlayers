@@ -28,7 +28,8 @@ export default class RImage<P extends RImageProps> extends RBase<P> {
     }
 
     set(ol: Image): void {
-        if (!this.context.setImage) throw new Error('Parent element does not support an image');
-        this.context.setImage(ol);
+        if (!this.context.style.setImage)
+            throw new Error('Parent element does not support an image');
+        this.context.style.setImage(ol);
     }
 }

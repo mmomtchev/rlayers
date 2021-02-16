@@ -50,7 +50,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
 var control_1 = require("ol/control");
 require("./layers.css");
-var context_1 = require("../context");
 var RControlBase_1 = __importDefault(require("./RControlBase"));
 var RLayers = (function (_super) {
     __extends(RLayers, _super);
@@ -67,12 +66,12 @@ var RLayers = (function (_super) {
     RLayers.prototype.componentDidMount = function () {
         this.ol = new control_1.Control(this.toOLProps(this.props));
         _super.prototype.componentDidMount.call(this);
-        this.context.on('change', this.onchange);
+        this.context.map.on('change', this.onchange);
         this.forceUpdate();
     };
     RLayers.prototype.componentWillUnmount = function () {
         _super.prototype.componentWillUnmount.call(this);
-        this.context.un('change', this.onchange);
+        this.context.map.un('change', this.onchange);
     };
     RLayers.prototype.toOLProps = function (props) {
         var _a;
@@ -112,7 +111,6 @@ var RLayers = (function (_super) {
                 return child;
             })));
     };
-    RLayers.contextType = context_1.RMapContext;
     return RLayers;
 }(RControlBase_1.default));
 exports.default = RLayers;

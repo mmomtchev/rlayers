@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
-import {RVectorContextType} from '../context';
+import {RContextType} from '../context';
 import {default as RStyle, RStyleProps, RStyleRef} from './RStyle';
 import debug from '../debug';
 
@@ -22,7 +22,7 @@ export default class RStyleArray extends RStyle {
     ol: StyleLike;
     childRefs: RStyleRef[];
 
-    constructor(props: Readonly<RStyleProps>, context: React.Context<RVectorContextType>) {
+    constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.childRefs = [];
     }

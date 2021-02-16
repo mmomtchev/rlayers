@@ -4,6 +4,7 @@ import {Tile as OLRLayerTile} from 'ol/layer';
 import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
+import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 export interface RLayerTileProps extends RLayerRasterProps {
@@ -22,7 +23,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: OLRLayerTile;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RLayerTileProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new OLRLayerTile({source: this.source});

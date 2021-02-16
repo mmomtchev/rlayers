@@ -1,20 +1,19 @@
 import React from 'react';
-import {Style} from 'ol/style';
 
-import {RStyleContext} from '../context';
+import {RContext, RContextType} from '../context';
 import debug from '../debug';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RBaseProps {}
 
 export default class RBase<P extends RBaseProps> extends React.PureComponent<P, null> {
-    static contextType = RStyleContext;
+    static contextType = RContext;
     static classProps: string[] = [];
     classProps: string[];
     ol: unknown;
-    context: Style;
+    context: RContextType;
 
-    constructor(props: Readonly<P>, context: React.Context<Style>) {
+    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
         if (!this.context) throw new Error('A style property must be part of a style');
         this.ol = this.create(props);

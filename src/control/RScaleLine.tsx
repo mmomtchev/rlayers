@@ -1,8 +1,8 @@
 import React from 'react';
-import {Map as Map} from 'ol';
 import {ScaleLine} from 'ol/control';
 import {Options, Units} from 'ol/control/ScaleLine';
 
+import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 export interface RScaleLineProps extends RControlProps {
@@ -21,7 +21,7 @@ export interface RScaleLineProps extends RControlProps {
 export default class RScaleLine extends RControlBase<RScaleLineProps, null> {
     ol: ScaleLine;
 
-    constructor(props: Readonly<RScaleLineProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RScaleLineProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.ol = new ScaleLine(this.toOLProps(props));
     }

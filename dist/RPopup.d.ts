@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapBrowserEvent } from 'ol';
-import { RLocationContextType } from './context';
+import { RContextType } from './context';
 import { ROverlayBase, ROverlayProps } from './ROverlay';
 export interface PopupProps extends ROverlayProps {
     trigger?: 'click' | 'hover';
@@ -13,7 +13,7 @@ export default class Popup extends ROverlayBase<PopupProps> {
     visible: boolean;
     showing: number | undefined;
     hiding: number | undefined;
-    constructor(props: Readonly<PopupProps>, context: React.Context<RLocationContextType>);
+    constructor(props: Readonly<PopupProps>, context: React.Context<RContextType>);
     componentWillUnmount(): void;
     setPosition(): void;
     unregister(): void;

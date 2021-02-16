@@ -19,14 +19,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ROverlayBase = void 0;
 var react_1 = __importDefault(require("react"));
 var ol_1 = require("ol");
-var context_1 = require("./context");
 var REvent_1 = require("./REvent");
 var ROverlayBase = (function (_super) {
     __extends(ROverlayBase, _super);
     function ROverlayBase(props, context) {
         var _a;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.layer)
+        if (!_this.context || !_this.context.vectorlayer)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         _this.ol = new ol_1.Overlay({
             autoPan: (_a = props.autoPan) !== null && _a !== void 0 ? _a : true,
@@ -55,7 +54,6 @@ var ROverlayBase = (function (_super) {
         this.setPosition();
         return (react_1.default.createElement("div", { ref: this.containerRef, className: this.props.className }, this.props.children));
     };
-    ROverlayBase.contextType = context_1.RLocationContext;
     return ROverlayBase;
 }(REvent_1.RlayersBase));
 exports.ROverlayBase = ROverlayBase;
