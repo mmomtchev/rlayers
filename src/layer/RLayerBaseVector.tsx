@@ -65,10 +65,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     attachFeatureHandlers(features: Feature[], prevProps?: P): void {
         for (const ev of Object.values(RLayerBaseVector.relayedEvents))
-            if (
-                (!prevProps || this.props['on' + ev] !== prevProps['on' + ev]) &&
-                this.props['on' + ev]
-            )
+            if (this.props['on' + ev] !== (prevProps && prevProps['on' + ev]))
                 for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
     }
 
@@ -89,7 +86,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     refresh(prevProps?: P): void {
         super.refresh();
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
-        if (!prevProps || prevProps.style !== this.props.style)
+        if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
     }
 

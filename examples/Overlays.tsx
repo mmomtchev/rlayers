@@ -13,16 +13,14 @@ const coords: Record<string, Coordinate> = {
 };
 
 export default function Overlays(): JSX.Element {
-    const style = RStyle.useRStyle();
     return (
         <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
-            <RStyle.RStyle ref={style}>
-                <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-            </RStyle.RStyle>
             <ROSM />
             <RLayerVector zIndex={10}>
+                <RStyle.RStyle>
+                    <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+                </RStyle.RStyle>
                 <RFeature
-                    style={style}
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                     onClick={useCallback(
                         (e) =>
@@ -36,7 +34,7 @@ export default function Overlays(): JSX.Element {
                     <ROverlay className='example-overlay'>
                         Arc de Triomphe
                         <br />
-                        <em>click to zoom</em>
+                        <em>&#11017; click to zoom</em>
                     </ROverlay>
                 </RFeature>
             </RLayerVector>

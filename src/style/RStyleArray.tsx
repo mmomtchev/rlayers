@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Map, Feature} from 'ol';
+import {Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
-import {RStyleContext} from '../context';
-import {default as RStyle, RStyleProps, RStyleLike, RStyleRef} from './RStyle';
+import {RVectorContextType} from '../context';
+import {default as RStyle, RStyleProps, RStyleRef} from './RStyle';
 import debug from '../debug';
 
 /** An array of RStyle, can be an RStyle of its own
@@ -22,7 +22,7 @@ export default class RStyleArray extends RStyle {
     ol: StyleLike;
     childRefs: RStyleRef[];
 
-    constructor(props: Readonly<RStyleProps>, context: React.Context<Map>) {
+    constructor(props: Readonly<RStyleProps>, context: React.Context<RVectorContextType>) {
         super(props, context);
         this.childRefs = [];
     }

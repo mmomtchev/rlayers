@@ -12,13 +12,8 @@ const layersButton = (
 );
 
 export default function Layers(): JSX.Element {
-    const blueContours = RStyle.useRStyle();
     return (
         <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
-            <RStyle.RStyle ref={blueContours}>
-                <RStyle.RStroke color='#007bff' width={3} />
-                <RStyle.RFill color='transparent' />
-            </RStyle.RStyle>
             <RControl.RLayers element={layersButton}>
                 <ROSM properties={{label: 'OpenStreetMap'}} />
                 <RLayerTile
@@ -49,11 +44,15 @@ export default function Layers(): JSX.Element {
             </RControl.RLayers>
             {/* This one is always visible */}
             <RLayerVector
-                style={blueContours}
                 zIndex={5}
                 format={new GeoJSON({featureProjection: 'EPSG:3857'})}
                 url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
-            />
+            >
+                <RStyle.RStyle>
+                    <RStyle.RStroke color='#007bff' width={3} />
+                    <RStyle.RFill color='transparent' />
+                </RStyle.RStyle>
+            </RLayerVector>
         </RMap>
     );
 }

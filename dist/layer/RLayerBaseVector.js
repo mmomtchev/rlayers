@@ -55,8 +55,7 @@ var RLayerBaseVector = (function (_super) {
         try {
             for (var _c = __values(Object.values(RLayerBaseVector.relayedEvents)), _d = _c.next(); !_d.done; _d = _c.next()) {
                 var ev = _d.value;
-                if ((!prevProps || this.props['on' + ev] !== prevProps['on' + ev]) &&
-                    this.props['on' + ev])
+                if (this.props['on' + ev] !== (prevProps && prevProps['on' + ev]))
                     try {
                         for (var features_1 = (e_2 = void 0, __values(features)), features_1_1 = features_1.next(); !features_1_1.done; features_1_1 = features_1.next()) {
                             var f = features_1_1.value;
@@ -107,7 +106,7 @@ var RLayerBaseVector = (function (_super) {
     RLayerBaseVector.prototype.refresh = function (prevProps) {
         _super.prototype.refresh.call(this);
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
-        if (!prevProps || prevProps.style !== this.props.style)
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.style) !== this.props.style)
             this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
     };
     RLayerBaseVector.prototype.render = function () {

@@ -5,6 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {Feature} from 'ol';
 import {Style, Circle, Image, RegularShape} from 'ol/style';
 
+import {RMap, RLayerVector} from 'rlayers';
 import {
     RStyle,
     RStyleArray,
@@ -127,6 +128,43 @@ describe('<RStyle>', () => {
         const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
         expect(style.getText().getText()).toBe('text');
         expect(style.getText().getStroke().getWidth()).toBe(3);
+    });
+    it('should apply to vector layers', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVector>;
+        render(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={ref}>
+                    <RStyle>
+                        <RStroke color='#000100' width={7} />
+                    </RStyle>
+                </RLayerVector>
+            </RMap>
+        );
+        const style = ref.current.ol.getStyle() as Style;
+        expect(style.getStroke().getWidth()).toBe(7);
+    });
+    it('should apply to vector layers w/dynamic', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVector>;
+        render(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={ref}>
+                    <RStyle
+                        render={(f) => (
+                            <RText text={f.get('name')}>
+                                <RStroke color='#000100' width={9} />
+                            </RText>
+                        )}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+        const f = new Feature({
+            geometry: new Point(common.coords.ArcDeTriomphe),
+            name: 'text9'
+        });
+        const style = (ref.current.ol.getStyle() as (Feature) => Style)(f);
+        expect(style.getText().getText()).toBe('text9');
+        expect(style.getText().getStroke().getWidth()).toBe(9);
     });
 });
 

@@ -48,9 +48,9 @@ var RLayerHeatmap = (function (_super) {
     }
     RLayerHeatmap.prototype.refresh = function (prev) {
         _super.prototype.refresh.call(this);
-        if (!prev || prev.blur !== this.props.blur)
+        if ((prev === null || prev === void 0 ? void 0 : prev.blur) !== this.props.blur)
             this.ol.setBlur(this.props.blur);
-        if (!prev || prev.radius !== this.props.radius)
+        if ((prev === null || prev === void 0 ? void 0 : prev.radius) !== this.props.radius)
             this.ol.setRadius(this.props.radius);
     };
     return RLayerHeatmap;

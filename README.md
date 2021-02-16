@@ -48,9 +48,11 @@ The context objects can be accessed by using  `React.Context.Consumer` - [the cu
 
 ### Styles
 
-Style definitions can be placed anywhere inside the DOM and must be referenced with a React reference. rlayers includes two special types for dealing with styles:
+Style definitions can be placed anywhere inside the DOM and can be referenced with a React reference. rlayers includes two special types for dealing with styles:
 * `RStyleRef` which is an alias to `React.RefObject<RStyle>` is a React reference to an `<RStyle>` element. It can be transparently used everywhere where a classical *OpenLayers* `StyleLike` is required
 * `RStyleLike` is the new union type that allows for `StyleLike` or a `RStyleRef`
+
+A style placed inside a vector layer will be automatically applied to that vector layer.
 
 A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. In the future *rlayers* will include its own caching mechanism for styles but this is currently not the case.
 
