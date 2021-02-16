@@ -94,7 +94,7 @@ export default class RLayers extends RControlBase<LayersProps, LayersState> {
                                                 visible[v] = false;
                                             }
                                             visible[i] = true;
-                                            this.setState({visible: [...visible]});
+                                            this.setState({visible: [...visible], collapsed: true});
                                         }}
                                     />
                                     <label htmlFor={i.toString()}>{l}</label>
