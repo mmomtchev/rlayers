@@ -24,23 +24,21 @@ export default class RLayerTile extends RLayer<RLayerTileProps> {
 
     constructor(props: Readonly<RLayerTileProps>, context: React.Context<Map>) {
         super(props, context);
+        this.createSource();
+        this.ol = new OLRLayerTile({source: this.source});
+    }
+
+    createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
             projection: this.props.projection,
             tileGrid: this.props.tileGrid
         });
-        this.ol = new OLRLayerTile({source: this.source});
     }
 
     refresh(prevProps?: RLayerTileProps): void {
         super.refresh();
-        if (prevProps?.tileGrid !== this.props.tileGrid)
-            this.source = new XYZ({
-                url: this.props.url,
-                projection: this.props.projection,
-                tileGrid: this.props.tileGrid
-            });
-        if (this.props.url && this.source?.getUrls()[0] !== this.props.url)
-            this.source.setUrl(this.props.url);
+        if (prevProps?.tileGrid !== this.props.tileGrid) this.createSource();
+        if (this.props.url && prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
     }
 }
