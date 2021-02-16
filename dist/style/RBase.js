@@ -45,6 +45,8 @@ var RBase = (function (_super) {
     RBase.prototype.refresh = function (prevProps) {
         var e_1, _a;
         debug_1.default('refreshStyle', this);
+        if (!prevProps)
+            return;
         try {
             for (var _b = __values(this.classProps), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var p = _c.value;
@@ -54,7 +56,7 @@ var RBase = (function (_super) {
                         this.ol['set' + m](this.props[p]);
                     }
                     else {
-                        throw new Error('Underlying OpenLayers object does not support updating of ' + p);
+                        console.log('Underlying OpenLayers object does not support updating of ' + p, this);
                     }
                 }
             }

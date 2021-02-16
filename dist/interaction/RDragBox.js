@@ -44,9 +44,6 @@ var RDragBox = (function (_super) {
             return (__assign(__assign({}, ac), (_a = {}, _a[p] = props[p], _a)));
         }, {}));
     };
-    RDragBox.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this, prevProps);
-    };
     RDragBox.classProps = ['className', 'condition', 'minArea', 'boxEndCondition'];
     return RDragBox;
 }(RPointer_1.default));

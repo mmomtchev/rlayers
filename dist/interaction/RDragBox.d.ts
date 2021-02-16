@@ -1,7 +1,7 @@
 import { MapBrowserEvent } from 'ol';
+import { Pixel } from 'ol/pixel';
 import { default as DragBox, DragBoxEvent } from 'ol/interaction/DragBox';
 import { default as RPointer } from './RPointer';
-import { Pixel } from 'ol/pixel';
 export interface RDragBoxProps {
     className?: string;
     condition?: (e: MapBrowserEvent) => boolean;
@@ -14,6 +14,5 @@ export default class RDragBox extends RPointer<RDragBoxProps> {
     static classProps: string[];
     ol: DragBox;
     createOL(props: RDragBoxProps): DragBox;
-    refresh(prevProps: RDragBoxProps): void;
 }
 //# sourceMappingURL=RDragBox.d.ts.map
