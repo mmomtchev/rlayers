@@ -1,7 +1,7 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle} from 'rlayers';
+import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle, RLayerTileJSON} from 'rlayers';
 import layersIcon from './svg/layers.svg';
 import 'ol/ol.css';
 
@@ -41,6 +41,10 @@ export default function Layers(): JSX.Element {
                 <RLayerTile
                     properties={{label: 'Watercolor'}}
                     url='http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
+                />
+                <RLayerTileJSON
+                    properties={{label: 'Mapbox TileJSON'}}
+                    url='https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
                 />
             </RControl.RLayers>
             {/* This one is always visible */}
