@@ -1,130 +1,96 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Feature} from 'ol';
-import {Circle, Fill, RegularShape, Stroke, Style, Text} from 'ol/style';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
 import 'ol/ol.css';
 
+// This example illustrates the versatility of a dynamic RStyle
+// It also makes use of its caching abilities
 import {RMap, RLayerStamen, RLayerCluster} from 'rlayers';
+import {RStyle, RFill, RStroke, RRegularShape, RCircle, RText, useRStyle} from 'rlayers/style';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
 
-// Styles are copied with (almost) no modification from
-// https://openlayers.org/en/latest/examples/earthquake-clusters.html
+const colorBlob = (size) =>
+    'rgba(' + [255, 153, 0, Math.min(0.8, 0.4 + Math.log(size / 10) / 20)].join() + ')';
+const radiusStar = (feature) => Math.round(5 * (parseFloat(feature.get('mag')) - 2.5));
 
-// RStyle is still missing some features to fully support this
-
-// Scroll down to "export default function Cluster()" for the rlayers code
-
-const earthquakeFill = new Fill({
-    color: 'rgba(255, 153, 0, 0.8)'
-});
-const earthquakeStroke = new Stroke({
-    color: 'rgba(255, 204, 0, 0.2)',
-    width: 1
-});
-const textFill = new Fill({
-    color: '#fff'
-});
-const textStroke = new Stroke({
-    color: 'rgba(0, 0, 0, 0.6)',
-    width: 3
-});
-
-function createEarthquakeStyle(feature) {
-    const magnitude = parseFloat(feature.get('mag'));
-    const radius = 5 + 20 * (magnitude - 5);
-
-    return new Style({
-        geometry: feature.getGeometry(),
-        image: new RegularShape({
-            radius1: radius,
-            radius2: 3,
-            points: 5,
-            angle: Math.PI,
-            fill: earthquakeFill,
-            stroke: earthquakeStroke
-        })
-    });
-}
-
-let maxFeatureCount;
-const calculateClusterInfo = function (resolution) {
-    maxFeatureCount = 0;
-    const features = this.source.getFeatures();
-    let feature, radius;
-    for (let i = features.length - 1; i >= 0; --i) {
-        feature = features[i];
-        const originalFeatures = feature.get('features');
-        const extent = createEmpty();
-        let j = 0,
-            jj = 0;
-        for (j = 0, jj = originalFeatures.length; j < jj; ++j) {
-            extend(extent, originalFeatures[j].getGeometry().getExtent());
-        }
-        maxFeatureCount = Math.max(maxFeatureCount, jj);
-        radius = (0.25 * (getWidth(extent) + getHeight(extent))) / resolution;
-        feature.set('radius', radius);
-    }
+// This returns the north/south east/west extent of a group of features
+// divided by the resolution
+const extentFeatures = (features, resolution) => {
+    const extent = createEmpty();
+    for (const f of features) extend(extent, f.getGeometry().getExtent());
+    return Math.round(0.25 * (getWidth(extent) + getHeight(extent))) / resolution;
 };
-
-let currentResolution;
-function clusterStyle(feature: Feature, resolution: number): Style {
-    if (!this.current) return null;
-    if (resolution != currentResolution) {
-        calculateClusterInfo.call(this.current, resolution);
-        currentResolution = resolution;
-    }
-    let style;
-    const size = feature.get('features').length;
-    if (size > 1) {
-        style = new Style({
-            image: new Circle({
-                radius: feature.get('radius'),
-                fill: new Fill({
-                    color: [255, 153, 0, Math.min(0.8, 0.4 + size / maxFeatureCount)]
-                })
-            }),
-            text: new Text({
-                text: size.toString(),
-                fill: textFill,
-                stroke: textStroke
-            })
-        });
-    } else {
-        const originalFeature = feature.get('features')[0];
-        style = createEarthquakeStyle(originalFeature);
-    }
-    return style;
-}
 
 export default function Cluster(): JSX.Element {
     const [distance, setDistance] = React.useState(20);
     const earthquakeLayer = React.useRef();
+    const styleRef = useRStyle();
     return (
         <React.Fragment>
-            <RMap
-                className='example-map'
-                center={fromLonLat([0, 0])}
-                zoom={1}
-                // This needed because the examples app hot-loads components when switching tabs
-                onRenderComplete={useCallback(() => (currentResolution = undefined), [])}
-            >
+            <RMap className='example-map' center={fromLonLat([0, 0])} zoom={1}>
                 <RLayerStamen layer='toner' />
                 <RLayerCluster
                     ref={earthquakeLayer}
                     distance={distance}
                     format={reader}
                     url={earthquakes}
-                    // eslint-disable-next-line react-hooks/exhaustive-deps
-                    style={useCallback(clusterStyle.bind(earthquakeLayer), [earthquakeLayer])}
-                />
+                >
+                    <RStyle
+                        ref={styleRef}
+                        cacheSize={1024}
+                        cacheId={(feature, resolution) =>
+                            // This is the hashing function, it takes a feature as its input
+                            // and returns a string
+                            // It must be dependant of the same inputs as the rendering function
+                            feature.get('features').length > 1
+                                ? '#' + extentFeatures(feature.get('features'), resolution)
+                                : '$' + radiusStar(feature.get('features')[0])
+                        }
+                        render={(feature, resolution) => {
+                            // This is the rendering function
+                            // It has access to the cluster which appears as a single feature
+                            // and has a property with an array of all the features that make it
+                            const size = feature.get('features').length;
+                            // This is the size (number of features) of the cluster
+                            if (size > 1) {
+                                // Render a blob with a number
+                                const radius = extentFeatures(feature.get('features'), resolution);
+                                return (
+                                    <React.Fragment>
+                                        <RCircle radius={radius}>
+                                            <RFill color={colorBlob(size)} />
+                                        </RCircle>
+                                        <RText text={size.toString()}>
+                                            <RFill color='#fff' />
+                                            <RStroke color='rgba(0, 0, 0, 0.6)' width={3} />
+                                        </RText>
+                                    </React.Fragment>
+                                );
+                            }
+                            // We have a single feature cluster
+                            const unclusteredFeature = feature.get('features')[0];
+                            // Render a star
+                            return (
+                                <RRegularShape
+                                    radius1={radiusStar(unclusteredFeature)}
+                                    radius2={3}
+                                    points={5}
+                                    angle={Math.PI}
+                                >
+                                    <RFill color='rgba(255, 153, 0, 0.8)' />
+                                    <RStroke color='rgba(255, 204, 0, 0.2)' width={1} />
+                                </RRegularShape>
+                            );
+                        }}
+                    />
+                </RLayerCluster>
             </RMap>
-            <div className='w-100'>
+            <div className='my-3 w-100'>
                 <label htmlFor='distance'>Clustering distance</label>
                 <div className='w-100'>
                     <input

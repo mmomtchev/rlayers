@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import LRU from 'lru-cache';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
@@ -8,11 +9,17 @@ import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 export interface RStyleProps {
-    /** render function to be passed the feature for dynamic styles
+    /** render function to be passed the feature and the resolution for dynamic styles
      *
      * a dynamic style cannot become a static style or the inverse
      */
-    render?: (f: Feature) => React.ReactElement;
+    render?: (feature: Feature, resolution: number) => React.ReactElement;
+    /** An optional cache size, valid only for dynamic styles */
+    cacheSize?: number;
+    /** The cache hashing function, must return a unique string for
+     * every unique style computed by the rendering funciton
+     */
+    cacheId?: (feature: Feature, resolution: number) => string;
 }
 
 export type RStyleRef = React.RefObject<RStyle>;
@@ -31,24 +38,34 @@ export const createRStyle = (): RStyleRef => React.createRef();
 export default class RStyle extends RlayersBase<RStyleProps, null> {
     ol: StyleLike;
     childRefs: RStyleRef[];
+    cache: LRU;
 
     constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
         if (props.render) this.ol = this.style;
         else this.ol = new Style({});
+        if (props.render && props.cacheSize && props.cacheId)
+            this.cache = new LRU({max: props.cacheSize});
     }
 
-    style = (f: Feature): Style | Style[] => {
+    style = (f: Feature, r: number): Style | Style[] => {
         if (this.ol !== this.style) return this.ol as Style;
+        let hash;
+        if (this.cache) {
+            hash = this.props.cacheId(f, r);
+            const style = this.cache.get(hash);
+            if (style) return style;
+        }
         const style = new Style({});
         const render = (
             <React.Fragment>
                 <RContext.Provider value={{...this.context, style}}>
-                    {this.props.render(f)}
+                    {this.props.render(f, r)}
                 </RContext.Provider>
             </React.Fragment>
         );
         ReactDOM.render(render, document.createElement('div'));
+        if (this.cache) this.cache.set(hash, style);
         return style;
     };
 
@@ -82,12 +99,12 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
 
         // style is RStyle or RStyleArray
         if (typeof (style as RStyle).style === 'function')
-            return (f: Feature) => (style as RStyle).style(f);
+            return (f: Feature, r: number) => (style as RStyle).style(f, r);
 
         // style is a React.RefObject
         // React.RefObjects are just plain JS objects after JS transpilation */
         if (Object.keys(style).includes('current'))
-            return (f: Feature) => (style as RStyleRef).current.style(f);
+            return (f: Feature, r: number) => (style as RStyleRef).current.style(f, r);
 
         // style is an OpenLayers StyleLike
         return style as StyleLike;

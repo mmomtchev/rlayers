@@ -13,23 +13,22 @@ import debug from '../debug';
  * It replaces the references on its childs, so individual elements
  * in the array cannot be referenced
  *
+ * It doesn't support caching yet
+ *
  * Every style in the array must be a static style and not a function
  *
  * Arrays of style functions are not supported by OpenLayers and won't
  * be supported rlayers either
  */
 export default class RStyleArray extends RStyle {
-    ol: StyleLike;
-    childRefs: RStyleRef[];
-
     constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.childRefs = [];
     }
 
-    style = (f: Feature): Style | Style[] => {
+    style = (f: Feature, r: number): Style | Style[] => {
         if (this.props.render) {
-            const element = this.props.render(f);
+            const element = this.props.render(f, r);
             const render = (
                 <React.Fragment>
                     {React.Children.map(element.props.children as React.ReactNode, (child, i) => {

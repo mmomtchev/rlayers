@@ -23,9 +23,9 @@ var RStyleArray = (function (_super) {
     __extends(RStyleArray, _super);
     function RStyleArray(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.style = function (f) {
+        _this.style = function (f, r) {
             if (_this.props.render) {
-                var element = _this.props.render(f);
+                var element = _this.props.render(f, r);
                 var render = (react_1.default.createElement(react_1.default.Fragment, null, react_1.default.Children.map(element.props.children, function (child, i) {
                     if (!_this.childRefs[i])
                         _this.childRefs[i] = react_1.default.createRef();

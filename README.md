@@ -54,11 +54,14 @@ Style definitions can be placed anywhere inside the DOM and can be referenced wi
 
 A style placed inside a vector layer will be automatically applied to that vector layer.
 
-A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. In the future *rlayers* will include its own caching mechanism for styles but this is currently not the case.
+A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. A simple caching mechanism is also provided, based on a user-supplied hash function. It can greatly improve performance when the majority of the features use a small number of different styles.
 
-See <https://mmomtchev.github.io/rlayers/#/features> for a basic example with static styles or <https://mmomtchev.github.io/rlayers/#/vectortiles> for a more complete example with dynamic styles.
+You can refer to
+* <https://mmomtchev.github.io/rlayers/#/features> for a basic example with static styles;
+* <https://mmomtchev.github.io/rlayers/#/vectortiles> for a more complete example with dynamic styles;
+* <https://mmomtchev.github.io/rlayers/#/cluster> for the use of caching.
 
-Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the **React way**.
+Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the **React way**. Still, if you need every last bit of performance, writing an optimized *OpenLayers* style function is the best solution.
 ## Examples
 
 The examples can be found here:

@@ -114,9 +114,9 @@ describe('<RStyle>', () => {
         render(
             <RStyle
                 ref={ref}
-                render={(f) => (
+                render={(f, r) => (
                     <RText text={f.get('name')}>
-                        <RStroke color='#000100' width={3} />
+                        <RStroke color='#000100' width={r} />
                     </RText>
                 )}
             />
@@ -125,9 +125,32 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text'
         });
-        const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
+        const style = (RStyle.getStyle(ref) as (Feature, number) => Style)(f, 100);
         expect(style.getText().getText()).toBe('text');
-        expect(style.getText().getStroke().getWidth()).toBe(3);
+        expect(style.getText().getStroke().getWidth()).toBe(100);
+    });
+    it('should support caching styles', async () => {
+        const ref = createRStyle();
+        render(
+            <RStyle
+                ref={ref}
+                cacheSize={16}
+                cacheId={(f) => f.get('name')}
+                render={(f) => (
+                    <RText text={f.get('name')}>
+                        <RStroke color='#000100' width={14} />
+                    </RText>
+                )}
+            />
+        );
+        const f = new Feature({
+            geometry: new Point(common.coords.ArcDeTriomphe),
+            name: 'text14'
+        });
+        const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
+        expect(style.getText().getText()).toBe('text14');
+        expect(style.getText().getStroke().getWidth()).toBe(14);
+        expect(ref.current.cache.get(f.get('name'))).toBe(style);
     });
     it('should apply to vector layers', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVector>;

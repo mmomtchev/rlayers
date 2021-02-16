@@ -30,6 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createRStyle = exports.useRStyle = void 0;
 var react_1 = __importDefault(require("react"));
 var react_dom_1 = __importDefault(require("react-dom"));
+var lru_cache_1 = __importDefault(require("lru-cache"));
 var Style_1 = __importDefault(require("ol/style/Style"));
 var context_1 = require("../context");
 var REvent_1 = require("../REvent");
@@ -41,19 +42,30 @@ var RStyle = (function (_super) {
     __extends(RStyle, _super);
     function RStyle(props, context) {
         var _this = _super.call(this, props, context) || this;
-        _this.style = function (f) {
+        _this.style = function (f, r) {
             if (_this.ol !== _this.style)
                 return _this.ol;
+            var hash;
+            if (_this.cache) {
+                hash = _this.props.cacheId(f, r);
+                var style_1 = _this.cache.get(hash);
+                if (style_1)
+                    return style_1;
+            }
             var style = new Style_1.default({});
             var render = (react_1.default.createElement(react_1.default.Fragment, null,
-                react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, _this.context), { style: style }) }, _this.props.render(f))));
+                react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, _this.context), { style: style }) }, _this.props.render(f, r))));
             react_dom_1.default.render(render, document.createElement('div'));
+            if (_this.cache)
+                _this.cache.set(hash, style);
             return style;
         };
         if (props.render)
             _this.ol = _this.style;
         else
             _this.ol = new Style_1.default({});
+        if (props.render && props.cacheSize && props.cacheId)
+            _this.cache = new lru_cache_1.default({ max: props.cacheSize });
         return _this;
     }
     RStyle.prototype.refresh = function (prevProps) {
@@ -71,9 +83,9 @@ var RStyle = (function (_super) {
         if (style === null || style === undefined)
             return style;
         if (typeof style.style === 'function')
-            return function (f) { return style.style(f); };
+            return function (f, r) { return style.style(f, r); };
         if (Object.keys(style).includes('current'))
-            return function (f) { return style.current.style(f); };
+            return function (f, r) { return style.current.style(f, r); };
         return style;
     };
     RStyle.getStyleStatic = function (style) {

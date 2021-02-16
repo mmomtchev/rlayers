@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@types/ol": "^6.4.2",
+    "lru-cache": "^6.0.0",
     "ol": "^6.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
