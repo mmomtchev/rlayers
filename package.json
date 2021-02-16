@@ -27,9 +27,11 @@
   },
   "homepage": "https://mmomtchev.github.io/rlayers/",
   "keywords": [
+    "react",
+    "maps",
     "openlayers",
     "gis",
-    "react",
+    "cartography",
     "es6",
     "js",
     "typescript"
