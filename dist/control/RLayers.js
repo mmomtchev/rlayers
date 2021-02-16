@@ -102,7 +102,7 @@ var RLayers = (function (_super) {
                                 visible[v] = false;
                             }
                             visible[i] = true;
-                            _this.setState({ visible: __spread(visible) });
+                            _this.setState({ visible: __spread(visible), collapsed: true });
                         } }),
                     react_1.default.createElement("label", { htmlFor: i.toString() }, l))); })))),
             react_1.default.Children.map(this.props.children, function (child, i) {

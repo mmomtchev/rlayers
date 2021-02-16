@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RPopup = exports.ROverlay = exports.RFeature = exports.RStyle = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RStyleContext = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.RlayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
+exports.RPopup = exports.ROverlay = exports.RFeature = exports.RStyle = exports.RInteraction = exports.RControl = exports.RLayerVectorTile = exports.RLayerCluster = exports.RLayerHeatmap = exports.RLayerStamen = exports.RLayerTileJSON = exports.RLayerWMTS = exports.ROSM = exports.RLayerVector = exports.RLayerBaseVector = exports.RLayerTile = exports.RLayer = exports.RMap = exports.RStyleContext = exports.RLocationContext = exports.RVectorContext = exports.RLayerContext = exports.RMapContext = exports.RlayersBase = exports.VectorSourceEvent = exports.RenderEvent = exports.MapBrowserEvent = exports.MapEvent = void 0;
 var ol_1 = require("ol");
 Object.defineProperty(exports, "MapEvent", { enumerable: true, get: function () { return ol_1.MapEvent; } });
 Object.defineProperty(exports, "MapBrowserEvent", { enumerable: true, get: function () { return ol_1.MapBrowserEvent; } });
@@ -52,6 +52,8 @@ var ROSM_1 = require("./layer/ROSM");
 Object.defineProperty(exports, "ROSM", { enumerable: true, get: function () { return __importDefault(ROSM_1).default; } });
 var RLayerWMTS_1 = require("./layer/RLayerWMTS");
 Object.defineProperty(exports, "RLayerWMTS", { enumerable: true, get: function () { return __importDefault(RLayerWMTS_1).default; } });
+var RLayerTileJSON_1 = require("./layer/RLayerTileJSON");
+Object.defineProperty(exports, "RLayerTileJSON", { enumerable: true, get: function () { return __importDefault(RLayerTileJSON_1).default; } });
 var RLayerStamen_1 = require("./layer/RLayerStamen");
 Object.defineProperty(exports, "RLayerStamen", { enumerable: true, get: function () { return __importDefault(RLayerStamen_1).default; } });
 var RLayerHeatmap_1 = require("./layer/RLayerHeatmap");

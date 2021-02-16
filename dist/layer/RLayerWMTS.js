@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var layer_1 = require("ol/layer");
 var WMTS_1 = __importStar(require("ol/source/WMTS"));
 var WMTSCapabilities_1 = __importDefault(require("ol/format/WMTSCapabilities"));
-var RLayer_1 = __importDefault(require("./RLayer"));
+var RLayerRaster_1 = __importDefault(require("./RLayerRaster"));
 var debug_1 = __importDefault(require("../debug"));
 var RLayerWMTS = (function (_super) {
     __extends(RLayerWMTS, _super);
@@ -67,6 +67,9 @@ var RLayerWMTS = (function (_super) {
             options.wrapX = false;
             _this.source = new WMTS_1.default(options);
             _this.ol.setSource(_this.source);
+            _this.eventSources = [_this.ol, _this.source];
+            if (_this.props.onSourceReady)
+                _this.props.onSourceReady(options);
             return _this.source;
         })
             .catch(function (e) {
@@ -80,6 +83,6 @@ var RLayerWMTS = (function (_super) {
         _super.prototype.refresh.call(this);
     };
     return RLayerWMTS;
-}(RLayer_1.default));
+}(RLayerRaster_1.default));
 exports.default = RLayerWMTS;
 //# sourceMappingURL=RLayerWMTS.js.map

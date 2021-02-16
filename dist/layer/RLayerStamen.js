@@ -18,16 +18,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var layer_1 = require("ol/layer");
 var source_1 = require("ol/source");
-var RLayer_1 = __importDefault(require("./RLayer"));
+var RLayerRaster_1 = __importDefault(require("./RLayerRaster"));
 var RLayerStamen = (function (_super) {
     __extends(RLayerStamen, _super);
     function RLayerStamen(props, context) {
         var _this = _super.call(this, props, context) || this;
         _this.source = new source_1.Stamen({ layer: _this.props.layer });
         _this.ol = new layer_1.Tile({ source: _this.source });
+        _this.eventSources = [_this.ol, _this.source];
         return _this;
     }
     return RLayerStamen;
-}(RLayer_1.default));
+}(RLayerRaster_1.default));
 exports.default = RLayerStamen;
 //# sourceMappingURL=RLayerStamen.js.map

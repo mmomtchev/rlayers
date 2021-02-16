@@ -37,7 +37,7 @@ module.exports = {
             name: 'Layer',
             description: 'Layer componenets',
             components: 'src/layer/R[A-Z]*.tsx',
-            ignore: 'src/layer/R@(LayerBaseVector|Layer).tsx'
+            ignore: 'src/layer/R@(LayerBaseVector|Layer|LayerRaster).tsx'
         },
         {
             name: 'Control',

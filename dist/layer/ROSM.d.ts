@@ -1,10 +1,10 @@
 import React from 'react';
 import { Map } from 'ol';
 import { OSM } from 'ol/source';
-import { default as Layer, RLayerProps } from './RLayer';
-export interface ROSMProps extends RLayerProps {
+import { default as LayerRaster, RLayerRasterProps } from './RLayerRaster';
+export interface ROSMProps extends RLayerRasterProps {
 }
-export default class ROSM extends Layer<ROSMProps> {
+export default class ROSM extends LayerRaster<ROSMProps> {
     source: OSM;
     constructor(props: Readonly<ROSMProps>, context: React.Context<Map>);
     refresh(): void;

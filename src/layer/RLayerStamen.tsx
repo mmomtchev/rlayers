@@ -3,15 +3,15 @@ import {Map as Map} from 'ol';
 import {Tile as OLRLayerTile} from 'ol/layer';
 import {Stamen} from 'ol/source';
 
-import {default as RLayer, RLayerProps} from './RLayer';
+import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
-export interface RLayerStamenProps extends RLayerProps {
+export interface RLayerStamenProps extends RLayerRasterProps {
     /** Stamen layer name */
     layer?: string;
 }
 
 /** A ready to use interface for Stamen's map service */
-export default class RLayerStamen extends RLayer<RLayerStamenProps> {
+export default class RLayerStamen extends RLayerRaster<RLayerStamenProps> {
     ol: OLRLayerTile;
     source: Stamen;
 
