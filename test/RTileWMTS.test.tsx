@@ -1,9 +1,10 @@
 window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
+import Projection from 'ol/proj/Projection';
 import {createXYZ} from 'ol/tilegrid';
 
-import {RMap, RLayerTile, RLayerWMTS, RLayerStamen} from 'rlayers';
+import {RMap, RLayerTile, RLayerWMTS, RLayerStamen, RLayerTileJSON} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerTile>', () => {
@@ -48,27 +49,61 @@ window.fetch = jest.fn(() => Promise.resolve({text: () => WMTSCaps})) as any;
 
 describe('<RLayerWTMS>', () => {
     it('should display a tiled WMTS layer', async () => {
-        const {container} = render(
-            <RMap {...common.mapProps}>
-                <RLayerWMTS
-                    zIndex={5}
-                    attributions='Contains OS data © Crown Copyright and database right'
-                    url='https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS'
-                    layer='OS_Open_Raster'
-                />
-            </RMap>
+        const layer = React.createRef() as React.RefObject<RLayerWMTS>;
+        const ready = jest.fn();
+        await new Promise((res, rej) => {
+            const {container} = render(
+                <RMap {...common.mapProps}>
+                    <RLayerWMTS
+                        zIndex={5}
+                        ref={layer}
+                        onSourceReady={(opt) => {
+                            expect((opt.projection as Projection).getCode()).toBe('EPSG:4326');
+                            res(undefined);
+                        }}
+                        attributions='Contains OS data © Crown Copyright and database right'
+                        url='https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS'
+                        layer='OS_Open_Raster'
+                    />
+                </RMap>
+            );
+            expect(container.innerHTML).toMatchSnapshot();
+        });
+        expect(layer.current.source.getUrls()[0]).toBe(
+            'https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS/tile/1.0.0/OS_Open_Raster/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
         );
-        expect(container.innerHTML).toMatchSnapshot();
     });
 });
 
 describe('<RLayerStamen>', () => {
     it('should display a tiled Stamen layer', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerStamen>;
         const {container} = render(
             <RMap {...common.mapProps}>
-                <RLayerStamen layer='toner' />
+                <RLayerStamen ref={layer} layer='toner' />
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current.source.getUrls()[0]).toBe(
+            'https://stamen-tiles-a.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
+        );
+    });
+});
+
+describe('<RLayerTileJSON>', () => {
+    it('should display a TileJSON source layer', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerTileJSON>;
+        const {container} = render(
+            <RMap {...common.mapProps}>
+                <RLayerTileJSON
+                    ref={layer}
+                    url='https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
+                />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current.source.getUrls()[0]).toBe(
+            'https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
+        );
     });
 });

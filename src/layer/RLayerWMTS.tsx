@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map} from 'ol';
 import {Tile as OLRLayerTile} from 'ol/layer';
-import {default as OLSourceWMTS, optionsFromCapabilities} from 'ol/source/WMTS';
+import {default as OLSourceWMTS, optionsFromCapabilities, Options} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -12,6 +12,8 @@ export interface RLayerWMTSProps extends RLayerProps {
     url: string;
     /** Layer name */
     layer: string;
+    /** Called when the WMTS capabilities have been acquired */
+    onSourceReady?: (opt: Options) => void;
 }
 
 /** A layer for WMTS-compatible raster tile servers */
@@ -42,6 +44,7 @@ export default class RLayerWMTS extends RLayer<RLayerWMTSProps> {
                 options.wrapX = false;
                 this.source = new OLSourceWMTS(options);
                 this.ol.setSource(this.source);
+                if (this.props.onSourceReady) this.props.onSourceReady(options);
                 return this.source;
             })
             .catch((e) => {
