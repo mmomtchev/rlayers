@@ -5,7 +5,7 @@ import SourceVector from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import Style from 'ol/style/Style';
-export declare const RContext: React.Context<any>;
+export declare const RContext: React.Context<RContextType>;
 export interface RContextType {
     map?: Map;
     vectorlayer?: BaseVector;

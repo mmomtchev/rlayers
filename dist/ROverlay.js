@@ -23,12 +23,12 @@ var REvent_1 = require("./REvent");
 var ROverlayBase = (function (_super) {
     __extends(ROverlayBase, _super);
     function ROverlayBase(props, context) {
-        var _a;
+        var _a, _b;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.vectorlayer)
+        if (!((_a = _this.context) === null || _a === void 0 ? void 0 : _a.location))
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         _this.ol = new ol_1.Overlay({
-            autoPan: (_a = props.autoPan) !== null && _a !== void 0 ? _a : true,
+            autoPan: (_b = props.autoPan) !== null && _b !== void 0 ? _b : true,
             autoPanAnimation: props.autoPanAnimation
         });
         _this.containerRef = react_1.default.createRef();

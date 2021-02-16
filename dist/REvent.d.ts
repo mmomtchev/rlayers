@@ -1,7 +1,7 @@
 import React from 'react';
 import { RContextType } from './context';
 export declare class RlayersBase<P, S> extends React.PureComponent<P, S> {
-    static contextType: React.Context<any>;
+    static contextType: React.Context<RContextType>;
     context: RContextType;
     ol: any;
     eventSources: any[];

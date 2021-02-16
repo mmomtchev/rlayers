@@ -49,14 +49,14 @@ var debug_1 = __importDefault(require("./debug"));
 var RFeature = (function (_super) {
     __extends(RFeature, _super);
     function RFeature(props, context) {
-        var _a;
+        var _a, _b;
         var _this = _super.call(this, props, context) || this;
-        if (!_this.context || !_this.context.vectorlayer)
+        if (!((_a = _this === null || _this === void 0 ? void 0 : _this.context) === null || _a === void 0 ? void 0 : _a.vectorlayer))
             throw new Error('An RFeature must be part of a vector layer');
         if (props.feature)
             _this.ol = props.feature;
         else
-            _this.ol = new ol_2.Feature(__assign(__assign({}, ((_a = props.properties) !== null && _a !== void 0 ? _a : {})), { geometry: props.geometry, style: RStyle_1.default.getStyle(props.style) }));
+            _this.ol = new ol_2.Feature(__assign(__assign({}, ((_b = props.properties) !== null && _b !== void 0 ? _b : {})), { geometry: props.geometry, style: RStyle_1.default.getStyle(props.style) }));
         RFeature.initEventRelay(_this.context.map);
         _this.onchange = function () { return _this.forceUpdate(); };
         return _this;

@@ -3,9 +3,11 @@ import { RContextType } from '../context';
 export interface RBaseProps {
 }
 export default class RBase<P extends RBaseProps> extends React.PureComponent<P, null> {
+    static contextType: React.Context<RContextType>;
     static classProps: string[];
     classProps: string[];
     ol: unknown;
+    context: RContextType;
     constructor(props: Readonly<P>, context: React.Context<RContextType>);
     create(props: P): unknown;
     refresh(prevProps?: P): void;
