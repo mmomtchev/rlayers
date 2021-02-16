@@ -16,6 +16,7 @@ export default class ROSM extends LayerRaster<ROSMProps> {
         super(props, context);
         this.source = new OSM();
         this.ol = new LayerTile({source: this.source});
+        this.eventSources = [this.ol, this.source];
     }
 
     refresh(): void {

@@ -19,5 +19,6 @@ export default class RLayerStamen extends RLayer<RLayerStamenProps> {
         super(props, context);
         this.source = new Stamen({layer: this.props.layer});
         this.ol = new OLRLayerTile({source: this.source});
+        this.eventSources = [this.ol, this.source];
     }
 }

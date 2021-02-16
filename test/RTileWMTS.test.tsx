@@ -57,7 +57,7 @@ describe('<RLayerTile>', () => {
             </RMap>
         );
         for (const ev of events)
-            layer.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol));
+            layer.current.source.dispatchEvent(common.createEvent(ev, map.current.ol));
         expect(handler).toHaveBeenCalledTimes(events.length);
     });
 });

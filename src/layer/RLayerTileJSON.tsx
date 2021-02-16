@@ -23,6 +23,7 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
             url: this.props.url
         });
         this.ol = new OLRLayerTile({source: this.source});
+        this.eventSources = [this.ol, this.source];
     }
 
     refresh(prevProps?: RLayerTileJSONProps): void {

@@ -44,6 +44,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 options.wrapX = false;
                 this.source = new OLSourceWMTS(options);
                 this.ol.setSource(this.source);
+                this.eventSources = [this.ol, this.source];
                 if (this.props.onSourceReady) this.props.onSourceReady(options);
                 return this.source;
             })

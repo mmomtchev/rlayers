@@ -26,6 +26,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
         super(props, context);
         this.createSource();
         this.ol = new OLRLayerTile({source: this.source});
+        this.eventSources = [this.ol, this.source];
     }
 
     createSource(): void {
@@ -34,6 +35,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
             projection: this.props.projection,
             tileGrid: this.props.tileGrid
         });
+        this.eventSources = [this.ol, this.source];
     }
 
     refresh(prevProps?: RLayerTileProps): void {
