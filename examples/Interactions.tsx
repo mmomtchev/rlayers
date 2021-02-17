@@ -26,7 +26,7 @@ export default function Interactions(): JSX.Element {
     const [msg, setMsg] = React.useState(
         '<p>Hold shift to select an area or drag and drop the monuments</p>'
     );
-    const [features, setFeatures] = React.useState(() =>
+    const [features] = React.useState(() =>
         Object.keys(coords).map(
             (f) =>
                 new Feature({

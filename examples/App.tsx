@@ -58,6 +58,9 @@ import InteractionsJSX from '!!raw-loader!./Interactions.tsx';
 import Spinner from './Spinner';
 // @ts-ignore
 import SpinnerJSX from '!!raw-loader!./Spinner.tsx';
+import Extent from './Extent';
+// @ts-ignore
+import ExtentJSX from '!!raw-loader!./Extent.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -79,6 +82,7 @@ const examples = {
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     spinner: {title: 'Spinner', comp: Spinner, code: SpinnerJSX},
+    extent: {title: 'Constrained view', comp: Extent, code: ExtentJSX},
     interactions: {title: 'Interactions', comp: Interactions, code: InteractionsJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
