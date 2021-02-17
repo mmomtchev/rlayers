@@ -69,8 +69,8 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
         return style;
     };
 
-    refresh(prevProps?: RStyleProps): void {
-        super.refresh(prevProps);
+    componentDidMount(): void {
+        super.componentDidMount();
         if (this.context?.feature?.setStyle) this.context.feature.setStyle(this.ol);
         else if (this.context?.vectorlayer?.setStyle) this.context.vectorlayer.setStyle(this.ol);
     }
