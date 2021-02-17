@@ -3,7 +3,7 @@ import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
 import {RContextType} from '../context';
-import {RlayersBase} from '../REvent';
+import {default as RBase} from './RBase';
 import debug from '../debug';
 
 export interface RPointerProps {
@@ -24,42 +24,8 @@ export interface RPointerProps {
 /** A basic pointer interaction component
  * It is meant to be be extended by more specific interactions
  */
-export default class RPointer<P> extends RlayersBase<P, null> {
+export default class RPointer<P> extends RBase<P> {
     static classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     classProps: string[];
     ol: Pointer;
-
-    constructor(props: P, context: React.Context<RContextType>) {
-        super(props, context);
-        if (!this.context?.map?.addInteraction)
-            throw new Error('An interaction must be part of a map');
-        this.ol = this.createOL(props);
-    }
-
-    createOL(props: P): Pointer {
-        this.classProps = RPointer.classProps;
-        return new Pointer(props);
-    }
-
-    refresh(prevProps?: P): void {
-        for (const p of this.classProps)
-            if (prevProps && prevProps[p] !== this.props[p]) {
-                debug('Replacing interaction', this, prevProps);
-                this.context.map.removeInteraction(this.ol);
-                this.ol = this.createOL(this.props);
-                this.context.map.addInteraction(this.ol);
-                break;
-            }
-        super.refresh();
-    }
-
-    componentDidMount(): void {
-        super.componentDidMount();
-        this.context.map.addInteraction(this.ol);
-    }
-
-    componentWillUnmount(): void {
-        super.componentWillUnmount();
-        this.context.map.removeInteraction(this.ol);
-    }
 }

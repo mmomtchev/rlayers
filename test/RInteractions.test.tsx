@@ -72,3 +72,22 @@ describe('<RTranslate>', () => {
         unmount();
     });
 });
+
+describe('Default interactions', () => {
+    it('should support manually adding all the default interactions', () => {
+        const {container} = render(
+            <RMap {...common.mapProps} noDefaultInteractions={true}>
+                <RInteraction.RDragRotate duration={100} />
+                <RInteraction.RDoubleClickZoom duration={100} />
+                <RInteraction.RDragPan kinetic={{decay: 40, delay: 20, minVelocity: 10}} />
+                <RInteraction.RPinchRotate duration={100} />
+                <RInteraction.RPinchZoom duration={100} />
+                <RInteraction.RKeyboardPan duration={100} />
+                <RInteraction.RKeyboardZoom duration={100} />
+                <RInteraction.RMouseWheelZoom duration={100} />
+                <RInteraction.RDragZoom duration={100} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+    });
+});

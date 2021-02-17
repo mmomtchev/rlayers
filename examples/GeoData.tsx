@@ -25,7 +25,13 @@ export default function GeoData(): JSX.Element {
     }, []);
     return (
         <div className='d-flex flex-row'>
-            <RMap className='example-map' center={fromLonLat([2, 46.5])} zoom={5.5}>
+            <RMap
+                className='example-map'
+                center={fromLonLat([2, 46.5])}
+                zoom={5.75}
+                noDefaultControls={true}
+                noDefaultInteractions={true}
+            >
                 <ROSM />
                 <RLayerVector
                     zIndex={5}
