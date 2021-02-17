@@ -61,6 +61,12 @@ import SpinnerJSX from '!!raw-loader!./Spinner.tsx';
 import Extent from './Extent';
 // @ts-ignore
 import ExtentJSX from '!!raw-loader!./Extent.tsx';
+import Animation from './AnimatedOverlay';
+// @ts-ignore
+import AnimationJSX from '!!raw-loader!./AnimatedOverlay.tsx';
+import GeoData from './GeoData';
+// @ts-ignore
+import GeoDataJSX from '!!raw-loader!./GeoData.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -74,15 +80,17 @@ const examples = {
     simple: {title: 'Simple map', comp: Simple, code: SimpleJSX},
     controls: {title: 'Custom controls', comp: Controls, code: ControlsJSX},
     overlays: {title: 'Simple overlay', comp: Overlays, code: OverlaysJSX},
+    extent: {title: 'Constrained view', comp: Extent, code: ExtentJSX},
+    animation: {title: 'Animated icon', comp: Animation, code: AnimationJSX},
     overview: {title: 'Overview', comp: Overview, code: OverviewJSX},
     popups: {title: 'Popups', comp: Popups, code: PopupsJSX},
+    features: {title: 'GeoJSON', comp: Features, code: FeaturesJSX},
     cluster: {title: 'Clustering', comp: Cluster, code: ClusterJSX},
     heatmap: {title: 'Heatmap', comp: Heatmap, code: HeatmapJSX},
-    features: {title: 'Load GeoJSON', comp: Features, code: FeaturesJSX},
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     spinner: {title: 'Spinner', comp: Spinner, code: SpinnerJSX},
-    extent: {title: 'Constrained view', comp: Extent, code: ExtentJSX},
+    geodata: {title: 'Geo Data', comp: GeoData, code: GeoDataJSX},
     interactions: {title: 'Interactions', comp: Interactions, code: InteractionsJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
