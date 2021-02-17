@@ -1,8 +1,7 @@
 import React from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
-import {Layer} from 'ol/layer';
-import {StyleLike} from 'ol/style/Style';
+import BaseVectorLayer from 'ol/layer/BaseVector';
 import Geometry from 'ol/geom/Geometry';
 import {getCenter} from 'ol/extent';
 
@@ -57,10 +56,15 @@ export interface RFeatureProps {
  *
  */
 
+type FeatureRef = {
+    feature: Feature;
+    layer: BaseVectorLayer;
+};
+
 export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
-    static lastFeatureEntered: undefined | {feature: Feature; layer: Layer};
-    static lastFeatureDragged: undefined | {feature: Feature; layer: Layer};
+    static lastFeaturesEntered: FeatureRef[] = [];
+    static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 10;
     ol: Feature;
     onchange: () => boolean | void;
@@ -84,61 +88,69 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
-    static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean {
-        if (feature.dispatchEvent) return feature.dispatchEvent(event);
-        if (!event.target) event.target = feature;
-        if (layer?.get('_on' + event.type)) return layer.get('_on' + event.type)(event);
+    static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent): boolean {
+        if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
+        if (!event.target) event.target = fr.feature;
+        if (fr.layer?.get('_on' + event.type)) return fr.layer.get('_on' + event.type)(event);
         return true;
     }
 
-    // This doesn't support overlappig RFeatures (yet?)
     static eventRelay(e: MapBrowserEvent): boolean {
-        let {feature, layer} =
-            e.map.forEachFeatureAtPixel(
-                e.pixel,
-                (f: Feature, l: Layer) => ({feature: f, layer: l}),
-                {
-                    hitTolerance: RFeature.hitTolerance
-                }
-            ) ?? {};
+        const triggered: FeatureRef[] = [];
+        e.map.forEachFeatureAtPixel(
+            e.pixel,
+            (f: Feature, l: BaseVectorLayer) => triggered.push({feature: f, layer: l}) && false,
+            {
+                hitTolerance: RFeature.hitTolerance
+            }
+        );
+
         if (e.dragging) {
-            if (!RFeature.lastFeatureDragged?.feature)
-                RFeature.lastFeatureDragged = {feature, layer};
-            ({feature, layer} = RFeature.lastFeatureDragged);
+            if (!RFeature.lastFeaturesDragged.length) RFeature.lastFeaturesDragged = [...triggered];
         } else {
-            if (RFeature.lastFeatureDragged?.feature)
+            for (const fr of RFeature.lastFeaturesDragged)
                 RFeature.dispatchEvent(
-                    RFeature.lastFeatureDragged.feature,
-                    RFeature.lastFeatureDragged.layer,
+                    fr,
                     new MapBrowserEvent('pointerdragend', e.map, e.originalEvent)
                 );
-            RFeature.lastFeatureDragged = undefined;
+            RFeature.lastFeaturesDragged = [];
         }
 
         if (e.type === 'pointermove') {
-            if (RFeature.lastFeatureEntered?.feature !== feature) {
-                if (RFeature.lastFeatureEntered?.feature)
+            // For all features previously entered, check if the pointer is still over them
+            // Send pointerleave and then remove those that are not under the pointer anymore
+            for (const fr of RFeature.lastFeaturesEntered)
+                if (!triggered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
-                        RFeature.lastFeatureEntered.feature,
-                        RFeature.lastFeatureEntered.layer,
+                        fr,
                         new MapBrowserEvent('pointerleave', e.map, e.originalEvent)
                     );
-                RFeature.lastFeatureEntered = {feature, layer};
-                if (feature)
+                    fr.feature = null;
+                    fr.layer = null;
+                }
+            RFeature.lastFeaturesEntered = RFeature.lastFeaturesEntered.filter((fr) => fr.feature);
+
+            // For all features triggered on this cycle, check if they were previous entered
+            // Send pointerenter and then register all the new feature
+            for (const fr of triggered) {
+                if (!RFeature.lastFeaturesEntered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
-                        feature,
-                        layer,
+                        fr,
                         new MapBrowserEvent('pointerenter', e.map, e.originalEvent)
                     );
+                    RFeature.lastFeaturesEntered.push(fr);
+                }
             }
         }
-        if (feature) {
-            return RFeature.dispatchEvent(
-                feature,
-                layer,
-                new MapBrowserEvent(e.type, e.map, e.originalEvent)
-            );
-        }
+
+        // Normal re-dispatch for everything else
+        // Stop on false
+        for (const fr of triggered)
+            if (
+                RFeature.dispatchEvent(fr, new MapBrowserEvent(e.type, e.map, e.originalEvent)) ===
+                false
+            )
+                return false;
         return true;
     }
 

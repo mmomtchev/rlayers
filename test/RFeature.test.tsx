@@ -141,10 +141,7 @@ describe('<RFeature>', () => {
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
         const map = React.createRef() as React.RefObject<RMap>;
-        const ref = [
-            React.createRef() as React.RefObject<RFeature>,
-            React.createRef() as React.RefObject<RFeature>
-        ];
+        const ref = [0, 1, 2].map(() => React.createRef() as React.RefObject<RFeature>);
         const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];
         const handlerProps = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: jest.fn()}), {});
         const {container} = render(
@@ -161,29 +158,44 @@ describe('<RFeature>', () => {
                         properties={{name: "Place d'Italie"}}
                         geometry={new Point(common.coords.PlaceDItalie)}
                     />
+                    <RFeature
+                        ref={ref[2]}
+                        properties={{name: "Arc de Triomphe' shadow"}}
+                        {...handlerProps}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    />
                 </RLayerVector>
             </RMap>
         );
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (pixel[0] === 10) return cb.call(this, ref[0].current.ol, null);
+            if (pixel[0] === 10) {
+                if (cb.call(this, ref[0].current.ol, null)) return;
+                return cb.call(this, ref[2].current.ol, null);
+            }
             if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, null);
             return undefined;
         });
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(0);
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(0);
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
 
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
 
         map.current.ol.dispatchEvent(common.createEvent('pointerdrag', map.current.ol, 10, true));
         map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-
-        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
-        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
-        expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(1);
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
+        expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(2);
     });
     it('should throw an error without a Layer', () => {
         const err = console.error;
