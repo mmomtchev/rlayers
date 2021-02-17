@@ -89,6 +89,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
     }
 
     static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent): boolean {
+        if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
         if (!event.target) event.target = fr.feature;
         if (fr.layer?.get('_on' + event.type)) return fr.layer.get('_on' + event.type)(event);
