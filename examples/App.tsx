@@ -90,7 +90,7 @@ const examples = {
     layers: {title: 'Multiple layers', comp: Layers, code: LayersJSX},
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     spinner: {title: 'Spinner', comp: Spinner, code: SpinnerJSX},
-    geodata: {title: 'Geo Data', comp: GeoData, code: GeoDataJSX},
+    geodata: {title: 'Geo data', comp: GeoData, code: GeoDataJSX},
     interactions: {title: 'Interactions', comp: Interactions, code: InteractionsJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},

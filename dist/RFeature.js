@@ -246,7 +246,7 @@ var RFeature = (function (_super) {
     RFeature.pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     RFeature.lastFeaturesEntered = [];
     RFeature.lastFeaturesDragged = [];
-    RFeature.hitTolerance = 10;
+    RFeature.hitTolerance = 3;
     return RFeature;
 }(REvent_1.RlayersBase));
 exports.default = RFeature;

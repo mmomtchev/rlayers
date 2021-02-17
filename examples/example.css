@@ -8,6 +8,11 @@
     margin-bottom: 1em;
 }
 
+.no-interaction {
+    user-select: none;
+    pointer-events: none;
+}
+
 .example-overlay {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;

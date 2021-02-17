@@ -19,6 +19,8 @@ type inputDataType = {records: {fields: {code_departement: string; population: n
 const fetchData = fetch(inputData).then((raw) => raw.json() as Promise<inputDataType>);
 const getData = (data: inputDataType, dep: string) =>
     data.records.find((el) => el.fields.code_departement === dep)?.fields.population ?? 0;
+// The default hitbox around the features is 3px wide making narrow gaps between the borders difficult to select
+RFeature.hitTolerance = 0;
 
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);

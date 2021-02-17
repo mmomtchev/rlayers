@@ -4,7 +4,7 @@ import {Coordinate} from 'ol/coordinate';
 import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay} from 'rlayers';
 import pacman from './svg/pacman.svg';
 
 const coords: Record<string, Coordinate> = {
@@ -18,7 +18,7 @@ export default function AnimatedOverlay(): JSX.Element {
             <ROSM />
             <RLayerVector zIndex={10}>
                 <RFeature geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
-                    <ROverlay>
+                    <ROverlay className='no-interaction'>
                         <img
                             src={pacman}
                             style={{
