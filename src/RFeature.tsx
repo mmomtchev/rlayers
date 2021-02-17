@@ -159,11 +159,10 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
 
     refresh(prevProps: RFeatureProps): void {
         super.refresh(prevProps);
-        if (this.props.properties && this.props.properties !== this.ol.getProperties())
+        if (this.props.properties !== prevProps?.properties)
             this.ol.setProperties(this.props.properties);
-        if (this.props.geometry && this.props.geometry !== this.ol.getGeometry())
-            this.ol.setGeometry(this.props.geometry);
-        if (this.props.style && this.props.style !== prevProps?.style)
+        if (this.props.geometry !== prevProps?.geometry) this.ol.setGeometry(this.props.geometry);
+        if (this.props.style !== prevProps?.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
     }
 
