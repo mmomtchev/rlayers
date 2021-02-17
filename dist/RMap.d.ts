@@ -11,6 +11,7 @@ export interface RMapProps {
     width?: number | string;
     height?: number | string;
     noDefaultControls?: boolean;
+    noDefaultInteractions?: boolean;
     projection?: string;
     onClick?: (e: MapBrowserEvent) => boolean | void;
     onSingleClick?: (e: MapBrowserEvent) => boolean | void;

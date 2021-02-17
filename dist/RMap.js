@@ -38,6 +38,7 @@ var RMap = (function (_super) {
         _this.target = react_1.default.createRef();
         _this.ol = new ol_1.Map({
             controls: props.noDefaultControls ? [] : undefined,
+            interactions: props.noDefaultInteractions ? [] : undefined,
             view: new ol_1.View({
                 projection: props.projection,
                 center: props.center,

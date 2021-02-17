@@ -1,7 +1,7 @@
 import React from 'react';
 import { Map as Map, MapBrowserEvent } from 'ol';
 import { Feature } from 'ol';
-import { Layer } from 'ol/layer';
+import BaseVectorLayer from 'ol/layer/BaseVector';
 import Geometry from 'ol/geom/Geometry';
 import { RContextType } from './context';
 import { RlayersBase } from './REvent';
@@ -20,26 +20,25 @@ export interface RFeatureProps {
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
 }
+declare type FeatureRef = {
+    feature: Feature;
+    layer: BaseVectorLayer;
+};
 export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents: string[];
-    static lastFeatureEntered: undefined | {
-        feature: Feature;
-        layer: Layer;
-    };
-    static lastFeatureDragged: undefined | {
-        feature: Feature;
-        layer: Layer;
-    };
+    static lastFeaturesEntered: FeatureRef[];
+    static lastFeaturesDragged: FeatureRef[];
     static hitTolerance: number;
     ol: Feature;
     onchange: () => boolean | void;
     constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>);
     static initEventRelay(map: Map): void;
-    static dispatchEvent(feature: Feature, layer: Layer, event: MapBrowserEvent): boolean;
+    static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent): boolean;
     static eventRelay(e: MapBrowserEvent): boolean;
     refresh(prevProps: RFeatureProps): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;
 }
+export {};
 //# sourceMappingURL=RFeature.d.ts.map

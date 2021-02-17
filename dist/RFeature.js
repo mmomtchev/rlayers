@@ -34,6 +34,26 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -77,42 +97,100 @@ var RFeature = (function (_super) {
             finally { if (e_1) throw e_1.error; }
         }
     };
-    RFeature.dispatchEvent = function (feature, layer, event) {
-        if (feature.dispatchEvent)
-            return feature.dispatchEvent(event);
+    RFeature.dispatchEvent = function (fr, event) {
+        var _a;
+        if (!fr.feature)
+            return true;
+        if (fr.feature.dispatchEvent)
+            return fr.feature.dispatchEvent(event);
         if (!event.target)
-            event.target = feature;
-        if (layer === null || layer === void 0 ? void 0 : layer.get('_on' + event.type))
-            return layer.get('_on' + event.type)(event);
+            event.target = fr.feature;
+        if ((_a = fr.layer) === null || _a === void 0 ? void 0 : _a.get('_on' + event.type))
+            return fr.layer.get('_on' + event.type)(event);
         return true;
     };
     RFeature.eventRelay = function (e) {
-        var _a;
-        var _b, _c, _d, _e, _f;
-        var _g = (_b = e.map.forEachFeatureAtPixel(e.pixel, function (f, l) { return ({ feature: f, layer: l }); }, {
+        var e_2, _a, e_3, _b, e_4, _c, e_5, _d;
+        var triggered = [];
+        e.map.forEachFeatureAtPixel(e.pixel, function (f, l) { return triggered.push({ feature: f, layer: l }) && false; }, {
             hitTolerance: RFeature.hitTolerance
-        })) !== null && _b !== void 0 ? _b : {}, feature = _g.feature, layer = _g.layer;
+        });
         if (e.dragging) {
-            if (!((_c = RFeature.lastFeatureDragged) === null || _c === void 0 ? void 0 : _c.feature))
-                RFeature.lastFeatureDragged = { feature: feature, layer: layer };
-            (_a = RFeature.lastFeatureDragged, feature = _a.feature, layer = _a.layer);
+            if (!RFeature.lastFeaturesDragged.length)
+                RFeature.lastFeaturesDragged = __spread(triggered);
         }
         else {
-            if ((_d = RFeature.lastFeatureDragged) === null || _d === void 0 ? void 0 : _d.feature)
-                RFeature.dispatchEvent(RFeature.lastFeatureDragged.feature, RFeature.lastFeatureDragged.layer, new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
-            RFeature.lastFeatureDragged = undefined;
+            try {
+                for (var _e = __values(RFeature.lastFeaturesDragged), _f = _e.next(); !_f.done; _f = _e.next()) {
+                    var fr = _f.value;
+                    RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+            RFeature.lastFeaturesDragged = [];
         }
         if (e.type === 'pointermove') {
-            if (((_e = RFeature.lastFeatureEntered) === null || _e === void 0 ? void 0 : _e.feature) !== feature) {
-                if ((_f = RFeature.lastFeatureEntered) === null || _f === void 0 ? void 0 : _f.feature)
-                    RFeature.dispatchEvent(RFeature.lastFeatureEntered.feature, RFeature.lastFeatureEntered.layer, new ol_1.MapBrowserEvent('pointerleave', e.map, e.originalEvent));
-                RFeature.lastFeatureEntered = { feature: feature, layer: layer };
-                if (feature)
-                    RFeature.dispatchEvent(feature, layer, new ol_1.MapBrowserEvent('pointerenter', e.map, e.originalEvent));
+            var _loop_1 = function (fr) {
+                if (!triggered.find(function (f) { return f.feature === fr.feature; })) {
+                    RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerleave', e.map, e.originalEvent));
+                    fr.feature = null;
+                    fr.layer = null;
+                }
+            };
+            try {
+                for (var _g = __values(RFeature.lastFeaturesEntered), _h = _g.next(); !_h.done; _h = _g.next()) {
+                    var fr = _h.value;
+                    _loop_1(fr);
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_h && !_h.done && (_b = _g.return)) _b.call(_g);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+            RFeature.lastFeaturesEntered = RFeature.lastFeaturesEntered.filter(function (fr) { return fr.feature; });
+            var _loop_2 = function (fr) {
+                if (!RFeature.lastFeaturesEntered.find(function (f) { return f.feature === fr.feature; })) {
+                    RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerenter', e.map, e.originalEvent));
+                    RFeature.lastFeaturesEntered.push(fr);
+                }
+            };
+            try {
+                for (var triggered_1 = __values(triggered), triggered_1_1 = triggered_1.next(); !triggered_1_1.done; triggered_1_1 = triggered_1.next()) {
+                    var fr = triggered_1_1.value;
+                    _loop_2(fr);
+                }
+            }
+            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+            finally {
+                try {
+                    if (triggered_1_1 && !triggered_1_1.done && (_c = triggered_1.return)) _c.call(triggered_1);
+                }
+                finally { if (e_4) throw e_4.error; }
             }
         }
-        if (feature) {
-            return RFeature.dispatchEvent(feature, layer, new ol_1.MapBrowserEvent(e.type, e.map, e.originalEvent));
+        try {
+            for (var triggered_2 = __values(triggered), triggered_2_1 = triggered_2.next(); !triggered_2_1.done; triggered_2_1 = triggered_2.next()) {
+                var fr = triggered_2_1.value;
+                if (RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent(e.type, e.map, e.originalEvent)) ===
+                    false)
+                    return false;
+            }
+        }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        finally {
+            try {
+                if (triggered_2_1 && !triggered_2_1.done && (_d = triggered_2.return)) _d.call(triggered_2);
+            }
+            finally { if (e_5) throw e_5.error; }
         }
         return true;
     };
@@ -149,6 +227,8 @@ var RFeature = (function (_super) {
             } }, this.props.children));
     };
     RFeature.pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
+    RFeature.lastFeaturesEntered = [];
+    RFeature.lastFeaturesDragged = [];
     RFeature.hitTolerance = 10;
     return RFeature;
 }(REvent_1.RlayersBase));
