@@ -70,7 +70,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static lastFeaturesEntered: FeatureRef[] = [];
     static lastFeaturesDragged: FeatureRef[] = [];
-    static hitTolerance = 10;
+    static hitTolerance = 5;
     ol: Feature;
     onchange: () => boolean | void;
 
