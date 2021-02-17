@@ -19,7 +19,7 @@ export default class RStyle extends RlayersBase<RStyleProps, null> {
     cache: LRU;
     constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>);
     style: (f: Feature, r: number) => Style | Style[];
-    refresh(prevProps?: RStyleProps): void;
+    componentDidMount(): void;
     render(): JSX.Element;
     static getStyle(style: RStyleLike): StyleLike;
     static getStyleStatic(style: RStyleLike): Style;

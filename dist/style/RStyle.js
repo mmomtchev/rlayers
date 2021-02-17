@@ -68,9 +68,9 @@ var RStyle = (function (_super) {
             _this.cache = new lru_cache_1.default({ max: props.cacheSize });
         return _this;
     }
-    RStyle.prototype.refresh = function (prevProps) {
+    RStyle.prototype.componentDidMount = function () {
         var _a, _b, _c, _d;
-        _super.prototype.refresh.call(this, prevProps);
+        _super.prototype.componentDidMount.call(this);
         if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.feature) === null || _b === void 0 ? void 0 : _b.setStyle)
             this.context.feature.setStyle(this.ol);
         else if ((_d = (_c = this.context) === null || _c === void 0 ? void 0 : _c.vectorlayer) === null || _d === void 0 ? void 0 : _d.setStyle)

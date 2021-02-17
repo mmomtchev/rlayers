@@ -213,11 +213,11 @@ var RFeature = (function (_super) {
     };
     RFeature.prototype.refresh = function (prevProps) {
         _super.prototype.refresh.call(this, prevProps);
-        if (this.props.properties && this.props.properties !== this.ol.getProperties())
+        if (this.props.properties !== (prevProps === null || prevProps === void 0 ? void 0 : prevProps.properties))
             this.ol.setProperties(this.props.properties);
-        if (this.props.geometry && this.props.geometry !== this.ol.getGeometry())
+        if (this.props.geometry !== (prevProps === null || prevProps === void 0 ? void 0 : prevProps.geometry))
             this.ol.setGeometry(this.props.geometry);
-        if (this.props.style && this.props.style !== (prevProps === null || prevProps === void 0 ? void 0 : prevProps.style))
+        if (this.props.style !== (prevProps === null || prevProps === void 0 ? void 0 : prevProps.style))
             this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
     };
     RFeature.prototype.componentDidMount = function () {

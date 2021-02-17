@@ -1,13 +1,15 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {fromLonLat} from 'ol/proj';
+import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RStyle} from 'rlayers';
+import {RMap, ROSM, RLayerVector, RStyle, RFeature, ROverlay} from 'rlayers';
 
 // These are the French internal administrative borders in GeoJSON format
 const departements =
     'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson';
+const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
 // Population by French administrative division
 // https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/
 // Published under Etalab Open License https://www.etalab.gouv.fr/wp-content/uploads/2018/11/open-licence.pdf
@@ -20,6 +22,7 @@ const getData = (data: inputDataType, dep: string) =>
 
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);
+    const [current, setCurrent] = React.useState(null as Feature);
     React.useEffect(() => {
         fetchData.then((r) => setData(r));
     }, []);
@@ -27,25 +30,47 @@ export default function GeoData(): JSX.Element {
         <div className='d-flex flex-row'>
             <RMap
                 className='example-map'
-                center={fromLonLat([2, 46.5])}
+                center={useMemo(() => fromLonLat([2, 46.5]), [])}
                 zoom={5.75}
                 noDefaultControls={true}
                 noDefaultInteractions={true}
             >
                 <ROSM />
+
+                {/* This the departments layer, initialized with the GeoJSON
+                 * useCallback is a performance optimization, it allows to always have
+                 * the same function object unless 'current' changes
+                 * without it you will create a new function at every frame rendered */}
                 <RLayerVector
                     zIndex={5}
-                    opacity={0.75}
-                    format={new GeoJSON({featureProjection: 'EPSG:3857'})}
+                    format={parser}
                     url={departements}
+                    onPointerEnter={useCallback((e) => setCurrent(e.target), [])}
+                    onPointerLeave={useCallback((e) => current === e.target && setCurrent(null), [
+                        current
+                    ])}
                 >
+                    {/* When styling each feature, compute the color from the population data */}
                     <RStyle.RStyle
                         render={(f) => (
                             <RStyle.RFill
-                                color={`rgb(0, 0, ${getData(data, f.get('code')) / 5000})`}
+                                color={`rgba(0, 0, ${getData(data, f.get('code')) / 5000}, 0.75)`}
                             />
                         )}
                     />
+                </RLayerVector>
+                {/* This is a layer with a single feature - current - that holds the highlighted department */}
+                <RLayerVector zIndex={10}>
+                    {current ? (
+                        <div>
+                            <RFeature geometry={current.getGeometry()}>
+                                <ROverlay className='example-overlay' autoPosition={true}>
+                                    Population in <strong>{current.get('nom')}</strong> in 2018 is{' '}
+                                    <strong>{getData(data, current.get('code'))}</strong>
+                                </ROverlay>
+                            </RFeature>
+                        </div>
+                    ) : null}
                 </RLayerVector>
             </RMap>
         </div>

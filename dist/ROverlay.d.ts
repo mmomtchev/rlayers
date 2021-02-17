@@ -9,6 +9,7 @@ export interface ROverlayProps {
     autoPanAnimation?: {
         duration: number;
     };
+    autoPosition?: boolean;
 }
 export declare class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
     ol: Overlay;

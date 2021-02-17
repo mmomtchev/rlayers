@@ -12,14 +12,13 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;
     pointer-events: none;
-    position: relative;
+    position: absolute;
+    width: max-content;
     background-color: white;
     box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     padding: 15px;
     border-radius: 10px;
     border: 1px solid #cccccc;
-    top: 5px;
-    left: -20px;
 }
 
 .example-control {

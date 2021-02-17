@@ -23,19 +23,41 @@ var REvent_1 = require("./REvent");
 var ROverlayBase = (function (_super) {
     __extends(ROverlayBase, _super);
     function ROverlayBase(props, context) {
-        var _a, _b;
+        var _a;
         var _this = _super.call(this, props, context) || this;
         if (!((_a = _this.context) === null || _a === void 0 ? void 0 : _a.location))
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         _this.ol = new ol_1.Overlay({
-            autoPan: (_b = props.autoPan) !== null && _b !== void 0 ? _b : true,
+            autoPan: props.autoPan,
             autoPanAnimation: props.autoPanAnimation
         });
         _this.containerRef = react_1.default.createRef();
         return _this;
     }
     ROverlayBase.prototype.setPosition = function () {
+        var _a;
         this.ol.setPosition(this.context.location);
+        if (this.props.autoPosition && ((_a = this.containerRef) === null || _a === void 0 ? void 0 : _a.current)) {
+            this.containerRef.current.style.position = 'absolute';
+            var pixel = this.context.map.getPixelFromCoordinate(this.context.location);
+            var size = this.context.map.getSize();
+            if (pixel[0] > size[0] / 2) {
+                this.containerRef.current.style.left = null;
+                this.containerRef.current.style.right = '0px';
+            }
+            else {
+                this.containerRef.current.style.left = '0px';
+                this.containerRef.current.style.right = null;
+            }
+            if (pixel[1] > size[1] / 2) {
+                this.containerRef.current.style.top = null;
+                this.containerRef.current.style.bottom = '0px';
+            }
+            else {
+                this.containerRef.current.style.top = '0px';
+                this.containerRef.current.style.bottom = null;
+            }
+        }
     };
     ROverlayBase.prototype.refresh = function () {
         _super.prototype.refresh.call(this);
