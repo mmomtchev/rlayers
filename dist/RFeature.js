@@ -110,7 +110,7 @@ var RFeature = (function (_super) {
         return true;
     };
     RFeature.eventRelay = function (e) {
-        var e_2, _a, e_3, _b, e_4, _c, e_5, _d;
+        var e_2, _a, e_3, _b, e_4, _c, e_5, _d, e_6, _e;
         var triggered = [];
         e.map.forEachFeatureAtPixel(e.pixel, function (f, l) { return triggered.push({ feature: f, layer: l }) && false; }, {
             hitTolerance: RFeature.hitTolerance
@@ -118,25 +118,42 @@ var RFeature = (function (_super) {
         if (e.dragging) {
             if (!RFeature.lastFeaturesDragged.length)
                 RFeature.lastFeaturesDragged = __spread(triggered);
-        }
-        else {
+            var _loop_1 = function (fr) {
+                if (!triggered.find(function (f) { return f.feature === fr.feature; }))
+                    triggered.push(fr);
+            };
             try {
-                for (var _e = __values(RFeature.lastFeaturesDragged), _f = _e.next(); !_f.done; _f = _e.next()) {
-                    var fr = _f.value;
-                    RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
+                for (var _f = __values(RFeature.lastFeaturesDragged), _g = _f.next(); !_g.done; _g = _f.next()) {
+                    var fr = _g.value;
+                    _loop_1(fr);
                 }
             }
             catch (e_2_1) { e_2 = { error: e_2_1 }; }
             finally {
                 try {
-                    if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+                    if (_g && !_g.done && (_a = _f.return)) _a.call(_f);
                 }
                 finally { if (e_2) throw e_2.error; }
+            }
+        }
+        else {
+            try {
+                for (var _h = __values(RFeature.lastFeaturesDragged), _j = _h.next(); !_j.done; _j = _h.next()) {
+                    var fr = _j.value;
+                    RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerdragend', e.map, e.originalEvent));
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_j && !_j.done && (_b = _h.return)) _b.call(_h);
+                }
+                finally { if (e_3) throw e_3.error; }
             }
             RFeature.lastFeaturesDragged = [];
         }
         if (e.type === 'pointermove') {
-            var _loop_1 = function (fr) {
+            var _loop_2 = function (fr) {
                 if (!triggered.find(function (f) { return f.feature === fr.feature; })) {
                     RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerleave', e.map, e.originalEvent));
                     fr.feature = null;
@@ -144,20 +161,20 @@ var RFeature = (function (_super) {
                 }
             };
             try {
-                for (var _g = __values(RFeature.lastFeaturesEntered), _h = _g.next(); !_h.done; _h = _g.next()) {
-                    var fr = _h.value;
-                    _loop_1(fr);
+                for (var _k = __values(RFeature.lastFeaturesEntered), _l = _k.next(); !_l.done; _l = _k.next()) {
+                    var fr = _l.value;
+                    _loop_2(fr);
                 }
             }
-            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            catch (e_4_1) { e_4 = { error: e_4_1 }; }
             finally {
                 try {
-                    if (_h && !_h.done && (_b = _g.return)) _b.call(_g);
+                    if (_l && !_l.done && (_c = _k.return)) _c.call(_k);
                 }
-                finally { if (e_3) throw e_3.error; }
+                finally { if (e_4) throw e_4.error; }
             }
             RFeature.lastFeaturesEntered = RFeature.lastFeaturesEntered.filter(function (fr) { return fr.feature; });
-            var _loop_2 = function (fr) {
+            var _loop_3 = function (fr) {
                 if (!RFeature.lastFeaturesEntered.find(function (f) { return f.feature === fr.feature; })) {
                     RFeature.dispatchEvent(fr, new ol_1.MapBrowserEvent('pointerenter', e.map, e.originalEvent));
                     RFeature.lastFeaturesEntered.push(fr);
@@ -166,15 +183,15 @@ var RFeature = (function (_super) {
             try {
                 for (var triggered_1 = __values(triggered), triggered_1_1 = triggered_1.next(); !triggered_1_1.done; triggered_1_1 = triggered_1.next()) {
                     var fr = triggered_1_1.value;
-                    _loop_2(fr);
+                    _loop_3(fr);
                 }
             }
-            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+            catch (e_5_1) { e_5 = { error: e_5_1 }; }
             finally {
                 try {
-                    if (triggered_1_1 && !triggered_1_1.done && (_c = triggered_1.return)) _c.call(triggered_1);
+                    if (triggered_1_1 && !triggered_1_1.done && (_d = triggered_1.return)) _d.call(triggered_1);
                 }
-                finally { if (e_4) throw e_4.error; }
+                finally { if (e_5) throw e_5.error; }
             }
         }
         try {
@@ -185,12 +202,12 @@ var RFeature = (function (_super) {
                     return false;
             }
         }
-        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        catch (e_6_1) { e_6 = { error: e_6_1 }; }
         finally {
             try {
-                if (triggered_2_1 && !triggered_2_1.done && (_d = triggered_2.return)) _d.call(triggered_2);
+                if (triggered_2_1 && !triggered_2_1.done && (_e = triggered_2.return)) _e.call(triggered_2);
             }
-            finally { if (e_5) throw e_5.error; }
+            finally { if (e_6) throw e_6.error; }
         }
         return true;
     };

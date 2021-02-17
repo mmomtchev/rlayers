@@ -108,6 +108,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
 
         if (e.dragging) {
             if (!RFeature.lastFeaturesDragged.length) RFeature.lastFeaturesDragged = [...triggered];
+            for (const fr of RFeature.lastFeaturesDragged)
+                if (!triggered.find((f) => f.feature === fr.feature)) triggered.push(fr);
         } else {
             for (const fr of RFeature.lastFeaturesDragged)
                 RFeature.dispatchEvent(
