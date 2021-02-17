@@ -9,12 +9,14 @@ export interface ROverlayProps {
     content?: string | HTMLElement | React.ElementType;
     /** CSS class */
     className?: string;
-    /** Automatically pan the map when the element is rendered */
+    /** Automatically pan the map when the element is rendered @default false */
     autoPan?: boolean;
     /** Pan animation */
     autoPanAnimation?: {
         duration: number;
     };
+    /** Automatically position the overlay so that it fits in the viewport @default false */
+    autoPosition?: boolean;
 }
 
 /**
@@ -35,7 +37,7 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> 
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
-            autoPan: props.autoPan ?? true,
+            autoPan: props.autoPan,
             autoPanAnimation: props.autoPanAnimation
         });
         this.containerRef = React.createRef();
@@ -43,6 +45,25 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> 
 
     setPosition(): void {
         this.ol.setPosition(this.context.location);
+        if (this.props.autoPosition && this.containerRef?.current) {
+            this.containerRef.current.style.position = 'absolute';
+            const pixel = this.context.map.getPixelFromCoordinate(this.context.location);
+            const size = this.context.map.getSize();
+            if (pixel[0] > size[0] / 2) {
+                this.containerRef.current.style.left = null;
+                this.containerRef.current.style.right = '0px';
+            } else {
+                this.containerRef.current.style.left = '0px';
+                this.containerRef.current.style.right = null;
+            }
+            if (pixel[1] > size[1] / 2) {
+                this.containerRef.current.style.top = null;
+                this.containerRef.current.style.bottom = '0px';
+            } else {
+                this.containerRef.current.style.top = '0px';
+                this.containerRef.current.style.bottom = null;
+            }
+        }
     }
 
     refresh(): void {

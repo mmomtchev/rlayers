@@ -31,4 +31,44 @@ describe('<ROverlay>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });
+
+    it('should support autoplacement', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const comp = (auto) => (
+            <RMap ref={map} {...common.mapProps}>
+                <ROSM />
+                <RLayerVector>
+                    <RFeature
+                        style={common.styles.blueDot}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    >
+                        <ROverlay autoPosition={auto}>
+                            <div id='target'>text14</div>
+                        </ROverlay>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        const {getByText, container, rerender} = render(comp(false));
+        map.current.ol.getSize = () => [15, 15];
+
+        map.current.ol.getPixelFromCoordinate = () => [5, 5];
+        rerender(comp(true));
+        expect(getByText('text14')).toBeInstanceOf(HTMLDivElement);
+        let style = getByText('text14').parentElement.style;
+        expect(style.left).toBe('0px');
+        expect(style.top).toBe('0px');
+        expect(style.right).toBe('');
+        expect(style.bottom).toBe('');
+        expect(container.innerHTML).toMatchSnapshot();
+
+        map.current.ol.getPixelFromCoordinate = () => [10, 10];
+        rerender(comp(true));
+        style = getByText('text14').parentElement.style;
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(style.left).toBe('');
+        expect(style.top).toBe('');
+        expect(style.right).toBe('0px');
+        expect(style.bottom).toBe('0px');
+    });
 });
