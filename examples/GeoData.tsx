@@ -25,17 +25,18 @@ export default function GeoData(): JSX.Element {
     }, []);
     return (
         <div className='d-flex flex-row'>
-            <RMap className='example-map' center={fromLonLat([2, 46])} zoom={5}>
+            <RMap className='example-map' center={fromLonLat([2, 46.5])} zoom={5.5}>
                 <ROSM />
                 <RLayerVector
                     zIndex={5}
+                    opacity={0.75}
                     format={new GeoJSON({featureProjection: 'EPSG:3857'})}
                     url={departements}
                 >
                     <RStyle.RStyle
                         render={(f) => (
                             <RStyle.RFill
-                                color={`rgba(0, 0, ${getData(data, f.get('code')) / 5000}, 0.75)`}
+                                color={`rgb(0, 0, ${getData(data, f.get('code')) / 5000})`}
                             />
                         )}
                     />
