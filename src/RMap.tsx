@@ -27,6 +27,10 @@ export interface RMapProps {
      * @default false
      */
     noDefaultControls?: boolean;
+    /** Do not include any default interactions
+     * @default false
+     */
+    noDefaultInteractions?: boolean;
     /** View projection
      * @default 'ESPG:3857'
      */
@@ -75,6 +79,7 @@ export default class RMap extends RlayersBase<RMapProps, null> {
         this.target = React.createRef();
         this.ol = new Map({
             controls: props.noDefaultControls ? [] : undefined,
+            interactions: props.noDefaultInteractions ? [] : undefined,
             view: new View({
                 projection: props.projection,
                 center: props.center,
