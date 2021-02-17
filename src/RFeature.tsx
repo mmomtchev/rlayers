@@ -11,13 +11,18 @@ import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
 export interface RFeatureProps {
-    /** OpenLayers geometry, mutually exclusive with RFeature */
+    /** OpenLayers geometry, mutually exclusive with feature */
     geometry?: Geometry;
     /** OpenLayers style */
     style?: RStyleLike;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
-    /** An OpenLayers RFeature, mutually exclusive with geometry */
+    /** Bind the RFeature to an OpenLayers Feature, mutually exclusive with geometry
+     *
+     * When bound, the RFeature will automatically update its state when the Feature
+     * changes
+     *
+     * rebinding to a different feature on update is not supported */
     feature?: Feature;
     /** Called immediately on click */
     onClick?: (e: MapBrowserEvent) => boolean | void;
