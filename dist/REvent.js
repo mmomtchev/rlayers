@@ -39,7 +39,7 @@ var RlayersBase = (function (_super) {
     RlayersBase.prototype.olEventName = function (ev) {
         return ev.substring(2).toLowerCase();
     };
-    RlayersBase.prototype.refresh = function (prevProps) {
+    RlayersBase.prototype.attachEventHandlers = function () {
         var e_1, _a, e_2, _b, e_3, _c;
         var _d, _e;
         var eventSources = (_d = this.eventSources) !== null && _d !== void 0 ? _d : [this.ol];
@@ -93,6 +93,9 @@ var RlayersBase = (function (_super) {
             }
             finally { if (e_1) throw e_1.error; }
         }
+    };
+    RlayersBase.prototype.refresh = function (prevProps) {
+        this.attachEventHandlers();
     };
     RlayersBase.prototype.componentDidMount = function () {
         debug_1.default('didMount', this);

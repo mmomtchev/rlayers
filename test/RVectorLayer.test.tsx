@@ -1,5 +1,6 @@
 window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
+import {promisify} from 'util';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
@@ -9,8 +10,9 @@ import {Point} from 'ol/geom';
 import {RFeature, RLayerVector, RContext, RMap} from 'rlayers';
 import * as common from './common';
 
+const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
-const features = new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(geojsonFeatures);
+const features = parser.readFeatures(geojsonFeatures);
 
 describe('<RLayerVector>', () => {
     it('should create a vector layer', async () => {

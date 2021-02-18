@@ -7,6 +7,7 @@ export declare class RlayersBase<P, S> extends React.PureComponent<P, S> {
     eventSources: any[];
     handlers: Record<string, (e: any) => boolean | void>;
     olEventName(ev: string): string;
+    attachEventHandlers(): void;
     refresh(prevProps?: P): void;
     componentDidMount(): void;
     propsDiff(prev: P): boolean;

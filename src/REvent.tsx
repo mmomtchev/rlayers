@@ -16,7 +16,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         return ev.substring(2).toLowerCase();
     }
 
-    refresh(prevProps?: P): void {
+    attachEventHandlers(): void {
         const eventSources = this.eventSources ?? [this.ol];
         const newEvents = Object.keys(this.props).filter((p) => p.startsWith('on'));
         const eventsToCheck = newEvents.concat(
@@ -41,6 +41,10 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
                 this.handlers[p] = this.props[p];
             }
         }
+    }
+
+    refresh(prevProps?: P): void {
+        this.attachEventHandlers();
     }
 
     componentDidMount(): void {

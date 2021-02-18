@@ -38,14 +38,15 @@ var RLayerCluster = (function (_super) {
         _this.cluster = new source_1.Vector({
             features: _this.props.features,
             url: _this.props.url,
-            format: _this.props.format
+            format: _this.props.format,
+            loader: _this.props.loader
         });
         _this.source = new source_1.Cluster({ source: _this.cluster, distance: _this.props.distance });
         _this.ol = new layer_1.Vector(__assign(__assign({}, props), { source: _this.source, style: RStyle_1.default.getStyle(props.style) }));
         _this.eventSources = [_this.ol, _this.source];
-        _this.source.on('RFeaturesloadend', _this.newFeature);
-        _this.source.on('addRFeature', _this.newFeature);
-        _this.refresh();
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
+        _this.attachEventHandlers();
         return _this;
     }
     RLayerCluster.prototype.refresh = function (prev) {

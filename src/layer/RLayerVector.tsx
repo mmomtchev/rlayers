@@ -24,12 +24,13 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
-            format: this.props.format
+            format: this.props.format,
+            loader: this.props.loader
         });
         this.ol = new LayerVector({style: RStyle.getStyle(this.props.style), source: this.source});
         this.eventSources = [this.ol, this.source];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);
-        this.refresh();
+        this.attachEventHandlers();
     }
 }

@@ -37,13 +37,14 @@ var RLayerHeatmap = (function (_super) {
         _this.source = new source_1.Vector({
             features: _this.props.features,
             url: _this.props.url,
-            format: _this.props.format
+            format: _this.props.format,
+            loader: _this.props.loader
         });
         _this.ol = new layer_1.Heatmap(__assign({ source: _this.source }, props));
         _this.eventSources = [_this.ol, _this.source];
-        _this.source.on('RFeaturesloadend', _this.newFeature);
-        _this.source.on('addRFeature', _this.newFeature);
-        _this.refresh();
+        _this.source.on('featuresloadend', _this.newFeature);
+        _this.source.on('addfeature', _this.newFeature);
+        _this.attachEventHandlers();
         return _this;
     }
     RLayerHeatmap.prototype.refresh = function (prev) {

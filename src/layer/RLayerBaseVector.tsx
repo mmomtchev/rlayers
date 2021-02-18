@@ -5,6 +5,7 @@ import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
+import {FeatureLoader} from 'ol/featureloader';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -29,14 +30,24 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     format?: FeatureFormat;
+    /** Use a custom loader instead of XHR */
+    loader?: FeatureLoader;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
     /** Default onClick handler for loaded features */
     onClick?: (e: MapBrowserEvent) => boolean | void;
     /** Called when a feature is added, not called for features
-     * already present at creation, ie loaded via `features`
+     * already present at creation, ie loaded via `features` or `url`
+     *
+     * use onFeaturesLoadEnd for features loaded via `url`
      */
     onAddFeature?: (e: VectorSourceEvent) => boolean | void;
+    /** Called when the external features have been loaded from `url`
+     *
+     * e.features will contain the features which still
+     * won't be loaded into the layer
+     */
+    onFeaturesLoadEnd?: (e: VectorSourceEvent) => boolean | void;
     /** Default onPointerMove handler for loaded features */
     onPointerMove?: (e: MapBrowserEvent) => boolean | void;
     /** Default onPointerEnter handler for loaded features */

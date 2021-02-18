@@ -1,7 +1,7 @@
 import React from 'react';
 import {Map, Feature} from 'ol';
-import {Vector as OLRLayerVector} from 'ol/layer';
-import {Vector as OLSourceVector, Cluster as OLSourceCluster} from 'ol/source';
+import {Vector as LayerVector} from 'ol/layer';
+import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -19,28 +19,29 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
  * Provides a `RContext` for JSX-declared RFeatures
  */
 export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
-    ol: OLRLayerVector;
-    source: OLSourceCluster;
-    cluster: OLSourceVector;
+    ol: LayerVector;
+    source: SourceCluster;
+    cluster: SourceVector;
 
     constructor(props: Readonly<RLayerClusterProps>, context: React.Context<RContextType>) {
         super(props, context);
 
-        this.cluster = new OLSourceVector({
+        this.cluster = new SourceVector({
             features: this.props.features,
             url: this.props.url,
-            format: this.props.format
+            format: this.props.format,
+            loader: this.props.loader
         });
-        this.source = new OLSourceCluster({source: this.cluster, distance: this.props.distance});
-        this.ol = new OLRLayerVector({
+        this.source = new SourceCluster({source: this.cluster, distance: this.props.distance});
+        this.ol = new LayerVector({
             ...props,
             source: this.source,
             style: RStyle.getStyle(props.style)
         });
         this.eventSources = [this.ol, this.source];
-        this.source.on('RFeaturesloadend', this.newFeature);
-        this.source.on('addRFeature', this.newFeature);
-        this.refresh();
+        this.source.on('featuresloadend', this.newFeature);
+        this.source.on('addfeature', this.newFeature);
+        this.attachEventHandlers();
     }
 
     refresh(prev?: RLayerClusterProps): void {
