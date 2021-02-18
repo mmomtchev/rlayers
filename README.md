@@ -12,10 +12,11 @@ It's design policy is:
 * Do everything that faces the user the ***React* way** and not the *OpenLayers* way - `onClick` and `onPointerEnter`/`onPoinerLeave` handlers are typical examples
 * If it does not face the user, it does not need to be *React* way - internally it uses inheritance, following the *OpenLayers* classes, over composition
 * Simple things should be simple to do
-* Expose all the advanced *OpenLayers* features - otherwise you are probably better with Leaflet
+* If taking shortcuts when updating the components, always err on the safe side but do provide an override method
+* Expose all the advanced *OpenLayers* features
 * Try to be as much SSR-friendly as possible (this is an upcoming feature, see more below)
 * The current target is *OpenLayers* 6+
-* zero-dependency when built except for *React* and OpenLayers (the examples have some dependencies)
+* Avoid dependencies when built except for *React* and OpenLayers (the examples have some dependencies) - currently the single one is [`lru-cache`](https://www.npmjs.com/package/lru-cache) at 8Kbytes
 
 It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In fact, it is more inspired by *react-leaflet* than *react-openlayers*.
 
