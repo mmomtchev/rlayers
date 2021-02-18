@@ -111,17 +111,19 @@ React is a wonderful framework that makes it very easy to write complex web appl
 
 Take for example this:
 ```jsx
-<RMap zoom={10} center={fromLonLat([2.295, 48.858])}>
-    <ROSM />
-</RMap>
+<RFeature
+    geometry={new Point(fromLonLat([2.295, 48.858])}
+    onClick={(e: MapBrowserEvent) => process(e.target)}
+/>
 ```
-This is a map that will be re-evaluated at every frame. Its center appears to be a constant, but it is in fact the anonymous object returned by the `fromLonLat` function - even if it always holds the same value - it is still a different object at every invocation. Passing a constant is one way around this, but the true *React way* is using the two tools *React* provides: `React.useMemo` and `React.useCallback`. They memoize the value and take care to always return a reference to the same object unless one of the listed dependencies is modified.
+This is a feature that will be re-evaluated at every frame. Its geometry appears to be a constant, but it is in fact an anonymous object that is created at every frame - even if it always holds the same value. Passing a constant is one way around this, but the true *React way* is using the two tools *React* provides: `React.useMemo` and `React.useCallback`. They memoize the value and take care to always return a reference to the same object unless one of the listed dependencies is modified.
 
-This is a much better peforming code that won't rerender the map component:
+This is a much better peforming code that won't rerender the feature component:
 ```jsx
-<RMap zoom={10} center={React.useMemo(fromLonLat([2.295, 48.858]), [/* no deps */]}>
-    <ROSM />
-</RMap>
+<RFeature
+    geometry={React.useMemo(new Point(fromLonLat([2.295, 48.858]), [/* no deps */])}
+    onClick={React.useCallback((e: MapBrowserEvent) => process(e.target), [/* no deps */])}
+/>
 ```
 
 Anonymous objects, arrays and **especially lambdas** in the properties of a component are prime candidates for memoization. Sometimes, you can also memoize whole components or groups of components - for a very significant performance boost.
