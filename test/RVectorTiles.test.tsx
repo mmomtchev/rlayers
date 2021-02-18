@@ -5,6 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {MVT} from 'ol/format';
 import {Pixel} from 'ol/pixel';
+import {Style} from 'ol/style';
 import {RLayerVectorTile, RMap} from 'rlayers';
 import * as common from './common';
 
@@ -15,7 +16,7 @@ const props = {
 };
 
 describe('<RLayerVectorTiles>', () => {
-    it('should create a vector layer', async () => {
+    it('should create a vector tile layer', async () => {
         const {container, unmount} = render(
             <RMap {...common.mapProps}>
                 <RLayerVectorTile {...props} />
@@ -105,6 +106,21 @@ describe('<RLayerVectorTiles>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         rerender(comp);
         expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
+    it('should update the style', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const comp = (style) => (
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile ref={ref} {...{...props, style}} />
+            </RMap>
+        );
+        const {rerender, container, unmount} = render(comp(common.styles.yellow));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect((ref.current.ol.getStyle() as Style).getStroke().getWidth()).toBe(4);
+        rerender(comp(common.styles.blueDot));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect((ref.current.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
         unmount();
     });
 });

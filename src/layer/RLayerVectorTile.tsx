@@ -62,6 +62,8 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
             .filter((ev) => ev.startsWith('on'))
             .reduce((ac, x) => ({...ac, ['_' + x.toLowerCase()]: this.props[x]}), {});
         this.ol.setProperties(handlers);
+        if (prevProps?.style !== this.props.style)
+            this.ol.setStyle(RStyle.getStyle(this.props.style));
     }
 
     render(): JSX.Element {

@@ -42,6 +42,7 @@ export const styles: Record<string, Style> = {
         fill: new Fill({color: 'rgba(0, 0, 0, 0)'})
     }),
     blueDot: new Style({
+        stroke: new Stroke({color: '#0000ff', width: 2}),
         image: new Circle({
             radius: 5,
             fill: new Fill({color: '#0000ff'})
