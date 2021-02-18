@@ -7,5 +7,6 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
     ol: LayerVector;
     source: SourceVector;
     constructor(props: Readonly<RLayerBaseVectorProps>, context: React.Context<RContextType>);
+    refresh(prevProps?: RLayerBaseVectorProps): void;
 }
 //# sourceMappingURL=RLayerVector.d.ts.map

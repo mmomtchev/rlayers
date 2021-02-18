@@ -37,6 +37,11 @@ var RLayerVector = (function (_super) {
         _this.attachEventHandlers();
         return _this;
     }
+    RLayerVector.prototype.refresh = function (prevProps) {
+        _super.prototype.refresh.call(this, prevProps);
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.url) !== this.props.url)
+            this.source.setUrl(this.props.url);
+    };
     return RLayerVector;
 }(RLayerBaseVector_1.default));
 exports.default = RLayerVector;

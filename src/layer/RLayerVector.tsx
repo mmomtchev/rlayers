@@ -33,4 +33,9 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
         this.source.on('addfeature', this.newFeature);
         this.attachEventHandlers();
     }
+
+    refresh(prevProps?: RLayerBaseVectorProps): void {
+        super.refresh(prevProps);
+        if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
+    }
 }

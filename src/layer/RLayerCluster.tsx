@@ -38,7 +38,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
             source: this.source,
             style: RStyle.getStyle(props.style)
         });
-        this.eventSources = [this.ol, this.source];
+        this.eventSources = [this.ol, this.source, this.cluster];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);
         this.attachEventHandlers();
@@ -47,5 +47,6 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
     refresh(prev?: RLayerClusterProps): void {
         super.refresh(prev);
         if (prev?.distance !== this.props.distance) this.source.setDistance(this.props.distance);
+        if (prev?.url !== this.props.url) this.cluster.setUrl(this.props.url);
     }
 }

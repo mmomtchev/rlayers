@@ -43,7 +43,7 @@ var RLayerCluster = (function (_super) {
         });
         _this.source = new source_1.Cluster({ source: _this.cluster, distance: _this.props.distance });
         _this.ol = new layer_1.Vector(__assign(__assign({}, props), { source: _this.source, style: RStyle_1.default.getStyle(props.style) }));
-        _this.eventSources = [_this.ol, _this.source];
+        _this.eventSources = [_this.ol, _this.source, _this.cluster];
         _this.source.on('featuresloadend', _this.newFeature);
         _this.source.on('addfeature', _this.newFeature);
         _this.attachEventHandlers();
@@ -53,6 +53,8 @@ var RLayerCluster = (function (_super) {
         _super.prototype.refresh.call(this, prev);
         if ((prev === null || prev === void 0 ? void 0 : prev.distance) !== this.props.distance)
             this.source.setDistance(this.props.distance);
+        if ((prev === null || prev === void 0 ? void 0 : prev.url) !== this.props.url)
+            this.cluster.setUrl(this.props.url);
     };
     return RLayerCluster;
 }(RLayerBaseVector_1.default));

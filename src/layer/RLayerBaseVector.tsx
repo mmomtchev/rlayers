@@ -104,7 +104,6 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
-        if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
     }
 
     render(): JSX.Element {
