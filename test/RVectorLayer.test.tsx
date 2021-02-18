@@ -150,4 +150,22 @@ describe('<RLayerVector>', () => {
         expect(render2.container.innerHTML).toMatchSnapshot();
         expect(handler).toHaveBeenCalledTimes(mapEvents.length * features.length * 3);
     });
+    it('should support updating the style', async () => {
+        const comp = (style) => (
+            <RMap {...common.mapProps}>
+                <RLayerVector zIndex={10} style={style}>
+                    <RFeature feature={features[0]}>
+                        <RContext.Consumer>
+                            {(c) => <div>marker {JSON.stringify(c, common.safeStringify)}</div>}
+                        </RContext.Consumer>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        const {container, rerender, unmount} = render(comp(common.styles.blueDot));
+        expect(container.innerHTML).toMatchSnapshot();
+        rerender(comp(common.styles.yellow));
+        expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
 });
