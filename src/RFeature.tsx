@@ -162,7 +162,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
         return true;
     }
 
-    refresh(prevProps: RFeatureProps): void {
+    refresh(prevProps?: RFeatureProps): void {
         super.refresh(prevProps);
         if (this.props.properties !== prevProps?.properties)
             this.ol.setProperties(this.props.properties);

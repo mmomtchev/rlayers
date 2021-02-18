@@ -20,8 +20,8 @@ export default class ROSM extends LayerRaster<ROSMProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(): void {
-        super.refresh();
+    refresh(prevProps?: ROSMProps): void {
+        super.refresh(prevProps);
         this.ol.setProperties({label: 'OpenStreetMap'});
     }
 }

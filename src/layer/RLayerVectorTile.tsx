@@ -64,6 +64,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         this.ol.setProperties(handlers);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
+        if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
     }
 
     render(): JSX.Element {

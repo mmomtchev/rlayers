@@ -123,4 +123,19 @@ describe('<RLayerVectorTiles>', () => {
         expect((ref.current.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
         unmount();
     });
+    it('should update the url', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const comp = (url) => (
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile ref={ref} {...{...props, url}} />
+            </RMap>
+        );
+        const {rerender, container, unmount} = render(comp('http://url1'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current.source.getUrls()[0]).toEqual('http://url1');
+        rerender(comp('http://url2'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current.source.getUrls()[0]).toEqual('http://url2');
+        unmount();
+    });
 });

@@ -40,7 +40,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
     }
 
     refresh(prev?: RLayerHeatmapProps): void {
-        super.refresh();
+        super.refresh(prev);
         if (prev?.blur !== this.props.blur) this.ol.setBlur(this.props.blur);
         if (prev?.radius !== this.props.radius) this.ol.setRadius(this.props.radius);
     }

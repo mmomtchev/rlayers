@@ -20,6 +20,21 @@ describe('<RLayerTile>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
     });
+    it('should update the url', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerTile>;
+        const comp = (url) => (
+            <RMap {...common.mapProps}>
+                <RLayerTile ref={ref} url={url} />
+            </RMap>
+        );
+        const {rerender, container, unmount} = render(comp('http://url1'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current.source.getUrls()[0]).toEqual('http://url1');
+        rerender(comp('http://url2'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current.source.getUrls()[0]).toEqual('http://url2');
+        unmount();
+    });
 
     it('should support custom projection and TileGrid', async () => {
         const layer = React.createRef() as React.RefObject<RLayerTile>;

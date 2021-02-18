@@ -56,8 +56,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             });
     }
 
-    refresh(): void {
-        this.createSource();
-        super.refresh();
+    refresh(prevProps?: RLayerWMTSProps): void {
+        this.createSource().then(() => super.refresh(prevProps));
     }
 }

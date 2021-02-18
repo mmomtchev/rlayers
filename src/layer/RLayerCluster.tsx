@@ -44,7 +44,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
     }
 
     refresh(prev?: RLayerClusterProps): void {
-        super.refresh();
+        super.refresh(prev);
         if (prev?.distance !== this.props.distance) this.source.setDistance(this.props.distance);
     }
 }

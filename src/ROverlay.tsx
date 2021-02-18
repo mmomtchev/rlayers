@@ -66,8 +66,8 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> 
         }
     }
 
-    refresh(): void {
-        super.refresh();
+    refresh(prevProps?: P): void {
+        super.refresh(prevProps);
         this.ol.setElement(this.containerRef.current);
         this.setPosition();
     }

@@ -13,10 +13,7 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
 export interface RLayerBaseVectorProps extends RLayerProps {
-    /** URL for loading features, requires `format`
-     *
-     * this property currently does not support dynamic updates
-     */
+    /** URL for loading features, requires `format` */
     url?: string;
     /** Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -92,10 +89,11 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     }
 
     refresh(prevProps?: P): void {
-        super.refresh();
+        super.refresh(prevProps);
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
+        if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
     }
 
     render(): JSX.Element {

@@ -34,7 +34,7 @@ export default class RBase<P> extends RlayersBase<P, null> {
                 this.context.map.addInteraction(this.ol);
                 break;
             }
-        super.refresh();
+        super.refresh(prevProps);
     }
 
     componentDidMount(): void {

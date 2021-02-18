@@ -99,7 +99,7 @@ export default class RMap extends RlayersBase<RMapProps, null> {
     }
 
     refresh(prevProps?: RMapProps): void {
-        super.refresh();
+        super.refresh(prevProps);
         const view = this.ol.getView();
         for (const p of ['minResolution', 'maxResolution', 'minZoom', 'maxZoom']) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);

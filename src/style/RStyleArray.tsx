@@ -50,7 +50,7 @@ export default class RStyleArray extends RStyle {
     };
 
     refresh(prevProps?: RStyleProps): void {
-        super.refresh();
+        super.refresh(prevProps);
         if (!this.props.render)
             this.ol = this.childRefs.map((child) => RStyle.getStyleStatic(child));
     }

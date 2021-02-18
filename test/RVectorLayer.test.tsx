@@ -168,4 +168,21 @@ describe('<RLayerVector>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });
+    it('should update the url', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVector>;
+        const comp = (url) => (
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={ref} format={new GeoJSON()} url={url} />
+            </RMap>
+        );
+        const {rerender, container, unmount} = render(comp('http://url1'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current.source.getUrl()).toEqual('http://url1');
+        const handler = jest.fn(ref.current.source.setUrl);
+        ref.current.source.setUrl = handler;
+        rerender(comp('http://url2'));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(handler.mock.calls[0]).toEqual(['http://url2']);
+        unmount();
+    });
 });
