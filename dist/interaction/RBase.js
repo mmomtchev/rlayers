@@ -65,7 +65,7 @@ var RBase = (function (_super) {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
     };
     RBase.prototype.componentDidMount = function () {
         _super.prototype.componentDidMount.call(this);

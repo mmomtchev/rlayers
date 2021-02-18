@@ -30,14 +30,21 @@ describe('<RStyle>', () => {
         );
         expect((RStyle.getStyle(ref) as () => Style)().getImage()).toBeInstanceOf(Image);
     });
-    it('should supprt icon with a size style', async () => {
+    it('should support icon with a size style and should emit a warning on update', async () => {
         const ref = createRStyle();
-        render(
+        const comp = (color) => (
             <RStyle ref={ref}>
-                <RIcon src={'/icon'} size={[16, 16]} />
+                <RIcon src={'/icon'} size={[16, 16]} color={color} />
             </RStyle>
         );
+        const {rerender} = render(comp('#000001'));
         expect((RStyle.getStyle(ref) as () => Style)().getImage().getSize()).toEqual([16, 16]);
+        const console_error = console.error;
+        const warning = jest.fn();
+        console.error = warning;
+        rerender(comp('#000002'));
+        expect(warning.mock.calls[0][0]).toMatch('anonymous');
+        console.error = console_error;
     });
     it('should create a basic dot style', async () => {
         const ref = createRStyle();

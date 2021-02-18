@@ -35,7 +35,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static initEventRelay(map: Map): void;
     static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent): boolean;
     static eventRelay(e: MapBrowserEvent): boolean;
-    refresh(prevProps: RFeatureProps): void;
+    refresh(prevProps?: RFeatureProps): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;

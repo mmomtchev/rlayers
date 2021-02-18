@@ -49,7 +49,7 @@ var RLayerCluster = (function (_super) {
         return _this;
     }
     RLayerCluster.prototype.refresh = function (prev) {
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prev);
         if ((prev === null || prev === void 0 ? void 0 : prev.distance) !== this.props.distance)
             this.source.setDistance(this.props.distance);
     };

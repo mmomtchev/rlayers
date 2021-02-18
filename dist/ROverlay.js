@@ -59,8 +59,8 @@ var ROverlayBase = (function (_super) {
             }
         }
     };
-    ROverlayBase.prototype.refresh = function () {
-        _super.prototype.refresh.call(this);
+    ROverlayBase.prototype.refresh = function (prevProps) {
+        _super.prototype.refresh.call(this, prevProps);
         this.ol.setElement(this.containerRef.current);
         this.setPosition();
     };

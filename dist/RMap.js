@@ -58,7 +58,7 @@ var RMap = (function (_super) {
     };
     RMap.prototype.refresh = function (prevProps) {
         var e_1, _a;
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         var view = this.ol.getView();
         try {
             for (var _b = __values(['minResolution', 'maxResolution', 'minZoom', 'maxZoom']), _c = _b.next(); !_c.done; _c = _b.next()) {

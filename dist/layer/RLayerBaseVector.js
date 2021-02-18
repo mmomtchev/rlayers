@@ -115,10 +115,12 @@ var RLayerBaseVector = (function (_super) {
         }
     };
     RLayerBaseVector.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.style) !== this.props.style)
             this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.url) !== this.props.url)
+            this.source.setUrl(this.props.url);
     };
     RLayerBaseVector.prototype.render = function () {
         return (react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, this.context), { vectorlayer: this.ol, vectorsource: this.source }) }, this.props.children));

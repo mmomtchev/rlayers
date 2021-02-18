@@ -45,7 +45,7 @@ var RStyleArray = (function (_super) {
         return _this;
     }
     RStyleArray.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         if (!this.props.render)
             this.ol = this.childRefs.map(function (child) { return RStyle_1.default.getStyleStatic(child); });
     };

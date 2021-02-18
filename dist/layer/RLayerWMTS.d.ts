@@ -15,6 +15,6 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     parser: WMTSCapabilities;
     constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<RContextType>);
     createSource(): Promise<OLSourceWMTS>;
-    refresh(): void;
+    refresh(prevProps?: RLayerWMTSProps): void;
 }
 //# sourceMappingURL=RLayerWMTS.d.ts.map

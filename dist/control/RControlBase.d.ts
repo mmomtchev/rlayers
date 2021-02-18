@@ -11,7 +11,7 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
     ol: Control;
     constructor(props: Readonly<P>, context: React.Context<RContextType>);
     toOLProps(props: P): Options;
-    refresh(): void;
+    refresh(prevProps?: P): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
 }

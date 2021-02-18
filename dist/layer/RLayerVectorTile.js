@@ -58,6 +58,10 @@ var RLayerVectorTile = (function (_super) {
             return (__assign(__assign({}, ac), (_a = {}, _a['_' + x.toLowerCase()] = _this.props[x], _a)));
         }, {});
         this.ol.setProperties(handlers);
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.style) !== this.props.style)
+            this.ol.setStyle(RStyle_1.default.getStyle(this.props.style));
+        if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.url) !== this.props.url)
+            this.source.setUrl(this.props.url);
     };
     RLayerVectorTile.prototype.render = function () {
         return null;

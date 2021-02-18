@@ -50,7 +50,7 @@ var RLayer = (function (_super) {
                 var p = _c.value;
                 if (this.props[p] !== undefined) {
                     var m = p.charAt(0).toUpperCase() + p.substring(1);
-                    if (this.props[p] !== this.ol['get' + m]())
+                    if (this.props[p] !== (prevProps && prevProps[p]))
                         this.ol['set' + m](this.props[p]);
                 }
             }

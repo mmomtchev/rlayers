@@ -74,7 +74,7 @@ var RStyle = (function (_super) {
     };
     RStyle.prototype.refresh = function (prevProps) {
         var _a, _b, _c, _d;
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         if (!prevProps || (prevProps === null || prevProps === void 0 ? void 0 : prevProps.render) !== this.props.render) {
             if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.feature) === null || _b === void 0 ? void 0 : _b.setStyle)
                 this.context.feature.setStyle(this.ol);

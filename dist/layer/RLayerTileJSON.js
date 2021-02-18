@@ -31,7 +31,7 @@ var RLayerTileJSON = (function (_super) {
         return _this;
     }
     RLayerTileJSON.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         if (this.props.url && (prevProps === null || prevProps === void 0 ? void 0 : prevProps.url) !== this.props.url)
             this.source.setUrl(this.props.url);
     };

@@ -29,8 +29,8 @@ var RControlBase = (function (_super) {
             target: (_a = props.target) === null || _a === void 0 ? void 0 : _a.current
         };
     };
-    RControlBase.prototype.refresh = function () {
-        _super.prototype.refresh.call(this);
+    RControlBase.prototype.refresh = function (prevProps) {
+        _super.prototype.refresh.call(this, prevProps);
         this.ol.setProperties(this.toOLProps(this.props));
     };
     RControlBase.prototype.componentDidMount = function () {

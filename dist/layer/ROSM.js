@@ -28,8 +28,8 @@ var ROSM = (function (_super) {
         _this.eventSources = [_this.ol, _this.source];
         return _this;
     }
-    ROSM.prototype.refresh = function () {
-        _super.prototype.refresh.call(this);
+    ROSM.prototype.refresh = function (prevProps) {
+        _super.prototype.refresh.call(this, prevProps);
         this.ol.setProperties({ label: 'OpenStreetMap' });
     };
     return ROSM;

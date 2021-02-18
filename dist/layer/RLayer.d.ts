@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layer } from 'ol/layer';
 import { Source } from 'ol/source';
+import BaseEvent from 'ol/events/Event';
 import { RContextType } from '../context';
 import { RlayersBase } from '../REvent';
 export interface RLayerProps {
@@ -14,6 +15,7 @@ export interface RLayerProps {
     attributions?: string;
     properties?: Record<string, unknown>;
     projection?: string;
+    onChange?: (e: BaseEvent) => void;
 }
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
     ol: Layer;

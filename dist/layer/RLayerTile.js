@@ -37,7 +37,7 @@ var RLayerTile = (function (_super) {
         this.eventSources = [this.ol, this.source];
     };
     RLayerTile.prototype.refresh = function (prevProps) {
-        _super.prototype.refresh.call(this);
+        _super.prototype.refresh.call(this, prevProps);
         if ((prevProps === null || prevProps === void 0 ? void 0 : prevProps.tileGrid) !== this.props.tileGrid)
             this.createSource();
         if (this.props.url && (prevProps === null || prevProps === void 0 ? void 0 : prevProps.url) !== this.props.url)

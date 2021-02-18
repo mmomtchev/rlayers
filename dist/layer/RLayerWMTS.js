@@ -78,9 +78,9 @@ var RLayerWMTS = (function (_super) {
             return null;
         });
     };
-    RLayerWMTS.prototype.refresh = function () {
-        this.createSource();
-        _super.prototype.refresh.call(this);
+    RLayerWMTS.prototype.refresh = function (prevProps) {
+        var _this = this;
+        this.createSource().then(function () { return _super.prototype.refresh.call(_this, prevProps); });
     };
     return RLayerWMTS;
 }(RLayerRaster_1.default));

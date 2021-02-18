@@ -56,7 +56,10 @@ var RBase = (function (_super) {
                         this.ol['set' + m](this.props[p]);
                     }
                     else {
-                        console.log('Underlying OpenLayers object does not support updating of ' + p, this);
+                        console.error("Underlying OpenLayers object does not support updating of " + p + " after object creation. " +
+                            'If you are using an anonymous constant array or object, ' +
+                            'consider assigning its value to a constant and then passing the constant or ' +
+                            'use React.useMemo() to avoid this warning and improve performance.');
                     }
                 }
             }

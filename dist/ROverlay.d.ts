@@ -16,7 +16,7 @@ export declare class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P
     containerRef: React.RefObject<HTMLDivElement>;
     constructor(props: Readonly<P>, context: React.Context<RContextType>);
     setPosition(): void;
-    refresh(): void;
+    refresh(prevProps?: P): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
     render(): JSX.Element;
