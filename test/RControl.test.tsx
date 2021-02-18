@@ -20,6 +20,7 @@ describe('<RControl>', () => {
                 <RControl.RScaleLine />
                 <RControl.RAttribution />
                 <RControl.RZoom />
+                <RControl.RZoomSlider />
                 <RControl.RCustom className='example-RControl'>
                     <RContext.Consumer>
                         {({map}) => {
