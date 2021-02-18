@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
@@ -34,7 +34,7 @@ export default function VectorTiles(): JSX.Element {
 
             <RStyle
                 ref={styles.towns}
-                render={(feature: Feature) => {
+                render={useCallback((feature: Feature) => {
                     /* This is a the towns style
                      *
                      * This is a dynamic style that creates a new object
@@ -58,7 +58,7 @@ export default function VectorTiles(): JSX.Element {
                             </RText>
                         </React.Fragment>
                     );
-                }}
+                }, [])}
             />
             <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={8}>
                 {/* This is the background raster map */}

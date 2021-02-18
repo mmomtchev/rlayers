@@ -22,14 +22,12 @@ export default function Overlays(): JSX.Element {
                 </RStyle.RStyle>
                 <RFeature
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
-                    onClick={useCallback(
-                        (e) =>
-                            e.map.getView().fit(e.target.getGeometry().getExtent(), {
-                                duration: 250,
-                                maxZoom: 15
-                            }),
-                        []
-                    )}
+                    onClick={(e) =>
+                        e.map.getView().fit(e.target.getGeometry().getExtent(), {
+                            duration: 250,
+                            maxZoom: 15
+                        })
+                    }
                 >
                     <ROverlay className='example-overlay'>
                         Arc de Triomphe

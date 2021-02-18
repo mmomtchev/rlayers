@@ -69,12 +69,20 @@ var RStyle = (function (_super) {
         return _this;
     }
     RStyle.prototype.componentDidMount = function () {
-        var _a, _b, _c, _d;
         _super.prototype.componentDidMount.call(this);
-        if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.feature) === null || _b === void 0 ? void 0 : _b.setStyle)
-            this.context.feature.setStyle(this.ol);
-        else if ((_d = (_c = this.context) === null || _c === void 0 ? void 0 : _c.vectorlayer) === null || _d === void 0 ? void 0 : _d.setStyle)
-            this.context.vectorlayer.setStyle(this.ol);
+        this.refresh();
+    };
+    RStyle.prototype.refresh = function (prevProps) {
+        var _a, _b, _c, _d;
+        _super.prototype.refresh.call(this);
+        if (!prevProps || (prevProps === null || prevProps === void 0 ? void 0 : prevProps.render) !== this.props.render) {
+            if ((_b = (_a = this.context) === null || _a === void 0 ? void 0 : _a.feature) === null || _b === void 0 ? void 0 : _b.setStyle)
+                this.context.feature.setStyle(this.ol);
+            else if ((_d = (_c = this.context) === null || _c === void 0 ? void 0 : _c.vectorlayer) === null || _d === void 0 ? void 0 : _d.setStyle)
+                this.context.vectorlayer.setStyle(this.ol);
+            if (this.cache)
+                this.cache.reset();
+        }
     };
     RStyle.prototype.render = function () {
         return (react_1.default.createElement(react_1.default.Fragment, null, this.props.render ? null : (react_1.default.createElement(context_1.RContext.Provider, { value: __assign(__assign({}, this.context), { style: this.ol }) }, this.props.children))));

@@ -25,14 +25,7 @@ RFeature.hitTolerance = 0;
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);
     const [current, setCurrent] = React.useState(null as Feature);
-    const [visible, setVisible] = React.useState(false);
-    React.useEffect(() => {
-        fetchData.then((r) => {
-            setData(r);
-            // This makes sure that the vector layer is rendered after population data is loaded
-            setVisible(true);
-        });
-    }, []);
+    React.useEffect(() => fetchData.then((r) => setData(r)) as null, []);
     return (
         <div className='d-flex flex-row'>
             <RMap
@@ -44,7 +37,7 @@ export default function GeoData(): JSX.Element {
             >
                 <ROSM />
 
-                {/* This the departments layer, initialized with the GeoJSON
+                {/* This the internal borders layer, initialized with the GeoJSON
                  * useCallback is a performance optimization, it allows to always have
                  * the same function object unless 'current' changes
                  * without it you will create a new function at every frame rendered */}
@@ -52,22 +45,30 @@ export default function GeoData(): JSX.Element {
                     zIndex={5}
                     format={parser}
                     url={departements}
-                    visible={visible}
                     onPointerEnter={useCallback((e) => setCurrent(e.target), [])}
                     onPointerLeave={useCallback((e) => current === e.target && setCurrent(null), [
                         current
                     ])}
                 >
-                    {/* When styling each feature, compute the color from the population data */}
+                    {/* When styling each feature, compute the color from the population data 
+                    The function is memoized and it is replaced only once - when the population data
+                    becomes available. Without memoization (useCallback) all the features will need to
+                    be re-evaluated at every frame */}
                     <RStyle.RStyle
-                        render={(f) => (
-                            <RStyle.RFill
-                                color={`rgba(0, 0, ${getData(data, f.get('code')) / 5000}, 0.75)`}
-                            />
+                        render={useCallback(
+                            (f) => (
+                                <RStyle.RFill
+                                    color={`rgba(0, 0, ${
+                                        getData(data, f.get('code')) / 5000
+                                    }, 0.75)`}
+                                />
+                            ),
+                            [data]
                         )}
                     />
                 </RLayerVector>
-                {/* This is a layer with a single feature - current - that holds the highlighted department */}
+                {/* This is a layer with a single feature - current - that holds the highlighted borders
+                It is styled with the default OpenLayers style */}
                 <RLayerVector zIndex={10}>
                     {current ? (
                         <div>

@@ -41,15 +41,17 @@ export default function Cluster(): JSX.Element {
                 >
                     <RStyle
                         cacheSize={1024}
-                        cacheId={(feature, resolution) =>
-                            // This is the hashing function, it takes a feature as its input
-                            // and returns a string
-                            // It must be dependant of the same inputs as the rendering function
-                            feature.get('features').length > 1
-                                ? '#' + extentFeatures(feature.get('features'), resolution)
-                                : '$' + radiusStar(feature.get('features')[0])
-                        }
-                        render={(feature, resolution) => {
+                        cacheId={useCallback(
+                            (feature, resolution) =>
+                                // This is the hashing function, it takes a feature as its input
+                                // and returns a string
+                                // It must be dependant of the same inputs as the rendering function
+                                feature.get('features').length > 1
+                                    ? '#' + extentFeatures(feature.get('features'), resolution)
+                                    : '$' + radiusStar(feature.get('features')[0]),
+                            []
+                        )}
+                        render={useCallback((feature, resolution) => {
                             // This is the rendering function
                             // It has access to the cluster which appears as a single feature
                             // and has a property with an array of all the features that make it
@@ -84,7 +86,7 @@ export default function Cluster(): JSX.Element {
                                     <RStroke color='rgba(255, 204, 0, 0.2)' width={1} />
                                 </RRegularShape>
                             );
-                        }}
+                        }, [])}
                     />
                 </RLayerCluster>
             </RMap>

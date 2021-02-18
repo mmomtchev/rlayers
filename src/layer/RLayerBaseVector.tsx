@@ -13,15 +13,24 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
 export interface RLayerBaseVectorProps extends RLayerProps {
-    /** URL for loading features, requires `format` */
+    /** URL for loading features, requires `format`
+     *
+     * this property currently does not support dynamic updates
+     */
     url?: string;
     /** Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
      * but are partially inside, can be rendered */
     renderBuffer?: number;
-    /** OpenLayers features that will be loaded */
+    /** OpenLayers features that will be loaded
+     *
+     * this property currently does not support dynamic updates
+     */
     features?: Feature[];
-    /** Format of the features when `url` is used */
+    /** Format of the features when `url` is used
+     *
+     * this property currently does not support dynamic updates
+     */
     format?: FeatureFormat;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;

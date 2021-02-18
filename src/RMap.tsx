@@ -13,9 +13,9 @@ import {RlayersBase} from './REvent';
  * All other components should be part of a `Map`
  */
 export interface RMapProps {
-    /** The initial center coordinates */
+    /** The initial center coordinates, reset only on full component reload */
     center: Coordinate;
-    /** The initial zoom level */
+    /** The initial zoom level, reset only on full component reload */
     zoom: number;
     /** CSS class */
     className?: string;
