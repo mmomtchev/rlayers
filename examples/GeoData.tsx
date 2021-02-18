@@ -25,8 +25,13 @@ RFeature.hitTolerance = 0;
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);
     const [current, setCurrent] = React.useState(null as Feature);
+    const [visible, setVisible] = React.useState(false);
     React.useEffect(() => {
-        fetchData.then((r) => setData(r));
+        fetchData.then((r) => {
+            setData(r);
+            // This makes sure that the vector layer is rendered after population data is loaded
+            setVisible(true);
+        });
     }, []);
     return (
         <div className='d-flex flex-row'>
@@ -47,6 +52,7 @@ export default function GeoData(): JSX.Element {
                     zIndex={5}
                     format={parser}
                     url={departements}
+                    visible={visible}
                     onPointerEnter={useCallback((e) => setCurrent(e.target), [])}
                     onPointerLeave={useCallback((e) => current === e.target && setCurrent(null), [
                         current
