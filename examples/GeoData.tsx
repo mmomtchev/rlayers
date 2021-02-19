@@ -4,7 +4,7 @@ import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RStyle, RFeature, ROverlay} from 'rlayers';
+import {RMap, RLayerVector, RStyle, RFeature, ROverlay, RLayerStamen} from 'rlayers';
 
 // These are the French internal administrative borders in GeoJSON format
 const departements =
@@ -35,7 +35,7 @@ export default function GeoData(): JSX.Element {
                 noDefaultControls={true}
                 noDefaultInteractions={true}
             >
-                <ROSM />
+                <RLayerStamen layer='toner' />
 
                 {/* This the internal borders layer, initialized with the GeoJSON
                  * useCallback is a performance optimization, it allows to always have
@@ -50,10 +50,10 @@ export default function GeoData(): JSX.Element {
                         current
                     ])}
                 >
-                    {/* When styling each feature, compute the color from the population data 
-                    The function is memoized and it is replaced only once - when the population data
-                    becomes available. Without memoization (useCallback) all the features will need to
-                    be re-evaluated at every frame */}
+                    {/* When styling each feature, compute the color from the population data
+                     * The function is memoized and it is replaced only once - when the population data
+                     * becomes available. Without memoization (useCallback) all the features will need to
+                     * be re-evaluated at every frame */}
                     <RStyle.RStyle
                         render={useCallback(
                             (f) => (
@@ -68,7 +68,7 @@ export default function GeoData(): JSX.Element {
                     />
                 </RLayerVector>
                 {/* This is a layer with a single feature - current - that holds the highlighted borders
-                It is styled with the default OpenLayers style */}
+                 * It is styled with the default OpenLayers style */}
                 <RLayerVector zIndex={10}>
                     {current ? (
                         <div>
