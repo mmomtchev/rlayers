@@ -1,9 +1,8 @@
 import React from 'react';
 import {Control} from 'ol/control';
 
-import './layers.css';
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface LayersProps extends RControlProps {
     /** Custom element for rendering */
