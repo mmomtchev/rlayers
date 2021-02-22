@@ -20,7 +20,7 @@
     "preversion": "npm run test",
     "version": "npm run build && npm run build:examples && npm run build:doc && git add package.json",
     "postversion": "git push && git push --tags",
-    "dist": "tar zcvf rlayers.tar.gz --exclude-from=.npmignore --xform \"s:./\\(dist/\\)\\?::\" ."
+    "dist": "tar zcvf rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers"
   },
   "repository": {
     "type": "git",
