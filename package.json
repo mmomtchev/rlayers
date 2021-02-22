@@ -19,7 +19,8 @@
     "codecov": "curl -s https://codecov.io/bash | bash",
     "preversion": "npm run test",
     "version": "npm run build && npm run build:examples && npm run build:doc && git add package.json dist docs",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "dist": "tar zcvf rlayers.tar.gz --exclude-from=.npmignore --xform \"s:./\\(dist/\\)\\?::\" ."
   },
   "repository": {
     "type": "git",
