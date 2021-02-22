@@ -4,7 +4,6 @@
   "description": "React Components for OpenLayers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "pkgRoot": "dist",
   "scripts": {
     "build": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
