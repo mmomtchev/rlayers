@@ -4,7 +4,7 @@ import {Heatmap as LayerHeatmap} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 
 import {RContextType} from '../context';
-import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
+import RLayerBaseVector, {RLayerBaseVectorProps} from './RLayerBaseVector';
 
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     /** Blurring */

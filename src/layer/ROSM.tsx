@@ -4,7 +4,7 @@ import {Tile as LayerTile} from 'ol/layer';
 import {OSM} from 'ol/source';
 
 import {RContextType} from '../context';
-import {default as LayerRaster, RLayerRasterProps} from './RLayerRaster';
+import LayerRaster, {RLayerRasterProps} from './RLayerRaster';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ROSMProps extends RLayerRasterProps {}
@@ -15,7 +15,10 @@ export default class ROSM extends LayerRaster<ROSMProps> {
 
     constructor(props: Readonly<ROSMProps>, context: React.Context<RContextType>) {
         super(props, context);
-        this.source = new OSM();
+        this.source = new OSM({
+            transition: this.context.ssr ? 0 : undefined,
+            crossOrigin: this.context.ssr ? 'anonymous' : undefined
+        } as unknown);
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
     }

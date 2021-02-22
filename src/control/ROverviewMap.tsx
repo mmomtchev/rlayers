@@ -3,7 +3,7 @@ import {OverviewMap} from 'ol/control';
 import {Options} from 'ol/control/OverviewMap';
 
 import {RContext, RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface OverviewProps extends RControlProps {
     /** User-collapsible */

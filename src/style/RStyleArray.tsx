@@ -4,7 +4,7 @@ import {Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 
 import {RContextType} from '../context';
-import {default as RStyle, RStyleProps, RStyleRef} from './RStyle';
+import RStyle, {RStyleProps, RStyleRef} from './RStyle';
 import debug from '../debug';
 
 /** An array of RStyle, can be an RStyle of its own

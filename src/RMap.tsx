@@ -5,8 +5,9 @@ import {Extent} from 'ol/extent';
 
 import {Coordinate} from 'ol/coordinate';
 
-import {RContext} from './context';
+import {RContext, RContextType} from './context';
 import {RlayersBase} from './REvent';
+import {RSSRProps} from './RSSR';
 
 /** Main map component *
  *
@@ -68,14 +69,20 @@ export interface RMapProps {
     minZoom?: number;
     /** Maximum zoom level */
     maxZoom?: number;
+    /** SSR props
+     *
+     * This should be the result of calling RSSRender on the server
+     */
+    ssr?: RSSRProps;
 }
 
 export default class RMap extends RlayersBase<RMapProps, null> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
+    placeholder: boolean;
 
-    constructor(props: Readonly<RMapProps>) {
-        super(props);
+    constructor(props: Readonly<RMapProps>, context: React.Context<RContextType>) {
+        super(props, context);
         this.target = React.createRef();
         this.ol = new Map({
             controls: props.noDefaultControls ? [] : undefined,
@@ -91,6 +98,15 @@ export default class RMap extends RlayersBase<RMapProps, null> {
                 maxZoom: props.maxZoom
             })
         });
+        if (this.context?.ssr) {
+            this.context.ssr.maps.push(this);
+            this.ol.on('rendercomplete', this.context.ssr.mapRenderComplete);
+        }
+        this.placeholder = false;
+        if (this.props.ssr) {
+            this.placeholder = true;
+            this.ol.once('rendercomplete', () => (this.placeholder = false));
+        }
     }
 
     componentDidMount(): void {
@@ -115,13 +131,28 @@ export default class RMap extends RlayersBase<RMapProps, null> {
 
     render(): JSX.Element {
         return (
-            <div
-                className={this.props.className}
-                style={{width: this.props.width, height: this.props.height}}
-                ref={this.target}
-            >
-                <RContext.Provider value={{map: this.ol}}>{this.props.children}</RContext.Provider>
-            </div>
+            <React.Fragment>
+                {this.placeholder ? (
+                    <div
+                        className={this.props.className}
+                        style={{width: this.props.width, height: this.props.height}}
+                    >
+                        <img
+                            src={this.props.ssr.placeholderImage}
+                            style={{width: this.props.width, height: this.props.height}}
+                        />
+                    </div>
+                ) : null}
+                <div
+                    className={this.props.className}
+                    style={{width: this.props.width, height: this.props.height}}
+                    ref={this.target}
+                >
+                    <RContext.Provider value={{map: this.ol, ssr: this.context?.ssr}}>
+                        {this.props.children}
+                    </RContext.Provider>
+                </div>
+            </React.Fragment>
         );
     }
 }

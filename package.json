@@ -4,7 +4,6 @@
   "description": "React Components for OpenLayers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "pkgRoot": "dist",
   "scripts": {
     "build": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
@@ -44,10 +43,13 @@
   },
   "dependencies": {
     "@types/ol": "^6.4.2",
+    "canvas": "^2.6.1",
+    "jsdom": "^16.4.0",
     "lru-cache": "^6.0.0",
     "ol": "^6.5.0",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
@@ -60,6 +62,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
+    "@types/jsdom": "^16.2.6",
     "@types/node": "^14.14.25",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
@@ -80,7 +83,8 @@
     "glob": "^7.1.6",
     "html-webpack-plugin": "^5.0.0",
     "jest": "^26.6.3",
-    "jest-canvas-mock": "^2.3.1",
+    "pixelmatch": "^5.2.1",
+    "pngjs": "^6.0.0",
     "prettier": "^2.2.1",
     "proj4": "^2.7.0",
     "raw-loader": "^4.0.2",

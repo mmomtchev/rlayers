@@ -1,10 +1,10 @@
 import React from 'react';
 import {Collection, Feature, Map, MapBrowserEvent} from 'ol';
-import {default as Translate, TranslateEvent} from 'ol/interaction/Translate';
+import Translate, {TranslateEvent} from 'ol/interaction/Translate';
 import BaseLayer from 'ol/layer/Base';
 import RenderFeature from 'ol/render/Feature';
 
-import {default as RPointer} from './RPointer';
+import RPointer from './RPointer';
 import debug from '../debug';
 
 export interface RTranslateProps {

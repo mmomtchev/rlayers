@@ -4,8 +4,8 @@ import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 
 import {RContextType} from '../context';
-import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import {default as RStyle} from '../style/RStyle';
+import RLayerBaseVector, {RLayerBaseVectorProps} from './RLayerBaseVector';
+import RStyle from '../style/RStyle';
 
 export interface RLayerClusterProps extends RLayerBaseVectorProps {
     /** Clustering distance */

@@ -3,7 +3,7 @@ import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
 import {RContextType} from '../context';
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RPointerProps {

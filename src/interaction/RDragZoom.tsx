@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
-import {default as DragZoom} from 'ol/interaction/DragZoom';
+import DragZoom from 'ol/interaction/DragZoom';
 
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RDragZoomProps {

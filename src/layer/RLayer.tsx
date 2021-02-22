@@ -40,10 +40,12 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> 
     constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
+        if (this.context?.ssr) this.context.ssr.layers.push(this);
     }
 
     refresh(prevProps?: P): void {
         super.refresh(prevProps);
+        if (this.context.ssr) this.ol.on('postrender', this.context.ssr.layerPostRender);
         for (const p of [
             'visible',
             'opacity',

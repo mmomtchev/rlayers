@@ -1,4 +1,6 @@
 node_modules
+dist
+docs
 package-lock.json
 coverage
 GIS-hall-of-shame.md

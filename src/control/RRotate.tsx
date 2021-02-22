@@ -3,7 +3,7 @@ import {Rotate as OLRRotate} from 'ol/control';
 import {Options} from 'ol/control/Rotate';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RRotateProps extends RControlProps {
     /** Label */

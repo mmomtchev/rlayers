@@ -3,7 +3,7 @@ import {Attribution} from 'ol/control';
 import {Options} from 'ol/control/Attribution';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RAttributionProps extends RControlProps {
     /** Is it user-collapsible (some licenses do not allow it) */

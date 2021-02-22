@@ -8,9 +8,9 @@ import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader} from 'ol/featureloader';
 
 import {RContext, RContextType} from '../context';
-import {default as RLayer, RLayerProps} from './RLayer';
-import {default as RFeature} from '../RFeature';
-import {default as RStyle, RStyleLike} from '../style/RStyle';
+import RLayer, {RLayerProps} from './RLayer';
+import RFeature from '../RFeature';
+import RStyle, {RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
 export interface RLayerBaseVectorProps extends RLayerProps {

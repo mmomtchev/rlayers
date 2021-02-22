@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
-import {default as DoubleClickZoom} from 'ol/interaction/DoubleClickZoom';
+import DoubleClickZoom from 'ol/interaction/DoubleClickZoom';
 
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RDoubleClickZoomProps {

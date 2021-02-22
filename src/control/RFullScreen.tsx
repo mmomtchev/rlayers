@@ -3,7 +3,7 @@ import {FullScreen} from 'ol/control';
 import {Options} from 'ol/control/FullScreen';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RFullScreenProps extends RControlProps {
     /** A new HTML target for the map after switching to full-screen,

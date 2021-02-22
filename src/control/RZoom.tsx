@@ -4,7 +4,7 @@ import {Zoom} from 'ol/control';
 import {Options} from 'ol/control/Zoom';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RZoomProps extends RControlProps {
     /** Animation duration */

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Map} from 'ol';
 import {Tile as OLRLayerTile} from 'ol/layer';
-import {default as OLSourceWMTS, optionsFromCapabilities, Options} from 'ol/source/WMTS';
+import OLSourceWMTS, {optionsFromCapabilities, Options} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 
 import {RContextType} from '../context';
-import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import RLayerRaster, {RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
 export interface RLayerWMTSProps extends RLayerRasterProps {
@@ -43,6 +43,8 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 options.crossOrigin = '';
                 if (this.props.projection) options.projection = this.props.projection;
                 options.wrapX = false;
+                options.transition = this.context.ssr ? 0 : undefined;
+                options.crossOrigin = this.context.ssr ? 'anonymous' : undefined;
                 this.source = new OLSourceWMTS(options);
                 this.ol.setSource(this.source);
                 this.eventSources = [this.ol, this.source];

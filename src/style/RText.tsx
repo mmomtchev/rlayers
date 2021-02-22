@@ -3,7 +3,7 @@ import {Size} from 'ol/size';
 import {Text, Style} from 'ol/style';
 
 import {RContext} from '../context';
-import {default as RBase, RBaseProps} from './RBase';
+import RBase, {RBaseProps} from './RBase';
 import debug from '../debug';
 
 export interface RTextProps extends RBaseProps {

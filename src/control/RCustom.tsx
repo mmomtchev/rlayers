@@ -2,7 +2,7 @@ import React from 'react';
 import {Control as Control} from 'ol/control';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 /** A custom control that can contain an HTMLElement
  * All provided children will be rendered as an OpenLayers control

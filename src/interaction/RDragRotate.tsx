@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
-import {default as DragRotate} from 'ol/interaction/DragRotate';
+import DragRotate from 'ol/interaction/DragRotate';
 
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RDragRotateProps {

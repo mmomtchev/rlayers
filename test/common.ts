@@ -8,8 +8,8 @@ import {MapBrowserEvent} from 'rlayers';
 
 export const mapProps = {
     center: fromLonLat([2.364, 48.82]),
-    width: 100,
-    height: 100,
+    width: 500,
+    height: 500,
     zoom: 11
 };
 

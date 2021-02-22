@@ -5,7 +5,7 @@ import {VectorTile as SourceVectorTile} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 
 import {RContextType} from '../context';
-import {default as RLayer, RLayerProps} from './RLayer';
+import RLayer, {RLayerProps} from './RLayer';
 import RFeature from '../RFeature';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';

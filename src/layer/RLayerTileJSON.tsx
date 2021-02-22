@@ -1,11 +1,11 @@
 import React from 'react';
 import {Map} from 'ol';
-import {Tile as OLRLayerTile} from 'ol/layer';
+import {Tile as LayerTile} from 'ol/layer';
 import {TileJSON} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {RContextType} from '../context';
-import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import RLayerRaster, {RLayerRasterProps} from './RLayerRaster';
 
 export interface RLayerTileJSONProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
@@ -15,7 +15,7 @@ export interface RLayerTileJSONProps extends RLayerRasterProps {
 
 /** A layer with data from TileJSON tiles */
 export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
-    ol: OLRLayerTile;
+    ol: LayerTile;
     source: TileJSON;
 
     constructor(props: Readonly<RLayerTileJSONProps>, context: React.Context<RContextType>) {
@@ -23,7 +23,7 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
         this.source = new TileJSON({
             url: this.props.url
         });
-        this.ol = new OLRLayerTile({source: this.source});
+        this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 

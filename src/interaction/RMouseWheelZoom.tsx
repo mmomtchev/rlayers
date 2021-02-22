@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
-import {default as MouseWheelZoom} from 'ol/interaction/MouseWheelZoom';
+import MouseWheelZoom from 'ol/interaction/MouseWheelZoom';
 
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RMouseWheelZoomProps {

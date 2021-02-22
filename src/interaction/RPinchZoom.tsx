@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
-import {default as PinchZoom} from 'ol/interaction/PinchZoom';
+import PinchZoom from 'ol/interaction/PinchZoom';
 
-import {default as RBase} from './RBase';
+import RBase from './RBase';
 import debug from '../debug';
 
 export interface RPinchZoomProps {

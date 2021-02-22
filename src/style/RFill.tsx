@@ -2,7 +2,7 @@ import React from 'react';
 import {ColorLike} from 'ol/colorlike';
 import {Fill} from 'ol/style';
 
-import {default as RBase, RBaseProps} from './RBase';
+import RBase, {RBaseProps} from './RBase';
 import debug from '../debug';
 
 export interface RFillProps extends RBaseProps {

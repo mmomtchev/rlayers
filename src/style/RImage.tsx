@@ -2,7 +2,7 @@ import React from 'react';
 import {Image} from 'ol/style';
 import {Size} from 'ol/size';
 
-import {default as RBase, RBaseProps} from './RBase';
+import RBase, {RBaseProps} from './RBase';
 import debug from '../debug';
 
 export interface RImageProps extends RBaseProps {

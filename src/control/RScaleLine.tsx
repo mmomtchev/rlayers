@@ -3,7 +3,7 @@ import {ScaleLine} from 'ol/control';
 import {Options, Units} from 'ol/control/ScaleLine';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RScaleLineProps extends RControlProps {
     /** Minimum width */

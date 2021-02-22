@@ -4,8 +4,8 @@ import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 
 import {RContextType} from '../context';
-import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import {default as RStyle} from '../style/RStyle';
+import RLayerBaseVector, {RLayerBaseVectorProps} from './RLayerBaseVector';
+import RStyle from '../style/RStyle';
 import debug from '../debug';
 
 /**

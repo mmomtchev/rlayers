@@ -1,9 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {Pixel} from 'ol/pixel';
-import {default as DragBox, DragBoxEvent} from 'ol/interaction/DragBox';
+import DragBox, {DragBoxEvent} from 'ol/interaction/DragBox';
 
-import {default as RPointer} from './RPointer';
+import RPointer from './RPointer';
 import debug from '../debug';
 
 export interface RDragBoxProps {
