@@ -5,7 +5,8 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "tsc && npm run build:css",
+    "build": "npm run build:lib && npm run build:examples && npm run build:doc",
+    "build:lib": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
     "build:examples": "webpack --mode=production --env production",
     "build:doc": "npx styleguidist build",
@@ -18,9 +19,9 @@
     "test:watch": "jest --watch",
     "codecov": "curl -s https://codecov.io/bash | bash",
     "preversion": "npm run test",
-    "version": "npm run build && npm run build:examples && npm run build:doc && git add package.json",
+    "version": "npm run build && git add package.json",
     "postversion": "git push && git push --tags",
-    "dist": "tar zcvf rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers"
+    "dist": "tar zcvf dist/rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers"
   },
   "repository": {
     "type": "git",

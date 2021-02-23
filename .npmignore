@@ -4,7 +4,7 @@
 examples/data/admin.min.geojson
 examples/data/places.min.geojson
 node_modules
-rlayers.tar.gz
+dist/rlayers.tar.gz
 package-lock.json
 coverage
 GIS-hall-of-shame.md
