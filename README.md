@@ -162,8 +162,9 @@ Pushing the initial tiles is also an option:
 * when combined with a WMS-server it could deliver pixel-perfect maps with on the first HTTP request
 * without a WMS-server it could still avoid doing a large number of HTTP requests on the first load
 
-Currently, server-side rendering of fixed map sizes has reached POC status and an online demo is accessible at https://rlayers-ssr.meteo.guru/.
-The code can be found in the `ssr` branch of this project.
+Currently, server-side rendering of raster layers on fixed map sizes has reached POC status and an online demo is accessible at https://rlayers-ssr.meteo.guru/.
+The code can be found in the `ssr` branch of this project. The `next.js` project can be found at <https://github.com/mmomtchev/rlayers-ssr-demo.git>. *This is still not a user-friendly, install-and-run project.* Take a look at `pages/index.js` if you want see how it is meant to be used.
+
 
 ## API
 
