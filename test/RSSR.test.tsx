@@ -28,7 +28,7 @@ describe('Server-side rendering', () => {
             </RMap>
         );
 
-        const image = PNG.sync.read(decodeDataURL(raw)).data;
+        const image = PNG.sync.read(decodeDataURL(raw.placeholderImage)).data;
         const ref = PNG.sync.read(fs.readFileSync('./test/__snapshots__/ref1.png')).data;
         const diff = pixelmatch(image, ref, null, 500, 500);
         expect(diff).toBeLessThan(20);
@@ -45,7 +45,7 @@ describe('Server-side rendering', () => {
             </RMap>
         );
 
-        const image = PNG.sync.read(decodeDataURL(raw)).data;
+        const image = PNG.sync.read(decodeDataURL(raw.placeholderImage)).data;
         const ref = PNG.sync.read(fs.readFileSync('./test/__snapshots__/ref2.png')).data;
         const diff = pixelmatch(image, ref, null, 500, 500);
         expect(diff).toBeLessThan(20);
