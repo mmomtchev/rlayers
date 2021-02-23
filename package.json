@@ -2,8 +2,8 @@
   "name": "rlayers",
   "version": "0.99.5",
   "description": "React Components for OpenLayers",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
