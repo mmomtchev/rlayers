@@ -68,8 +68,16 @@ Classical *OpenLayers* `StyleLike` objects are supported too, but this is not th
 
 This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlays>
 ```jsx
+import React from 'react';
+import {fromLonLat} from 'ol/proj';
+import {Point} from 'ol/geom';
+import 'ol/ol.css';
+
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
+import locationIcon from './svg/location.svg';
+ 
 // Create a map, its size is set in the CSS class example-map
-<RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+<RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
     {/* Use an OpenStreetMap background */}
     <ROSM />
     {/* Create a single layer for holding vector features */}
@@ -83,7 +91,7 @@ This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlay
         {/* Create a single feature in the vector layer */}
         <RFeature
             {/* Its geometry is a point geometry over the monument */}
-            geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
+            geometry={new Point(fromLonLat([2.295, 48.8737]))}
             {/* Bind an onClick handler */}
             onClick={(e) =>
                 {/* e.map is the underlying OpenLayers map - we call getView().fit()
