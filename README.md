@@ -14,7 +14,7 @@ It's design policy is:
 * Simple things should be simple to do
 * If taking shortcuts when updating the components, always err on the safe side but do provide an override method
 * Expose all the advanced *OpenLayers* features
-* Try to be as much SSR-friendly as possible (this is an upcoming feature, see more below)
+* Try to be as much SSR-friendly as possible (this feature is currently in POC stage, see below)
 * The current target is *OpenLayers* 6+
 * Avoid dependencies when built except for *React* and OpenLayers (the examples have some dependencies) - currently the single one is [`lru-cache`](https://www.npmjs.com/package/lru-cache) at 8Kbytes
 
@@ -161,6 +161,10 @@ An intermediate solution, which does not require extensive server-side investmen
 Pushing the initial tiles is also an option:
 * when combined with a WMS-server it could deliver pixel-perfect maps with on the first HTTP request
 * without a WMS-server it could still avoid doing a large number of HTTP requests on the first load
+
+Currently, server-side rendering of raster layers on fixed map sizes has reached POC status and an online demo is accessible at https://rlayers-ssr.meteo.guru/.
+The code can be found in the `ssr` branch of this project. The `next.js` project can be found at <https://github.com/mmomtchev/rlayers-ssr-demo.git>. *This is still not a user-friendly, install-and-run project.* Take a look at `pages/index.js` if you want see how it is meant to be used.
+
 
 ## API
 
