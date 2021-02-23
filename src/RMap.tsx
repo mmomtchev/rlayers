@@ -76,10 +76,15 @@ export interface RMapProps {
     ssr?: RSSRProps;
 }
 
-export default class RMap extends RlayersBase<RMapProps, null> {
+interface RMapState {
+    placeholder: boolean;
+}
+
+export default class RMap extends RlayersBase<RMapProps, RMapState> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
     placeholder: boolean;
+    state: RMapState;
 
     constructor(props: Readonly<RMapProps>, context: React.Context<RContextType>) {
         super(props, context);
@@ -102,10 +107,13 @@ export default class RMap extends RlayersBase<RMapProps, null> {
             this.context.ssr.maps.push(this);
             this.ol.on('rendercomplete', this.context.ssr.mapRenderComplete);
         }
-        this.placeholder = false;
+        this.state = {placeholder: false};
         if (this.props.ssr) {
-            this.placeholder = true;
-            this.ol.once('rendercomplete', () => (this.placeholder = false));
+            this.state.placeholder = true;
+            this.ol.once('rendercomplete', () => {
+                console.log('rendercomplete');
+                this.setState({placeholder: false});
+            });
         }
     }
 
@@ -132,22 +140,26 @@ export default class RMap extends RlayersBase<RMapProps, null> {
     render(): JSX.Element {
         return (
             <React.Fragment>
-                {this.placeholder ? (
-                    <div
-                        className={this.props.className}
-                        style={{width: this.props.width, height: this.props.height}}
-                    >
-                        <img
-                            src={this.props.ssr.placeholderImage}
-                            style={{width: this.props.width, height: this.props.height}}
-                        />
-                    </div>
-                ) : null}
                 <div
                     className={this.props.className}
-                    style={{width: this.props.width, height: this.props.height}}
+                    style={{
+                        width: this.props.width,
+                        height: this.props.height,
+                        display: this.state.placeholder ? null : null
+                    }}
                     ref={this.target}
                 >
+                    {this.state.placeholder ? (
+                        <div
+                            className={this.props.className}
+                            style={{width: '100%', height: '100%', position: 'absolute'}}
+                        >
+                            <img
+                                src={this.props.ssr.placeholderImage}
+                                style={{width: this.props.width, height: this.props.height}}
+                            />
+                        </div>
+                    ) : null}
                     <RContext.Provider value={{map: this.ol, ssr: this.context?.ssr}}>
                         {this.props.children}
                     </RContext.Provider>
