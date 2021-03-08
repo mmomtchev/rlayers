@@ -45,12 +45,17 @@
   },
   "dependencies": {
     "@types/ol": "^6.4.2",
-    "lru-cache": "^6.0.0",
-    "ol": "^6.5.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "lru-cache": "^6.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8",
+    "ol": ">=6.0.0"
   },
   "devDependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "ol": "^6.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-async-to-generator": "7.12.13",
     "@babel/plugin-transform-runtime": "7.12.13",

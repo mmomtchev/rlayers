@@ -16,7 +16,6 @@ module.exports = {
     ],
     testRegex: '/test/.*\\.test\\.tsx?$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    //moduleDirectories: ['<rootDir>/src', '<rootDir>/src/style', '<rootDir>/node_modules'],
     collectCoverage: true,
     coverageReporters: ['json', 'lcov', 'text', 'clover']
 };
