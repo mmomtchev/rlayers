@@ -5,13 +5,6 @@ import './ghp.css';
 import React from 'react';
 import {HashRouter as Router, Route, Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
-import prettier from 'prettier/standalone';
-import parserTypescript from 'prettier/parser-typescript';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
-import ReactMarkdown from 'react-markdown';
-import {darcula as styleHighlighter} from 'react-syntax-highlighter/dist/esm/styles/prism';
-// @ts-ignore
-import README from '!!raw-loader!../README.md';
 
 import Simple from './Simple';
 // @ts-ignore
@@ -97,17 +90,9 @@ const examples = {
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}
 };
 
-// This is expensive to render
-const CodeDisplay = React.memo(function _CodeDisplay(props: {code: string}) {
-    return (
-        <SyntaxHighlighter language='tsx' style={styleHighlighter}>
-            {prettier.format(props.code, {
-                parser: 'typescript',
-                plugins: [parserTypescript]
-            })}{' '}
-        </SyntaxHighlighter>
-    );
-});
+// These two bring in huge bundles and are lazy-loaded
+const README = React.lazy(() => import('./README'));
+const CodeBlock = React.lazy(() => import('./CodeBlock'));
 
 const App = (): JSX.Element => {
     return (
@@ -126,7 +111,9 @@ const App = (): JSX.Element => {
                     <div className='fluid-container'>
                         <Route exact path='/'>
                             <div className='ml-2'>
-                                <ReactMarkdown>{README}</ReactMarkdown>
+                                <React.Suspense fallback={<div>Loading...</div>}>
+                                    <README />
+                                </React.Suspense>
                             </div>
                         </Route>
                         {Object.keys(examples).map((e) => (
@@ -134,7 +121,9 @@ const App = (): JSX.Element => {
                                 <div className='row'>
                                     <div className='col-12 col-xl-5'>{examples[e].comp()}</div>
                                     <div className='col-12 col-xl-7'>
-                                        <CodeDisplay code={examples[e].code} />
+                                        <React.Suspense fallback={<div>Parsing code...</div>}>
+                                            <CodeBlock code={examples[e].code} />
+                                        </React.Suspense>
                                     </div>
                                 </div>
                             </Route>
