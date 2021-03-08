@@ -26,10 +26,12 @@ It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In
 ## Installation
 
 ```bash
-npm --save install rlayers
+npm --save install rlayers ol react react-dom
 ```
 
-All *OpenLayers* 6+ versions should be supported.
+*OpenLayers* and *React* are peer dependencies and should be installed separately.
+*OpenLayers* is supported from version 6.0.0.
+*React* is supported from version 16.8.0.
 
 ## Usage
 
