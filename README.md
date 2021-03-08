@@ -11,8 +11,8 @@ It's design policy is:
 * Fully Typescript-typed
 * Do everything that faces the user the ***React* way** and not the *OpenLayers* way - `onClick` and `onPointerEnter`/`onPoinerLeave` handlers are typical examples
 * If it does not face the user, it does not need to be *React* way - internally it uses inheritance, following the *OpenLayers* classes, over composition
-* Simple things should be simple to do
-* If taking shortcuts when updating the components, always err on the safe side but do provide an override method
+* Simple things should be simple to do, performance optimizations should not get in the way unless needed
+* If taking shortcuts when updating the components, always err on the safe side but do provide an override method that allows to come close to the raw OpenLayers performance
 * Expose all the advanced *OpenLayers* features
 * Try to be as much SSR-friendly as possible (this feature is currently in POC stage, see below)
 * The current target is *OpenLayers* 6+
@@ -65,7 +65,7 @@ You can refer to
 
 Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the ***React* way**. Still, if you need every last bit of performance, writing an optimized *OpenLayers* style function is the best solution.
 
-### Step-by-step simple example
+### Simple step-by-step example
 
 This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlays>
 ```jsx
@@ -117,7 +117,9 @@ import locationIcon from './svg/location.svg';
 
 ### Performance
 
-React is a wonderful framework that makes it very easy to write complex web applications without having to manually handle all the interdependencies between the various components. This is the reason why it is called *React* - components automatically *React* to changes in other components. In the true spirit of *React*, *rlayers* prefers to err on the safe side - always updating when there is a chance that the component needs updating - making it easy on the beginner and hard on the experienced engineer. So when one needs good performance, particular care must be taken that the various properties do not change without a reason. This is especially true when the `pointermove` event is used. In these cases one should avoid using anonymous objects, arrays or functions as properties. 
+React is a wonderful framework that makes it very easy to write complex web applications without having to manually handle all the interdependencies between the various components. This is the reason why it is called *React* - components automatically *React* to changes in other components. In the true spirit of *React*, *rlayers* prefers to err on the safe side - always updating when there is a chance that the component needs updating - making it easy on the beginner who wants simple interface while still allowing the experienced engineer to achieve the performance he needs. 
+
+When high performance is required, particular care must be taken that the component properties do not change without a reason. This is especially true when the `pointermove` event is used. In these cases one should avoid using anonymous objects, arrays or functions as properties. 
 
 Take for example this:
 ```jsx
