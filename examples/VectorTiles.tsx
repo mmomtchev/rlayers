@@ -17,7 +17,8 @@ const fonts = {
 
 // If you know about any open and free to use vector tile services, please let me know
 // This example uses a primitive pbf tile server based on geojson-vt
-// You can look at its code in examples/geojson-vt-server
+// You can use the server set up at https://react-layers.meteo.guru/tiles
+// Or clone the full source code from https://github.com/mmomtchev/geojson-vt-server.git
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
     const styles = {

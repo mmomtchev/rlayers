@@ -11,16 +11,17 @@ It's design policy is:
 * Fully Typescript-typed
 * Do everything that faces the user the ***React* way** and not the *OpenLayers* way - `onClick` and `onPointerEnter`/`onPoinerLeave` handlers are typical examples
 * If it does not face the user, it does not need to be *React* way - internally it uses inheritance, following the *OpenLayers* classes, over composition
-* Simple things should be simple to do
-* If taking shortcuts when updating the components, always err on the safe side but do provide an override method
+* Simple things should be simple to do, performance optimizations should not get in the way unless needed
+* If taking shortcuts when updating the components, always err on the safe side but do provide an override method that allows to come close to the raw OpenLayers performance
 * Expose all the advanced *OpenLayers* features
-* Try to be as much SSR-friendly as possible (this is an upcoming feature, see more below)
+* Try to be as much SSR-friendly as possible (this feature is currently in POC stage, see below)
 * The current target is *OpenLayers* 6+
 * Avoid dependencies when built except for *React* and OpenLayers (the examples have some dependencies) - currently the single one is [`lru-cache`](https://www.npmjs.com/package/lru-cache) at 8Kbytes
 
 It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In fact, it is more inspired by *react-leaflet* than *react-openlayers*.
 
-![](https://media.tenor.com/images/917f26746c6d0fb761751d1c598cca8b/tenor.png)
+![© OpenStreetMap contributors](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref1.png)
+![Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref2.png)
 
 ## Installation
 
@@ -64,12 +65,20 @@ You can refer to
 
 Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the ***React* way**. Still, if you need every last bit of performance, writing an optimized *OpenLayers* style function is the best solution.
 
-### Step-by-step simple example
+### Simple step-by-step example
 
 This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlays>
 ```jsx
+import React from 'react';
+import {fromLonLat} from 'ol/proj';
+import {Point} from 'ol/geom';
+import 'ol/ol.css';
+
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
+import locationIcon from './svg/location.svg';
+ 
 // Create a map, its size is set in the CSS class example-map
-<RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+<RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
     {/* Use an OpenStreetMap background */}
     <ROSM />
     {/* Create a single layer for holding vector features */}
@@ -83,7 +92,7 @@ This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlay
         {/* Create a single feature in the vector layer */}
         <RFeature
             {/* Its geometry is a point geometry over the monument */}
-            geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
+            geometry={new Point(fromLonLat([2.295, 48.8737]))}
             {/* Bind an onClick handler */}
             onClick={(e) =>
                 {/* e.map is the underlying OpenLayers map - we call getView().fit()
@@ -108,7 +117,9 @@ This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlay
 
 ### Performance
 
-React is a wonderful framework that makes it very easy to write complex web applications without having to manually handle all the interdependencies between the various components. This is the reason why it is called *React* - components automatically *React* to changes in other components. In the true spirit of *React*, *rlayers* prefers to err on the safe side - always updating when there is a chance that the component needs updating - making it easy on the beginner and hard on the experienced engineer. So when one needs good performance, particular care must be taken that the various properties do not change without a reason. This is especially true when the `pointermove` event is used. In these cases one should avoid using anonymous objects, arrays or functions as properties. 
+React is a wonderful framework that makes it very easy to write complex web applications without having to manually handle all the interdependencies between the various components. This is the reason why it is called *React* - components automatically *React* to changes in other components. In the true spirit of *React*, *rlayers* prefers to err on the safe side - always updating when there is a chance that the component needs updating - making it easy on the beginner who wants simple interface while still allowing the experienced engineer to achieve the performance he needs. 
+
+When high performance is required, particular care must be taken that the component properties do not change without a reason. This is especially true when the `pointermove` event is used. In these cases one should avoid using anonymous objects, arrays or functions as properties. 
 
 Take for example this:
 ```jsx
@@ -153,6 +164,10 @@ An intermediate solution, which does not require extensive server-side investmen
 Pushing the initial tiles is also an option:
 * when combined with a WMS-server it could deliver pixel-perfect maps with on the first HTTP request
 * without a WMS-server it could still avoid doing a large number of HTTP requests on the first load
+
+Currently, server-side rendering of raster layers on fixed map sizes has reached POC status and an online demo is accessible at https://rlayers-ssr.meteo.guru/.
+The code can be found in the `ssr` branch of this project. The `next.js` project can be found at <https://github.com/mmomtchev/rlayers-ssr-demo.git>. *This is still not a user-friendly, install-and-run project.* Take a look at `pages/index.js` if you want see how it is meant to be used.
+
 
 ## API
 

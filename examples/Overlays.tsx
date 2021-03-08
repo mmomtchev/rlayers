@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Point} from 'ol/geom';
