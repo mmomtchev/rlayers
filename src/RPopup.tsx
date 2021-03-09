@@ -4,7 +4,7 @@ import {MapBrowserEvent} from 'ol';
 import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 
-export interface PopupProps extends ROverlayProps {
+export interface RPopupProps extends ROverlayProps {
     /**
      * Trigger action, 'click' or 'hover'
      * @default 'click'
@@ -29,12 +29,12 @@ export interface PopupProps extends ROverlayProps {
  *
  * (ie it must be descendant of a `RFeature`)
  */
-export default class Popup extends ROverlayBase<PopupProps> {
+export default class Popup extends ROverlayBase<RPopupProps> {
     visible: boolean;
     showing: number | undefined;
     hiding: number | undefined;
 
-    constructor(props: Readonly<PopupProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RPopupProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.visible = false;
     }

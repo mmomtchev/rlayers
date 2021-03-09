@@ -63,6 +63,9 @@ import GeoDataJSX from '!!raw-loader!./GeoData.tsx';
 import Draw from './Draw';
 // @ts-ignore
 import DrawJSX from '!!raw-loader!./Draw.tsx';
+import Geolocation from './Geolocation';
+// @ts-ignore
+import GeolocationJSX from '!!raw-loader!./Geolocation.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -89,6 +92,7 @@ const examples = {
     geodata: {title: 'Infographics', comp: GeoData, code: GeoDataJSX},
     interactions: {title: 'Move & Select', comp: Interactions, code: InteractionsJSX},
     draw: {title: 'Draw & Modify', comp: Draw, code: DrawJSX},
+    geolocation: {title: 'Geolocation', comp: Geolocation, code: GeolocationJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}
@@ -124,7 +128,7 @@ const App = (): JSX.Element => {
                             <Route key={e} path={`/${e}`}>
                                 <div className='row'>
                                     <div className='col-12 col-xl-5'>{examples[e].comp()}</div>
-                                    <div className='col-12 col-xl-7'>
+                                    <div className='col-12 col-xl-7 codeblock'>
                                         <React.Suspense fallback={<div>Parsing code...</div>}>
                                             <CodeBlock code={examples[e].code} />
                                         </React.Suspense>
