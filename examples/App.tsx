@@ -91,7 +91,7 @@ const examples = {
 };
 
 // These two bring in huge bundles and are lazy-loaded
-const README = React.lazy(() => import('./README'));
+const ReadmeBlock = React.lazy(() => import('./ReadmeBlock'));
 const CodeBlock = React.lazy(() => import('./CodeBlock'));
 
 const App = (): JSX.Element => {
@@ -112,7 +112,7 @@ const App = (): JSX.Element => {
                         <Route exact path='/'>
                             <div className='ml-2'>
                                 <React.Suspense fallback={<div>Loading...</div>}>
-                                    <README />
+                                    <ReadmeBlock />
                                 </React.Suspense>
                             </div>
                         </Route>

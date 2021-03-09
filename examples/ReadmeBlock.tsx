@@ -5,8 +5,8 @@ import ReactMarkdown from 'react-markdown';
 import READMEmd from '!!raw-loader!../README.md';
 
 // This is expensive to render
-const README = React.memo(function _README() {
+const ReadmeBlock = React.memo(function _README() {
     return <ReactMarkdown>{READMEmd}</ReactMarkdown>;
 });
 
-export default README;
+export default ReadmeBlock;
