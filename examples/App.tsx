@@ -60,6 +60,9 @@ import AnimationJSX from '!!raw-loader!./AnimatedOverlay.tsx';
 import GeoData from './GeoData';
 // @ts-ignore
 import GeoDataJSX from '!!raw-loader!./GeoData.tsx';
+import Draw from './Draw';
+// @ts-ignore
+import DrawJSX from '!!raw-loader!./Draw.tsx';
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
@@ -84,14 +87,15 @@ const examples = {
     pindrop: {title: 'Drop a pin', comp: PinDrop, code: PinDropJSX},
     spinner: {title: 'Spinner', comp: Spinner, code: SpinnerJSX},
     geodata: {title: 'Infographics', comp: GeoData, code: GeoDataJSX},
-    interactions: {title: 'Interactions', comp: Interactions, code: InteractionsJSX},
+    interactions: {title: 'Move & Select', comp: Interactions, code: InteractionsJSX},
+    draw: {title: 'Draw & Modify', comp: Draw, code: DrawJSX},
     vectortiles: {title: 'Vector tiles', comp: VectorTiles, code: VectorTilesJSX},
     reproj: {title: 'Reprojection', comp: Reprojection, code: ReprojectionJSX},
     igc: {title: 'Performance', comp: IGC, code: IGCJSX}
 };
 
 // These two bring in huge bundles and are lazy-loaded
-const README = React.lazy(() => import('./README'));
+const ReadmeBlock = React.lazy(() => import('./ReadmeBlock'));
 const CodeBlock = React.lazy(() => import('./CodeBlock'));
 
 const App = (): JSX.Element => {
@@ -112,7 +116,7 @@ const App = (): JSX.Element => {
                         <Route exact path='/'>
                             <div className='ml-2'>
                                 <React.Suspense fallback={<div>Loading...</div>}>
-                                    <README />
+                                    <ReadmeBlock />
                                 </React.Suspense>
                             </div>
                         </Route>

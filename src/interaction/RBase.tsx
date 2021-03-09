@@ -21,8 +21,7 @@ export default class RBase<P> extends RlayersBase<P, null> {
     }
 
     createOL(props: P): Interaction {
-        this.classProps = RBase.classProps;
-        return new Interaction({handleEvent: null});
+        throw new Error('RBase should not be directly instantiated');
     }
 
     refresh(prevProps?: P): void {
