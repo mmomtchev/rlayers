@@ -3,6 +3,7 @@ import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import BaseVectorLayer from 'ol/layer/BaseVector';
 import Geometry from 'ol/geom/Geometry';
+import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
 
 import {RContext, RContextType} from './context';
@@ -41,6 +42,8 @@ export interface RFeatureProps {
     onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
     /** Called once when the pointer moves out of the RFeature */
     onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
+    /** Called on every change */
+    onChange?: (e: BaseEvent) => void;
 }
 
 /**

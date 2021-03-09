@@ -54,7 +54,8 @@ describe('<RMap>', () => {
             'PostRender',
             'PreCompose',
             'PostCompose',
-            'RenderComplete'
+            'RenderComplete',
+            'Change'
         ];
         const handler = jest.fn();
         const map = React.createRef() as React.RefObject<RMap>;

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
+import BaseEvent from 'ol/events/Event';
 import {Extent} from 'ol/extent';
 
 import {Coordinate} from 'ol/coordinate';
@@ -54,6 +55,8 @@ export interface RMapProps {
     onPreCompose?: (e: RenderEvent) => boolean | void;
     onPostCompose?: (e: RenderEvent) => boolean | void;
     onRenderComplete?: (e: RenderEvent) => boolean | void;
+    /** Called on every change */
+    onChange?: (e: BaseEvent) => void;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** Extent of the map, cannot be dynamically modified

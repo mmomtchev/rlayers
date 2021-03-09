@@ -11,8 +11,11 @@ import * as common from './common';
 describe('<RFeature>', () => {
     it('should create features', async () => {
         const mapEvents = ['Click', 'PointerDrag', 'PointerMove'];
+        const featureEvents = ['Change'];
         const handler = jest.fn();
-        const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
+        const handlers = mapEvents
+            .concat(featureEvents)
+            .reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
         const map = React.createRef() as React.RefObject<RMap>;
         const ref = [
             React.createRef() as React.RefObject<RFeature>,
@@ -58,8 +61,14 @@ describe('<RFeature>', () => {
                 r.current.ol.dispatchEvent(
                     common.createEvent(evname.toLowerCase(), map.current.ol)
                 );
+        for (const evname of featureEvents)
+            for (const r of ref)
+                r.current.ol.dispatchEvent(
+                    common.createEvent(evname.toLowerCase(), map.current.ol)
+                );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(handler).toHaveBeenCalledTimes(mapEvents.length * 2);
+        // +1 because there is one implicit change at creation
+        expect(handler).toHaveBeenCalledTimes((mapEvents.length + featureEvents.length + 1) * 2);
         unmount();
     });
 
