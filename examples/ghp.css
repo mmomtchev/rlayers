@@ -13,3 +13,7 @@
     min-width: 10em;
     max-width: 10em;
 }
+
+.codeblock>pre {
+    margin-top: 0 !important;
+}
