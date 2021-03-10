@@ -12,7 +12,11 @@ export interface RRotateProps extends RControlProps {
     autoHide?: boolean;
 }
 
-/** A rotation control for mobile devices */
+/**
+ * A rotation control for mobile devices
+ *
+ * Requires an `RMap` context
+ */
 export default class RRotate extends RControlBase<RRotateProps, null> {
     ol: OLRRotate;
 

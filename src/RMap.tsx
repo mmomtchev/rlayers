@@ -9,9 +9,10 @@ import {Coordinate} from 'ol/coordinate';
 import {RContext} from './context';
 import {RlayersBase} from './REvent';
 
-/** Main map component *
+/**
+ * Main map component
  *
- * All other components should be part of a `Map`
+ * All other components, except `RStyle` should be part of an `RMap`
  */
 export interface RMapProps {
     /** The initial center coordinates, reset only on full component reload */

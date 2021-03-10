@@ -13,7 +13,9 @@ import debug from '../debug';
  *
  * Supports loading of features from external sources
  *
- * Provides a `RContext` for JSX-declared `RFeature`s
+ * Requires an `RMap` context
+ *
+ * Provides a vector layer context for JSX-declared `RFeature`s
  */
 export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
     ol: LayerVector;

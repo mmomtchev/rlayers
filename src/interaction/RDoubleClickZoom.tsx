@@ -15,8 +15,7 @@ export interface RDoubleClickZoomProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Zooming by double click
- */
+/** Zooming by double click */
 export default class RDoubleClickZoom extends RBase<RDoubleClickZoomProps> {
     static classProps = ['duration', 'delta'];
     ol: DoubleClickZoom;

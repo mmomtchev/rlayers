@@ -17,8 +17,7 @@ export interface RKeyboardPanProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Pan with the arrow keys on the keyboard
- */
+/** Pan with the arrow keys on the keyboard */
 export default class RKeyboardPan extends RBase<RKeyboardPanProps> {
     static classProps = ['condition', 'duration', 'pixelDelta'];
     ol: KeyboardPan;

@@ -15,7 +15,13 @@ export interface RRegularShapeProps extends RRegularBaseProps {
     angle?: number;
 }
 
-/** A star or a regular polygon */
+/**
+ * A star or a regular polygon
+ *
+ * Requires an `RStyle` context
+ *
+ * Provides an `RStyle` context - for `Fill` or `Stroke`
+ */
 export default class RRegularShape extends RRegularBase<RRegularShapeProps> {
     static classProps = RRegularBase.classProps.concat(['radius1', 'radius2', 'points', 'angle']);
     ol: RegularShape;

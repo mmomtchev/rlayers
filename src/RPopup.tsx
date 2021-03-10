@@ -25,7 +25,7 @@ export interface RPopupProps extends ROverlayProps {
  *
  * `Popup` extends `Overlay` and implements an automatic popup
  *
- *  * Requires a location context `RContext`
+ * Requires a location context
  *
  * (ie it must be descendant of a `RFeature`)
  */

@@ -19,8 +19,7 @@ export interface RDragPanProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Panning by dragging
- */
+/** Panning by dragging */
 export default class RDragPan extends RBase<RDragPanProps> {
     static classProps = ['condition', 'kinetic'];
     ol: DragPan;

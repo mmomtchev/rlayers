@@ -21,8 +21,7 @@ export interface RModifyProps {
     hitDetection?: number;
 }
 
-/** Pointer interaction for modifying existing features
- */
+/** Pointer interaction for modifying existing features */
 export default class RModify extends RPointer<RModifyProps> {
     static classProps = [
         'condition',

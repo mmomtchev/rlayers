@@ -24,7 +24,8 @@ export interface RTranslateProps {
     onTranslating?: (e: TranslateEvent) => void;
 }
 
-/** A feature translation interaction
+/**
+ * A feature translation interaction
  */
 export default class RTranslate extends RPointer<RTranslateProps> {
     static classProps = ['features', 'layers', 'filter', 'hitTolerance'];

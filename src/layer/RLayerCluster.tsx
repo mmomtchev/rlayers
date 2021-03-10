@@ -16,7 +16,9 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
  *
  * Compatible with RLayerVector
  *
- * Provides a `RContext` for JSX-declared RFeatures
+ * Requires an `RMap` context
+ *
+ * Not compatible with a vector layer context for JSX-declared RFeatures
  */
 export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
     ol: LayerVector;

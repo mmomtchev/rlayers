@@ -17,8 +17,7 @@ export interface RKeyboardZoomProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Zoom with +/- keys on the keyboard
- */
+/** Zoom with +/- keys on the keyboard */
 export default class RKeyboardZoom extends RBase<RKeyboardZoomProps> {
     static classProps = ['condition', 'duration', 'delta'];
     ol: KeyboardZoom;

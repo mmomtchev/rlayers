@@ -22,7 +22,7 @@ export interface ROverlayProps {
 /**
  * A basic overlay
  *
- * Requires a location context `RContext`
+ * Requires a location context
  *
  * (ie it must be descendant of a `RFeature`)
  *

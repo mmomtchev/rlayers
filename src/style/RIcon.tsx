@@ -22,7 +22,11 @@ export interface RIconProps extends RImageProps {
     src?: string;
 }
 
-/** An icon */
+/**
+ * An icon
+ *
+ * Requires an `RStyle` context
+ */
 export default class RIcon extends RImage<RIconProps> {
     static classProps = RImage.classProps.concat([
         'anchor',

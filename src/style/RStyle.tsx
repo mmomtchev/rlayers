@@ -34,6 +34,10 @@ export const createRStyle = (): RStyleRef => React.createRef();
  *
  * Or it can also be nested inside a vector layer to be
  * automatically assigned as the default style of that layer
+ *
+ * This is the only component that does not have to be part of an `RMap`
+ *
+ * It provides the special `RStyle` context
  */
 export default class RStyle extends RlayersBase<RStyleProps, null> {
     ol: StyleLike;

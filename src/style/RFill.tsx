@@ -10,7 +10,11 @@ export interface RFillProps extends RBaseProps {
     color?: ColorLike;
 }
 
-/** A component for adding a fill to a Style */
+/**
+ * A component for adding a fill to a style
+ *
+ * Requires an `RStyle` context
+ */
 export default class RFill extends RBase<RFillProps> {
     static classProps = ['color'];
     ol: Fill;

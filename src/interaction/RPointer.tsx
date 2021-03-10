@@ -21,7 +21,9 @@ export interface RPointerProps {
     handleUpEvent?: (e: MapBrowserEvent) => boolean;
 }
 
-/** A basic pointer interaction component
+/**
+ * A basic pointer interaction component
+ *
  * It is meant to be be extended by more specific interactions
  */
 export default class RPointer<P> extends RBase<P> {

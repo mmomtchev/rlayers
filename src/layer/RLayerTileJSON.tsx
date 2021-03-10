@@ -13,7 +13,11 @@ export interface RLayerTileJSONProps extends RLayerRasterProps {
     projection?: never;
 }
 
-/** A layer with data from TileJSON tiles */
+/**
+ * A layer with data from TileJSON tiles
+ *
+ * Requires an `RMap` context
+ */
 export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
     ol: OLRLayerTile;
     source: TileJSON;

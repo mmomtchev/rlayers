@@ -13,8 +13,7 @@ export interface RPinchZoomProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Zoom by pinching
- */
+/** Zoom by pinching */
 export default class RPinchZoom extends RBase<RPinchZoomProps> {
     static classProps = ['duration'];
     ol: PinchZoom;

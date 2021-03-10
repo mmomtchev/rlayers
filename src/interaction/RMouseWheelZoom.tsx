@@ -21,8 +21,7 @@ export interface RMouseWheelZoomProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Mouse wheel zoom
- */
+/** Mouse wheel zoom */
 export default class RMouseWheelZoom extends RBase<RMouseWheelZoomProps> {
     static classProps = ['condition', 'maxDelta', 'duration', 'useAnchor', 'constrainResolution'];
     ol: MouseWheelZoom;
