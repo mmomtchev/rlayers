@@ -15,8 +15,7 @@ export interface RPinchRotateProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Rotation by pinching
- */
+/** Rotation by pinching */
 export default class RPinchRotate extends RBase<RPinchRotateProps> {
     static classProps = ['threshold', 'duration'];
     ol: PinchRotate;

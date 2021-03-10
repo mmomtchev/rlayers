@@ -9,10 +9,6 @@ import {Coordinate} from 'ol/coordinate';
 import {RContext} from './context';
 import {RlayersBase} from './REvent';
 
-/** Main map component *
- *
- * All other components should be part of a `Map`
- */
 export interface RMapProps {
     /** The initial center coordinates, reset only on full component reload */
     center: Coordinate;
@@ -73,6 +69,11 @@ export interface RMapProps {
     maxZoom?: number;
 }
 
+/**
+ * Main map component
+ *
+ * All other components, except `RStyle` should be part of an `RMap`
+ */
 export default class RMap extends RlayersBase<RMapProps, null> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;

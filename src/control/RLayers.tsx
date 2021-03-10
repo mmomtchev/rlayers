@@ -15,8 +15,12 @@ export interface LayersState {
 }
 
 /** A custom control allowing to switch between different layers
+ *
  * Layers that are to be controlled have to be nested inside the control
+ *
  * Every layer should have a `label` property
+ *
+ * Requires an `RMap` context
  */
 export default class RLayers extends RControlBase<LayersProps, LayersState> {
     ol: Control;

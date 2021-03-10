@@ -9,17 +9,18 @@ import locationIcon from './svg/location.svg';
 export default function Geolocation(): JSX.Element {
     const [pos, setPos] = React.useState(new Point(fromLonLat([0, 0])));
     const [accuracy, setAccuracy] = React.useState(null as Geometry);
-    const mapRef = React.useRef() as React.RefObject<RMap>;
     return (
-        <RMap ref={mapRef} className='example-map' center={fromLonLat([0, 0])} zoom={4}>
+        <RMap className='example-map' center={fromLonLat([0, 0])} zoom={4}>
             <ROSM />
             <RGeolocation
                 tracking={true}
                 trackingOptions={{enableHighAccuracy: true}}
-                onChange={React.useCallback((e) => {
+                onChange={React.useCallback(function (e) {
+                    // Note the use of function instead of an arrow lambda
+                    // which does not have this
                     setPos(new Point(e.target.getPosition()));
                     setAccuracy(e.target.getAccuracyGeometry());
-                    mapRef.current.ol.getView().fit(e.target.getAccuracyGeometry(), {
+                    this.context.map.getView().fit(e.target.getAccuracyGeometry(), {
                         duration: 250,
                         maxZoom: 15
                     });

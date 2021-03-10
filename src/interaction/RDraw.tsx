@@ -28,8 +28,7 @@ export interface RDrawProps {
     snapTolerance?: number;
 }
 
-/** Pointer interaction for drawing features
- */
+/** Pointer interaction for drawing features */
 export default class RDraw extends RPointer<RDrawProps> {
     static classProps = [
         'condition',

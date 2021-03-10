@@ -3,8 +3,11 @@ import {Map} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
+import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
 
-import {MapBrowserEvent} from 'rlayers';
+import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
+import {Z_UNKNOWN} from 'node:zlib';
+import React from 'react';
 
 export const mapProps = {
     center: fromLonLat([2.364, 48.82]),
@@ -61,4 +64,28 @@ export function safeStringify(value: unknown): string {
         }
         return v;
     });
+}
+
+export function expectToCallListener(fn: Listener, mock: ListenerFunction): void {
+    if ((fn as ListenerObject).handleEvent) expectToCall((fn as ListenerObject).handleEvent, mock);
+    else expectToCall(fn as ListenerFunction, mock);
+}
+
+export function expectToCall(fn: (unknown) => unknown, mock: (unknown) => unknown): void {
+    const s = Symbol();
+    fn(s);
+    expect(mock).toHaveBeenLastCalledWith(s);
+}
+
+export type Klass = new (...args: unknown[]) => unknown;
+
+export function handlerCheckContext(
+    type: Klass,
+    cEl: string[],
+    cRef: React.RefObject<RlayersBase<unknown, unknown>>[]
+) {
+    return function (e: unknown): void {
+        expect(this).toBeInstanceOf(type);
+        for (const i in cEl) expect(this.context[cEl[i]]).toBe(cRef[i].current.ol);
+    };
 }

@@ -25,6 +25,8 @@ export interface RGeolocationProps {
 
 /**
  * A wrapper around the OpenLayers Geolocation helper
+ *
+ * Must have an `RMap` parent
  */
 export default class RGeolocation extends RlayersBase<RGeolocationProps, null> {
     ol: Geolocation;

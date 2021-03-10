@@ -46,6 +46,11 @@ export interface RFeatureProps {
     onChange?: (e: BaseEvent) => void;
 }
 
+type FeatureRef = {
+    feature: Feature;
+    layer: BaseVectorLayer;
+};
+
 /**
  * Component for a single vector feature
  *
@@ -63,12 +68,6 @@ export interface RFeatureProps {
  * [Example for implicit RFeatures](https://mmomtchev.github.io/rlayers/#/RFeatures)
  *
  */
-
-type FeatureRef = {
-    feature: Feature;
-    layer: BaseVectorLayer;
-};
-
 export default class RFeature extends RlayersBase<RFeatureProps, null> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static lastFeaturesEntered: FeatureRef[] = [];

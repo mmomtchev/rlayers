@@ -42,13 +42,28 @@ In order to avoid confusion between the *OpenLayers* classes and the *rlayers* c
 
 The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - an `<RLayer>` must be part of a map, an `<RFeature>` must be part of an `<RLayerVector>`, an `<RControl>` must also be part of a map. Nesting works by using *React* Contexts. Every nested element uses the context of its nearest parent.
 
-Currently a context can contain the following elements:
-* `RContext.map` provided by a map, every other element must have a MapContext
+Currently a context has an `RContextType` and can contain the following elements:
+* `RContext.map` provided by a map, every other element, except an `RStyle` must have a map parent
+* `RContext.layer` and `RContext.source` provided by all layers - not required for anything at the moment, but can be used to access the underlying *OpenLayers* objects
 * `RContext.vectorlayer` and `RContext.vectorsource` provided by vector layers only - required for `<RFeature>`
 * `RContext.location` and `RContext.feature` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
 * `RContext.style` provided by a style definition - the only one which can be outside of a map
 
-The context objects can be accessed by using  `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/rlayers/#/controls) contains an example for using the *OpenLayers* `map` from `RContext`. Accessing elements outside their contexts is possible by using `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/rlayers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component.
+#### Accessing the underlying *OpenLayers* objects and API
+
+The underlying *OpenLayers* objects can be accessed in a number of different ways:
+* Through the context objects by using `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/rlayers/#/controls) contains an example for using the *OpenLayers* `map` from `RContext`
+* In an event handler, when it is a normal function and not an arrow lambda, `this` will contain the *rlayers* component and `this.context` will contain the context - [the geolocation example](https://mmomtchev.github.io/rlayers/#/geolocation) accesses `this.context.map` to adjust the view
+* In all event handlers, *OpenLayers* will pass the target object in `event.target` and the map in `event.map` - [the popups example](https://mmomtchev.github.io/rlayers/#/popups) uses this method
+* And finally, accessing arbitrary elements, even outside their contexts, is possible by using React references - `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/rlayers/#/igc) contains an example of this. The underlying *OpenLayers* objects can be accessed through the `ol` property of every component. Additionaly, for `layer` objects, the underlying *OpenLayers* source can be accessed through `source`:
+    ```ts
+    const layerRef = React.createRef() as React.RefObject<RLayerVector>;
+    ```
+    Then after rendering:
+    ```jsx
+    <RLayerVector ref={layerRef} />
+    ```
+    `layerRef.current.ol` will contain the *OpenLayers* layer and `layerRef.current.source` will contain the source. This is the only way of accessing the object outside its context.
 
 ### Styles
 
@@ -58,7 +73,7 @@ Style definitions can be placed anywhere inside the DOM and can be referenced wi
 
 A style placed inside a vector layer will be automatically applied to that vector layer.
 
-A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. A simple caching mechanism is also provided, based on a user-supplied hash function. It can greatly improve performance when the majority of the features use a small number of different styles.
+A style can either be static or dynamic. A static style depends only on its properties. A dynamic style is a function that takes an *OpenLayers* `Feature` object as its input and returns a `Style`. A dynamic style creates a new object for every rendered feature, so this must be taken into account. A simple caching mechanism is also provided, based on a user-supplied hash function. It can greatly improve performance when the majority of the features use relatively few different styles.
 
 You can refer to
 * <https://mmomtchev.github.io/rlayers/#/features> for a basic example with static styles;
@@ -132,7 +147,7 @@ Take for example this:
 ```
 This is a feature that will be re-evaluated at every frame. Its geometry appears to be a constant, but it is in fact an anonymous object that is created at every frame - even if it always holds the same value. Passing a constant is one way around this, but the true *React way* is using the two tools *React* provides: `React.useMemo` and `React.useCallback`. They memoize the value and take care to always return a reference to the same object unless one of the listed dependencies is modified.
 
-This is a much better peforming code that won't rerender the feature component:
+This is a much better performing code that won't rerender the feature component:
 ```jsx
 <RFeature
     geometry={React.useMemo(new Point(fromLonLat([2.295, 48.858]), [/* no deps */])}

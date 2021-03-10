@@ -17,7 +17,7 @@ describe('<RGeolocation>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RGeolocation);
-        expect(ref.current.ol.getListeners('change')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('change')[0], handler);
     });
     it('should throw without a map', async () => {
         const err = console.error;

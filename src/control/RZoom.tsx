@@ -21,7 +21,11 @@ export interface RZoomProps extends RControlProps {
     delta?: number;
 }
 
-/** Zoom control */
+/**
+ * Zoom control
+ *
+ * Requires an `RMap` context
+ */
 export default class RZoom extends RControlBase<RZoomProps, null> {
     ol: Zoom;
 

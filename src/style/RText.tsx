@@ -27,7 +27,13 @@ export interface RTextProps extends RBaseProps {
     padding?: number[];
 }
 
-/** Text element of a style */
+/**
+ * Text element of a style
+ *
+ * Requires an `RStyle` context
+ *
+ * Provides an `RStyle` context - for `Fill` or `Stroke`
+ */
 export default class RText extends RBase<RTextProps> {
     static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     ol: Text;

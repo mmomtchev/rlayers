@@ -1,11 +1,11 @@
 {
   "name": "rlayers",
-  "version": "0.99.6",
+  "version": "0.99.7",
   "description": "React Components for OpenLayers",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "npm run build:lib && npm run build:examples && npm run build:doc",
+    "build": "rm -rf dist && npm run build:lib && npm run build:examples && npm run build:doc",
     "build:lib": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
     "build:examples": "webpack --mode=production --env production",

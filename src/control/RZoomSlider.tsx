@@ -11,7 +11,11 @@ export interface RZoomSliderProps extends RControlProps {
     duration?: number;
 }
 
-/** ZoomSlider control */
+/**
+ * ZoomSlider control
+ *
+ * Requires an `RMap` context
+ */
 export default class RZoomSlider extends RControlBase<RZoomSliderProps, null> {
     ol: ZoomSlider;
 

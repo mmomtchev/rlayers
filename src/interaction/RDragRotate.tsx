@@ -15,8 +15,7 @@ export interface RDragRotateProps {
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Rotation by clicking and dragging
- */
+/** Rotation by clicking and dragging */
 export default class RDragRotate extends RBase<RDragRotateProps> {
     static classProps = ['condition', 'duration'];
     ol: DragRotate;

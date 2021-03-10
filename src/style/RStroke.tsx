@@ -20,7 +20,11 @@ export interface RStrokeProps extends RBaseProps {
     lineJoin?: CanvasLineJoin;
 }
 
-/** A component for setting the stroke properties of a style */
+/**
+ * A component for setting the stroke properties of a style
+ *
+ * Requires an `RStyle` context
+ */
 export default class RStroke extends RBase<RStrokeProps> {
     static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     ol: Stroke;

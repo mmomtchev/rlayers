@@ -17,8 +17,8 @@ describe('<RDragBox>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        expect(ref.current.ol.getListeners('boxend')[0]).toBe(handler);
-        expect(ref.current.ol.getListeners('boxstart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
         unmount();
     });
     it('should throw an error without a Map', () => {
@@ -36,7 +36,7 @@ describe('<RDragBox>', () => {
             </RMap>
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        expect(ref.current.ol.getListeners('boxend')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
         expect(ref.current.ol.getListeners('boxstart')).toBeUndefined();
         const first = ref.current.ol;
         rerender(
@@ -46,7 +46,7 @@ describe('<RDragBox>', () => {
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
         expect(ref.current.ol.getListeners('boxend')).toBeUndefined();
-        expect(ref.current.ol.getListeners('boxstart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
         expect(ref.current.ol !== first).toBeTruthy();
     });
 });
@@ -68,8 +68,8 @@ describe('<RTranslate>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RTranslate);
         expect(ref.current.ol.getHitTolerance()).toBe(5);
-        expect(ref.current.ol.getListeners('translateend')[0]).toBe(handler);
-        expect(ref.current.ol.getListeners('translatestart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('translateend')[0], handler);
+        common.expectToCallListener(ref.current.ol.getListeners('translatestart')[0], handler);
         unmount();
     });
 });
