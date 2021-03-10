@@ -1,1 +1,0 @@
-(self.webpackChunkrlayers=self.webpackChunkrlayers||[]).push([[454],{9454:(e,r,s)=>{"use strict";s.r(r),s.d(r,{default:()=>f});var t=s(7294),a=s(3945),n=s.n(a),l=s(9070),u=s.n(l),c=s(3961),p=s(9661);const f=t.memo((function(e){return t.createElement(c.Z,{language:"tsx",style:p.Z},n().format(e.code,{parser:"typescript",plugins:[u()]}))}))}}]);
