@@ -27,7 +27,8 @@ export type RStyleLike = RStyleRef | RStyle | StyleLike;
 export const useRStyle = (): RStyleRef => React.useRef();
 export const createRStyle = (): RStyleRef => React.createRef();
 
-/** A style, all other style components must be descendants of `RStyle`
+/**
+ * A style, all other style components must be descendants of `RStyle`
  *
  * It can be used with a React reference - `RStyleRef` which is a shortcut for
  * `React.RefObject<RStyle>` and a subtype of `RStyleLike`
