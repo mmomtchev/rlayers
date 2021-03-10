@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && npm run build:lib && npm run build:examples && npm run build:doc",
+    "build": "rm -rf dist && rm -rf docs && npm run build:lib && npm run build:examples && npm run build:doc",
     "build:lib": "tsc && npm run build:css",
     "build:css": "cd src && find . -name *.css -print | xargs -n1 -I{} cp {} ../dist/{}",
     "build:examples": "webpack --mode=production --env production",
