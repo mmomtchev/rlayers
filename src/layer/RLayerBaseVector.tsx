@@ -87,7 +87,9 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     eventRelay = (e: MapBrowserEvent): boolean => {
         if (this.props['on' + RLayerBaseVector.relayedEvents[e.type]])
-            return this.props['on' + RLayerBaseVector.relayedEvents[e.type]](e) !== false;
+            return (
+                this.props['on' + RLayerBaseVector.relayedEvents[e.type]].call(this, e) !== false
+            );
         return true;
     };
 
@@ -112,6 +114,8 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
                 value={
                     {
                         ...this.context,
+                        layer: this.ol,
+                        source: this.source,
                         vectorlayer: this.ol,
                         vectorsource: this.source
                     } as RContextType

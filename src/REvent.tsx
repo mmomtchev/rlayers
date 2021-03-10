@@ -9,8 +9,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     ol: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     eventSources: any[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    handlers: Record<string, (e: any) => boolean | void>;
+    handlers: Record<string, (e: unknown) => boolean | void>;
 
     olEventName(ev: string): string {
         return ev.substring(2).toLowerCase();
@@ -24,21 +23,15 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         );
         for (const p of eventsToCheck) {
             if (this.handlers === undefined) this.handlers = {};
-            if (this.handlers[p] !== undefined && this.handlers[p] !== this.props[p]) {
-                debug(
-                    'removing previously installed handler',
-                    this,
-                    p,
-                    this.handlers[p],
-                    this.props[p]
-                );
+            if (this.handlers[p] !== undefined && this.props[p] === undefined) {
+                debug('removing previously installed handler', this, p, this.handlers[p]);
                 for (const source of eventSources) source.un(this.olEventName(p), this.handlers[p]);
                 this.handlers[p] = undefined;
             }
-            if (this.handlers[p] === undefined) {
+            if (this.handlers[p] === undefined && this.props[p] !== undefined) {
                 debug('installing handler', this, p, this.props[p]);
-                for (const source of eventSources) source.on(this.olEventName(p), this.props[p]);
-                this.handlers[p] = this.props[p];
+                this.handlers[p] = (e: unknown) => this.props[p].call(this, e);
+                for (const source of eventSources) source.on(this.olEventName(p), this.handlers[p]);
             }
         }
     }

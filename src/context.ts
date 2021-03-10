@@ -1,5 +1,7 @@
 import React from 'react';
 import {Map as Map} from 'ol';
+import Layer from 'ol/layer/Layer';
+import Source from 'ol/source/Source';
 import BaseVector from 'ol/layer/BaseVector';
 import SourceVector from 'ol/source/Vector';
 import {Feature} from 'ol';
@@ -14,6 +16,9 @@ export const RContext = React.createContext(null as RContextType);
 export interface RContextType {
     /** The current map */
     map?: Map;
+    /** The current layer */
+    layer?: Layer;
+    source?: Source;
     /** The current vector layer */
     vectorlayer?: BaseVector;
     vectorsource?: SourceVector;

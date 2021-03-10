@@ -57,8 +57,8 @@ describe('<RMap>', () => {
             'RenderComplete',
             'Change'
         ];
-        const handler = jest.fn();
         const map = React.createRef() as React.RefObject<RMap>;
+        const handler = jest.fn(common.handlerCheckContext(RMap, [], []));
         const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
         expect(
             render(

@@ -112,7 +112,10 @@ describe('<RFeature>', () => {
             React.createRef() as React.RefObject<RFeature>
         ];
         const mapEvents = ['Click', 'SingleClick', 'DblClick', 'PointerDrag', 'PointerMove'];
-        const handlers = [jest.fn(), jest.fn()];
+        const handlers = [
+            jest.fn(common.handlerCheckContext(RFeature, ['map'], [map])),
+            jest.fn(common.handlerCheckContext(RFeature, ['map'], [map]))
+        ];
         const handlerProps = [
             mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[0]}), {}),
             mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[1]}), {})
@@ -152,7 +155,13 @@ describe('<RFeature>', () => {
         const map = React.createRef() as React.RefObject<RMap>;
         const ref = [0, 1, 2].map(() => React.createRef() as React.RefObject<RFeature>);
         const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];
-        const handlerProps = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: jest.fn()}), {});
+        const handlerProps = mapEvents.reduce(
+            (ac, a) => ({
+                ...ac,
+                ['on' + a]: jest.fn(common.handlerCheckContext(RFeature, ['map'], [map]))
+            }),
+            {}
+        );
         const {container} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector>
