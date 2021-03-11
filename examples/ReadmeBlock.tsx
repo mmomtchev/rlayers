@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 // @ts-ignore
-import READMEmd from '!!raw-loader!../README.md';
+import READMEmd from '../README.md';
 
 // This is expensive to render
 const ReadmeBlock = React.memo(function _README() {
-    return <ReactMarkdown>{READMEmd}</ReactMarkdown>;
+    return <div dangerouslySetInnerHTML={{__html: READMEmd}} />;
 });
 
 export default ReadmeBlock;
