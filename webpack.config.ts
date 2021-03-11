@@ -45,6 +45,10 @@ const webpackConfig = (env): Configuration => ({
             {
                 test: /\.svg$/,
                 loader: 'svg-url-loader'
+            },
+            {
+                test: /\.md$/,
+                use: ['html-loader', 'markdown-loader']
             }
         ]
     },
