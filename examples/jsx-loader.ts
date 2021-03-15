@@ -10,9 +10,7 @@ export default function tsx_loader(content: string, map: unknown, meta: unknown)
         parser: 'typescript',
         plugins: [parserTypescript]
     });
-    console.log('content', content);
     const html = Prism.highlight(formatted, Prism.languages.tsx, 'tsx');
-    console.log('out', html);
     this.callback(null, html, map, meta);
     return;
 }
