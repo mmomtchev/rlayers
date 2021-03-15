@@ -1,1 +1,0 @@
-(self.webpackChunkrlayers=self.webpackChunkrlayers||[]).push([[1037],{41037:(r,e,t)=>{"use strict";t.r(e),t.d(e,{default:()=>n});const n="import React from 'react';\r\nimport ReactDOM from 'react-dom';\r\n\r\nimport App from './App';\r\n\r\nReactDOM.render(<App />, document.getElementById('root'));\r\n"}}]);
