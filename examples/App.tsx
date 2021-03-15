@@ -38,7 +38,7 @@ for (const ex of Object.keys(examples)) {
         () => import(/* webpackPrefetch: true */ `./${examples[ex].file}.tsx`)
     );
     examples[ex].code = import(
-        /* webpackPrefetch: true */ `!!html-loader!./jsx-loader.ts!./${examples[ex].file}.tsx`
+        /* webpackPrefetch: true */ `!!html-loader?{"minimize":false}!./jsx-loader.ts!./${examples[ex].file}.tsx`
     ).then((code) => code.default);
 }
 
