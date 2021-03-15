@@ -26,7 +26,7 @@ export interface ROverlayProps {
  *
  * (ie it must be descendant of a `RFeature`)
  *
- * @visibleName Overlay
+ * @visibleName ROverlay
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
     ol: Overlay;
