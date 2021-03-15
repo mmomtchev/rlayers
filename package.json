@@ -45,7 +45,8 @@
     "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
-    "lru-cache": "^6.0.0"
+    "lru-cache": "^6.0.0",
+    "prism-themes": "^1.6.0"
   },
   "peerDependencies": {
     "@types/ol": ">=6.0.0",
@@ -66,6 +67,7 @@
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.25",
     "@types/ol": "^6.4.2",
+    "@types/prismjs": "^1.16.3",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
     "@types/webpack": "^4.41.26",
