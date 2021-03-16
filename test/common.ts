@@ -5,15 +5,13 @@ import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
 
-import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
-import {Z_UNKNOWN} from 'node:zlib';
+import {MapBrowserEvent, RlayersBase} from 'rlayers';
 import React from 'react';
 
 export const mapProps = {
-    center: fromLonLat([2.364, 48.82]),
+    initial: {center: fromLonLat([2.364, 48.82]), zoom: 11},
     width: 100,
-    height: 100,
-    zoom: 11
+    height: 100
 };
 
 export function createEvent(

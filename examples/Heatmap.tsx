@@ -16,7 +16,7 @@ export default function Heatmap(): JSX.Element {
     const [radius, setRadius] = React.useState(8);
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([0, 0])} zoom={1}>
+            <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>
                 <RLayerStamen layer='toner' />
                 <RLayerHeatmap
                     blur={blur}

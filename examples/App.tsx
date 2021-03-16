@@ -11,6 +11,7 @@ const examples = {
     controls: {title: 'Custom controls', file: 'Controls'},
     overlays: {title: 'Simple overlay', file: 'Overlays'},
     extent: {title: 'Constrained view', file: 'Extent'},
+    state: {title: 'External state', file: 'ExternalState'},
     animation: {title: 'Animated icon', file: 'AnimatedOverlay'},
     overview: {title: 'Overview', file: 'Overview'},
     popups: {title: 'Popups', file: 'Popups'},

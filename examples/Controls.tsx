@@ -14,8 +14,7 @@ export default function Controls(): JSX.Element {
         <React.Fragment>
             <RMap
                 className='example-map'
-                center={fromLonLat(origin)}
-                zoom={11}
+                initial={{center: fromLonLat(origin), zoom: 11}}
                 noDefaultControls={true}
                 onClick={useCallback((e: MapBrowserEvent) => {
                     const coords = e.map.getCoordinateFromPixel(e.pixel);

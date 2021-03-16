@@ -30,8 +30,7 @@ export default function GeoData(): JSX.Element {
         <div className='d-flex flex-row'>
             <RMap
                 className='example-map'
-                center={useMemo(() => fromLonLat([2, 46.5]), [])}
-                zoom={5.75}
+                initial={useMemo(() => ({center: fromLonLat([2, 46.5]), zoom: 5.75}), [])}
                 noDefaultControls={true}
                 noDefaultInteractions={true}
             >

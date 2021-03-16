@@ -31,7 +31,7 @@ export default function Cluster(): JSX.Element {
     const earthquakeLayer = React.useRef();
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([0, 0])} zoom={1}>
+            <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>
                 <RLayerStamen layer='toner' />
                 <RLayerCluster
                     ref={earthquakeLayer}

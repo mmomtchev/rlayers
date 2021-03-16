@@ -14,7 +14,7 @@ const coords: Record<string, Coordinate> = {
 
 export default function Overlays(): JSX.Element {
     return (
-        <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+        <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
             <ROSM />
             <RLayerVector zIndex={10}>
                 <RStyle.RStyle>

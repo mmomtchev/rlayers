@@ -22,7 +22,7 @@ export default function Interactions(): JSX.Element {
     const [selected, setSelected] = React.useState(false);
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
                 <ROSM />
 
                 <RLayerVector>

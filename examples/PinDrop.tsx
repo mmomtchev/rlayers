@@ -20,7 +20,7 @@ export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat(coords.origin)} zoom={11}>
+            <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
                 <ROSM />
                 <RLayerVector>
                     <RFeature

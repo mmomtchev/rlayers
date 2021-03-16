@@ -103,8 +103,7 @@ export default function IGCComp(): JSX.Element {
             </RStyle>
             <RMap
                 className='example-map'
-                center={origin}
-                zoom={9}
+                initial={{center: origin, zoom: 9}}
                 onPointerMove={useCallback(
                     (e: MapBrowserEvent) => {
                         // This useCallback is very important -> without it

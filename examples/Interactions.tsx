@@ -26,7 +26,7 @@ export default function Interactions(): JSX.Element {
     const [msg, setMsg] = React.useState(
         '<p>Hold shift to select an area or drag and drop the monuments</p>'
     );
-    // The features must be part of the state as they will be subject to change
+    // The features must be part of the state as they will be modified
     const [features] = React.useState(() =>
         Object.keys(coords).map(
             (f) =>
@@ -39,7 +39,7 @@ export default function Interactions(): JSX.Element {
     const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
                 <ROSM />
 
                 <RLayerVector ref={vectorRef}>

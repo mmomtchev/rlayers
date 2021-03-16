@@ -10,7 +10,7 @@ export default function Geolocation(): JSX.Element {
     const [pos, setPos] = React.useState(new Point(fromLonLat([0, 0])));
     const [accuracy, setAccuracy] = React.useState(null as Geometry);
     return (
-        <RMap className='example-map' center={fromLonLat([0, 0])} zoom={4}>
+        <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 4}}>
             <ROSM />
             <RGeolocation
                 tracking={true}

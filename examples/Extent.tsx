@@ -9,7 +9,12 @@ const extent = boundingExtent([fromLonLat([2.25, 48.81]), fromLonLat([2.42, 48.9
 const center = getCenter(extent);
 export default function Extent(): JSX.Element {
     return (
-        <RMap className='example-map' center={center} extent={extent} maxZoom={16} zoom={8}>
+        <RMap
+            className='example-map'
+            initial={{center: center, zoom: 8}}
+            extent={extent}
+            maxZoom={16}
+        >
             <ROSM />
         </RMap>
     );

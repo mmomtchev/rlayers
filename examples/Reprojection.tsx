@@ -18,7 +18,7 @@ register(proj4);
 
 export default function Reprojection(): JSX.Element {
     return (
-        <RMap className='example-map' center={fromLonLat([0, 50])} zoom={5}>
+        <RMap className='example-map' initial={{center: fromLonLat([0, 50]), zoom: 5}}>
             <ROSM />
             <RLayerWMTS
                 zIndex={5}

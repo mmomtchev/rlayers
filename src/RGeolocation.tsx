@@ -7,7 +7,8 @@ import {RlayersBase} from './REvent';
 import {RContextType} from './context';
 
 export interface RGeolocationProps {
-    /** Continous tracking @default false */
+    /** Continuous tracking
+     * @default false */
     tracking?: boolean;
     /** Tracking options (W3C standard) */
     trackingOptions?: {
@@ -15,7 +16,8 @@ export interface RGeolocationProps {
         timeout?: number;
         maximumAge?: number;
     };
-    /** Projection for the returned coordinates @default viewProjection */
+    /** Projection for the returned coordinates
+     * @default viewProjection */
     projection?: string;
     /** Called on every change */
     onChange?: (e: BaseEvent) => void;
