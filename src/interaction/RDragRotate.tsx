@@ -9,7 +9,8 @@ import debug from '../debug';
 export interface RDragRotateProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Animation duration @default 250 */
+    /** Animation duration
+     * @default 250 */
     duration?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;

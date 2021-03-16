@@ -7,15 +7,19 @@ import {default as RBase} from './RBase';
 import debug from '../debug';
 
 export interface RDragZoomProps {
-    /** Optionnal CSS class for styling the box @default ol-dragzoom */
+    /** Optionnal CSS class for styling the box
+     * @default ol-dragzoom */
     className?: string;
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Animation duration @default 200 */
+    /** Animation duration
+     * @default 200 */
     duration?: number;
-    /** Use interaction for zooming out @default false */
+    /** Use interaction for zooming out
+     * @default false */
     out?: boolean;
-    /** Minimum area that can be selected @default 64 */
+    /** Minimum area that can be selected
+     * @default 64 */
     minArea?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;

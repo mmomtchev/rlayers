@@ -7,17 +7,22 @@ import {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
 export interface RModifyProps {
-    /** An optionnal condition for triggering the interaction @default primaryAction */
+    /** An optionnal condition for triggering the interaction
+     * @default primaryAction */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** An optional OpenLayers condition to allow removal of the feature @default (altKeyOnly+singleClick) */
+    /** An optional OpenLayers condition to allow removal of the feature
+     * @default (altKeyOnly+singleClick) */
     deleteCondition?: (e: MapBrowserEvent) => boolean;
-    /** An optional OpenLayers condition to allow adding of a vertex @default true */
+    /** An optional OpenLayers condition to allow adding of a vertex
+     * @default true */
     insertVertexCondition?: (e: MapBrowserEvent) => boolean;
     /** Style for rendering the features */
     style?: RStyleLike;
-    /** Snap tolerance in pixels @default 10 */
+    /** Snap tolerance in pixels
+     * @default 10 */
     pixelTolerance?: number;
-    /** True hit detection based on feature shape @default false */
+    /** True hit detection based on feature shape
+     * @default false */
     hitDetection?: number;
 }
 

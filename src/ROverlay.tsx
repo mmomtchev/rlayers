@@ -9,13 +9,15 @@ export interface ROverlayProps {
     content?: string | HTMLElement | React.ElementType;
     /** CSS class */
     className?: string;
-    /** Automatically pan the map when the element is rendered @default false */
+    /** Automatically pan the map when the element is rendered
+     * @default false */
     autoPan?: boolean;
     /** Pan animation */
     autoPanAnimation?: {
         duration: number;
     };
-    /** Automatically position the overlay so that it fits in the viewport @default false */
+    /** Automatically position the overlay so that it fits in the viewport
+     * @default false */
     autoPosition?: boolean;
 }
 

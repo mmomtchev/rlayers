@@ -7,7 +7,8 @@ import {default as RBase} from './RBase';
 import debug from '../debug';
 
 export interface RPinchZoomProps {
-    /** Animation duration @default 400 */
+    /** Animation duration
+     * @default 400 */
     duration?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;

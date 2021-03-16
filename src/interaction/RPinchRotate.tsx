@@ -7,9 +7,11 @@ import {default as RBase} from './RBase';
 import debug from '../debug';
 
 export interface RPinchRotateProps {
-    /** Minimum angle in radians for rotation @default 0.3 */
+    /** Minimum angle in radians for rotation
+     * @default 0.3 */
     threshold?: number;
-    /** Animation duration @default 250 */
+    /** Animation duration
+     * @default 250 */
     duration?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;

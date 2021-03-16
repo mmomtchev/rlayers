@@ -9,9 +9,11 @@ import debug from '../debug';
 export interface RKeyboardPanProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Animation duration @default 100 */
+    /** Animation duration
+     * @default 100 */
     duration?: number;
-    /** Pan delta @default 128 */
+    /** Pan delta
+     * @default 128 */
     pixelDelta?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;

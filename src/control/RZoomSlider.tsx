@@ -7,7 +7,8 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 export interface RZoomSliderProps extends RControlProps {
-    /** Animation duration @default 200 */
+    /** Animation duration
+     * @default 200 */
     duration?: number;
 }
 

@@ -10,21 +10,26 @@ import debug from '../debug';
 export interface RDrawProps {
     /** Type of the geometry */
     type: GeometryType;
-    /** An optionnal condition for triggering the interaction @default noModifierKeys */
+    /** An optionnal condition for triggering the interaction
+     * @default noModifierKeys */
     condition?: (e: MapBrowserEvent) => boolean;
     /** An optional OpenLayers condition to allow the interaction to finish */
     finishCondition?: (e: MapBrowserEvent) => boolean;
-    /** An optional OpenLayers condition to activate freehand drawing @default shiftKeyOnly */
+    /** An optional OpenLayers condition to activate freehand drawing
+     * @default shiftKeyOnly */
     freehandCondition?: (e: MapBrowserEvent) => boolean;
     /** Style for rendering the features */
     style?: RStyleLike;
     /** Do not trigger pointer events while the interaction is active */
     stopClick?: boolean;
-    /** Maximum number of points allowed per feature @default Infinity */
+    /** Maximum number of points allowed per feature
+     * @default Infinity */
     maxPoints?: number;
-    /** Minimum number of points allowed per feature @default 2-3 */
+    /** Minimum number of points allowed per feature
+     * @default 2-3 */
     minPoints?: number;
-    /** Snap tolerance in pixels @default 12 */
+    /** Snap tolerance in pixels
+     * @default 12 */
     snapTolerance?: number;
 }
 
