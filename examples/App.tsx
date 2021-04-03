@@ -30,7 +30,6 @@ const examples = {
     igc: {title: 'Performance', file: 'IGC'}
 };
 
-// These two bring in huge bundles and are lazy-loaded
 const ReadmeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './ReadmeBlock'));
 const CodeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './CodeBlock'));
 
