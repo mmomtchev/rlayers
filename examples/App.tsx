@@ -30,6 +30,9 @@ const examples = {
     igc: {title: 'Performance', file: 'IGC'}
 };
 
+// The examples use a code-loading technique that I have described in
+// https://mmomtchev.medium.com/making-examples-displaying-code-along-its-output-with-webpack-a28dcf5439c6
+
 const ReadmeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './ReadmeBlock'));
 const CodeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './CodeBlock'));
 
