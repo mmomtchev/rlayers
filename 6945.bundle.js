@@ -1,0 +1,1 @@
+(self.webpackChunkrlayers=self.webpackChunkrlayers||[]).push([[6945],{6945:(e,t,r)=>{"use strict";r.r(t),r.d(t,{default:()=>i});var n=r(7294),l=r(8672),a=(r(2031),r(3025));const c=(0,l.mi)([2.364,48.82]);function i(){return n.createElement(a.rO,{width:"100%",height:"60vh",initial:{center:c,zoom:11}},n.createElement(a.H3,null))}}}]);

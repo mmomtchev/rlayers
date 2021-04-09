@@ -1,5 +1,0 @@
-webpack.config.ts
-jest.config.js
-styleguide.config.js
-examples/geojson-vt-server
-*.mjs

@@ -1,1 +1,0 @@
-(self.webpackChunkrlayers=self.webpackChunkrlayers||[]).push([[6945],{6945:(e,r,t)=>{"use strict";t.r(r),t.d(r,{default:()=>s});var n=t(7294),l=t(8672),a=(t(2031),t(3025));const c=(0,l.mi)([2.364,48.82]);function s(){return n.createElement(a.rO,{width:"100%",height:"60vh",center:c,zoom:11},n.createElement(a.H3,null))}}}]);
