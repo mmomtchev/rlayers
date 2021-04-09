@@ -1,6 +1,7 @@
 # rlayers - React Components for OpenLayers 6+
 
-[![License: LGPL v3](https://img.shields.io/github/license/mmomtchev/rlayers)](https://github.com/mmomtchev/rlayers/blob/master/LICENSE)
+[![License: ISC](https://img.shields.io/github/license/mmomtchev/rlayers)](https://github.com/mmomtchev/rlayers/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/rlayers)](https://www.npmjs.com/package/rlayers)
 [![Node.js CI](https://github.com/mmomtchev/rlayers/workflows/Node.js%20CI/badge.svg)](https://github.com/mmomtchev/rlayers/actions?query=workflow%3A%22Node.js+CI%22)
 [![codecov](https://codecov.io/gh/mmomtchev/rlayers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/rlayers)
 
