@@ -1,5 +1,6 @@
 import React from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
+import {boundingExtent} from 'ol/extent';
 import {DragBoxEvent} from 'ol/interaction/DragBox';
 import {Point} from 'ol/geom';
 import {Feature} from 'ol';
@@ -9,7 +10,6 @@ import 'ol/ol.css';
 
 import monument from './svg/monument.svg';
 import {RMap, ROSM, RInteraction, RLayerVector, RStyle, RFeature} from 'rlayers';
-import {boundingExtent} from 'ol/extent';
 
 export const coords: Record<string, Coordinate> = {
     'Arc de Triomphe': [2.295, 48.8737],
@@ -26,6 +26,7 @@ export default function Interactions(): JSX.Element {
     const [msg, setMsg] = React.useState(
         '<p>Hold shift to select an area or drag and drop the monuments</p>'
     );
+    // The features must be part of the state as they will be modified
     const [features] = React.useState(() =>
         Object.keys(coords).map(
             (f) =>
@@ -38,7 +39,7 @@ export default function Interactions(): JSX.Element {
     const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
                 <ROSM />
 
                 <RLayerVector ref={vectorRef}>

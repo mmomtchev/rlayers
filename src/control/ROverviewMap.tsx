@@ -20,8 +20,12 @@ export interface OverviewProps extends RControlProps {
     height?: number;
 }
 
-/** An overview map component
- * It acts as an RContext provider, allowing to nest layers in it
+/**
+ * An overview map component
+ *
+ * Requires an `RMap` context
+ *
+ * Provides an 'RMap` context - allowing to nest overview layers in it
  */
 export default class ROverviewMap extends RControlBase<OverviewProps, null> {
     ol: OverviewMap;

@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import jsdom, {JSDOM} from 'jsdom';
-//import {XMLHttpRequest} from 'xmlhttprequest';
 import {createCanvas} from 'canvas';
 import {performance} from 'perf_hooks';
 
 URL.createObjectURL = () => null;
 
-const resourceLoader = new jsdom.ResourceLoader();
+/*const resourceLoader = new jsdom.ResourceLoader();
 export const window = new JSDOM('', {resources: resourceLoader}).window;
-export const document = window.document;
+export const document = window.document;*/
 
 console.log('SERVER DOM INIT');
 if (!Object.getOwnPropertyDescriptor(global, 'window'))
@@ -71,5 +70,3 @@ window.requestAnimationFrame = (fn) => {
     return (setTimeout(() => fn(hr), 0) as unknown) as number;
 };
 window.cancelAnimationFrame = (id: number) => clearTimeout(id);
-
-//window.XMLHttpRequest = XMLHttpRequest;

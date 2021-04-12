@@ -49,13 +49,13 @@ module.exports = {
             name: 'Style',
             description: 'Components for creating styles',
             components: 'src/style/R[A-Z]*.tsx',
-            ignore: 'src/style/R@(Base|Image).tsx'
+            ignore: 'src/style/R@(Base|Image|RegularBase).tsx'
         },
         {
             name: 'Interaction',
             description: 'Components for handling interactions',
             components: 'src/interaction/R[A-Z]*.tsx',
-            ignore: 'src/control/R@(Base|Pointer).tsx'
+            ignore: 'src/interaction/R@(Base|Pointer).tsx'
         }
     ],
     resolver: require('react-docgen').resolver.findAllComponentDefinitions,

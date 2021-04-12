@@ -9,16 +9,17 @@ import debug from '../debug';
 export interface RKeyboardZoomProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Animation duration @default 100 */
+    /** Animation duration
+     * @default 100 */
     duration?: number;
-    /** Zoom delta @default 1 */
+    /** Zoom delta
+     * @default 1 */
     delta?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Zoom with +/- keys on the keyboard
- */
+/** Zoom with +/- keys on the keyboard */
 export default class RKeyboardZoom extends RBase<RKeyboardZoomProps> {
     static classProps = ['condition', 'duration', 'delta'];
     ol: KeyboardZoom;

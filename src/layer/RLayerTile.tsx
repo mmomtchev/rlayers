@@ -18,7 +18,11 @@ export interface RLayerTileProps extends RLayerRasterProps {
     tileGrid?: TileGrid;
 }
 
-/** A layer with XYZ raster tiles */
+/**
+ * A layer with XYZ raster tiles
+ *
+ * Requires an `RMap` context
+ */
 export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: LayerTile;
     source: XYZ;

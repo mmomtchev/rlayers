@@ -29,3 +29,4 @@ export * as RStyle from './style';
 export {default as RFeature, RFeatureProps} from './RFeature';
 export {default as ROverlay} from './ROverlay';
 export {default as RPopup} from './RPopup';
+export {default as RGeolocation} from './RGeolocation';

@@ -2,7 +2,8 @@ window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import {RMap, RInteraction} from 'rlayers';
+import GeometryType from 'ol/geom/GeometryType';
+import {RMap, RInteraction, RLayerVector} from 'rlayers';
 import * as common from './common';
 
 describe('<RDragBox>', () => {
@@ -16,8 +17,8 @@ describe('<RDragBox>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        expect(ref.current.ol.getListeners('boxend')[0]).toBe(handler);
-        expect(ref.current.ol.getListeners('boxstart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
         unmount();
     });
     it('should throw an error without a Map', () => {
@@ -35,7 +36,7 @@ describe('<RDragBox>', () => {
             </RMap>
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        expect(ref.current.ol.getListeners('boxend')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
         expect(ref.current.ol.getListeners('boxstart')).toBeUndefined();
         const first = ref.current.ol;
         rerender(
@@ -45,7 +46,7 @@ describe('<RDragBox>', () => {
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
         expect(ref.current.ol.getListeners('boxend')).toBeUndefined();
-        expect(ref.current.ol.getListeners('boxstart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
         expect(ref.current.ol !== first).toBeTruthy();
     });
 });
@@ -67,9 +68,71 @@ describe('<RTranslate>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RTranslate);
         expect(ref.current.ol.getHitTolerance()).toBe(5);
-        expect(ref.current.ol.getListeners('translateend')[0]).toBe(handler);
-        expect(ref.current.ol.getListeners('translatestart')[0]).toBe(handler);
+        common.expectToCallListener(ref.current.ol.getListeners('translateend')[0], handler);
+        common.expectToCallListener(ref.current.ol.getListeners('translatestart')[0], handler);
         unmount();
+    });
+});
+
+describe('<RDraw>', () => {
+    it('should create a Draw interaction', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RDraw>;
+        const handler = jest.fn();
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RDraw
+                        type={'Circle' as GeometryType}
+                        ref={ref}
+                        condition={handler}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RDraw);
+        unmount();
+    });
+    it('should throw without LayerVector', async () => {
+        const err = console.error;
+        console.error = () => undefined;
+        expect(() =>
+            render(
+                <RMap {...common.mapProps}>
+                    <RInteraction.RDraw type={'Circle' as GeometryType} />
+                </RMap>
+            )
+        ).toThrowError('part of');
+        console.error = err;
+    });
+});
+
+describe('<RModify>', () => {
+    it('should create a Modify interaction', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RModify>;
+        const handler = jest.fn();
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RModify ref={ref} condition={handler} />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RModify);
+        unmount();
+    });
+    it('should throw without LayerVector', async () => {
+        const err = console.error;
+        console.error = () => undefined;
+        expect(() =>
+            render(
+                <RMap {...common.mapProps}>
+                    <RInteraction.RModify />
+                </RMap>
+            )
+        ).toThrowError('part of');
+        console.error = err;
     });
 });
 

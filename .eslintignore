@@ -3,4 +3,5 @@ jest.config.js
 styleguide.config.js
 examples/geojson-vt-server
 test/network-test-env.js
+publish-ghpages.js
 *.mjs

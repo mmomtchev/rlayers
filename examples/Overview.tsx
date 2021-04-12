@@ -11,7 +11,7 @@ const origin = [2.364, 48.82];
 
 export default function Overview(): JSX.Element {
     return (
-        <RMap className='example-map' center={fromLonLat(origin)} zoom={11}>
+        <RMap className='example-map' initial={{center: fromLonLat(origin), zoom: 11}}>
             <ROSM />
             <RControl.ROverviewMap className='ol-overviewmap example-overview'>
                 <ROSM />

@@ -9,7 +9,11 @@ import LayerRaster, {RLayerRasterProps} from './RLayerRaster';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ROSMProps extends RLayerRasterProps {}
 
-/** An OpenStreetMap layer */
+/**
+ * An OpenStreetMap layer
+ *
+ * Requires an `RMap` context
+ */
 export default class ROSM extends LayerRaster<ROSMProps> {
     source: OSM;
 

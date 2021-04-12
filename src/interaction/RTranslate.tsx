@@ -8,13 +8,17 @@ import RPointer from './RPointer';
 import debug from '../debug';
 
 export interface RTranslateProps {
-    /** Translatable features @default all */
+    /** Translatable features
+     * @default all */
     features?: Collection<Feature> | Feature;
-    /** Translatable layers, @default all */
+    /** Translatable layers
+     * @default all */
     layers?: BaseLayer[] | ((layer: BaseLayer) => boolean);
-    /** Filter translatable features @default all */
+    /** Filter translatable features
+     * @default all */
     filter?: (Feature: Feature | RenderFeature, layer: BaseLayer) => boolean;
-    /** Hit-detection tolerance in pixels @default 0 */
+    /** Hit-detection tolerance in pixels
+     * @default 0 */
     hitTolerance?: number;
     /** Called when the translation is released */
     onTranslateEnd?: (e: TranslateEvent) => void;
@@ -24,7 +28,8 @@ export interface RTranslateProps {
     onTranslating?: (e: TranslateEvent) => void;
 }
 
-/** A feature translation interaction
+/**
+ * A feature translation interaction
  */
 export default class RTranslate extends RPointer<RTranslateProps> {
     static classProps = ['features', 'layers', 'filter', 'hitTolerance'];

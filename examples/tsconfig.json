@@ -2,15 +2,16 @@
     "compilerOptions": {
         "sourceMap": true,
         "noImplicitAny": false,
-        "module": "commonjs",
-        "target": "es5",
+        "module": "esnext",
+        "target": "es2018",
         "lib": [
             "esnext",
             "dom",
             "dom.iterable"
         ],
-        "outDir": "./build",
-        "removeComments": true,
+        "declaration": true,
+        "declarationMap": true,
+        "removeComments": false,
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
@@ -26,6 +27,6 @@
     },
     "include": [
         ".",
-        "./src"
+        "../src"
     ]
 }

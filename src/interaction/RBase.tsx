@@ -5,7 +5,9 @@ import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
-/** A basic Base interaction component
+/**
+ * A basic Base interaction component
+ *
  * It is meant to be be extended by more specific interactions
  */
 export default class RBase<P> extends RlayersBase<P, null> {
@@ -21,8 +23,7 @@ export default class RBase<P> extends RlayersBase<P, null> {
     }
 
     createOL(props: P): Interaction {
-        this.classProps = RBase.classProps;
-        return new Interaction({handleEvent: null});
+        throw new Error('RBase should not be directly instantiated');
     }
 
     refresh(prevProps?: P): void {

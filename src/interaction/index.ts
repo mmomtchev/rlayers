@@ -1,6 +1,8 @@
 export {default as RPointer} from './RPointer';
 export {default as RDragBox} from './RDragBox';
 export {default as RTranslate} from './RTranslate';
+export {default as RDraw} from './RDraw';
+export {default as RModify} from './RModify';
 export {default as RDoubleClickZoom} from './RDoubleClickZoom';
 export {default as RDragPan} from './RDragPan';
 export {default as RDragRotate} from './RDragRotate';

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
+import BaseEvent from 'ol/events/Event';
 import {Extent} from 'ol/extent';
 
 import {Coordinate} from 'ol/coordinate';
@@ -9,15 +10,17 @@ import {RContext, RContextType} from './context';
 import {RlayersBase} from './REvent';
 import {RSSRProps} from './RSSR';
 
-/** Main map component *
- *
- * All other components should be part of a `Map`
- */
-export interface RMapProps {
-    /** The initial center coordinates, reset only on full component reload */
+/** Center and zoom level */
+export type RView = {
     center: Coordinate;
-    /** The initial zoom level, reset only on full component reload */
     zoom: number;
+};
+
+export interface RMapProps {
+    /** The initial view parameters - {center, zoom}, reset only on full component reload */
+    initial: RView;
+    /** External view state with React semantics */
+    view?: [RView, (view: RView) => void];
     /** CSS class */
     className?: string;
     /** Width when not using CSS */
@@ -55,6 +58,8 @@ export interface RMapProps {
     onPreCompose?: (e: RenderEvent) => boolean | void;
     onPostCompose?: (e: RenderEvent) => boolean | void;
     onRenderComplete?: (e: RenderEvent) => boolean | void;
+    /** Called on every change */
+    onChange?: (e: BaseEvent) => void;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** Extent of the map, cannot be dynamically modified
@@ -80,6 +85,11 @@ interface RMapState {
     placeholder: boolean;
 }
 
+/**
+ * Main map component
+ *
+ * All other components, except `RStyle` should be part of an `RMap`
+ */
 export default class RMap extends RlayersBase<RMapProps, RMapState> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
@@ -94,8 +104,8 @@ export default class RMap extends RlayersBase<RMapProps, RMapState> {
             interactions: props.noDefaultInteractions ? [] : undefined,
             view: new View({
                 projection: props.projection,
-                center: props.center,
-                zoom: props.zoom,
+                center: props.initial.center,
+                zoom: props.initial.zoom,
                 extent: props.extent,
                 minResolution: props.minResolution,
                 maxResolution: props.maxResolution,
@@ -115,6 +125,7 @@ export default class RMap extends RlayersBase<RMapProps, RMapState> {
                 this.setState({placeholder: false});
             });
         }
+        if (this.props.view) this.ol.on('moveend', this.updateView);
     }
 
     componentDidMount(): void {
@@ -122,19 +133,25 @@ export default class RMap extends RlayersBase<RMapProps, RMapState> {
         this.ol.setTarget(this.target.current);
     }
 
+    updateView = (e: MapEvent): void => {
+        const view = this.ol.getView();
+        this.props.view[1]({center: view.getCenter(), zoom: view.getZoom()});
+    };
+
     refresh(prevProps?: RMapProps): void {
         super.refresh(prevProps);
         const view = this.ol.getView();
-        for (const p of ['minResolution', 'maxResolution', 'minZoom', 'maxZoom']) {
+        for (const p of ['minZoom', 'maxZoom']) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);
-            if (
-                this.props[p] !== undefined &&
-                view['set' + m] &&
-                this.props[p] !== view['get' + m]()
-            )
-                view['set' + m](this.props[p]);
+            if (!prevProps || this.props[p] !== prevProps[p]) view['set' + m](this.props[p]);
+        }
+        if (this.props.view) {
+            view.setCenter(this.props.view[0].center);
+            view.setZoom(this.props.view[0].zoom);
         }
         if (this.props.properties) this.ol.setProperties(this.props.properties);
+        if (this.props.view) this.ol.on('moveend', this.updateView);
+        else this.ol.un('moveend', this.updateView);
     }
 
     render(): JSX.Element {

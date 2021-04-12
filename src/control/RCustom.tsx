@@ -5,7 +5,10 @@ import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
 /** A custom control that can contain an HTMLElement
+ *
  * All provided children will be rendered as an OpenLayers control
+ *
+ * Requires an `RMap` context
  *
  * [See this for an example](https://mmomtchev.github.io/rlayers/#/controls)
  */

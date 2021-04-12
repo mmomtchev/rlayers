@@ -10,7 +10,7 @@ export interface RRegularBaseProps extends RImageProps {
     radius?: number;
 }
 
-/** A star or a regular polygon */
+/** Abstract class */
 export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P> {
     static classProps = RImage.classProps.concat(['radius']);
     ol: Image;

@@ -9,14 +9,14 @@ import debug from '../debug';
 export interface RDragRotateProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Animation duration @default 250 */
+    /** Animation duration
+     * @default 250 */
     duration?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Rotation by clicking and dragging
- */
+/** Rotation by clicking and dragging */
 export default class RDragRotate extends RBase<RDragRotateProps> {
     static classProps = ['condition', 'duration'];
     ol: DragRotate;

@@ -54,10 +54,11 @@ describe('<RMap>', () => {
             'PostRender',
             'PreCompose',
             'PostCompose',
-            'RenderComplete'
+            'RenderComplete',
+            'Change'
         ];
-        const handler = jest.fn();
         const map = React.createRef() as React.RefObject<RMap>;
+        const handler = jest.fn(common.handlerCheckContext(RMap, [], []));
         const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
         expect(
             render(
@@ -78,5 +79,28 @@ describe('<RMap>', () => {
         for (const evname of mapEvents)
             map.current.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
         expect(handler).toHaveBeenCalledTimes(mapEvents.length * 2);
+    });
+    it('should support an external view state', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const mockSetView = jest.fn();
+        const {rerender} = render(
+            <RMap {...common.mapProps} ref={map}>
+                <ROSM />
+            </RMap>
+        );
+        rerender(
+            <RMap {...common.mapProps} ref={map} view={[common.mapProps.initial, mockSetView]}>
+                <ROSM />
+            </RMap>
+        );
+        map.current.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
+        expect(mockSetView).toHaveBeenCalledTimes(1);
+        rerender(
+            <RMap {...common.mapProps} ref={map}>
+                <ROSM />
+            </RMap>
+        );
+        map.current.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
+        expect(mockSetView).toHaveBeenCalledTimes(1);
     });
 });

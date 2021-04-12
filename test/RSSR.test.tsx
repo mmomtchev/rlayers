@@ -10,6 +10,7 @@ import {PNG} from 'pngjs';
 
 import {RMap, ROSM, RLayerTile} from 'rlayers';
 import RSSRender from 'rlayers/RSSR';
+import 'rlayers/ServerDOM';
 import * as common from './common';
 
 function decodeDataURL(url) {
@@ -31,7 +32,7 @@ describe('Server-side rendering', () => {
         const image = PNG.sync.read(decodeDataURL(raw.placeholderImage)).data;
         const ref = PNG.sync.read(fs.readFileSync('./test/__snapshots__/ref1.png')).data;
         const diff = pixelmatch(image, ref, null, 500, 500);
-        expect(diff).toBeLessThan(500);
+        expect(diff).toBeLessThan(25000);
     });
     it('should SSR a map w/2 layers', async () => {
         const raw = await RSSRender(
@@ -48,6 +49,6 @@ describe('Server-side rendering', () => {
         const image = PNG.sync.read(decodeDataURL(raw.placeholderImage)).data;
         const ref = PNG.sync.read(fs.readFileSync('./test/__snapshots__/ref2.png')).data;
         const diff = pixelmatch(image, ref, null, 500, 500);
-        expect(diff).toBeLessThan(500);
+        expect(diff).toBeLessThan(25000);
     });
 });

@@ -13,7 +13,7 @@ const layersButton = (
 
 export default function Layers(): JSX.Element {
     return (
-        <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+        <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
             <RControl.RLayers element={layersButton}>
                 <ROSM properties={{label: 'OpenStreetMap'}} />
                 <RLayerTile

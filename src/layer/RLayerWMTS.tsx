@@ -17,7 +17,11 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     onSourceReady?: (opt: Options) => void;
 }
 
-/** A layer for WMTS-compatible raster tile servers */
+/**
+ * A layer for WMTS-compatible raster tile servers
+ *
+ * Requires an `RMap` context
+ */
 export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     ol: OLRLayerTile;
     source: OLSourceWMTS;

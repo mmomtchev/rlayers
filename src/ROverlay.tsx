@@ -9,24 +9,26 @@ export interface ROverlayProps {
     content?: string | HTMLElement | React.ElementType;
     /** CSS class */
     className?: string;
-    /** Automatically pan the map when the element is rendered @default false */
+    /** Automatically pan the map when the element is rendered
+     * @default false */
     autoPan?: boolean;
     /** Pan animation */
     autoPanAnimation?: {
         duration: number;
     };
-    /** Automatically position the overlay so that it fits in the viewport @default false */
+    /** Automatically position the overlay so that it fits in the viewport
+     * @default false */
     autoPosition?: boolean;
 }
 
 /**
  * A basic overlay
  *
- * Requires a location context `RContext`
+ * Requires a location context
  *
  * (ie it must be descendant of a `RFeature`)
  *
- * @visibleName Overlay
+ * @visibleName ROverlay
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
     ol: Overlay;

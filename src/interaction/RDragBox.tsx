@@ -22,9 +22,7 @@ export interface RDragBoxProps {
     onBoxEnd?: (e: DragBoxEvent) => void;
 }
 
-/** A basic pointer interaction component
- * It is meant to be be extended by more specific interactions
- */
+/** A dragbox, can be used for selecting features, see `RDragZoom` for zooming */
 export default class RDragBox extends RPointer<RDragBoxProps> {
     static classProps = ['className', 'condition', 'minArea', 'boxEndCondition'];
     ol: DragBox;

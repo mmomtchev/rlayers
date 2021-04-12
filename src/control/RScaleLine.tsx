@@ -17,7 +17,11 @@ export interface RScaleLineProps extends RControlProps {
     units?: Units;
 }
 
-/** Scaleline control */
+/**
+ * Scaleline control
+ *
+ * Requires an `RMap` context
+ */
 export default class RScaleLine extends RControlBase<RScaleLineProps, null> {
     ol: ScaleLine;
 

@@ -14,6 +14,8 @@ export interface RAttributionProps extends RControlProps {
 
 /**
  * An attributions control (the small **i** in the bottom right corner)
+ *
+ * Requires an `RMap` context
  */
 export default class RAtrribution extends RControlBase<RAttributionProps, null> {
     ol: Attribution;

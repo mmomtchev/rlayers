@@ -9,20 +9,23 @@ import debug from '../debug';
 export interface RMouseWheelZoomProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent) => boolean;
-    /** Zoom speed, @default 1 */
+    /** Zoom speed
+     * @default 1 */
     maxDelta?: number;
-    /** Animation duration in ms @default 250 */
+    /** Animation duration in ms
+     * @default 250 */
     duration?: number;
-    /** Center of zoom is the mouse position @default true */
+    /** Center of zoom is the mouse position
+     * @default true */
     useAnchor?: boolean;
-    /** Allow only integer zoom levels @default false */
+    /** Allow only integer zoom levels
+     * @default false */
     constrainResolution?: boolean;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Mouse wheel zoom
- */
+/** Mouse wheel zoom */
 export default class RMouseWheelZoom extends RBase<RMouseWheelZoomProps> {
     static classProps = ['condition', 'maxDelta', 'duration', 'useAnchor', 'constrainResolution'];
     ol: MouseWheelZoom;

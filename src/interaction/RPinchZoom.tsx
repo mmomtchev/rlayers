@@ -7,14 +7,14 @@ import RBase from './RBase';
 import debug from '../debug';
 
 export interface RPinchZoomProps {
-    /** Animation duration @default 400 */
+    /** Animation duration
+     * @default 400 */
     duration?: number;
     /** Called on every change */
     onChange?: (e: ObjectEvent) => void;
 }
 
-/** Zoom by pinching
- */
+/** Zoom by pinching */
 export default class RPinchZoom extends RBase<RPinchZoomProps> {
     static classProps = ['duration'];
     ol: PinchZoom;

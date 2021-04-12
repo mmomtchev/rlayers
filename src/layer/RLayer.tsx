@@ -4,7 +4,7 @@ import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 import BaseEvent from 'ol/events/Event';
 
-import {RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -74,5 +74,21 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> 
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.context.map.removeLayer(this.ol);
+    }
+
+    render(): JSX.Element {
+        return (
+            <RContext.Provider
+                value={
+                    {
+                        ...this.context,
+                        layer: this.ol,
+                        source: this.source
+                    } as RContextType
+                }
+            >
+                {this.props.children}
+            </RContext.Provider>
+        );
     }
 }

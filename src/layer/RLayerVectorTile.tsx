@@ -35,7 +35,9 @@ export interface RLayerVectorTileProps extends RLayerProps {
  *
  * Only the handlers can be dynamically modified
  *
- * It does not provide a `RContext` for JSX-declared `RFeature`s
+ * Requires an `RMap` context
+ *
+ * It does not provide a vector layer context for JSX-declared `RFeature`s
  * and it is not compatible with RLayerVector
  */
 export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
@@ -65,9 +67,5 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
         if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
-    }
-
-    render(): JSX.Element {
-        return null;
     }
 }

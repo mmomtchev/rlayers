@@ -11,7 +11,11 @@ export interface RLayerStamenProps extends RLayerRasterProps {
     layer?: string;
 }
 
-/** A ready to use interface for Stamen's map service */
+/**
+ * A ready to use interface for Stamen's map service
+ *
+ * Requires an `RMap` context
+ */
 export default class RLayerStamen extends RLayerRaster<RLayerStamenProps> {
     ol: LayerTile;
     source: Stamen;

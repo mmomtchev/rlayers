@@ -8,7 +8,7 @@ export default function Layers(): JSX.Element {
     const [loading, setLoading] = React.useState(0);
     return (
         <React.Fragment>
-            <RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={4}>
+            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 4}}>
                 <RLayerTile
                     onTileLoadStart={() => setLoading(loading + 1)}
                     onTileLoadEnd={() => setLoading(loading - 1)}

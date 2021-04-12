@@ -10,7 +10,7 @@ const webpackConfig = (env): Configuration => ({
     ...(env.production || !env.development ? {} : {devtool: 'eval-source-map'}),
     resolve: {
         alias: {
-            'rlayers': path.resolve(__dirname, 'src')
+            rlayers: path.resolve(__dirname, 'src')
         },
         extensions: ['.ts', '.tsx', '.js'],
         //TODO waiting on https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/61
@@ -21,13 +21,16 @@ const webpackConfig = (env): Configuration => ({
         path: path.join(__dirname, '/docs'),
         filename: 'bundle.js'
     },
+    // https://github.com/TypeStrong/ts-loader/issues/751
+    ignoreWarnings: [{message: /export .* was not found in/}],
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 options: {
-                    transpileOnly: true
+                    transpileOnly: true,
+                    configFile: 'examples/tsconfig.json'
                 },
                 exclude: /dist/
             },
@@ -42,6 +45,10 @@ const webpackConfig = (env): Configuration => ({
             {
                 test: /\.svg$/,
                 loader: 'svg-url-loader'
+            },
+            {
+                test: /\.md$/,
+                use: ['html-loader', 'markdown-loader']
             }
         ]
     },

@@ -44,7 +44,7 @@ describe('<RLayerVector>', () => {
     it('should attach event handlers to features added after creation', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
         const ref = React.createRef() as React.RefObject<RLayerVector>;
-        const handler = jest.fn();
+        const handler = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
         const {container, unmount} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector ref={ref} zIndex={10} onClick={handler} />

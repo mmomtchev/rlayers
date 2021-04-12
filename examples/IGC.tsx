@@ -76,7 +76,6 @@ export default function IGCComp(): JSX.Element {
     // createRef insted of useRef here will severely impact performance
     const igcVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
     const highlightVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
-    const map = React.useRef() as React.RefObject<RMap>;
 
     return (
         <React.Fragment>
@@ -104,9 +103,7 @@ export default function IGCComp(): JSX.Element {
             </RStyle>
             <RMap
                 className='example-map'
-                center={origin}
-                zoom={9}
-                ref={map}
+                initial={{center: origin, zoom: 9}}
                 onPointerMove={useCallback(
                     (e: MapBrowserEvent) => {
                         // This useCallback is very important -> without it
@@ -218,7 +215,9 @@ export default function IGCComp(): JSX.Element {
                         onChange={useCallback(
                             // This useCallback transforms this function to a constant value
                             // None of its dependencies change after initialization
-                            (e: InputFormEventType) => {
+                            // A normal function instead of an arrow lambda allows to access
+                            // the context in this
+                            function (e: InputFormEventType) {
                                 const value = parseInt(e.currentTarget.value);
                                 setSlider(value);
                                 const source = igcVectorLayer.current.source;
@@ -231,9 +230,9 @@ export default function IGCComp(): JSX.Element {
                                     newHighlights.push(coords);
                                 });
                                 setHighlights(newHighlights);
-                                map.current.ol.render();
+                                this.context.map.render();
                             },
-                            [igcVectorLayer, flight, map]
+                            [igcVectorLayer, flight]
                         )}
                     />
                 </div>

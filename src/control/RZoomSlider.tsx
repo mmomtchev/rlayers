@@ -7,11 +7,16 @@ import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
 export interface RZoomSliderProps extends RControlProps {
-    /** Animation duration @default 200 */
+    /** Animation duration
+     * @default 200 */
     duration?: number;
 }
 
-/** ZoomSlider control */
+/**
+ * ZoomSlider control
+ *
+ * Requires an `RMap` context
+ */
 export default class RZoomSlider extends RControlBase<RZoomSliderProps, null> {
     ol: ZoomSlider;
 

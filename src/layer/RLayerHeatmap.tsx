@@ -19,7 +19,9 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  *
  * Compatible with RLayerVector
  *
- * Provides a `RContext` for JSX-declared RFeatures
+ * Requires an `RMap` context
+ *
+ * Provides a vector layer for JSX-declared RFeatures
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: LayerHeatmap;
