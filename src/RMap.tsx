@@ -111,7 +111,8 @@ export default class RMap extends RlayersBase<RMapProps, null> {
 
     updateView = (e: MapEvent): void => {
         const view = this.ol.getView();
-        this.props.view[1]({center: view.getCenter(), zoom: view.getZoom()});
+        if (typeof this.props?.view[1] === 'function')
+            this.props.view[1]({center: view.getCenter(), zoom: view.getZoom()});
     };
 
     refresh(prevProps?: RMapProps): void {
