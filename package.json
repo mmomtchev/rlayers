@@ -46,7 +46,6 @@
     "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
-    "canvas": "^2.7.0",
     "lru-cache": "^6.0.0"
   },
   "peerDependencies": {
@@ -54,10 +53,7 @@
     "react": ">=16.8",
     "react-dom": ">=16.8",
     "ol": ">=6.0.0",
-    "canvas": "^2.6.1",
-    "jsdom": "^16.4.0",
-    "lru-cache": "^6.0.0",
-    "xmlhttprequest": "^1.8.0"
+    "lru-cache": "^6.0.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
@@ -81,6 +77,7 @@
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
     "bootstrap": "^4.6.0",
+    "canvas": "^2.7.0",
     "copyfiles": "^2.4.1",
     "css-loader": "^5.0.1",
     "eslint": "^7.19.0",
@@ -97,8 +94,11 @@
     "html-webpack-plugin": "^5.0.0",
     "jest": "^26.6.3",
     "jest-canvas-mock": "^2.3.1",
+    "jsdom": "^16.5.3",
     "markdown-loader": "^6.0.0",
     "ol": "^6.5.0",
+    "ol-ssr": "^1.0.0",
+    "piscina": "^2.2.0",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",
     "prettier": "^2.2.1",

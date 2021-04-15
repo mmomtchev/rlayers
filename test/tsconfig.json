@@ -20,6 +20,7 @@
         "downlevelIteration": true,
         "paths": {
             "rlayers": ["../src"],
+            "rlayers-ssr": ["../ssr"],
             "rlayers/*": ["../src/*"]
         }
     },

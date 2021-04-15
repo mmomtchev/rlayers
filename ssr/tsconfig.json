@@ -2,34 +2,34 @@
     "compilerOptions": {
         "sourceMap": true,
         "noImplicitAny": false,
-        "module": "commonjs",
-        "target": "es5",
+        "module": "esnext",
+        "target": "es2017",
         "lib": [
             "esnext",
             "dom",
             "dom.iterable"
         ],
-        "outDir": "./dist",
+        "outDir": "dist",
         "declaration": true,
         "declarationMap": true,
         "removeComments": true,
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
-        "rootDir": "./src",
+        "baseUrl": ".",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "downlevelIteration": true,
-        "composite": true,
         "paths": {
-            "rlayers": [ "./src" ],
-            "rlayers/*": [ "./src/*" ],
-            "rlayers-ssr": [ "./ssr" ],
+            "rlayers": [ "../src" ],
+            "rlayers/*": [ "../src/*" ]
         }
     },
     "include": [
-        "./src"
+        "."
+    ],
+    "references": [
+        { "path": ".." }
     ]
 }

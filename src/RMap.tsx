@@ -8,7 +8,7 @@ import {Coordinate} from 'ol/coordinate';
 
 import {RContext, RContextType} from './context';
 import {RlayersBase} from './REvent';
-import {RSSRProps} from './RSSR';
+import debug from './debug';
 
 /** Center and zoom level */
 export type RView = {
@@ -85,6 +85,10 @@ interface RMapState {
     placeholder: boolean;
 }
 
+export interface RSSRProps {
+    placeholderImage: string;
+}
+
 /**
  * Main map component
  *
@@ -121,7 +125,7 @@ export default class RMap extends RlayersBase<RMapProps, RMapState> {
         if (this.props.ssr) {
             this.state.placeholder = true;
             this.ol.once('rendercomplete', () => {
-                console.log('rendercomplete');
+                debug('rendercomplete', this);
                 this.setState({placeholder: false});
             });
         }

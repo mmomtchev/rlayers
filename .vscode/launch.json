@@ -16,7 +16,7 @@
             "request": "launch",
             "name": "Launch Unit tests",
             "program": "node_modules/jest/bin/jest.js",
-            "args": [ "-t", "SSR"],
+            "args": [ "SSR" ],
             "skipFiles": [
                 "<node_internals>/**"
             ]

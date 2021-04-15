@@ -1,17 +1,19 @@
-/**
- * @jest-environment ./test/network-test-env.js
- */
 window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fromLonLat} from 'ol/proj';
 import pixelmatch from 'pixelmatch';
 import {PNG} from 'pngjs';
 
 import {RMap, ROSM, RLayerTile} from 'rlayers';
-import RSSRender from 'rlayers/RSSR';
-import 'rlayers/ServerDOM';
-import * as common from './common';
+import {RSSRender} from 'rlayers-ssr';
+
+const mapProps = {
+    initial: {center: fromLonLat([2.364, 48.82]), zoom: 11},
+    width: 500,
+    height: 500
+};
 
 function decodeDataURL(url) {
     const matches = url.match(/^data:.+\/(.+);base64,(.*)$/);
@@ -21,10 +23,10 @@ function decodeDataURL(url) {
     return buffer;
 }
 
-describe('Server-side rendering', () => {
+describe('[SSR plugin rlayers-ssr] Server-side rendering', () => {
     it('should SSR a map', async () => {
         const raw = await RSSRender(
-            <RMap {...common.mapProps}>
+            <RMap {...mapProps}>
                 <ROSM />
             </RMap>
         );
@@ -36,7 +38,7 @@ describe('Server-side rendering', () => {
     });
     it('should SSR a map w/2 layers', async () => {
         const raw = await RSSRender(
-            <RMap {...common.mapProps}>
+            <RMap {...mapProps}>
                 <ROSM />
                 <RLayerTile
                     properties={{label: 'OpenTopo'}}
