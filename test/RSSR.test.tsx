@@ -1,9 +1,14 @@
-window.URL.createObjectURL = jest.fn();
+/**
+ * @jest-environment node
+ */
+Object.defineProperty(global, 'navigator', {value: {userAgent: ''}});
 import * as fs from 'fs';
+import 'ol-ssr/dom';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 import {fromLonLat} from 'ol/proj';
 import pixelmatch from 'pixelmatch';
+
 import {PNG} from 'pngjs';
 
 import {RMap, ROSM, RLayerTile} from 'rlayers';
@@ -22,6 +27,16 @@ function decodeDataURL(url) {
     const buffer = Buffer.from(data, 'base64');
     return buffer;
 }
+
+jest.mock('piscina', () => {
+    return function (options: {filename: string}) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const fn = require(options.filename).default;
+        return {
+            runTask: fn
+        };
+    };
+});
 
 describe('[SSR plugin rlayers-ssr] Server-side rendering', () => {
     it('should SSR a map', async () => {

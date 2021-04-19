@@ -97,7 +97,7 @@
     "jsdom": "^16.5.3",
     "markdown-loader": "^6.0.0",
     "ol": "^6.5.0",
-    "ol-ssr": "^1.0.0",
+    "ol-ssr": ">=1.0.1",
     "piscina": "^2.2.0",
     "pixelmatch": "^5.2.1",
     "pngjs": "^6.0.0",

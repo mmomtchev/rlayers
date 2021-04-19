@@ -3,7 +3,7 @@
         "sourceMap": true,
         "noImplicitAny": false,
         "module": "commonjs",
-        "target": "es5",
+        "target": "es2015",
         "lib": [
             "esnext",
             "dom",
@@ -13,7 +13,6 @@
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "moduleResolution": "node",

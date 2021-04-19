@@ -2,8 +2,8 @@
     "compilerOptions": {
         "sourceMap": true,
         "noImplicitAny": false,
-        "module": "esnext",
-        "target": "es2017",
+        "module": "commonjs",
+        "target": "es2015",
         "lib": [
             "esnext",
             "dom",
