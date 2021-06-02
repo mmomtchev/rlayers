@@ -6,7 +6,7 @@ import {Coordinate} from 'ol/coordinate';
 import 'ol/ol.css';
 
 import monument from './svg/monument.svg';
-import {RMap, ROSM, RLayerVector, RStyle, RFeature} from 'rlayers';
+import {RMap, ROSM, RLayerVector, RStyle, RFeature, ROverlay} from 'rlayers';
 
 export const coords: Record<string, Coordinate> = {
     'Arc de Triomphe': [2.295, 48.8737],
@@ -74,7 +74,11 @@ export default function Interactions(): JSX.Element {
                                     return false;
                                 }
                             }}
-                        />
+                        >
+                            <ROverlay>
+                                <div>{f.get('uid')}</div>
+                            </ROverlay>
+                        </RFeature>
                     ))}
                 </RLayerVector>
             </RMap>
