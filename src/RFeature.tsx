@@ -190,19 +190,21 @@ export default class RFeature extends RlayersBase<RFeatureProps, null> {
         const extent = this.ol?.getGeometry()?.getExtent();
         const center = extent && getCenter(extent);
         return (
-            <RContext.Provider
-                value={
-                    {
-                        map: this.context.map,
-                        layer: this.context.vectorlayer,
-                        source: this.context.vectorsource,
-                        feature: this.ol,
-                        location: center
-                    } as RContextType
-                }
-            >
-                {this.props.children}
-            </RContext.Provider>
+            <div>
+                <RContext.Provider
+                    value={
+                        {
+                            map: this.context.map,
+                            layer: this.context.vectorlayer,
+                            source: this.context.vectorsource,
+                            feature: this.ol,
+                            location: center
+                        } as RContextType
+                    }
+                >
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
         );
     }
 }

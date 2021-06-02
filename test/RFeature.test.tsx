@@ -5,7 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
-import {RFeature, RLayerVector, RMap, RContext} from 'rlayers';
+import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
 
 describe('<RFeature>', () => {
@@ -100,6 +100,30 @@ describe('<RFeature>', () => {
                         </RContext.Consumer>
                     </RFeature>
                 </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+    });
+
+    it('should support deleting features with nested elements', async () => {
+        const {container, rerender} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RFeature
+                        properties={{name: 'Arc de Triomphe'}}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    >
+                        <ROverlay>
+                            <div>Test</div>
+                        </ROverlay>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerVector></RLayerVector>
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
