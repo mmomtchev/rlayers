@@ -25,7 +25,9 @@ RFeature.hitTolerance = 0;
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);
     const [current, setCurrent] = React.useState(null as Feature);
-    React.useEffect(() => fetchData.then((r) => setData(r)) as null, []);
+    React.useEffect(() => {
+        fetchData.then((r) => setData(r));
+    }, []);
     return (
         <div className='d-flex flex-row'>
             <RMap
