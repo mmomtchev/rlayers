@@ -32,6 +32,32 @@ describe('<ROverlay>', () => {
         unmount();
     });
 
+    it('should support removing the layer', async () => {
+        const {container, rerender, unmount} = render(
+            <RMap {...common.mapProps}>
+                <ROSM />
+                <RLayerVector>
+                    <RFeature
+                        style={common.styles.blueDot}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    >
+                        <ROverlay>
+                            <div id='target'>text</div>
+                        </ROverlay>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        rerender(
+            <RMap {...common.mapProps}>
+                <ROSM />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
+
     it('should support autoplacement', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
         const comp = (auto) => (
