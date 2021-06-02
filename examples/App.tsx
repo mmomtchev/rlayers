@@ -23,6 +23,7 @@ const examples = {
     spinner: {title: 'Spinner', file: 'Spinner'},
     geodata: {title: 'Infographics', file: 'GeoData'},
     interactions: {title: 'Move & Select', file: 'Interactions'},
+    add_delete: {title: 'Add & Delete', file: 'Add-Delete'},
     draw: {title: 'Draw & Modify', file: 'Draw'},
     geolocation: {title: 'Geolocation', file: 'Geolocation'},
     vectortiles: {title: 'Vector tiles', file: 'VectorTiles'},
