@@ -6,7 +6,7 @@
   "singleQuote": true,
   "bracketSpacing": false,
   "jsxBracketSameLine": false,
-  "arrowParens": "avoid",
+  "arrowParens": "always",
   "endOfLine": "auto",
   "jsxSingleQuote": true,
   "proseWrap": "preserve",
