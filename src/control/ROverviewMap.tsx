@@ -27,7 +27,7 @@ export interface OverviewProps extends RControlProps {
  *
  * Provides an 'RMap` context - allowing to nest overview layers in it
  */
-export default class ROverviewMap extends RControlBase<OverviewProps, null> {
+export default class ROverviewMap extends RControlBase<OverviewProps, Record<string, never>> {
     ol: OverviewMap;
 
     constructor(props: Readonly<OverviewProps>, context: React.Context<RContextType>) {

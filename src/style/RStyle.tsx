@@ -40,7 +40,7 @@ export const createRStyle = (): RStyleRef => React.createRef();
  *
  * It provides the special `RStyle` context
  */
-export default class RStyle extends RlayersBase<RStyleProps, null> {
+export default class RStyle extends RlayersBase<RStyleProps, Record<string, never>> {
     ol: StyleLike;
     childRefs: RStyleRef[];
     cache: LRU;

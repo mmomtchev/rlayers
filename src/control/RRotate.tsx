@@ -17,7 +17,7 @@ export interface RRotateProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RRotate extends RControlBase<RRotateProps, null> {
+export default class RRotate extends RControlBase<RRotateProps, Record<string, never>> {
     ol: OLRRotate;
 
     constructor(props: Readonly<RRotateProps>, context: React.Context<RContextType>) {

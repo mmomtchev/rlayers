@@ -33,7 +33,7 @@ export interface RLayerProps {
     onChange?: (e: BaseEvent) => void;
 }
 
-export default class RLayer<P extends RLayerProps> extends RlayersBase<P, null> {
+export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record<string, never>> {
     ol: Layer;
     source: Source;
 

@@ -8,7 +8,7 @@ import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
 import Style from 'ol/style/Style';
 
-export const RContext = React.createContext(null as RContextType);
+export const RContext = React.createContext({} as RContextType);
 
 /**
  * Context type

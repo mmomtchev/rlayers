@@ -26,7 +26,7 @@ export interface RZoomProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RZoom extends RControlBase<RZoomProps, null> {
+export default class RZoom extends RControlBase<RZoomProps, Record<string, never>> {
     ol: Zoom;
 
     constructor(props: Readonly<RZoomProps>, context: React.Context<RContextType>) {

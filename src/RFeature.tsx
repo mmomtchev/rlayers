@@ -68,7 +68,7 @@ type FeatureRef = {
  * [Example for implicit RFeatures](https://mmomtchev.github.io/rlayers/#/RFeatures)
  *
  */
-export default class RFeature extends RlayersBase<RFeatureProps, null> {
+export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
     static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static lastFeaturesEntered: FeatureRef[] = [];
     static lastFeaturesDragged: FeatureRef[] = [];

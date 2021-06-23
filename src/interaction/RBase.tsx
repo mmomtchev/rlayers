@@ -10,7 +10,7 @@ import debug from '../debug';
  *
  * It is meant to be be extended by more specific interactions
  */
-export default class RBase<P> extends RlayersBase<P, null> {
+export default class RBase<P> extends RlayersBase<P, Record<string, never>> {
     static classProps: string[] = [];
     classProps: string[];
     ol: Interaction;

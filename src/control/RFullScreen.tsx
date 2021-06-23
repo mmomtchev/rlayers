@@ -23,7 +23,7 @@ export interface RFullScreenProps extends RControlProps {
  *
  * Requires an `RMap` context
  * */
-export default class RFullScreen extends RControlBase<RFullScreenProps, null> {
+export default class RFullScreen extends RControlBase<RFullScreenProps, Record<string, never>> {
     ol: FullScreen;
 
     constructor(props: Readonly<RFullScreenProps>, context: React.Context<RContextType>) {

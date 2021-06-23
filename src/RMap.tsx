@@ -80,7 +80,7 @@ export interface RMapProps {
  *
  * All other components, except `RStyle` should be part of an `RMap`
  */
-export default class RMap extends RlayersBase<RMapProps, null> {
+export default class RMap extends RlayersBase<RMapProps, Record<string, never>> {
     ol: Map;
     target: React.RefObject<HTMLDivElement>;
 

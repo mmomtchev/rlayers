@@ -6,7 +6,7 @@ import debug from '../debug';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RBaseProps {}
 
-export default class RBase<P extends RBaseProps> extends React.PureComponent<P, null> {
+export default class RBase<P extends RBaseProps> extends React.PureComponent<P, Record<string, never>> {
     static contextType = RContext;
     static classProps: string[] = [];
     classProps: string[];

@@ -22,7 +22,7 @@ export interface RScaleLineProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RScaleLine extends RControlBase<RScaleLineProps, null> {
+export default class RScaleLine extends RControlBase<RScaleLineProps, Record<string, never>> {
     ol: ScaleLine;
 
     constructor(props: Readonly<RScaleLineProps>, context: React.Context<RContextType>) {

@@ -17,7 +17,7 @@ export interface RZoomSliderProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RZoomSlider extends RControlBase<RZoomSliderProps, null> {
+export default class RZoomSlider extends RControlBase<RZoomSliderProps, Record<string, never>> {
     ol: ZoomSlider;
 
     constructor(props: Readonly<RZoomSliderProps>, context: React.Context<RContextType>) {

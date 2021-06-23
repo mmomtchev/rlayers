@@ -30,7 +30,7 @@ export interface ROverlayProps {
  *
  * @visibleName ROverlay
  */
-export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, null> {
+export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record<string, never>> {
     ol: Overlay;
     containerRef: React.RefObject<HTMLDivElement>;
 

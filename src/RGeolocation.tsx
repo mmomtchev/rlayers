@@ -30,7 +30,7 @@ export interface RGeolocationProps {
  *
  * Must have an `RMap` parent
  */
-export default class RGeolocation extends RlayersBase<RGeolocationProps, null> {
+export default class RGeolocation extends RlayersBase<RGeolocationProps, Record<string, never>> {
     ol: Geolocation;
 
     constructor(props: Readonly<RGeolocationProps>, context: React.Context<RContextType>) {

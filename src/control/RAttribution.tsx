@@ -17,7 +17,7 @@ export interface RAttributionProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RAtrribution extends RControlBase<RAttributionProps, null> {
+export default class RAtrribution extends RControlBase<RAttributionProps, Record<string, never>> {
     ol: Attribution;
 
     constructor(props: Readonly<RAttributionProps>, context: React.Context<RContextType>) {
