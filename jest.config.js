@@ -1,9 +1,9 @@
 module.exports = {
     roots: ['<rootDir>/test'],
     transform: {
-        '^.+\\.(j|t)sx?$': 'ts-jest'
+        '^.+\.(t|j)sx?$': 'ts-jest'
     },
-    transformIgnorePatterns: ['/node_modules/(?!ol)'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|@mapbox\/mapbox-gl-style-spec))'],
     moduleNameMapper: {
         '^rlayers$': '<rootDir>/src',
         '^rlayers\/(.*)$': '<rootDir>/src/$1',
