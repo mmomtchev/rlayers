@@ -1,6 +1,7 @@
 .vscode
 .github
 .git
+tsconfig.tsbuildinfo
 examples/data/admin.min.geojson
 examples/data/places.min.geojson
 node_modules

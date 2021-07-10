@@ -4,3 +4,4 @@ coverage
 dist
 docs
 GIS-hall-of-shame.md
+tsconfig.tsbuildinfo
