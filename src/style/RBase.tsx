@@ -56,7 +56,11 @@ export default class RBase<P extends RBaseProps> extends React.PureComponent<
         this.set(this.ol);
     }
 
-    componentDidUpdate(prevProps: P, prevState: null, snapshot: unknown): void {
+    componentDidUpdate(
+        prevProps: Readonly<P>,
+        prevState: Readonly<unknown>,
+        snapshot: unknown
+    ): void {
         if (prevProps !== this.props) this.refresh(prevProps);
     }
 

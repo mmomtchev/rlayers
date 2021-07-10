@@ -62,7 +62,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         return false;
     }
 
-    componentDidUpdate(prevProps: P, prev: null, snap: unknown): void {
+    componentDidUpdate(prevProps: Readonly<P>, prev: Readonly<unknown>, snap: unknown): void {
         if (this.props !== prevProps) {
             debug('willRefresh', this, prevProps, this.props);
             this.refresh(prevProps);
