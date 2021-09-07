@@ -4,7 +4,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import Projection from 'ol/proj/Projection';
 import {createXYZ} from 'ol/tilegrid';
 
-import {RMap, RLayerTile, RLayerWMTS, RLayerStamen, RLayerTileJSON} from 'rlayers';
+import {RMap, RLayerTile, RLayerWMTS} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerTile>', () => {
@@ -106,39 +106,6 @@ describe('<RLayerWTMS>', () => {
         });
         expect(layer.current.source.getUrls()[0]).toBe(
             'https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS/tile/1.0.0/OS_Open_Raster/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
-        );
-    });
-});
-
-describe('<RLayerStamen>', () => {
-    it('should display a tiled Stamen layer', async () => {
-        const layer = React.createRef() as React.RefObject<RLayerStamen>;
-        const {container} = render(
-            <RMap {...common.mapProps}>
-                <RLayerStamen ref={layer} layer='toner' />
-            </RMap>
-        );
-        expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrls()[0]).toBe(
-            'https://stamen-tiles-a.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
-        );
-    });
-});
-
-describe('<RLayerTileJSON>', () => {
-    it('should display a TileJSON source layer', async () => {
-        const layer = React.createRef() as React.RefObject<RLayerTileJSON>;
-        const {container} = render(
-            <RMap {...common.mapProps}>
-                <RLayerTileJSON
-                    ref={layer}
-                    url='https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
-                />
-            </RMap>
-        );
-        expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrls()[0]).toBe(
-            'https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
         );
     });
 });

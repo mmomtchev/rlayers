@@ -16,7 +16,9 @@ export {
 export {default as RLayerVector} from './layer/RLayerVector';
 export {default as ROSM, ROSMProps} from './layer/ROSM';
 export {default as RLayerWMTS, RLayerWMTSProps} from './layer/RLayerWMTS';
+export {default as RLayerWMS, RLayerWMSProps} from './layer/RLayerWMS';
 export {default as RLayerTileJSON, RLayerTileJSONProps} from './layer/RLayerTileJSON';
+export {default as RLayerTileWMS, RLayerTileWMSProps} from './layer/RLayerTileWMS';
 export {default as RLayerStamen, RLayerStamenProps} from './layer/RLayerStamen';
 export {default as RLayerHeatmap, RLayerHeatmapProps} from './layer/RLayerHeatmap';
 export {default as RLayerCluster, RLayerClusterProps} from './layer/RLayerCluster';

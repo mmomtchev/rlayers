@@ -1,9 +1,20 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {RMap, ROSM, RLayerTile, RLayerVector, RControl, RStyle, RLayerTileJSON} from 'rlayers';
+import {
+    RMap,
+    ROSM,
+    RLayerTile,
+    RLayerVector,
+    RControl,
+    RStyle,
+    RLayerTileJSON,
+    RLayerWMS,
+    RLayerTileWMS
+} from 'rlayers';
 import layersIcon from './svg/layers.svg';
 import 'ol/ol.css';
+import 'rlayers/control/layers.css';
 
 const layersButton = (
     <button>
@@ -40,6 +51,20 @@ export default function Layers(): JSX.Element {
                 <RLayerTileJSON
                     properties={{label: 'Mapbox TileJSON'}}
                     url='https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
+                />
+                <RLayerWMS
+                    properties={{label: 'Magellium OSM France Schools WMS'}}
+                    url='https://magosm.magellium.com/geoserver/ows'
+                    params={{LAYERS: 'magosm:france_schools_point', FORMAT: 'image/jpeg'}}
+                />
+                <RLayerTileWMS
+                    properties={{label: 'Switzerland ArcGIS TileWMS'}}
+                    url='https://wms.geo.admin.ch/'
+                    params={{
+                        LAYERS: 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
+                        FORMAT: 'image/jpeg',
+                        serverType: 'mapserver'
+                    }}
                 />
             </RControl.RLayers>
             {/* This one is always visible */}

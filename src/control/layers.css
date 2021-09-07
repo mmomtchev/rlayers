@@ -1,11 +1,11 @@
 .ol-layers-control {
     right: 0.5em;
     top: 2.5em;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.6);
 }
 
 .ol-layers-control:hover {
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.9);
 }
 
 .ol-layers-control label {
