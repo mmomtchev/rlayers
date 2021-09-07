@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/mmomtchev/rlayers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/rlayers)
 
 
-rlayers is an opinionated set of *React* components for *OpenLayers*.
+*rlayers* is an opinionated set of *React* components for *OpenLayers*.
 
 It's design policy is:
 * Fully Typescript-typed
@@ -34,11 +34,11 @@ npm --save install rlayers ol react react-dom
 *OpenLayers* is supported from version 6.0.0.
 *React* is supported from version 16.8.0.
 
-The very recent *OpenLayers* 6.6.0 release includes native TypeScript bindings that supersede the previous *@types/ol* package. If you are using *OpenLayers* 6.6.0 with TypeScript, you should follow the instructions on its release page for rendering it compatible with existing TypeScript projects: <https://github.com/openlayers/openlayers/releases/tag/v6.6.0>.
+The recent *OpenLayers* 6.6.x releases include native TypeScript bindings that supersede the previous *@types/ol* package. If you are using *OpenLayers* 6.6 with TypeScript, you should follow the instructions on its release page for rendering it compatible with existing TypeScript projects: <https://github.com/openlayers/openlayers/releases/tag/v6.6.0>. Once the built-in typings of *OpenLayers* are mature enough, an eventual future version of *rlayers* will switch over, but it won't be compatible with previous *OpenLayers* version.
 
 ## Usage
 
-rlayers is a set of reusable *React* components that can be nested in various ways to create map applications for the web through *React* composition in the true **spirit of *React***.
+*rlayers* is a set of reusable *React* components that can be nested in various ways to create map applications for the web through *React* composition in the true **spirit of *React***.
 The components follow very closely the *OpenLayers* hierarchy with with some abstraction layers fused into one: the layers and the sources abstraction levels have been fused into one single level and the map and the view are also represented by a single component.
 
 In order to avoid confusion between the *OpenLayers* classes and the *rlayers* classes which sometimes have the same names - all *rlayers* classes are prefixed with **R**. If a class begins with **R**, it is from *rlayers*, otherwise it is an *OpenLayers* class.
