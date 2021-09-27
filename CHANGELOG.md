@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [1.1.0] WIP
 
+Drop support for *OpenLayers* <6.6
+Switch to the built-in TypeScript bindings in *OpenLayers* >=6.6
 Add basic WMS/TileWMS support
 
 ### [1.0.4] 2021-07-10
