@@ -21,11 +21,11 @@ export interface RLayerVectorTileProps extends RLayerProps {
     /** Vector tile format */
     format: FeatureFormat;
     /** onClick handler for loaded features */
-    onClick?: (e: MapBrowserEvent) => boolean | void;
+    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** onPointerMove handler for loaded features */
-    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** onPointerEnter handler for loaded features */
-    onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
+    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
 }
 
 /**

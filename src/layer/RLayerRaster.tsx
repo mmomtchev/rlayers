@@ -17,6 +17,6 @@ export interface RLayerRasterProps extends RLayerProps {
 
 /** The common base of all raster layers, not meant to be used directly */
 export default class RLayerRaster<P extends RLayerRasterProps> extends RLayer<P> {
-    ol: Layer;
+    ol: Layer<Source>;
     source: Source;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {Map as Map} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
+import Geometry from 'ol/geom/Geometry';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -18,8 +19,8 @@ import debug from '../debug';
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
 export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
-    ol: LayerVector;
-    source: SourceVector;
+    ol: LayerVector<SourceVector<Geometry>>;
+    source: SourceVector<Geometry>;
 
     constructor(props: Readonly<RLayerBaseVectorProps>, context: React.Context<RContextType>) {
         super(props, context);

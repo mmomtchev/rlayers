@@ -20,9 +20,7 @@
         "downlevelIteration": true,
         "paths": {
             "rlayers": ["../src"],
-            "rlayers/*": ["../src/*"],
-            "ol": ["node_modules/@types/ol"],
-            "ol/*": ["node_modules/@types/ol/*"]
+            "rlayers/*": ["../src/*"]
         }
     },
     "include": [

@@ -12,7 +12,7 @@ export interface RLayerTileWMSProps extends RLayerRasterProps {
 }
 
 export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
-    ol: TileLayer;
+    ol: TileLayer<TileWMS>;
     source: TileWMS;
 
     constructor(props: Readonly<RLayerTileWMSProps>, context: React.Context<RContextType>) {

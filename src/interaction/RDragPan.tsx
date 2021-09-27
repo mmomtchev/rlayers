@@ -8,7 +8,7 @@ import debug from '../debug';
 
 export interface RDragPanProps {
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent) => boolean;
+    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** Kinetic parameters */
     kinetic?: {
         decay: number;

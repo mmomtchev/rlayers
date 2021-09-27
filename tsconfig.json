@@ -21,11 +21,10 @@
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "downlevelIteration": true,
+        "skipLibCheck": true,
         "paths": {
             "rlayers": ["./src"],
             "rlayers/*": ["./src/*"],
-            "ol": ["node_modules/@types/ol"],
-            "ol/*": ["node_modules/@types/ol/*"]
         }
     },
     "include": [

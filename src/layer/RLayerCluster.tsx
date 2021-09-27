@@ -2,6 +2,7 @@ import React from 'react';
 import {Map, Feature} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
+import Geometry from 'ol/geom/Geometry';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -21,9 +22,9 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
  * Not compatible with a vector layer context for JSX-declared RFeatures
  */
 export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
-    ol: LayerVector;
+    ol: LayerVector<SourceCluster>;
     source: SourceCluster;
-    cluster: SourceVector;
+    cluster: SourceVector<Geometry>;
 
     constructor(props: Readonly<RLayerClusterProps>, context: React.Context<RContextType>) {
         super(props, context);

@@ -8,7 +8,7 @@ import debug from '../debug';
 
 export interface RKeyboardZoomProps {
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent) => boolean;
+    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** Animation duration
      * @default 100 */
     duration?: number;

@@ -39,20 +39,20 @@ export interface RMapProps {
      */
     projection?: string;
     /** Called immediately on click */
-    onClick?: (e: MapBrowserEvent) => boolean | void;
+    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (e: MapBrowserEvent) => boolean | void;
+    onSingleClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on double click */
-    onDblClick?: (e: MapBrowserEvent) => boolean | void;
+    onDblClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when the user starts panning the map */
-    onMoveStart?: (e: MapBrowserEvent) => boolean | void;
+    onMoveStart?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when the user stops panning the map */
-    onMoveEnd?: (e: MapBrowserEvent) => boolean | void;
+    onMoveEnd?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
+    onPointerDrag?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer movement, use with care */
-    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     onPostRender?: (e: MapEvent) => boolean | void;
     onPreCompose?: (e: RenderEvent) => boolean | void;
     onPostCompose?: (e: RenderEvent) => boolean | void;

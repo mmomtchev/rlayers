@@ -5,6 +5,7 @@ import {Vector as SourceVector} from 'ol/source';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
+import Geometry from 'ol/geom/Geometry';
 
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     /** Blurring */
@@ -12,7 +13,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     /** Radius */
     radius?: number;
     /** Weight function for each RFeature, weight goes from 0 to 1 */
-    weight?: (f: Feature) => number;
+    weight?: (f: Feature<Geometry>) => number;
 }
 
 /** A vector layer that renders its RFeatures as a heatmap
@@ -25,7 +26,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: LayerHeatmap;
-    source: SourceVector;
+    source: SourceVector<Geometry>;
 
     constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<RContextType>) {
         super(props, context);

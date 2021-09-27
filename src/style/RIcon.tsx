@@ -1,22 +1,22 @@
 import React from 'react';
 import {Icon} from 'ol/style';
 import IconOrigin from 'ol/style/IconOrigin';
+import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import {Size} from 'ol/size';
 import {Color} from 'ol/color';
 
 import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
-import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 
 export interface RIconProps extends RImageProps {
     anchor?: number[];
-    anchorXUnits?: IconAnchorUnits;
-    anchorYUnits?: IconAnchorUnits;
+    anchorXUnits?: 'fraction' | 'pixels';
+    anchorYUnits?: 'fraction' | 'pixels';
     color?: Color | string;
     crossOrigin?: null | string;
     img?: HTMLImageElement | HTMLCanvasElement;
     offset?: number[];
-    offsetOrigin?: IconOrigin;
+    offsetOrigin?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
     size?: Size;
     imgSize?: Size;
     src?: string;

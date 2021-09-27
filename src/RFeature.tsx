@@ -2,6 +2,7 @@ import React from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import BaseVectorLayer from 'ol/layer/BaseVector';
+import SourceVector from 'ol/source/Vector';
 import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
@@ -24,31 +25,31 @@ export interface RFeatureProps {
      * changes
      *
      * rebinding to a different feature on update is not supported */
-    feature?: Feature;
+    feature?: Feature<Geometry>;
     /** Called immediately on click */
-    onClick?: (e: MapBrowserEvent) => boolean | void;
+    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (e: MapBrowserEvent) => boolean | void;
+    onSingleClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on double click */
-    onDblClick?: (e: MapBrowserEvent) => boolean | void;
+    onDblClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (e: MapBrowserEvent) => boolean | void;
+    onPointerDrag?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when the object is released */
-    onPointerDragEnd?: (e: MapBrowserEvent) => boolean | void;
+    onPointerDragEnd?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer movement over the RFeature, use sparingly */
-    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called once when the pointer moves over the RFeature */
-    onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
+    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called once when the pointer moves out of the RFeature */
-    onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
+    onPointerLeave?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every change */
     onChange?: (e: BaseEvent) => void;
 }
 
 type FeatureRef = {
-    feature: Feature;
-    layer: BaseVectorLayer;
+    feature: Feature<Geometry>;
+    layer: BaseVectorLayer<SourceVector<Geometry>>;
 };
 
 /**
@@ -69,11 +70,17 @@ type FeatureRef = {
  *
  */
 export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
-    static pointerEvents = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
+    static pointerEvents: (
+        | 'click'
+        | 'pointerdrag'
+        | 'pointermove'
+        | 'singleclick'
+        | 'dblclick'
+    )[] = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static lastFeaturesEntered: FeatureRef[] = [];
     static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 3;
-    ol: Feature;
+    ol: Feature<Geometry>;
     onchange: () => boolean | void;
 
     constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>) {
@@ -95,7 +102,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
-    static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent): boolean {
+    static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent<UIEvent>): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
         if (!event.target) event.target = fr.feature;
@@ -103,11 +110,12 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    static eventRelay(e: MapBrowserEvent): boolean {
+    static eventRelay(e: MapBrowserEvent<UIEvent>): boolean {
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
-            (f: Feature, l: BaseVectorLayer) => triggered.push({feature: f, layer: l}) && false,
+            (f: Feature<Geometry>, l: BaseVectorLayer<SourceVector<Geometry>>) =>
+                triggered.push({feature: f, layer: l}) && false,
             {
                 hitTolerance: RFeature.hitTolerance
             }
@@ -121,7 +129,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             for (const fr of RFeature.lastFeaturesDragged)
                 RFeature.dispatchEvent(
                     fr,
-                    new MapBrowserEvent('pointerdragend', e.map, e.originalEvent)
+                    new MapBrowserEvent<UIEvent>('pointerdragend', e.map, e.originalEvent)
                 );
             RFeature.lastFeaturesDragged = [];
         }
@@ -133,7 +141,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 if (!triggered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
                         fr,
-                        new MapBrowserEvent('pointerleave', e.map, e.originalEvent)
+                        new MapBrowserEvent<UIEvent>('pointerleave', e.map, e.originalEvent)
                     );
                     fr.feature = null;
                     fr.layer = null;
@@ -146,7 +154,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 if (!RFeature.lastFeaturesEntered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
                         fr,
-                        new MapBrowserEvent('pointerenter', e.map, e.originalEvent)
+                        new MapBrowserEvent<UIEvent>('pointerenter', e.map, e.originalEvent)
                     );
                     RFeature.lastFeaturesEntered.push(fr);
                 }
@@ -157,8 +165,10 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         // Stop on false
         for (const fr of triggered)
             if (
-                RFeature.dispatchEvent(fr, new MapBrowserEvent(e.type, e.map, e.originalEvent)) ===
-                false
+                RFeature.dispatchEvent(
+                    fr,
+                    new MapBrowserEvent<UIEvent>(e.type, e.map, e.originalEvent)
+                ) === false
             )
                 return false;
         return true;

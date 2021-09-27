@@ -2,7 +2,6 @@ window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
-import GeometryType from 'ol/geom/GeometryType';
 import {RMap, RInteraction, RLayerVector} from 'rlayers';
 import * as common from './common';
 
@@ -81,11 +80,7 @@ describe('<RDraw>', () => {
         const {container, unmount} = render(
             <RMap {...common.mapProps}>
                 <RLayerVector>
-                    <RInteraction.RDraw
-                        type={'Circle' as GeometryType}
-                        ref={ref}
-                        condition={handler}
-                    />
+                    <RInteraction.RDraw type={'Circle'} ref={ref} condition={handler} />
                 </RLayerVector>
             </RMap>
         );
@@ -99,7 +94,7 @@ describe('<RDraw>', () => {
         expect(() =>
             render(
                 <RMap {...common.mapProps}>
-                    <RInteraction.RDraw type={'Circle' as GeometryType} />
+                    <RInteraction.RDraw type={'Circle'} />
                 </RMap>
             )
         ).toThrowError('part of');

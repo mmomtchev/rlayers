@@ -13,6 +13,7 @@ import {default as RFeature} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
+import Geometry from 'ol/geom/Geometry';
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */
     url?: string;
@@ -24,7 +25,7 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      *
      * this property currently does not support dynamic updates
      */
-    features?: Feature[];
+    features?: Feature<Geometry>[];
     /** Format of the features when `url` is used
      *
      * this property currently does not support dynamic updates
@@ -35,32 +36,32 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
     /** Default onClick handler for loaded features */
-    onClick?: (e: MapBrowserEvent) => boolean | void;
+    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
      * use onFeaturesLoadEnd for features loaded via `url`
      */
-    onAddFeature?: (e: VectorSourceEvent) => boolean | void;
+    onAddFeature?: (e: VectorSourceEvent<Geometry>) => boolean | void;
     /** Called when the external features have been loaded from `url`
      *
      * e.features will contain the features which still
      * won't be loaded into the layer
      */
-    onFeaturesLoadEnd?: (e: VectorSourceEvent) => boolean | void;
+    onFeaturesLoadEnd?: (e: VectorSourceEvent<Geometry>) => boolean | void;
     /** Default onPointerMove handler for loaded features */
-    onPointerMove?: (e: MapBrowserEvent) => boolean | void;
+    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Default onPointerEnter handler for loaded features */
-    onPointerEnter?: (e: MapBrowserEvent) => boolean | void;
+    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Default onPointerLeave handler for loaded features */
-    onPointerLeave?: (e: MapBrowserEvent) => boolean | void;
+    onPointerLeave?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
     onPostRender?: (e: RenderEvent) => boolean | void;
     onPreRender?: (e: RenderEvent) => boolean | void;
 }
 
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
-    ol: BaseVector;
-    source: SourceVector;
+    ol: BaseVector<SourceVector<Geometry>>;
+    source: SourceVector<Geometry>;
     static relayedEvents = {
         click: 'Click',
         pointermove: 'PointerMove',
@@ -73,19 +74,19 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         RFeature.initEventRelay(this.context.map);
     }
 
-    newFeature = (e: VectorSourceEvent): void => {
+    newFeature = (e: VectorSourceEvent<Geometry>): void => {
         if (e.feature) this.attachFeatureHandlers([e.feature]);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((e as any).features) this.attachFeatureHandlers((e as any).features);
     };
 
-    attachFeatureHandlers(features: Feature[], prevProps?: P): void {
+    attachFeatureHandlers(features: Feature<Geometry>[], prevProps?: P): void {
         for (const ev of Object.values(RLayerBaseVector.relayedEvents))
             if (this.props['on' + ev] !== (prevProps && prevProps['on' + ev]))
-                for (const f of features) f.on(ev.toLowerCase(), this.eventRelay);
+                for (const f of features) f.on(ev.toLowerCase() as 'change', this.eventRelay);
     }
 
-    eventRelay = (e: MapBrowserEvent): boolean => {
+    eventRelay = (e: MapBrowserEvent<UIEvent>): boolean => {
         if (this.props['on' + RLayerBaseVector.relayedEvents[e.type]])
             return (
                 this.props['on' + RLayerBaseVector.relayedEvents[e.type]].call(this, e) !== false
@@ -96,7 +97,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     componentWillUnmount(): void {
         for (const ev of Object.values(RLayerBaseVector.relayedEvents))
             this.source.forEachFeature((f) => {
-                f.un(ev.toLowerCase(), this.eventRelay);
+                f.un(ev.toLowerCase() as 'change', this.eventRelay);
                 return false;
             });
     }

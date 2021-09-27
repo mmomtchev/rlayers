@@ -1,6 +1,6 @@
 import React from 'react';
 import {Map} from 'ol';
-import {Tile as OLRLayerTile} from 'ol/layer';
+import {Tile as LayerTile} from 'ol/layer';
 import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
@@ -24,13 +24,13 @@ export interface RLayerTileProps extends RLayerRasterProps {
  * Requires an `RMap` context
  */
 export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
-    ol: OLRLayerTile;
+    ol: LayerTile<XYZ>;
     source: XYZ;
 
     constructor(props: Readonly<RLayerTileProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
-        this.ol = new OLRLayerTile({source: this.source});
+        this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 

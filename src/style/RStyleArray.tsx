@@ -6,6 +6,7 @@ import Style, {StyleLike} from 'ol/style/Style';
 import {RContextType} from '../context';
 import {default as RStyle, RStyleProps, RStyleRef} from './RStyle';
 import debug from '../debug';
+import Geometry from 'ol/geom/Geometry';
 
 /** An array of RStyle, can be an RStyle of its own
  * - this represents the OpenLayers concept of a style array
@@ -26,7 +27,7 @@ export default class RStyleArray extends RStyle {
         this.childRefs = [];
     }
 
-    style = (f: Feature, r: number): Style | Style[] => {
+    style = (f: Feature<Geometry>, r: number): Style | Style[] => {
         if (this.props.render) {
             const element = this.props.render(f, r);
             const render = (

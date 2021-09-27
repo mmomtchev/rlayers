@@ -10,11 +10,11 @@ export interface RDragBoxProps {
     /** A CSS class to be used for the box */
     className?: string;
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent) => boolean;
+    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** Minimum area that needs to be selected */
     minArea?: number;
     /** An optional OpenLayers condition */
-    boxEndCondition?: (e: MapBrowserEvent, p1: Pixel, p2: Pixel) => boolean;
+    boxEndCondition?: (e: MapBrowserEvent<UIEvent>, p1: Pixel, p2: Pixel) => boolean;
     /** Called when the user starts dragging */
     onBoxStart?: (e: DragBoxEvent) => void;
     /** Called on selection

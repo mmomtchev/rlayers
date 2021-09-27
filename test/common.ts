@@ -19,9 +19,9 @@ export function createEvent(
     map: Map,
     coords?: number,
     dragging?: boolean
-): MapBrowserEvent {
+): MapBrowserEvent<UIEvent> {
     const event = {clientX: coords ?? 10, clientY: coords ?? 10} as unknown;
-    return new MapBrowserEvent(evname.toLowerCase(), map, event as UIEvent, dragging);
+    return new MapBrowserEvent<UIEvent>(evname.toLowerCase(), map, event as UIEvent, dragging);
 }
 
 export const _coords: Record<string, Coordinate> = {

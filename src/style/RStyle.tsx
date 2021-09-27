@@ -7,19 +7,20 @@ import Style, {StyleLike} from 'ol/style/Style';
 import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
+import Geometry from 'ol/geom/Geometry';
 
 export interface RStyleProps {
     /** render function to be passed the feature and the resolution for dynamic styles
      *
      * a dynamic style cannot become a static style or the inverse
      */
-    render?: (feature: Feature, resolution: number) => React.ReactElement;
+    render?: (feature: Feature<Geometry>, resolution: number) => React.ReactElement;
     /** An optional cache size, valid only for dynamic styles */
     cacheSize?: number;
     /** The cache hashing function, must return a unique string for
      * every unique style computed by the rendering funciton
      */
-    cacheId?: (feature: Feature, resolution: number) => string;
+    cacheId?: (feature: Feature<Geometry>, resolution: number) => string;
 }
 
 export type RStyleRef = React.RefObject<RStyle>;
@@ -53,7 +54,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
             this.cache = new LRU({max: props.cacheSize});
     }
 
-    style = (f: Feature, r: number): Style | Style[] => {
+    style = (f: Feature<Geometry>, r: number): Style | Style[] => {
         if (this.ol !== this.style) return this.ol as Style;
         let hash;
         if (this.cache) {
@@ -113,12 +114,12 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
 
         // style is RStyle or RStyleArray
         if (typeof (style as RStyle).style === 'function')
-            return (f: Feature, r: number) => (style as RStyle).style(f, r);
+            return (f: Feature<Geometry>, r: number) => (style as RStyle).style(f, r);
 
         // style is a React.RefObject
         // React.RefObjects are just plain JS objects after JS transpilation */
         if (Object.keys(style).includes('current'))
-            return (f: Feature, r: number) => (style as RStyleRef).current.style(f, r);
+            return (f: Feature<Geometry>, r: number) => (style as RStyleRef).current.style(f, r);
 
         // style is an OpenLayers StyleLike
         return style as StyleLike;

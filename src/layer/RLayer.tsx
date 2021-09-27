@@ -34,7 +34,7 @@ export interface RLayerProps {
 }
 
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record<string, never>> {
-    ol: Layer;
+    ol: Layer<Source>;
     source: Source;
 
     constructor(props: Readonly<P>, context: React.Context<RContextType>) {

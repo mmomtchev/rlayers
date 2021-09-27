@@ -2,6 +2,7 @@ import React from 'react';
 import {MapBrowserEvent} from 'ol';
 
 import {RContextType} from './context';
+import {RFeature} from 'rlayers';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 
 export interface RPopupProps extends ROverlayProps {
@@ -49,9 +50,9 @@ export default class Popup extends ROverlayBase<RPopupProps> {
     }
 
     unregister(): void {
-        this.context.feature.un('click', this.toggle);
-        this.context.feature.un('pointerenter', this.show);
-        this.context.feature.un('pointerleave', this.hide);
+        this.context.feature.un('click' as 'change', this.toggle);
+        this.context.feature.un('pointerenter' as 'change', this.show);
+        this.context.feature.un('pointerleave' as 'change', this.hide);
     }
 
     refresh(): void {
@@ -60,22 +61,22 @@ export default class Popup extends ROverlayBase<RPopupProps> {
         switch (this.props.trigger) {
             default:
             case 'click':
-                this.context.feature.on('click', this.toggle);
+                this.context.feature.on('click' as 'change', this.toggle);
                 break;
             case 'hover':
-                this.context.feature.on('pointerenter', this.show);
-                this.context.feature.on('pointerleave', this.hide);
+                this.context.feature.on('pointerenter' as 'change', this.show);
+                this.context.feature.on('pointerleave' as 'change', this.hide);
                 break;
         }
         this.setPosition();
     }
 
-    toggle = (e: MapBrowserEvent): void => {
+    toggle = (e: MapBrowserEvent<UIEvent>): void => {
         this.visible = !this.visible;
         this.setPosition();
     };
 
-    show = (e: MapBrowserEvent): void => {
+    show = (e: MapBrowserEvent<UIEvent>): void => {
         if (this.showing) return;
         if (this.hiding) window.clearTimeout(this.hiding);
         this.showing = window.setTimeout(() => {
@@ -85,7 +86,7 @@ export default class Popup extends ROverlayBase<RPopupProps> {
         }, this.props.delay?.show ?? 250);
     };
 
-    hide = (e: MapBrowserEvent): void => {
+    hide = (e: MapBrowserEvent<UIEvent>): void => {
         if (this.hiding) return;
         if (this.showing) window.clearTimeout(this.showing);
         this.hiding = window.setTimeout(() => {

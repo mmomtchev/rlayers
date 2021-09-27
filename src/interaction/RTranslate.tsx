@@ -1,6 +1,7 @@
 import React from 'react';
 import {Collection, Feature, Map, MapBrowserEvent} from 'ol';
 import {default as Translate, TranslateEvent} from 'ol/interaction/Translate';
+import Geometry from 'ol/geom/Geometry';
 import BaseLayer from 'ol/layer/Base';
 import RenderFeature from 'ol/render/Feature';
 
@@ -10,13 +11,13 @@ import debug from '../debug';
 export interface RTranslateProps {
     /** Translatable features
      * @default all */
-    features?: Collection<Feature> | Feature;
+    features?: Collection<Feature<Geometry>> | Feature<Geometry>;
     /** Translatable layers
      * @default all */
     layers?: BaseLayer[] | ((layer: BaseLayer) => boolean);
     /** Filter translatable features
      * @default all */
-    filter?: (Feature: Feature | RenderFeature, layer: BaseLayer) => boolean;
+    filter?: (Feature: Feature<Geometry> | RenderFeature, layer: BaseLayer) => boolean;
     /** Hit-detection tolerance in pixels
      * @default 0 */
     hitTolerance?: number;

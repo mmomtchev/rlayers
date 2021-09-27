@@ -34,7 +34,7 @@ npm --save install rlayers ol react react-dom
 *OpenLayers* is supported from version 6.0.0.
 *React* is supported from version 16.8.0.
 
-The recent *OpenLayers* 6.6.x releases include native TypeScript bindings that supersede the previous *@types/ol* package. If you are using *OpenLayers* 6.6 with TypeScript, you should follow the instructions on its release page for rendering it compatible with existing TypeScript projects: <https://github.com/openlayers/openlayers/releases/tag/v6.6.0>. Once the built-in typings of *OpenLayers* are mature enough, an eventual future version of *rlayers* will switch over, but it won't be compatible with previous *OpenLayers* version.
+*OpenLayers* >=6.6 includes native TypeScript bindings that supersede the previous *@types/ol* package. If you are using *OpenLayers* >=6.6 with TypeScript, you should follow the instructions on its release page for rendering it compatible with existing TypeScript projects: <https://github.com/openlayers/openlayers/releases/tag/v6.6.0>. The upcoming *rlayers 1.1* will switch to the native TS bindings, but it won't be compatible with previous *OpenLayers* version.
 
 ## Usage
 

@@ -11,7 +11,7 @@ export interface RLayerWMSProps extends RLayerRasterProps {
 }
 
 export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
-    ol: ImageLayer;
+    ol: ImageLayer<ImageWMS>;
     source: ImageWMS;
 
     constructor(props: Readonly<RLayerWMSProps>, context: React.Context<RContextType>) {

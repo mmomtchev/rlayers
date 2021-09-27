@@ -9,15 +9,24 @@ import debug from '../debug';
 
 export interface RDrawProps {
     /** Type of the geometry */
-    type: GeometryType;
+    type:
+        | 'Point'
+        | 'LineString'
+        | 'LinearRing'
+        | 'Polygon'
+        | 'MultiPoint'
+        | 'MultiLineString'
+        | 'MultiPolygon'
+        | 'GeometryCollection'
+        | 'Circle';
     /** An optionnal condition for triggering the interaction
      * @default noModifierKeys */
-    condition?: (e: MapBrowserEvent) => boolean;
+    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** An optional OpenLayers condition to allow the interaction to finish */
-    finishCondition?: (e: MapBrowserEvent) => boolean;
+    finishCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** An optional OpenLayers condition to activate freehand drawing
      * @default shiftKeyOnly */
-    freehandCondition?: (e: MapBrowserEvent) => boolean;
+    freehandCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** Style for rendering the features */
     style?: RStyleLike;
     /** Do not trigger pointer events while the interaction is active */

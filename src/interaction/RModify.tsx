@@ -9,13 +9,13 @@ import debug from '../debug';
 export interface RModifyProps {
     /** An optionnal condition for triggering the interaction
      * @default primaryAction */
-    condition?: (e: MapBrowserEvent) => boolean;
+    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** An optional OpenLayers condition to allow removal of the feature
      * @default (altKeyOnly+singleClick) */
-    deleteCondition?: (e: MapBrowserEvent) => boolean;
+    deleteCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** An optional OpenLayers condition to allow adding of a vertex
      * @default true */
-    insertVertexCondition?: (e: MapBrowserEvent) => boolean;
+    insertVertexCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
     /** Style for rendering the features */
     style?: RStyleLike;
     /** Snap tolerance in pixels
