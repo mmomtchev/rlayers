@@ -39,11 +39,65 @@ npm --save install rlayers ol react react-dom
 ## Usage
 
 *rlayers* is a set of reusable *React* components that can be nested in various ways to create map applications for the web through *React* composition in the true **spirit of *React***.
-The components follow very closely the *OpenLayers* hierarchy with with some abstraction layers fused into one: the layers and the sources abstraction levels have been fused into one single level and the map and the view are also represented by a single component.
+The components are based on a simplified model of the *OpenLayers* classes: for example the layers and the sources abstraction levels have been fused into one single level and the map and the view are also represented by a single component.
 
 In order to avoid confusion between the *OpenLayers* classes and the *rlayers* classes which sometimes have the same names - all *rlayers* classes are prefixed with **R**. If a class begins with **R**, it is from *rlayers*, otherwise it is an *OpenLayers* class.
 
-The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - an `<RLayer>` must be part of a map, an `<RFeature>` must be part of an `<RLayerVector>`, an `<RControl>` must also be part of a map. Nesting works by using *React* Contexts. Every nested element uses the context of its nearest parent.
+The most important element is the `<RMap>`. Every other element, except `<RStyle>`, requires a parent to function - an `<RLayer>` must be part of a map, an `<RFeature>` must be part of an `<RLayerVector>`, an `<RControl>` must also be part of a map. 
+
+### Simple step-by-step example
+
+This is the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlays>
+```jsx
+import React from 'react';
+import {fromLonLat} from 'ol/proj';
+import {Point} from 'ol/geom';
+import 'ol/ol.css';
+
+import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
+import locationIcon from './svg/location.svg';
+ 
+// Create a map, its size is set in the CSS class example-map
+<RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+    {/* Use an OpenStreetMap background */}
+    <ROSM />
+    {/* Create a single layer for holding vector features */}
+    <RLayerVector zIndex={10}>
+        {/* Create a style for rendering the features */}
+        <RStyle.RStyle>
+            {/* Consisting of a single icon, that is slightly offset
+             * so that its center falls over the center of the feature */}
+            <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+        </RStyle.RStyle>
+        {/* Create a single feature in the vector layer */}
+        <RFeature
+            {/* Its geometry is a point geometry over the monument */}
+            geometry={new Point(fromLonLat([2.295, 48.8737]))}
+            {/* Bind an onClick handler */}
+            onClick={(e) =>
+                {/* e.map is the underlying OpenLayers map - we call getView().fit()
+                to pan/zoom the map over the monument with a small animation */}
+                e.map.getView().fit(e.target.getGeometry().getExtent(), {
+                    duration: 250,
+                    maxZoom: 15
+                })
+            }
+        >
+            {/* The icon is an SVG image that represents the feature on the map
+            while an overlay allows us to add a normal HTML element over the feature */}
+            <ROverlay className='example-overlay'>
+                Arc de Triomphe
+                <br />
+                <em>&#11017; click to zoom</em>
+            </ROverlay>
+        </RFeature>
+    </RLayerVector>
+</RMap>
+```
+
+#### Contexts
+
+Composition works by using *React* Contexts. Every nested element uses the context of its nearest parent.
 
 Currently a context has an `RContextType` and can contain the following elements:
 * `RContext.map` provided by a map, every other element, except an `RStyle` must have a map parent
@@ -51,6 +105,7 @@ Currently a context has an `RContextType` and can contain the following elements
 * `RContext.vectorlayer` and `RContext.vectorsource` provided by vector layers only - required for `<RFeature>`
 * `RContext.location` and `RContext.feature` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
 * `RContext.style` provided by a style definition - the only one which can be outside of a map
+
 
 #### Accessing the underlying *OpenLayers* objects and API
 
@@ -84,56 +139,6 @@ You can refer to
 * <https://mmomtchev.github.io/rlayers/#/cluster> for the use of caching.
 
 Classical *OpenLayers* `StyleLike` objects are supported too, but this is not the ***React* way**. Still, if you need every last bit of performance, writing an optimized *OpenLayers* style function is the best solution.
-
-### Simple step-by-step example
-
-This the simple overlay example - <https://mmomtchev.github.io/rlayers/#/overlays>
-```jsx
-import React from 'react';
-import {fromLonLat} from 'ol/proj';
-import {Point} from 'ol/geom';
-import 'ol/ol.css';
-
-import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
-import locationIcon from './svg/location.svg';
- 
-// Create a map, its size is set in the CSS class example-map
-<RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
-    {/* Use an OpenStreetMap background */}
-    <ROSM />
-    {/* Create a single layer for holding vector features */}
-    <RLayerVector zIndex={10}>
-        {/* Create a style for rendering the features */}
-        <RStyle.RStyle>
-            {/* Consisting of a single icon, that is slightly offset
-             *so that its center falls over the center of the feature */}
-            <RStyle.RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-        </RStyle.RStyle>
-        {/* Create a single feature in the vector layer */}
-        <RFeature
-            {/* Its geometry is a point geometry over the monument */}
-            geometry={new Point(fromLonLat([2.295, 48.8737]))}
-            {/* Bind an onClick handler */}
-            onClick={(e) =>
-                {/* e.map is the underlying OpenLayers map - we call getView().fit()
-                to pan/zoom the map over the monument with a small animation */}
-                e.map.getView().fit(e.target.getGeometry().getExtent(), {
-                    duration: 250,
-                    maxZoom: 15
-                })
-            }
-        >
-            {/* The icon is an SVG image that represents the feature on the map
-            while an overlay allows us to add a normal HTML element over the feature */}
-            <ROverlay className='example-overlay'>
-                Arc de Triomphe
-                <br />
-                <em>&#11017; click to zoom</em>
-            </ROverlay>
-        </RFeature>
-    </RLayerVector>
-</RMap>
-```
 
 ### Performance
 
