@@ -49,7 +49,6 @@
     "lru-cache": "^6.0.0"
   },
   "peerDependencies": {
-    "@types/ol": ">=6.0.0",
     "ol": ">=6.6.0",
     "react": ">=16.8",
     "react-dom": ">=16.8"
