@@ -59,6 +59,6 @@ module.exports = {
         }
     ],
     resolver: require('react-docgen').resolver.findAllComponentDefinitions,
-    propsParser: require('react-docgen-typescript').withCustomConfig('./tsconfig.json').parse,
+    propsParser: require('react-docgen-typescript').withCustomConfig(path.resolve(__dirname, 'tsconfig.json')).parse,
     styleguideDir: 'docs/api'
 };

@@ -3,11 +3,12 @@ module.exports = {
     transform: {
         '^.+\.(t|j)sx?$': 'ts-jest'
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|@mapbox\/mapbox-gl-style-spec))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|@mapbox\/mapbox-gl-style-spec|txml))'],
     moduleNameMapper: {
         '^rlayers$': '<rootDir>/src',
-        '^rlayers\/(.*)$': '<rootDir>/src/$1',
-        '\\.(css|less)$': '<rootDir>/test/css.js'
+        '^rlayers\/(.*)$': '<rootDir>/src/$1',        
+        '\\.(css|less)$': '<rootDir>/test/css.js',
+        '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'
     },
     setupFiles: ['jest-canvas-mock'],
     setupFilesAfterEnv: [
