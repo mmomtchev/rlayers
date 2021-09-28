@@ -351,6 +351,7 @@ describe('<RStyleArray>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text1'
         });
+        expect(((ref.current as RStyleArray).style(f, 0) as Style[]).length).toBe(2);
         let style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
         expect(style[0].getText().getText()).toBe('text1');
         expect(style[1].getStroke().getWidth()).toBe(3);

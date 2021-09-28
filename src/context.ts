@@ -29,4 +29,6 @@ export interface RContextType {
     location?: Coordinate;
     /** The current style */
     style?: Style;
+    /** The current style array */
+    styleArray?: Style[];
 }
