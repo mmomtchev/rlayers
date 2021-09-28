@@ -95,12 +95,13 @@ describe('<RStyle>', () => {
     it('should support updating the style', async () => {
         const ref = createRStyle();
         const {rerender} = render(
-            <RStyle ref={ref}>
+            <RStyle ref={ref} zIndex={1}>
                 <RCircle radius={5}>
                     <RFill color='#000002' />
                 </RCircle>
             </RStyle>
         );
+        expect(RStyle.getStyleStatic(ref).getZIndex()).toBe(1);
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(5);
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
             '#000002'
@@ -112,17 +113,19 @@ describe('<RStyle>', () => {
                 </RCircle>
             </RStyle>
         );
+        expect(RStyle.getStyleStatic(ref).getZIndex()).toBeUndefined();
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(3);
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
             '#000005'
         );
         rerender(
-            <RStyle ref={ref}>
+            <RStyle ref={ref} zIndex={2}>
                 <RCircle radius={3}>
                     <RStroke color='#000005' width={1} />
                 </RCircle>
             </RStyle>
         );
+        expect(RStyle.getStyleStatic(ref).getZIndex()).toBe(2);
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getStroke().getWidth()).toBe(1);
     });
     it('should support dynamic styles', async () => {
@@ -166,7 +169,7 @@ describe('<RStyle>', () => {
         const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
         expect(style.getText().getText()).toBe('text14');
         expect(style.getText().getStroke().getWidth()).toBe(14);
-        expect(ref.current.cache.get(f.get('name'))).toBe(style);
+        expect((ref.current as RStyle).cache.get(f.get('name'))).toBe(style);
     });
     it('should apply to vector layers', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVector>;
@@ -179,7 +182,7 @@ describe('<RStyle>', () => {
                 </RLayerVector>
             </RMap>
         );
-        const style = ref.current.ol.getStyle() as Style;
+        const style = (ref.current as RLayerVector).ol.getStyle() as Style;
         expect(style.getStroke().getWidth()).toBe(7);
     });
     it('should apply to vector layers w/dynamic', async () => {
@@ -201,7 +204,7 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text9'
         });
-        const style = (ref.current.ol.getStyle() as (Feature) => Style)(f);
+        const style = ((ref.current as RLayerVector).ol.getStyle() as (Feature) => Style)(f);
         expect(style.getText().getText()).toBe('text9');
         expect(style.getText().getStroke().getWidth()).toBe(9);
     });
@@ -219,8 +222,8 @@ describe('<RStyle>', () => {
                 </RLayerVector>
             </RMap>
         );
-        const styleF = refFeature.current.ol.getStyle() as Style;
-        const styleV = refVector.current.ol.getStyle();
+        const styleF = (refFeature.current as RFeature).ol.getStyle() as Style;
+        const styleV = (refVector.current as RLayerVector).ol.getStyle();
         expect(styleF.getStroke().getWidth()).toBe(13);
         expect(typeof styleV).toBe('function');
     });
@@ -235,9 +238,9 @@ describe('RStyle.getStyle', () => {
             </RStyle>
         );
         const style = RStyle.getStyleStatic(ref);
-        expect(RStyle.getStyleStatic(ref.current)).toBe(style);
+        expect(RStyle.getStyleStatic(ref.current as RStyle)).toBe(style);
         expect((RStyle.getStyle(ref) as () => Style)()).toBe(style);
-        expect((RStyle.getStyle(ref.current) as () => Style)()).toBe(style);
+        expect((RStyle.getStyle(ref.current as RStyle) as () => Style)()).toBe(style);
     });
     it('should return OpenLayers styles without modification', async () => {
         const obj = new Style({});

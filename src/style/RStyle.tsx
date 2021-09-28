@@ -18,9 +18,13 @@ export interface RStyleProps {
     /** An optional cache size, valid only for dynamic styles */
     cacheSize?: number;
     /** The cache hashing function, must return a unique string for
-     * every unique style computed by the rendering funciton
+     * every unique style computed by the rendering function
      */
     cacheId?: (feature: Feature<Geometry>, resolution: number) => string;
+    /** zIndex controls which features are drawn over which features
+     * when they overlap
+     */
+    zIndex?: number;
 }
 
 export type RStyleRef = React.RefObject<RStyle>;
@@ -49,7 +53,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
     constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
         if (props.render) this.ol = this.style;
-        else this.ol = new Style({});
+        else this.ol = new Style({zIndex: props.zIndex});
         if (props.render && props.cacheSize && props.cacheId)
             this.cache = new LRU({max: props.cacheSize});
     }
@@ -62,7 +66,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
             const style = this.cache.get(hash);
             if (style) return style;
         }
-        const style = new Style({});
+        const style = new Style({zIndex: this.props.zIndex});
         const render = (
             <React.Fragment>
                 <RContext.Provider value={{...this.context, style}}>
@@ -88,6 +92,8 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
                 this.context.vectorlayer.setStyle(this.ol);
             if (this.cache) this.cache.reset();
         }
+        if (this.ol instanceof Style && (!prevProps || prevProps.zIndex !== this.props.zIndex))
+            (this.ol as Style).setZIndex(this.props.zIndex);
     }
 
     render(): JSX.Element {

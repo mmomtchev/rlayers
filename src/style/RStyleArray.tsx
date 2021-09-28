@@ -11,7 +11,7 @@ import Geometry from 'ol/geom/Geometry';
 /** An array of RStyle, can be an RStyle of its own
  * - this represents the OpenLayers concept of a style array
  *
- * It replaces the references on its childs, so individual elements
+ * It replaces the references on its children, so individual elements
  * in the array cannot be referenced
  *
  * It doesn't support caching yet
