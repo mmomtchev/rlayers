@@ -1,3 +1,9 @@
+/*
+ * This example illustrates using vector tiles
+ * and
+ * layers that appear only when zoomed in
+ */
+
 import React, {useCallback} from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
@@ -5,21 +11,23 @@ import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
 import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent} from 'rlayers';
-import {useRStyle, RStyle, RStroke, RFill, RCircle, RText} from 'rlayers/style';
+import {useRStyle, RStyle, RStyleArray, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 import {Geometry} from 'ol/geom';
 
 const degree = 111319.49079327358;
 const fonts = {
-    0: {width: 6, font: '1.6rem helvetica,sans-serif'},
-    1: {width: 5, font: '1.2rem helvetica,sans-serif'},
-    2: {width: 3, font: '1rem helvetica,sans-serif'},
-    def: {width: 1, font: '0.6rem helvetica,sans-serif'}
+    0: {width: 6, font: '1.2rem helvetica,sans-serif'},
+    1: {width: 5, font: '0.6rem helvetica,sans-serif'},
+    2: {width: 3, font: '0.5rem helvetica,sans-serif'},
+    def: {width: 1, font: '0.4rem helvetica,sans-serif'}
 };
 
-// If you know about any open and free to use vector tile services, please let me know
-// This example uses a primitive pbf tile server based on geojson-vt
-// You can use the server set up at https://react-layers.meteo.guru/tiles
-// Or clone the full source code from https://github.com/mmomtchev/geojson-vt-server.git
+/*
+ * If you know about any open and free to use vector tile services, please let me know
+ * This example uses a primitive pbf tile server based on geojson-vt
+ * You can use the server set up at https://react-layers.meteo.guru/tiles
+ * Or clone the full source code from https://github.com/mmomtchev/geojson-vt-server.git
+ */
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
     const styles = {
@@ -34,10 +42,12 @@ export default function VectorTiles(): JSX.Element {
                 <RFill color='transparent' />
             </RStyle>
 
-            <RStyle
+            <RStyleArray
                 ref={styles.towns}
                 render={useCallback((feature: Feature<Geometry>) => {
                     /* This is a the towns style
+                     *
+                     * This examples illustrates superposing two image elements (two circles)
                      *
                      * This is a dynamic style that creates a new object
                      * every time it is access
@@ -50,14 +60,22 @@ export default function VectorTiles(): JSX.Element {
                         feature.get('c').charAt(0).toString('hex').substring(0, 2).padStart(2, '0');
                     return (
                         <React.Fragment>
-                            <RCircle radius={width}>
-                                <RStroke color={'#007bff'} width={width} />
-                                <RFill color={'#007bff'} />
-                            </RCircle>
-                            <RText font='helvetica' text={feature.get('n')}>
-                                <RStroke color={'#007bff'} width={2} />
-                                <RFill color={color} />
-                            </RText>
+                            <RStyle zIndex={10}>
+                                <RCircle radius={width}>
+                                    <RStroke color={'#007bff'} width={width} />
+                                    <RFill color={'#007bff'} />
+                                </RCircle>
+                                <RText font={font} text={feature.get('n')}>
+                                    <RStroke color={'#007bff'} width={2} />
+                                    <RFill color={color} />
+                                </RText>
+                            </RStyle>
+                            <RStyle zIndex={0}>
+                                <RCircle radius={width * 1.5}>
+                                    <RStroke color={'#000000'} width={width * 1.5} />
+                                    <RFill color={'#000000'} />
+                                </RCircle>
+                            </RStyle>
                         </React.Fragment>
                     );
                 }, [])}
