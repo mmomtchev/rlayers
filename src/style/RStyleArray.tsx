@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Feature} from 'ol';
-import Style, {StyleLike} from 'ol/style/Style';
+import Style from 'ol/style/Style';
+import Geometry from 'ol/geom/Geometry';
 
 import {RContext, RContextType} from '../context';
-import {default as RStyle, RStyleProps, RStyleRef} from './RStyle';
+import {default as RStyle, RStyleProps} from './RStyle';
 import debug from '../debug';
-import Geometry from 'ol/geom/Geometry';
 
 /** An array of RStyle, can be an RStyle of its own
  * - this represents the OpenLayers concept of a style array
@@ -32,19 +32,15 @@ export default class RStyleArray extends RStyle {
     style = (f: Feature<Geometry>, r: number): Style | Style[] => {
         if (this.props.render) {
             const element = this.props.render(f, r);
+            React.Children.map(element.props.children, (child) => {
+                // eslint-disable-next-line @typescript-eslint/ban-types
+                if (React.isValidElement(child) && (child.type as Function) !== RStyle)
+                    throw new TypeError('An RStyleArray should contain only RStyle elements');
+            });
             const styleArray = [];
             const render = (
                 <RContext.Provider value={{...this.context, styleArray}}>
-                    {React.Children.map(element.props.children as React.ReactNode, (child, i) => {
-                        if (!this.childRefs[i]) this.childRefs[i] = React.createRef();
-                        // eslint-disable-next-line @typescript-eslint/ban-types
-                        if (React.isValidElement(child) && (child.type as Function) === RStyle) {
-                            return React.cloneElement(child, {
-                                ref: this.childRefs[i]
-                            });
-                        }
-                        throw new TypeError('An RStyleArray should contain only RStyle elements');
-                    })}
+                    {element.props.children}
                 </RContext.Provider>
             );
             ReactDOM.render(render, document.createElement('div'));
@@ -55,22 +51,18 @@ export default class RStyleArray extends RStyle {
 
     refresh(prevProps?: RStyleProps): void {
         super.refresh(prevProps);
-        if (!this.props.render)
-            this.ol = this.childRefs.map((child) => RStyle.getStyleStatic(child));
     }
 
     render(): JSX.Element {
+        React.Children.map(this.props.children, (child) => {
+            // eslint-disable-next-line @typescript-eslint/ban-types
+            if (React.isValidElement(child) && (child.type as Function) !== RStyle)
+                throw new TypeError('An RStyleArray should contain only RStyle elements');
+        });
         if (!this.props.render)
             return (
                 <RContext.Provider value={{...this.context, styleArray: this.ol as Style[]}}>
-                    {React.Children.map(this.props.children, (child, i) => {
-                        // eslint-disable-next-line @typescript-eslint/ban-types
-                        if (React.isValidElement(child) && (child.type as Function) === RStyle) {
-                            if (!this.childRefs[i]) this.childRefs[i] = React.createRef();
-                            return React.cloneElement(child, {ref: this.childRefs[i]});
-                        }
-                        throw new TypeError('An RStyleArray should contain only RStyle elements');
-                    })}
+                    {this.props.children}
                 </RContext.Provider>
             );
         return <React.Fragment />;
