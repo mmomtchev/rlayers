@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
+import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, RLayerStamen, RLayerHeatmap} from 'rlayers';
@@ -23,7 +24,7 @@ export default function Heatmap(): JSX.Element {
                     radius={radius}
                     format={reader}
                     url={earthquakes}
-                    weight={useCallback((f: Feature) => parseFloat(f.get('mag')) - 5, [])}
+                    weight={useCallback((f: Feature<Geometry>) => parseFloat(f.get('mag')) - 5, [])}
                 />
             </RMap>
             <div className='d-flex flex-row w-100'>

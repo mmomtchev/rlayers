@@ -6,6 +6,7 @@ import 'ol/ol.css';
 
 import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent} from 'rlayers';
 import {useRStyle, RStyle, RStroke, RFill, RCircle, RText} from 'rlayers/style';
+import {Geometry} from 'ol/geom';
 
 const degree = 111319.49079327358;
 const fonts = {
@@ -35,7 +36,7 @@ export default function VectorTiles(): JSX.Element {
 
             <RStyle
                 ref={styles.towns}
-                render={useCallback((feature: Feature) => {
+                render={useCallback((feature: Feature<Geometry>) => {
                     /* This is a the towns style
                      *
                      * This is a dynamic style that creates a new object
@@ -70,7 +71,7 @@ export default function VectorTiles(): JSX.Element {
                 {/* These are the administrative borders */}
                 <RLayerVectorTile
                     onPointerEnter={React.useCallback(
-                        (e: MapBrowserEvent) =>
+                        (e: MapBrowserEvent<UIEvent>) =>
                             e.target?.get &&
                             setCountry(e.target.get('n') + ', ' + e.target.get('c')),
                         [setCountry]

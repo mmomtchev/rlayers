@@ -16,7 +16,7 @@ export default function Controls(): JSX.Element {
                 className='example-map'
                 initial={{center: fromLonLat(origin), zoom: 11}}
                 noDefaultControls={true}
-                onClick={useCallback((e: MapBrowserEvent) => {
+                onClick={useCallback((e: MapBrowserEvent<UIEvent>) => {
                     const coords = e.map.getCoordinateFromPixel(e.pixel);
                     const lonlat = toLonLat(coords);
                     setLoc(lonlat);
@@ -38,7 +38,7 @@ export default function Controls(): JSX.Element {
                 <RControl.RCustom className='example-control'>
                     <RContext.Consumer>
                         {({map}) => (
-                            <button onClick={() => map.getView().setCenter(fromLonLat(loc))}>
+                            <button onClick={() => map?.getView().setCenter(fromLonLat(loc))}>
                                 o
                             </button>
                         )}

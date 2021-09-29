@@ -21,8 +21,8 @@ export const coords: Record<string, Coordinate> = {
 const coordsToString = (coords) => `${coords[1].toFixed(3)}:${coords[0].toFixed(3)}`;
 
 export default function Interactions(): JSX.Element {
-    const [startDragBox, setStartDragBox] = React.useState(null as Coordinate);
-    const [endDragBox, setEndDragBox] = React.useState(null as Coordinate);
+    const [startDragBox, setStartDragBox] = React.useState(undefined as Coordinate | undefined);
+    const [endDragBox, setEndDragBox] = React.useState(undefined as Coordinate | undefined);
     const [msg, setMsg] = React.useState(
         '<p>Hold shift to select an area or drag and drop the monuments</p>'
     );
@@ -55,16 +55,17 @@ export default function Interactions(): JSX.Element {
                     condition={shiftKeyOnly}
                     onBoxStart={React.useCallback((e: DragBoxEvent) => {
                         setStartDragBox(e.coordinate);
-                        setEndDragBox(null);
+                        setEndDragBox(undefined);
                     }, [])}
                     onBoxEnd={React.useCallback(
                         (e: DragBoxEvent) => {
                             setEndDragBox(e.coordinate);
                             const selected = [];
-                            vectorRef.current.source.forEachFeatureInExtent(
-                                boundingExtent([startDragBox, e.coordinate]),
-                                (f) => selected.push(f.get('name')) && false
-                            );
+                            if (vectorRef.current && startDragBox)
+                                vectorRef.current.source.forEachFeatureInExtent(
+                                    boundingExtent([startDragBox, e.coordinate]),
+                                    (f) => selected.push(f.get('name')) && false
+                                );
                             setMsg(
                                 `You selected <strong>${
                                     selected.join(', ') || 'no monuments'

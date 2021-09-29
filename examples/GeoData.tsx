@@ -2,6 +2,7 @@ import React, {useCallback, useMemo} from 'react';
 import {fromLonLat} from 'ol/proj';
 import Feature from 'ol/Feature';
 import GeoJSON from 'ol/format/GeoJSON';
+import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, RLayerVector, RStyle, RFeature, ROverlay, RLayerStamen} from 'rlayers';
@@ -24,7 +25,7 @@ RFeature.hitTolerance = 0;
 
 export default function GeoData(): JSX.Element {
     const [data, setData] = React.useState({records: []} as inputDataType);
-    const [current, setCurrent] = React.useState(null as Feature);
+    const [current, setCurrent] = React.useState(null as Feature<Geometry> | null);
     React.useEffect(() => {
         fetchData.then((r) => setData(r));
     }, []);

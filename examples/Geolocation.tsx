@@ -8,7 +8,7 @@ import locationIcon from './svg/location.svg';
 
 export default function Geolocation(): JSX.Element {
     const [pos, setPos] = React.useState(new Point(fromLonLat([0, 0])));
-    const [accuracy, setAccuracy] = React.useState(null as Geometry);
+    const [accuracy, setAccuracy] = React.useState(undefined as Geometry | undefined);
     return (
         <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 4}}>
             <ROSM />

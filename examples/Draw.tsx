@@ -48,13 +48,13 @@ export default function Interactions(): JSX.Element {
                     </RStyle.RStyle>
 
                     <RInteraction.RDraw
-                        type={'Polygon' as GeometryType}
+                        type={'Polygon'}
                         condition={shiftKeyOnly}
                         freehandCondition={altShiftKeysOnly}
                     />
 
                     <RInteraction.RDraw
-                        type={'Circle' as GeometryType}
+                        type={'Circle'}
                         condition={altKeyOnly}
                         freehandCondition={never}
                     />

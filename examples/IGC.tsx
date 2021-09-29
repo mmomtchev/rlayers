@@ -13,7 +13,7 @@ import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import IGC from 'ol/format/IGC';
 import {getVectorContext} from 'ol/render';
-import {LineString, Point} from 'ol/geom';
+import {Geometry, LineString, Point} from 'ol/geom';
 
 import {
     RMap,
@@ -105,7 +105,7 @@ export default function IGCComp(): JSX.Element {
                 className='example-map'
                 initial={{center: origin, zoom: 9}}
                 onPointerMove={useCallback(
-                    (e: MapBrowserEvent) => {
+                    (e: MapBrowserEvent<UIEvent>) => {
                         // This useCallback is very important -> without it
                         // onPointerMove will be a new anonymous function on every render
                         const source = igcVectorLayer.current.source;
@@ -137,7 +137,7 @@ export default function IGCComp(): JSX.Element {
                     onAddFeature={useCallback(
                         // This useCallback transforms this function to a constant value
                         // None of its dependencies change after initialization
-                        (e: VectorSourceEvent) => {
+                        (e: VectorSourceEvent<Geometry>) => {
                             const geometry = e.feature.getGeometry() as LineString;
                             flight.start = Math.min(flight.start, geometry.getFirstCoordinate()[2]);
                             flight.stop = Math.max(flight.stop, geometry.getLastCoordinate()[2]);
