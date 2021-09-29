@@ -17,7 +17,6 @@
         "allowJs": true,
         "baseUrl": "./",
         "esModuleInterop": true,
-        "strict": true,
         "resolveJsonModule": true,
         "moduleResolution": "node",
         "downlevelIteration": true,
