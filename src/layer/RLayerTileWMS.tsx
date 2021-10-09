@@ -23,8 +23,8 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     }
 
     createSource(): void {
-        const {params, url} = this.props;
-        const options = {params, url};
+        const {params, url, projection} = this.props;
+        const options = {params, url, projection};
 
         this.source = new TileWMS(options);
         this.eventSources = [this.ol, this.source];

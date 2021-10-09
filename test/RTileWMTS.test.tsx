@@ -82,7 +82,7 @@ const WMTSCaps =
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 window.fetch = jest.fn(() => Promise.resolve({text: () => WMTSCaps})) as any;
 
-describe('<RLayerWTMS>', () => {
+describe('<RLayerWMTS>', () => {
     it('should display a tiled WMTS layer', async () => {
         const layer = React.createRef() as React.RefObject<RLayerWMTS>;
         const ready = jest.fn();

@@ -2,6 +2,9 @@ window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
+import proj4 from 'proj4';
+import {register as proj4register} from 'ol/proj/proj4';
+
 import {RMap, RLayerStamen, RLayerTileJSON, RLayerWMS, RLayerTileWMS} from 'rlayers';
 import * as common from './common';
 
@@ -56,6 +59,11 @@ describe('<RLayerTileJSON>', () => {
     });
 });
 
+proj4.defs(
+    'EPSG:2056',
+    '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs '
+);
+proj4register(proj4);
 describe('<RLayerTileWMS>', () => {
     it('should display a TileWMS source layer', async () => {
         const layer = React.createRef() as React.RefObject<RLayerTileWMS>;
@@ -64,6 +72,7 @@ describe('<RLayerTileWMS>', () => {
                 <RLayerTileWMS
                     ref={layer}
                     url='https://wms.geo.admin.ch/'
+                    projection='EPSG:2056'
                     params={{
                         LAYERS: 'ch.swisstopo.pixelkarte-farbe-pk1000.noscale',
                         FORMAT: 'image/jpeg',
@@ -77,5 +86,6 @@ describe('<RLayerTileWMS>', () => {
         expect(layer.current.source.getParams().LAYERS).toBe(
             'ch.swisstopo.pixelkarte-farbe-pk1000.noscale'
         );
+        expect(layer.current.source.getProjection().getCode()).toBe('EPSG:2056');
     });
 });

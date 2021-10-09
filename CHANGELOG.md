@@ -12,6 +12,7 @@ Switch to the built-in TypeScript bindings in *OpenLayers* >=6.6
 Add basic WMS/TileWMS support
 Support `zIndex` in `RStyle`
 Fix #13: Dynamic rendering in `RStyleArray`
+Fix #14: Set the projection in `RLayerTileWMS`
 
 ### [1.0.4] 2021-07-10
 
