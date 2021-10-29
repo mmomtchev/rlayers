@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [1.1.0] WIP
+### [1.1.0] 2021-10-29
 
 Drop support for *OpenLayers* <6.6
 Switch to the built-in TypeScript bindings in *OpenLayers* >=6.6
@@ -13,6 +13,7 @@ Add basic WMS/TileWMS support
 Support `zIndex` in `RStyle`
 Fix #13: Dynamic rendering in `RStyleArray`
 Fix #14: Set the projection in `RLayerTileWMS`
+Fix #15: Properly unmount vector layers
 
 ### [1.0.4] 2021-07-10
 
