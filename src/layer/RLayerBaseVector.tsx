@@ -95,6 +95,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     };
 
     componentWillUnmount(): void {
+        super.componentWillUnmount();
         for (const ev of Object.values(RLayerBaseVector.relayedEvents))
             this.source.forEachFeature((f) => {
                 f.un(ev.toLowerCase() as 'change', this.eventRelay);

@@ -15,13 +15,20 @@ const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.g
 const features = parser.readFeatures(geojsonFeatures);
 
 describe('<RLayerVector>', () => {
-    it('should create a vector layer', async () => {
-        const {container, unmount} = render(
-            <RMap {...common.mapProps}>
-                <RLayerVector />
+    it('should create and remove a vector layer', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount, rerender} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} />
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        expect(refMap.current.ol.getLayers().getLength()).toBe(1);
+        rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
+        expect(refVector.current).toBeNull();
+        expect(refMap.current.ol.getLayers().getLength()).toBe(0);
         unmount();
     });
     it('should throw an error without a Map', () => {
