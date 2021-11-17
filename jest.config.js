@@ -1,9 +1,10 @@
 module.exports = {
+    testEnvironment: 'jsdom',
     roots: ['<rootDir>/test'],
     transform: {
         '^.+\.(t|j)sx?$': 'ts-jest'
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|@mapbox\/mapbox-gl-style-spec|txml))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|txml))'],
     moduleNameMapper: {
         '^rlayers$': '<rootDir>/src',
         '^rlayers\/(.*)$': '<rootDir>/src/$1',        
