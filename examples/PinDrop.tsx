@@ -1,7 +1,8 @@
 import React, {useCallback} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Point} from 'ol/geom';
+import {Geometry, Point} from 'ol/geom';
+import {Feature} from 'ol';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
@@ -29,7 +30,7 @@ export default function PinDrop(): JSX.Element {
                         // without it RFeature will have its props updated at every call
                         onPointerDrag={useCallback((e) => {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
-                            e.target.setGeometry(new Point(coords));
+                            (e.target as Feature<Geometry>).setGeometry(new Point(coords));
                             // this stops OpenLayers from interpreting the event to pan the map
                             e.preventDefault();
                             return false;

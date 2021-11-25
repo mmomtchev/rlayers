@@ -1,13 +1,14 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Polygon, Point} from 'ol/geom';
+import {Polygon, Point, Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'rlayers';
 import {RStyle, RIcon, RFill, RStroke, useRStyle} from 'rlayers/style';
 
 import locationIcon from './svg/location.svg';
+import {Feature} from 'ol';
 
 const coords: Record<string, Coordinate> = {
     origin: [2.364, 48.82],
@@ -49,9 +50,11 @@ export default function Popups(): JSX.Element {
                     }
                     onClick={useCallback(
                         (e) =>
-                            e.map.getView().fit(e.target.getGeometry().getExtent(), {
-                                duration: 250
-                            }),
+                            e.map
+                                .getView()
+                                .fit((e.target as Feature<Geometry>).getGeometry().getExtent(), {
+                                    duration: 250
+                                }),
                         []
                     )}
                 >

@@ -1,7 +1,8 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Point} from 'ol/geom';
+import {Geometry, Point} from 'ol/geom';
+import {Feature} from 'ol';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
@@ -23,10 +24,12 @@ export default function Overlays(): JSX.Element {
                 <RFeature
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                     onClick={(e) =>
-                        e.map.getView().fit(e.target.getGeometry().getExtent(), {
-                            duration: 250,
-                            maxZoom: 15
-                        })
+                        e.map
+                            .getView()
+                            .fit((e.target as Feature<Geometry>).getGeometry().getExtent(), {
+                                duration: 250,
+                                maxZoom: 15
+                            })
                     }
                 >
                     <ROverlay className='example-overlay'>

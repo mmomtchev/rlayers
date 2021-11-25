@@ -47,7 +47,10 @@ export default function GeoData(): JSX.Element {
                     zIndex={5}
                     format={parser}
                     url={departements}
-                    onPointerEnter={useCallback((e) => setCurrent(e.target), [])}
+                    onPointerEnter={useCallback(
+                        (e) => setCurrent(e.target as Feature<Geometry>),
+                        []
+                    )}
                     onPointerLeave={useCallback((e) => current === e.target && setCurrent(null), [
                         current
                     ])}

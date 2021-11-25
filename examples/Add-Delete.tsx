@@ -1,6 +1,6 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
-import {Point} from 'ol/geom';
+import {Geometry, Point} from 'ol/geom';
 import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
 import 'ol/ol.css';
@@ -63,7 +63,8 @@ export default function Interactions(): JSX.Element {
                             onClick={(e) => {
                                 // This the deletion
                                 const idx = features.findIndex(
-                                    (x) => x.get('uid') === e.target.get('uid')
+                                    (x) =>
+                                        x.get('uid') === (e.target as Feature<Geometry>).get('uid')
                                 );
                                 if (idx >= 0) {
                                     features.splice(idx, 1);

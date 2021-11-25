@@ -1,6 +1,7 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Geometry, Point} from 'ol/geom';
+import {Geolocation as OLGeoLoc} from 'ol';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, RGeolocation, RStyle} from 'rlayers';
@@ -18,9 +19,10 @@ export default function Geolocation(): JSX.Element {
                 onChange={React.useCallback(function (e) {
                     // Note the use of function instead of an arrow lambda
                     // which does not have this
-                    setPos(new Point(e.target.getPosition()));
-                    setAccuracy(e.target.getAccuracyGeometry());
-                    this.context.map.getView().fit(e.target.getAccuracyGeometry(), {
+                    const geoloc = e.target as OLGeoLoc;
+                    setPos(new Point(geoloc.getPosition()));
+                    setAccuracy(geoloc.getAccuracyGeometry());
+                    this.context.map.getView().fit(geoloc.getAccuracyGeometry(), {
                         duration: 250,
                         maxZoom: 15
                     });

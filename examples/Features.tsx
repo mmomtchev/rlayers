@@ -1,6 +1,8 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
+import {Feature} from 'ol';
+import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'rlayers';
@@ -21,7 +23,9 @@ export default function Features(): JSX.Element {
                     )}
                     onClick={useCallback(
                         (e: MapBrowserEvent<UIEvent>) => {
-                            setFlow([...flow, e.target.get('en')].slice(-16));
+                            setFlow(
+                                [...flow, (e.target as Feature<Geometry>).get('en')].slice(-16)
+                            );
                         },
                         [flow]
                     )}
@@ -39,7 +43,12 @@ export default function Features(): JSX.Element {
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                     onPointerEnter={useCallback(
                         (e: MapBrowserEvent<UIEvent>) => {
-                            setFlow([...flow, 'Entering ' + e.target.get('nom')].slice(-16));
+                            setFlow(
+                                [
+                                    ...flow,
+                                    'Entering ' + (e.target as Feature<Geometry>).get('nom')
+                                ].slice(-16)
+                            );
                         },
                         [flow]
                     )}

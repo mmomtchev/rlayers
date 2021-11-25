@@ -90,8 +90,12 @@ export default function VectorTiles(): JSX.Element {
                 <RLayerVectorTile
                     onPointerEnter={React.useCallback(
                         (e: MapBrowserEvent<UIEvent>) =>
-                            e.target?.get &&
-                            setCountry(e.target.get('n') + ', ' + e.target.get('c')),
+                            (e.target as Feature<Geometry>)?.get &&
+                            setCountry(
+                                (e.target as Feature<Geometry>).get('n') +
+                                    ', ' +
+                                    (e.target as Feature<Geometry>).get('c')
+                            ),
                         [setCountry]
                     )}
                     url='https://react-layers.meteo.guru/tiles/admin/{z}/{x}/{y}'

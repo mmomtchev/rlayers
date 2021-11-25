@@ -8,12 +8,12 @@ import {
     never,
     doubleClick
 } from 'ol/events/condition';
-import {Point} from 'ol/geom';
-import GeometryType from 'ol/geom/GeometryType';
+import {Geometry, Point} from 'ol/geom';
 import 'ol/ol.css';
 
 import monument from './svg/eiffel.svg';
 import {RMap, ROSM, RInteraction, RLayerVector, RStyle, RFeature} from 'rlayers';
+import VectorSource from 'ol/source/Vector';
 
 const TourEiffel = fromLonLat([2.294, 48.858]);
 const TourEiffelPoint = new Point(TourEiffel);
@@ -34,10 +34,11 @@ export default function Interactions(): JSX.Element {
 
                 <RLayerVector
                     onChange={React.useCallback((e) => {
-                        // On every chage, check if there is a feature covering the Eiffel Tower
-                        if (e.target?.forEachFeatureAtCoordinateDirect)
+                        // On every change, check if there is a feature covering the Eiffel Tower
+                        const source = e.target as VectorSource<Geometry>;
+                        if (source?.forEachFeatureAtCoordinateDirect)
                             setSelected(
-                                e.target.forEachFeatureAtCoordinateDirect(TourEiffel, () => true)
+                                source.forEachFeatureAtCoordinateDirect(TourEiffel, () => true)
                             );
                     }, [])}
                 >
