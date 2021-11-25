@@ -131,6 +131,10 @@ export default function IGCComp(): JSX.Element {
                     url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                     attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                 />
+                {
+                    // This layer contains the flight paths, we install an `onAddFeature` handler
+                    // to receive all features as their loaded to do additional processing
+                }
                 <RLayerVector
                     zIndex={10}
                     ref={igcVectorLayer}
@@ -185,6 +189,9 @@ export default function IGCComp(): JSX.Element {
                         [igcs, styles.flightPath, styles.flightPath.current[0]]
                     )}
                 </RLayerVector>
+                {
+                    // This layer contains the blue circle (the highlighted section)
+                }
                 <RLayerVector zIndex={10} ref={highlightVectorLayer} style={styles.blueCircle}>
                     {React.useMemo(
                         () => (

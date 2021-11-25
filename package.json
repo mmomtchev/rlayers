@@ -11,7 +11,7 @@
     "build:css": "copyfiles -f src/control/layers.css dist/control",
     "build:examples": "webpack --mode=production --env production",
     "build:doc": "npx styleguidist build",
-    "dev": "webpack-cli serve --mode=development --env development --open --hot",
+    "dev": "webpack-cli serve --mode=development --env development --open",
     "prod": "webpack-cli serve --mode=production --env production --open",
     "doc:watch": "npx styleguidist server",
     "doc:publish": "node publish-ghpages.js",
