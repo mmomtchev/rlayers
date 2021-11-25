@@ -28,7 +28,7 @@ const examples = {
     geolocation: {title: 'Geolocation', file: 'Geolocation'},
     vectortiles: {title: 'Vector tiles', file: 'VectorTiles'},
     reproj: {title: 'Reprojection', file: 'Reprojection'},
-    routing: {title: 'Routing', file: 'Routing'},
+    routing: {title: 'Navigation', file: 'Routing'},
     igc: {title: 'Performance', file: 'IGC'}
 };
 

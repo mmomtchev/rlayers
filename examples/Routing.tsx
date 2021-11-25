@@ -1,7 +1,6 @@
 import React from 'react';
 import {fromLonLat, transform} from 'ol/proj';
 import {LineString, Point} from 'ol/geom';
-import {Feature} from 'ol';
 import {Polyline as PolylineFormat} from 'ol/format';
 import 'ol/ol.css';
 
@@ -12,8 +11,9 @@ import {RStyle, RCircle, RFill, RStroke} from 'rlayers/style';
 // https://operations.osmfoundation.org/policies/nominatim/
 // The address request rate is limited to 1 request per second and they immediately ban you if you exceed this limit
 // There are paid alternatives to this service
-function fillAddress(coords) {
-    const coordsWGS = transform(coords, 'EPSG:3857', 'EPSG:4326');
+function fillAddress(point: Point): Promise<string> {
+    if (point === null) return Promise.resolve('');
+    const coordsWGS = transform(point.getCoordinates(), 'EPSG:3857', 'EPSG:4326');
     const URL = `https://nominatim.openstreetmap.org/reverse?format=json&lon=${coordsWGS[0]}&lat=${coordsWGS[1]}`;
     return fetch(URL)
         .then((r) => r.json())
@@ -23,7 +23,7 @@ function fillAddress(coords) {
 
 const polyReader = new PolylineFormat();
 function parseRoute(routes): LineString {
-    if (routes.length > 0) {
+    if (routes && routes.length > 0) {
         const f = polyReader.readFeature(routes[0].geometry);
         f.getGeometry().transform('EPSG:4326', 'EPSG:3857');
         return f.getGeometry();
@@ -32,6 +32,7 @@ function parseRoute(routes): LineString {
 }
 
 function buildRoute(start: Point, finish: Point): Promise<LineString> {
+    if (start === null || finish === null) return Promise.resolve(null);
     const startCoords = transform(start.getCoordinates(), 'EPSG:3857', 'EPSG:4326');
     const finishCoords = transform(finish.getCoordinates(), 'EPSG:3857', 'EPSG:4326');
 
@@ -57,23 +58,17 @@ export default function Routing(): JSX.Element {
 
     // On start change
     React.useEffect(() => {
-        if (start !== null)
-            fillAddress(start.getCoordinates()).then((address) => setStartAddress(address));
-        else setStartAddress('');
+        fillAddress(start).then((address) => setStartAddress(address));
     }, [start]);
 
     // On finish change
     React.useEffect(() => {
-        if (finish !== null)
-            fillAddress(finish.getCoordinates()).then((address) => setFinishAddress(address));
-        else setFinishAddress('');
+        fillAddress(finish).then((address) => setFinishAddress(address));
     }, [finish]);
 
     // When either one changes
     React.useEffect(() => {
-        if (start !== null && finish !== null)
-            buildRoute(start, finish).then((line) => setRoute(line));
-        else setRoute(null);
+        buildRoute(start, finish).then((line) => setRoute(line));
     }, [start, finish]);
 
     return (
@@ -102,12 +97,11 @@ export default function Routing(): JSX.Element {
                     </RStyle>
                     <RFeature key={0} geometry={start} />
                     <RFeature key={1} geometry={finish} />
-                </RLayerVector>
-                <RLayerVector>
-                    <RStyle>
-                        <RStroke width={2} color='green' />
-                    </RStyle>
-                    <RFeature geometry={route} />
+                    <RFeature key={2} geometry={route}>
+                        <RStyle>
+                            <RStroke width={3} color='darkgreen' />
+                        </RStyle>
+                    </RFeature>
                 </RLayerVector>
             </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow shadow'>
