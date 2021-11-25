@@ -10,7 +10,7 @@ import {RStyle, RCircle, RFill, RStroke} from 'rlayers/style';
 
 function fillAddress(coords) {
     const coordsWGS = transform(coords, 'EPSG:3857', 'EPSG:4326');
-    const URL = `http://nominatim.openstreetmap.org/reverse?format=json&lon=${coordsWGS[0]}&lat=${coordsWGS[1]}`;
+    const URL = `https://nominatim.openstreetmap.org/reverse?format=json&lon=${coordsWGS[0]}&lat=${coordsWGS[1]}`;
     return fetch(URL)
         .then((r) => r.json())
         .then((data) => data.display_name);
