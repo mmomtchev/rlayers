@@ -49,7 +49,7 @@ for (const ex of Object.keys(examples)) {
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
-        <Button block={true} variant='light'>
+        <Button className='w-100' variant='light'>
             {props.title}
         </Button>
     </Link>
