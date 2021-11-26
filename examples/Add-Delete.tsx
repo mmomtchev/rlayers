@@ -63,8 +63,7 @@ export default function Interactions(): JSX.Element {
                             onClick={(e) => {
                                 // This the deletion
                                 const idx = features.findIndex(
-                                    (x) =>
-                                        x.get('uid') === (e.target as Feature<Geometry>).get('uid')
+                                    (x) => x.get('uid') === e.target.get('uid')
                                 );
                                 if (idx >= 0) {
                                     features.splice(idx, 1);

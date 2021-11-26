@@ -28,7 +28,7 @@ export * as RControl from './control';
 export * as RInteraction from './interaction';
 export * as RStyle from './style';
 
-export {default as RFeature, RFeatureProps} from './RFeature';
+export {default as RFeature, RFeatureProps, RFeatureBaseEvent, RFeatureUIEvent} from './RFeature';
 export {default as ROverlay} from './ROverlay';
 export {default as RPopup} from './RPopup';
 export {default as RGeolocation} from './RGeolocation';

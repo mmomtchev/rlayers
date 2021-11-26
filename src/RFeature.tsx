@@ -12,6 +12,14 @@ import {RlayersBase} from './REvent';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
+export class RFeatureUIEvent extends MapBrowserEvent<UIEvent> {
+    target: Feature<Geometry>;
+}
+
+export class RFeatureBaseEvent extends BaseEvent {
+    target: Feature<Geometry>;
+}
+
 export interface RFeatureProps {
     /** OpenLayers geometry, mutually exclusive with feature */
     geometry?: Geometry;
@@ -19,7 +27,8 @@ export interface RFeatureProps {
     style?: RStyleLike;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
-    /** Bind the RFeature to an OpenLayers Feature, mutually exclusive with geometry
+    /**
+     * Bind the RFeature to an OpenLayers Feature, mutually exclusive with geometry
      *
      * When bound, the RFeature will automatically update its state when the Feature
      * changes
@@ -27,24 +36,24 @@ export interface RFeatureProps {
      * rebinding to a different feature on update is not supported */
     feature?: Feature<Geometry>;
     /** Called immediately on click */
-    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onClick?: (e: RFeatureUIEvent) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onSingleClick?: (e: RFeatureUIEvent) => boolean | void;
     /** Called on double click */
-    onDblClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onDblClick?: (e: RFeatureUIEvent) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerDrag?: (e: RFeatureUIEvent) => boolean | void;
     /** Called when the object is released */
-    onPointerDragEnd?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerDragEnd?: (e: RFeatureUIEvent) => boolean | void;
     /** Called on every pointer movement over the RFeature, use sparingly */
-    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerMove?: (e: RFeatureUIEvent) => boolean | void;
     /** Called once when the pointer moves over the RFeature */
-    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerEnter?: (e: RFeatureUIEvent) => boolean | void;
     /** Called once when the pointer moves out of the RFeature */
-    onPointerLeave?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerLeave?: (e: RFeatureUIEvent) => boolean | void;
     /** Called on every change */
-    onChange?: (e: BaseEvent) => void;
+    onChange?: (e: RFeatureBaseEvent) => void;
 }
 
 type FeatureRef = {
@@ -102,7 +111,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
-    static dispatchEvent(fr: FeatureRef, event: MapBrowserEvent<UIEvent>): boolean {
+    static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
         if (!event.target) event.target = fr.feature;
@@ -110,7 +119,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    static eventRelay(e: MapBrowserEvent<UIEvent>): boolean {
+    static eventRelay(e: RFeatureUIEvent): boolean {
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
@@ -129,7 +138,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             for (const fr of RFeature.lastFeaturesDragged)
                 RFeature.dispatchEvent(
                     fr,
-                    new MapBrowserEvent<UIEvent>('pointerdragend', e.map, e.originalEvent)
+                    new RFeatureUIEvent('pointerdragend', e.map, e.originalEvent)
                 );
             RFeature.lastFeaturesDragged = [];
         }
@@ -141,7 +150,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 if (!triggered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
                         fr,
-                        new MapBrowserEvent<UIEvent>('pointerleave', e.map, e.originalEvent)
+                        new RFeatureUIEvent('pointerleave', e.map, e.originalEvent)
                     );
                     fr.feature = null;
                     fr.layer = null;
@@ -154,7 +163,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 if (!RFeature.lastFeaturesEntered.find((f) => f.feature === fr.feature)) {
                     RFeature.dispatchEvent(
                         fr,
-                        new MapBrowserEvent<UIEvent>('pointerenter', e.map, e.originalEvent)
+                        new RFeatureUIEvent('pointerenter', e.map, e.originalEvent)
                     );
                     RFeature.lastFeaturesEntered.push(fr);
                 }
@@ -165,10 +174,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         // Stop on false
         for (const fr of triggered)
             if (
-                RFeature.dispatchEvent(
-                    fr,
-                    new MapBrowserEvent<UIEvent>(e.type, e.map, e.originalEvent)
-                ) === false
+                RFeature.dispatchEvent(fr, new RFeatureUIEvent(e.type, e.map, e.originalEvent)) ===
+                false
             )
                 return false;
         return true;

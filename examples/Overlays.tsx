@@ -24,12 +24,10 @@ export default function Overlays(): JSX.Element {
                 <RFeature
                     geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}
                     onClick={(e) =>
-                        e.map
-                            .getView()
-                            .fit((e.target as Feature<Geometry>).getGeometry().getExtent(), {
-                                duration: 250,
-                                maxZoom: 15
-                            })
+                        e.map.getView().fit(e.target.getGeometry().getExtent(), {
+                            duration: 250,
+                            maxZoom: 15
+                        })
                     }
                 >
                     <ROverlay className='example-overlay'>

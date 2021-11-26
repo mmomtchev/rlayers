@@ -10,7 +10,7 @@ import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
-import {RMap, RLayerTile, RLayerVectorTile, MapBrowserEvent} from 'rlayers';
+import {RMap, RLayerTile, RLayerVectorTile} from 'rlayers';
 import {useRStyle, RStyle, RStyleArray, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 import {Geometry} from 'ol/geom';
 
@@ -89,13 +89,9 @@ export default function VectorTiles(): JSX.Element {
                 {/* These are the administrative borders */}
                 <RLayerVectorTile
                     onPointerEnter={React.useCallback(
-                        (e: MapBrowserEvent<UIEvent>) =>
-                            (e.target as Feature<Geometry>)?.get &&
-                            setCountry(
-                                (e.target as Feature<Geometry>).get('n') +
-                                    ', ' +
-                                    (e.target as Feature<Geometry>).get('c')
-                            ),
+                        (e) =>
+                            e.target?.get &&
+                            setCountry(e.target.get('n') + ', ' + e.target.get('c')),
                         [setCountry]
                     )}
                     url='https://react-layers.meteo.guru/tiles/admin/{z}/{x}/{y}'

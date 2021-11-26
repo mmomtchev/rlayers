@@ -1,8 +1,6 @@
 import React from 'react';
-import {MapBrowserEvent} from 'ol';
 
 import {RContextType} from './context';
-import {RFeature} from 'rlayers';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 
 export interface RPopupProps extends ROverlayProps {
@@ -71,12 +69,12 @@ export default class Popup extends ROverlayBase<RPopupProps> {
         this.setPosition();
     }
 
-    toggle = (e: MapBrowserEvent<UIEvent>): void => {
+    toggle = (): void => {
         this.visible = !this.visible;
         this.setPosition();
     };
 
-    show = (e: MapBrowserEvent<UIEvent>): void => {
+    show = (): void => {
         if (this.showing) return;
         if (this.hiding) window.clearTimeout(this.hiding);
         this.showing = window.setTimeout(() => {
@@ -86,7 +84,7 @@ export default class Popup extends ROverlayBase<RPopupProps> {
         }, this.props.delay?.show ?? 250);
     };
 
-    hide = (e: MapBrowserEvent<UIEvent>): void => {
+    hide = (): void => {
         if (this.hiding) return;
         if (this.showing) window.clearTimeout(this.showing);
         this.hiding = window.setTimeout(() => {

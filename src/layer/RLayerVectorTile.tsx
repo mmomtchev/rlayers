@@ -1,12 +1,11 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 
 import {RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
-import RFeature from '../RFeature';
+import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
@@ -21,11 +20,11 @@ export interface RLayerVectorTileProps extends RLayerProps {
     /** Vector tile format */
     format: FeatureFormat;
     /** onClick handler for loaded features */
-    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onClick?: (e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */
-    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerMove?: (e: RFeatureUIEvent) => boolean | void;
     /** onPointerEnter handler for loaded features */
-    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerEnter?: (e: RFeatureUIEvent) => boolean | void;
 }
 
 /**

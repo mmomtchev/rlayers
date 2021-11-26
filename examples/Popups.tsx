@@ -50,11 +50,9 @@ export default function Popups(): JSX.Element {
                     }
                     onClick={useCallback(
                         (e) =>
-                            e.map
-                                .getView()
-                                .fit((e.target as Feature<Geometry>).getGeometry().getExtent(), {
-                                    duration: 250
-                                }),
+                            e.map.getView().fit(e.target.getGeometry().getExtent(), {
+                                duration: 250
+                            }),
                         []
                     )}
                 >

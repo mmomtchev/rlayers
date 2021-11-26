@@ -22,10 +22,8 @@ export default function Features(): JSX.Element {
                         geojsonFeatures
                     )}
                     onClick={useCallback(
-                        (e: MapBrowserEvent<UIEvent>) => {
-                            setFlow(
-                                [...flow, (e.target as Feature<Geometry>).get('en')].slice(-16)
-                            );
+                        (e) => {
+                            setFlow([...flow, e.target.get('en')].slice(-16));
                         },
                         [flow]
                     )}

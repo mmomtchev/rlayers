@@ -30,7 +30,7 @@ export default function PinDrop(): JSX.Element {
                         // without it RFeature will have its props updated at every call
                         onPointerDrag={useCallback((e) => {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
-                            (e.target as Feature<Geometry>).setGeometry(new Point(coords));
+                            e.target.setGeometry(new Point(coords));
                             // this stops OpenLayers from interpreting the event to pan the map
                             e.preventDefault();
                             return false;

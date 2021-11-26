@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, Feature, MapBrowserEvent} from 'ol';
+import {Feature, MapBrowserEvent} from 'ol';
 import {VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
@@ -9,7 +9,7 @@ import {FeatureLoader} from 'ol/featureloader';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
-import {default as RFeature} from '../RFeature';
+import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
@@ -36,7 +36,7 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
     /** Default onClick handler for loaded features */
-    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onClick?: (e: RFeatureUIEvent) => boolean | void;
     /** Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
@@ -50,11 +50,11 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      */
     onFeaturesLoadEnd?: (e: VectorSourceEvent<Geometry>) => boolean | void;
     /** Default onPointerMove handler for loaded features */
-    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerMove?: (e: RFeatureUIEvent) => boolean | void;
     /** Default onPointerEnter handler for loaded features */
-    onPointerEnter?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerEnter?: (e: RFeatureUIEvent) => boolean | void;
     /** Default onPointerLeave handler for loaded features */
-    onPointerLeave?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerLeave?: (e: RFeatureUIEvent) => boolean | void;
     onPostRender?: (e: RenderEvent) => boolean | void;
     onPreRender?: (e: RenderEvent) => boolean | void;
 }
