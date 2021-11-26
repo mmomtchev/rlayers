@@ -33,7 +33,10 @@ export interface RFeatureProps {
      * When bound, the RFeature will automatically update its state when the Feature
      * changes
      *
-     * rebinding to a different feature on update is not supported */
+     * Rebinding to a different feature on update is not supported
+     *
+     * geometry is a better choice for simply changing the shape or the location of the feature
+     */
     feature?: Feature<Geometry>;
     /** Called immediately on click */
     onClick?: (e: RFeatureUIEvent) => boolean | void;
