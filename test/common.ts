@@ -5,7 +5,7 @@ import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
 
-import {MapBrowserEvent, RlayersBase} from 'rlayers';
+import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
 import React from 'react';
 
 export const mapProps = {
@@ -75,15 +75,18 @@ export function expectToCall(fn: (unknown) => unknown, mock: (unknown) => unknow
     expect(mock).toHaveBeenLastCalledWith(s);
 }
 
-export type Klass = new (...args: unknown[]) => unknown;
+export type ComponentConstructor = new (
+    props: Readonly<unknown>,
+    context: React.Context<RContextType>
+) => React.Component;
 
 export function handlerCheckContext(
-    type: Klass,
+    type: ComponentConstructor,
     cEl: string[],
     cRef: React.RefObject<RlayersBase<unknown, unknown>>[]
 ) {
-    return function (e: unknown): void {
+    return function (this: React.Component, e: unknown): void {
         expect(this).toBeInstanceOf(type);
-        for (const i in cEl) expect(this.context[cEl[i]]).toBe(cRef[i].current.ol);
+        for (const i in cEl) expect(this.context[cEl[i]]).toBe(cRef[i].current?.ol);
     };
 }

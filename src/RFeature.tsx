@@ -111,6 +111,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
     }
 
     static initEventRelay(map: Map): void {
+        // These are reinstalled at every new feature
+        // but since eventRelay is static this doesn't grow the listeners array
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 

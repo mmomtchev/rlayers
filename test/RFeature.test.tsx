@@ -5,6 +5,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
+import {VectorTile} from 'ol/layer';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
 
@@ -56,14 +57,15 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
+        if (map.current === null) throw new Error('map.current is null');
         for (const evname of mapEvents)
             for (const r of ref)
-                r.current.ol.dispatchEvent(
+                r.current?.ol.dispatchEvent(
                     common.createEvent(evname.toLowerCase(), map.current.ol)
                 );
         for (const evname of featureEvents)
             for (const r of ref)
-                r.current.ol.dispatchEvent(
+                r.current?.ol.dispatchEvent(
                     common.createEvent(evname.toLowerCase(), map.current.ol)
                 );
         expect(container.innerHTML).toMatchSnapshot();
@@ -162,14 +164,19 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
+        if (map.current === null) throw new Error('map.current is null');
+        const dummyLayer = new VectorTile();
+        const dummyGeom = new Point([0, 0]);
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (pixel[0] === 10) return cb.call(this, ref[0].current.ol, null);
-            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, null);
+            if (ref[0].current === null || ref[1].current === null)
+                throw new Error('Referenced feature not found');
+            if (pixel[0] === 10) return cb.call(this, ref[0].current.ol, dummyLayer, dummyGeom);
+            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, dummyLayer, dummyGeom);
             throw new Error('unexpected');
         });
         for (const ev of mapEvents) {
-            map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-            map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
         }
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
@@ -209,12 +216,17 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
+        if (map.current === null) throw new Error('map.current is null');
+        const dummyLayer = new VectorTile();
+        const dummyGeom = new Point([0, 0]);
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
+            if (ref[0].current === null || ref[1].current === null || ref[2].current === null)
+                throw new Error('Referenced feature not found');
             if (pixel[0] === 10) {
-                if (cb.call(this, ref[0].current.ol, null)) return;
-                return cb.call(this, ref[2].current.ol, null);
+                if (cb.call(this, ref[0].current.ol, dummyLayer, dummyGeom)) return;
+                return cb.call(this, ref[2].current.ol, dummyLayer, dummyGeom);
             }
-            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, null);
+            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, dummyLayer, dummyGeom);
             return undefined;
         });
 
