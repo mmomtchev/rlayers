@@ -169,7 +169,7 @@ describe('<RStyle>', () => {
         const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
         expect(style.getText().getText()).toBe('text14');
         expect(style.getText().getStroke().getWidth()).toBe(14);
-        expect((ref.current as RStyle).cache.get(f.get('name'))).toBe(style);
+        expect(ref.current?.cache.get(f.get('name'))).toBe(style);
     });
     it('should apply to vector layers', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVector>;
@@ -182,7 +182,7 @@ describe('<RStyle>', () => {
                 </RLayerVector>
             </RMap>
         );
-        const style = (ref.current as RLayerVector).ol.getStyle() as Style;
+        const style = ref.current?.ol.getStyle() as Style;
         expect(style.getStroke().getWidth()).toBe(7);
     });
     it('should apply to vector layers w/dynamic', async () => {
@@ -204,7 +204,7 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text9'
         });
-        const style = ((ref.current as RLayerVector).ol.getStyle() as (Feature) => Style)(f);
+        const style = (ref.current?.ol.getStyle() as (Feature) => Style)(f);
         expect(style.getText().getText()).toBe('text9');
         expect(style.getText().getStroke().getWidth()).toBe(9);
     });
@@ -222,8 +222,8 @@ describe('<RStyle>', () => {
                 </RLayerVector>
             </RMap>
         );
-        const styleF = (refFeature.current as RFeature).ol.getStyle() as Style;
-        const styleV = (refVector.current as RLayerVector).ol.getStyle();
+        const styleF = refFeature.current?.ol.getStyle() as Style;
+        const styleV = refVector.current?.ol.getStyle();
         expect(styleF.getStroke().getWidth()).toBe(13);
         expect(typeof styleV).toBe('function');
     });
