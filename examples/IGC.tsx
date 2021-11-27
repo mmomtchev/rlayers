@@ -209,7 +209,7 @@ export default function IGCComp(): JSX.Element {
             </RMap>
             <div className='d-flex flex-row mb-3 align-items-center'>
                 <div
-                    className='jumbotron py-1 px-3 m-0 mr-3 w-50'
+                    className='jumbotron py-1 px-3 m-0 me-3 w-50'
                     dangerouslySetInnerHTML={{__html: time}}
                 />
                 <div className='w-50'>

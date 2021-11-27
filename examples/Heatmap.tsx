@@ -28,7 +28,7 @@ export default function Heatmap(): JSX.Element {
                 />
             </RMap>
             <div className='d-flex flex-row w-100'>
-                <div className='w-50 mr-2'>
+                <div className='w-50 me-2'>
                     <label htmlFor='blur'>Blur</label>
                     <div className='w-100'>
                         <input

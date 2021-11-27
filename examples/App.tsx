@@ -62,7 +62,7 @@ const App = (): JSX.Element => {
                 <strong>rlayers Examples</strong>
             </h1>
             <div className='d-flex flex-row p-3'>
-                <div className='d-flex flex-column left-menu mr-1'>
+                <div className='d-flex flex-column left-menu me-2'>
                     <LeftMenuItem id={''} title={'Home'} />
                     {Object.keys(examples).map((e) => (
                         <LeftMenuItem key={e} id={e} title={examples[e].title} />
