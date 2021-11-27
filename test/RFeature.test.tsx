@@ -140,13 +140,17 @@ describe('<RFeature>', () => {
         const mapEvents = ['Click', 'SingleClick', 'DblClick', 'PointerDrag', 'PointerMove'];
         const handlers = [
             jest.fn(common.handlerCheckContext(RFeature, ['map'], [map])),
+            jest.fn(common.handlerCheckContext(RFeature, ['map'], [map])),
             jest.fn(common.handlerCheckContext(RFeature, ['map'], [map]))
         ];
         const handlerProps = [
             mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[0]}), {}),
-            mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[1]}), {})
+            mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[1]}), {}),
+            mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handlers[2]}), {})
         ];
-        const {container} = render(
+
+        // First pass, test installing new handlers
+        const {rerender} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector>
                     <RFeature
@@ -164,6 +168,7 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
+
         if (map.current === null) throw new Error('map.current is null');
         const dummyLayer = new VectorTile();
         const dummyGeom = new Point([0, 0]);
@@ -174,12 +179,68 @@ describe('<RFeature>', () => {
             if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, dummyLayer, dummyGeom);
             throw new Error('unexpected');
         });
+
         for (const ev of mapEvents) {
             map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
             map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
         }
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[2]).toHaveBeenCalledTimes(0);
+
+        // Second pass, test replacing handlers
+        rerender(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerVector>
+                    <RFeature
+                        ref={ref[0]}
+                        properties={{name: 'Arc de Triomphe'}}
+                        {...handlerProps[2]}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    />
+                    <RFeature
+                        ref={ref[1]}
+                        properties={{name: "Place d'Italie"}}
+                        {...handlerProps[2]}
+                        geometry={new Point(common.coords.PlaceDItalie)}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+
+        for (const ev of mapEvents) {
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+        }
+        expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[2]).toHaveBeenCalledTimes(mapEvents.length * 2);
+
+        // Third pass, test removing handlers
+        rerender(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerVector>
+                    <RFeature
+                        ref={ref[0]}
+                        properties={{name: 'Arc de Triomphe'}}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    />
+                    <RFeature
+                        ref={ref[1]}
+                        properties={{name: "Place d'Italie"}}
+                        geometry={new Point(common.coords.PlaceDItalie)}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+
+        for (const ev of mapEvents) {
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+        }
+        expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
+        expect(handlers[2]).toHaveBeenCalledTimes(mapEvents.length * 2);
     });
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
