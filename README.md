@@ -33,7 +33,9 @@ npm --save install rlayers ol react react-dom
 *OpenLayers* and *React* are peer dependencies and should be installed separately.
 
 *React* is supported from version 16.8.0.
+
 *rlayers@1.0* supports 6.0 >= *OpenLayers* < 6.6
+
 *rlayers@1.1* supports *OpenLayers* >= 6.6
 
 Currently the default install is *rlayers@1.0*, *rlayers@1.1* is available as *rlayers@next*
