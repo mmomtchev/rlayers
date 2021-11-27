@@ -33,9 +33,7 @@ export interface RFeatureProps {
      * When bound, the RFeature will automatically update its state when the Feature
      * changes
      *
-     * Rebinding to a different feature on update is not supported
-     *
-     * geometry is a better choice for simply changing the shape or the location of the feature
+     * geometry is usually a better choice for a dynamic feature
      */
     feature?: Feature<Geometry>;
     /** Called immediately on click */
@@ -188,6 +186,12 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
 
     refresh(prevProps?: RFeatureProps): void {
         super.refresh(prevProps);
+        if (this.props.feature !== undefined && this.props.feature !== this.ol) {
+            debug('replacing bound feature', this.ol);
+            this.componentWillUnmount();
+            this.ol = this.props.feature;
+            this.componentDidMount();
+        }
         if (this.props.properties !== prevProps?.properties)
             this.ol.setProperties(this.props.properties);
         if (this.props.geometry !== prevProps?.geometry) this.ol.setGeometry(this.props.geometry);

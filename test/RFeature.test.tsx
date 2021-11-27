@@ -6,6 +6,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
 import {VectorTile} from 'ol/layer';
+import {Feature} from 'ol';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
 
@@ -105,6 +106,45 @@ describe('<RFeature>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+    });
+
+    it('should support replacing the bound feature object', async () => {
+        const ref = React.createRef() as React.RefObject<RFeature>;
+        const layer = React.createRef() as React.RefObject<RLayerVector>;
+        const f1 = new Feature(new Point(common.coords.ArcDeTriomphe));
+        const f2 = new Feature(new Point(common.coords.PlaceDItalie));
+        const {rerender} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={layer}>
+                    <RFeature ref={ref} feature={f1}></RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        expect(ref.current?.ol).toStrictEqual(f1);
+        expect((ref.current?.ol?.getGeometry() as Point).getCoordinates()).toEqual(
+            common.coords.ArcDeTriomphe
+        );
+        expect(layer.current?.source.getFeatures().length).toBe(1);
+
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={layer}>
+                    <RFeature ref={ref} feature={f2}></RFeature>
+                </RLayerVector>
+            </RMap>
+        );
+        expect(ref.current?.ol).toStrictEqual(f2);
+        expect((ref.current?.ol?.getGeometry() as Point).getCoordinates()).toEqual(
+            common.coords.PlaceDItalie
+        );
+        expect(layer.current?.source.getFeatures().length).toBe(1);
+
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={layer} />
+            </RMap>
+        );
+        expect(layer.current?.source.getFeatures().length).toBe(0);
     });
 
     it('should support deleting features with nested elements', async () => {
