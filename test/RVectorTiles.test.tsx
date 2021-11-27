@@ -6,6 +6,8 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {MVT} from 'ol/format';
 import {Pixel} from 'ol/pixel';
 import {Style} from 'ol/style';
+import {Geometry, Point} from 'ol/geom';
+import RenderFeature from 'ol/render/Feature';
 import {RLayerVectorTile, RMap} from 'rlayers';
 import * as common from './common';
 
@@ -14,6 +16,10 @@ const props = {
     style: common.styles.yellow,
     format: new MVT()
 };
+
+const dummyGeom = new Point([0, 0]);
+const dummyFeat0 = ({id: 0} as unknown) as RenderFeature;
+const dummyFeat1 = ({id: 1} as unknown) as RenderFeature;
 
 describe('<RLayerVectorTiles>', () => {
     it('should create a vector tile layer', async () => {
@@ -42,8 +48,11 @@ describe('<RLayerVectorTiles>', () => {
                 <RLayerVectorTile ref={layer} {...props} {...handlers} />
             </RMap>
         );
+        if (map.current === null || layer.current === null) throw new Error('failed rendering map');
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (pixel[0] === 10) return cb.call(this, {id: 0}, layer.current.ol);
+            if (map.current === null || layer.current === null)
+                throw new Error('failed rendering map');
+            if (pixel[0] === 10) return cb.call(this, dummyFeat0, layer.current.ol, dummyGeom);
             return undefined;
         });
         for (const ev of mapEvents)
@@ -61,9 +70,12 @@ describe('<RLayerVectorTiles>', () => {
                 <RLayerVectorTile ref={layer} {...props} {...handlers} />
             </RMap>
         );
+        if (map.current === null || layer.current === null) throw new Error('failed rendering map');
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (pixel[0] === 10) return cb.call(this, {id: 0}, layer.current.ol);
-            if (pixel[0] === 20) return cb.call(this, {id: 1}, layer.current.ol);
+            if (map.current === null || layer.current === null)
+                throw new Error('failed rendering map');
+            if (pixel[0] === 10) return cb.call(this, dummyFeat0, layer.current.ol, dummyGeom);
+            if (pixel[0] === 20) return cb.call(this, dummyFeat1, layer.current.ol, dummyGeom);
             return undefined;
         });
 
@@ -117,10 +129,10 @@ describe('<RLayerVectorTiles>', () => {
         );
         const {rerender, container, unmount} = render(comp(common.styles.yellow));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current.ol.getStyle() as Style).getStroke().getWidth()).toBe(4);
+        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(4);
         rerender(comp(common.styles.blueDot));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
+        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
         unmount();
     });
     it('should update the url', async () => {
@@ -132,10 +144,10 @@ describe('<RLayerVectorTiles>', () => {
         );
         const {rerender, container, unmount} = render(comp('http://url1'));
         expect(container.innerHTML).toMatchSnapshot();
-        expect(ref.current.source.getUrls()[0]).toEqual('http://url1');
+        expect((ref.current?.source.getUrls() || [])[0]).toEqual('http://url1');
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();
-        expect(ref.current.source.getUrls()[0]).toEqual('http://url2');
+        expect((ref.current?.source.getUrls() || [])[0]).toEqual('http://url2');
         unmount();
     });
 });

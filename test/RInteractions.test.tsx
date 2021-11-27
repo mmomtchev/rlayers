@@ -16,8 +16,11 @@ describe('<RDragBox>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
-        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
+        const end = ref.current?.ol.getListeners('boxend');
+        const start = ref.current?.ol.getListeners('boxstart');
+        if (end === undefined || start === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
         unmount();
     });
     it('should throw an error without a Map', () => {
@@ -35,18 +38,23 @@ describe('<RDragBox>', () => {
             </RMap>
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        common.expectToCallListener(ref.current.ol.getListeners('boxend')[0], handler);
-        expect(ref.current.ol.getListeners('boxstart')).toBeUndefined();
-        const first = ref.current.ol;
+        const end = ref.current?.ol.getListeners('boxend');
+        if (end === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(end[0], handler);
+        expect(ref.current?.ol.getListeners('boxstart')).toBeUndefined();
+        const first = ref.current?.ol;
+
         rerender(
             <RMap {...common.mapProps}>
                 <RInteraction.RDragBox ref={ref} minArea={1} onBoxStart={handler} />
             </RMap>
         );
         expect(ref.current).toBeInstanceOf(RInteraction.RDragBox);
-        expect(ref.current.ol.getListeners('boxend')).toBeUndefined();
-        common.expectToCallListener(ref.current.ol.getListeners('boxstart')[0], handler);
-        expect(ref.current.ol !== first).toBeTruthy();
+        expect(ref.current?.ol.getListeners('boxend')).toBeUndefined();
+        const start = ref.current?.ol.getListeners('boxstart');
+        if (start === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(start[0], handler);
+        expect(ref.current?.ol !== first).toBeTruthy();
     });
 });
 
@@ -66,9 +74,12 @@ describe('<RTranslate>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RTranslate);
-        expect(ref.current.ol.getHitTolerance()).toBe(5);
-        common.expectToCallListener(ref.current.ol.getListeners('translateend')[0], handler);
-        common.expectToCallListener(ref.current.ol.getListeners('translatestart')[0], handler);
+        expect(ref.current?.ol.getHitTolerance()).toBe(5);
+        const end = ref.current?.ol.getListeners('translateend');
+        const start = ref.current?.ol.getListeners('translatestart');
+        if (end === undefined || start === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
         unmount();
     });
 });

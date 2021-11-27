@@ -76,12 +76,14 @@ describe('<ROverlay>', () => {
             </RMap>
         );
         const {getByText, container, rerender} = render(comp(false));
+        if (map.current === null) throw new Error('failed retrieving component');
         map.current.ol.getSize = () => [15, 15];
 
         map.current.ol.getPixelFromCoordinate = () => [5, 5];
         rerender(comp(true));
         expect(getByText('text14')).toBeInstanceOf(HTMLDivElement);
-        let style = getByText('text14').parentElement.style;
+        let style = getByText('text14')?.parentElement?.style;
+        if (style == null) throw new Error('failed retrieving style');
         expect(style.left).toBe('0px');
         expect(style.top).toBe('0px');
         expect(style.right).toBe('');
@@ -90,7 +92,8 @@ describe('<ROverlay>', () => {
 
         map.current.ol.getPixelFromCoordinate = () => [10, 10];
         rerender(comp(true));
-        style = getByText('text14').parentElement.style;
+        style = getByText('text14')?.parentElement?.style;
+        if (style == null) throw new Error('failed retrieving style');
         expect(container.innerHTML).toMatchSnapshot();
         expect(style.left).toBe('');
         expect(style.top).toBe('');

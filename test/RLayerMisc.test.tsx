@@ -17,7 +17,7 @@ describe('<RLayerStamen>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrls()[0]).toBe(
+        expect((layer.current?.source.getUrls() || [])[0]).toBe(
             'https://stamen-tiles-a.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
         );
     });
@@ -36,8 +36,8 @@ describe('<RLayerWMS>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrl()).toBe('https://magosm.magellium.com/geoserver/ows');
-        expect(layer.current.source.getParams().LAYERS).toBe('magosm:france_schools_point');
+        expect(layer.current?.source.getUrl()).toBe('https://magosm.magellium.com/geoserver/ows');
+        expect(layer.current?.source.getParams().LAYERS).toBe('magosm:france_schools_point');
     });
 });
 
@@ -53,7 +53,7 @@ describe('<RLayerTileJSON>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrls()[0]).toBe(
+        expect((layer.current?.source.getUrls() || [])[0]).toBe(
             'https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1'
         );
     });
@@ -82,10 +82,10 @@ describe('<RLayerTileWMS>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(layer.current.source.getUrls()[0]).toBe('https://wms.geo.admin.ch/');
-        expect(layer.current.source.getParams().LAYERS).toBe(
+        expect((layer.current?.source.getUrls() || [])[0]).toBe('https://wms.geo.admin.ch/');
+        expect(layer.current?.source.getParams().LAYERS).toBe(
             'ch.swisstopo.pixelkarte-farbe-pk1000.noscale'
         );
-        expect(layer.current.source.getProjection().getCode()).toBe('EPSG:2056');
+        expect(layer.current?.source.getProjection().getCode()).toBe('EPSG:2056');
     });
 });

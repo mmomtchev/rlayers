@@ -25,10 +25,10 @@ describe('<RLayerVector>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(refVector.current).toBeInstanceOf(RLayerVector);
-        expect(refMap.current.ol.getLayers().getLength()).toBe(1);
+        expect(refMap.current?.ol.getLayers().getLength()).toBe(1);
         rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
         expect(refVector.current).toBeNull();
-        expect(refMap.current.ol.getLayers().getLength()).toBe(0);
+        expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
         unmount();
     });
     it('should throw an error without a Map', () => {
@@ -45,7 +45,7 @@ describe('<RLayerVector>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
-        expect(ref.current.source.getFeatures().length).toBe(geojsonFeatures.features.length);
+        expect(ref.current?.source.getFeatures().length).toBe(geojsonFeatures.features.length);
         unmount();
     });
     it('should attach event handlers to features added after creation', async () => {
@@ -57,8 +57,9 @@ describe('<RLayerVector>', () => {
                 <RLayerVector ref={ref} zIndex={10} onClick={handler} />
             </RMap>
         );
+        if (map.current === null) throw new Error('failed rendering map');
         const f = new Feature(new Point([0, 0]));
-        ref.current.source.addFeature(f);
+        ref.current?.source.addFeature(f);
         f.dispatchEvent(common.createEvent('click', map.current.ol));
         expect(handler).toHaveBeenCalledTimes(1);
         unmount();
@@ -112,7 +113,7 @@ describe('<RLayerVector>', () => {
             </RMap>
         );
         expect(addFeature).toHaveBeenCalledTimes(features.length);
-        expect(vector.current.ol.getListeners('addfeature')).toBeUndefined();
+        expect(vector.current?.ol.getListeners('addfeature')).toBeUndefined();
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });
@@ -127,9 +128,10 @@ describe('<RLayerVector>', () => {
                 <RLayerVector ref={layer} {...handlers} features={features} />
             </RMap>
         );
+        if (map.current === null) throw new Error('failed rendering map');
         expect(render1.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
-            for (const f of layer.current.ol.getSource().getFeatures())
+            for (const f of layer.current?.ol.getSource().getFeatures() || [])
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
         render1.unmount();
         // unmount -> remount -> should render the same
@@ -141,20 +143,20 @@ describe('<RLayerVector>', () => {
         const render2 = render(comp);
         expect(render2.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
-            for (const f of layer.current.ol.getSource().getFeatures()) {
+            for (const f of layer.current?.ol.getSource().getFeatures() || []) {
                 // do not lose handlers
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
                 // do not leak handlers
-                expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
+                expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
         // rerender -> should render the same
         render2.rerender(comp);
         for (const evname of mapEvents)
-            for (const f of layer.current.ol.getSource().getFeatures()) {
+            for (const f of layer.current?.ol.getSource().getFeatures() || []) {
                 // do not lose handlers
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
                 // do not leak handlers
-                expect(f.getListeners(evname.toLowerCase()).length).toBe(1);
+                expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
         expect(render2.container.innerHTML).toMatchSnapshot();
         expect(handler).toHaveBeenCalledTimes(mapEvents.length * features.length * 3);
@@ -185,9 +187,10 @@ describe('<RLayerVector>', () => {
             </RMap>
         );
         const {rerender, container, unmount} = render(comp('http://url1'));
+        if (ref.current === null) throw new Error('failed rendering map');
         expect(container.innerHTML).toMatchSnapshot();
-        expect(ref.current.source.getUrl()).toEqual('http://url1');
-        const handler = jest.fn(ref.current.source.setUrl);
+        expect(ref.current?.source.getUrl()).toEqual('http://url1');
+        const handler = jest.fn(ref.current?.source.setUrl);
         ref.current.source.setUrl = handler;
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();

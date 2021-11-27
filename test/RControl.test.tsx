@@ -46,6 +46,7 @@ describe('<RControl>', () => {
         expect(container.innerHTML).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
+        if (button === null) throw new Error('no button');
         fireEvent.click(button);
         rerender(comp);
 

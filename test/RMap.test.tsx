@@ -29,8 +29,8 @@ describe('<RMap>', () => {
                 <ROSM />
             </RMap>
         );
-        expect(map.current.ol.getView().getMinZoom()).toBe(1);
-        expect(map.current.ol.getView().getMaxZoom()).toBe(10);
+        expect(map.current?.ol.getView().getMinZoom()).toBe(1);
+        expect(map.current?.ol.getView().getMaxZoom()).toBe(10);
     });
     it('should display an OSM map w/resolution', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
@@ -39,8 +39,8 @@ describe('<RMap>', () => {
                 <ROSM />
             </RMap>
         );
-        expect(map.current.ol.getView().getMinResolution()).toBe(1250);
-        expect(map.current.ol.getView().getMaxResolution()).toBe(10000);
+        expect(map.current?.ol.getView().getMinResolution()).toBe(1250);
+        expect(map.current?.ol.getView().getMaxResolution()).toBe(10000);
     });
     it('should handle Map events w/update', async () => {
         const mapEvents = [
@@ -68,7 +68,7 @@ describe('<RMap>', () => {
             ).container.innerHTML
         ).toMatchSnapshot();
         for (const evname of mapEvents)
-            map.current.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
+            map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
         expect(
             render(
                 <RMap className='newclass' ref={map} {...common.mapProps} {...handlers}>
@@ -77,7 +77,7 @@ describe('<RMap>', () => {
             ).container.innerHTML
         ).toMatchSnapshot();
         for (const evname of mapEvents)
-            map.current.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
+            map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
         expect(handler).toHaveBeenCalledTimes(mapEvents.length * 2);
     });
     it('should support an external view state', async () => {
@@ -93,14 +93,14 @@ describe('<RMap>', () => {
                 <ROSM />
             </RMap>
         );
-        map.current.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
+        map.current?.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
         expect(mockSetView).toHaveBeenCalledTimes(1);
         rerender(
             <RMap {...common.mapProps} ref={map}>
                 <ROSM />
             </RMap>
         );
-        map.current.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
+        map.current?.ol.dispatchEvent(common.createEvent('moveend', map.current.ol));
         expect(mockSetView).toHaveBeenCalledTimes(1);
     });
 });

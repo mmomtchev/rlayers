@@ -28,15 +28,16 @@ describe('<RPopup>', () => {
             </RMap>
         );
         const {container, rerender} = render(comp);
-        expect(popup.current.visible).toBeFalsy();
+        if (map.current === null) throw new Error('failed rendering map');
+        expect(popup.current?.visible).toBeFalsy();
         expect(container.innerHTML).toMatchSnapshot();
-        feature.current.ol.dispatchEvent(common.createEvent('click', map.current.ol));
+        feature.current?.ol.dispatchEvent(common.createEvent('click', map.current.ol));
         rerender(comp);
-        expect(popup.current.visible).toBeTruthy();
+        expect(popup.current?.visible).toBeTruthy();
         expect(container.innerHTML).toMatchSnapshot();
-        feature.current.ol.dispatchEvent(common.createEvent('click', map.current.ol));
+        feature.current?.ol.dispatchEvent(common.createEvent('click', map.current.ol));
         rerender(comp);
-        expect(popup.current.visible).toBeFalsy();
+        expect(popup.current?.visible).toBeFalsy();
         expect(container.innerHTML).toMatchSnapshot();
     });
     it('should show a popup on hover', async () => {
@@ -60,19 +61,21 @@ describe('<RPopup>', () => {
             </RMap>
         );
         const {container, rerender} = render(comp);
-        expect(popup.current.visible).toBeFalsy();
+        if (map.current === null) throw new Error('failed rendering map');
+        expect(popup.current?.visible).toBeFalsy();
         expect(container.innerHTML).toMatchSnapshot();
-        feature.current.ol.dispatchEvent(common.createEvent('pointerenter', map.current.ol));
+        feature.current?.ol.dispatchEvent(common.createEvent('pointerenter', map.current.ol));
         rerender(comp);
         await new Promise((res) => {
             setTimeout(() => {
-                expect(popup.current.visible).toBeTruthy();
+                if (map.current === null) throw new Error('failed rendering map');
+                expect(popup.current?.visible).toBeTruthy();
                 expect(container.innerHTML).toMatchSnapshot();
-                feature.current.ol.dispatchEvent(
+                feature.current?.ol.dispatchEvent(
                     common.createEvent('pointerleave', map.current.ol)
                 );
                 setTimeout(() => {
-                    expect(popup.current.visible).toBeFalsy();
+                    expect(popup.current?.visible).toBeFalsy();
                     expect(container.innerHTML).toMatchSnapshot();
                     res({});
                 }, 60);
