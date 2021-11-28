@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Have strict types for `this` and `event.target` whenever possible in the event handlers
 Support replacing the bound *OpenLayers* feature object when updating an `RFeature`
+Fix wrong `this` object in `RLayerWMTS.onSourceReady`
 
 ### [1.1.1] 2021-11-01
 

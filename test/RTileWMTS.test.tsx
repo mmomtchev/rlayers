@@ -86,16 +86,20 @@ window.fetch = jest.fn(() => Promise.resolve({text: () => WMTSCaps})) as any;
 describe('<RLayerWMTS>', () => {
     it('should display a tiled WMTS layer', async () => {
         const layer = React.createRef() as React.RefObject<RLayerWMTS>;
-        const ready = jest.fn();
         await new Promise((res, rej) => {
             const {container} = render(
                 <RMap {...common.mapProps}>
                     <RLayerWMTS
                         zIndex={5}
                         ref={layer}
-                        onSourceReady={(opt) => {
-                            expect((opt.projection as Projection).getCode()).toBe('EPSG:4326');
-                            res(undefined);
+                        onSourceReady={function (opt) {
+                            try {
+                                expect((opt.projection as Projection).getCode()).toBe('EPSG:4326');
+                                expect(this).toBeInstanceOf(RLayerWMTS);
+                                res(undefined);
+                            } catch (e) {
+                                rej(e);
+                            }
                         }}
                         attributions='Contains OS data © Crown Copyright and database right'
                         url='https://tiles.arcgis.com/tiles/qHLhLQrcvEnxjtPr/arcgis/rest/services/OS_Open_Raster/MapServer/WMTS'

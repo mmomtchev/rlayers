@@ -50,11 +50,11 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 this.source = new SourceWMTS(options);
                 this.ol.setSource(this.source);
                 this.eventSources = [this.ol, this.source];
-                if (this.props.onSourceReady) this.props.onSourceReady(options);
+                if (this.props.onSourceReady) this.props.onSourceReady.call(this, options);
                 return this.source;
             })
             .catch((e) => {
-                console.error('failed loading WMTS capabilites', e);
+                console.error('failed loading WMTS capabilities', e);
                 this.source = undefined;
                 return null;
             });
