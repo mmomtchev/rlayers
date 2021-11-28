@@ -24,7 +24,7 @@ export default function Overview(): JSX.Element {
                 </RControl.ROverviewMap>
             </RMap>
             <Button onClick={useCallback(() => setCollapsed(!collapsed), [collapsed])}>
-                Optionnal external toggle
+                Optional external toggle
             </Button>
         </React.Fragment>
     );
