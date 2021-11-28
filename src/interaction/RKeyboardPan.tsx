@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as KeyboardPan} from 'ol/interaction/KeyboardPan';
 
@@ -16,7 +16,7 @@ export interface RKeyboardPanProps {
      * @default 128 */
     pixelDelta?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RKeyboardPan, e: ObjectEvent) => void;
 }
 
 /** Pan with the arrow keys on the keyboard */

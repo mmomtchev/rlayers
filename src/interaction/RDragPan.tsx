@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragPan} from 'ol/interaction/DragPan';
 
@@ -16,7 +16,7 @@ export interface RDragPanProps {
         delay: number;
     };
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RDragPan, e: ObjectEvent) => void;
 }
 
 /** Panning by dragging */

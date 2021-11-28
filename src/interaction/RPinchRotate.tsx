@@ -1,5 +1,4 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as PinchRotate} from 'ol/interaction/PinchRotate';
 
@@ -14,7 +13,7 @@ export interface RPinchRotateProps {
      * @default 250 */
     duration?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RPinchRotate, e: ObjectEvent) => void;
 }
 
 /** Rotation by pinching */

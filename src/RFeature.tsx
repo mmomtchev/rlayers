@@ -37,24 +37,24 @@ export interface RFeatureProps {
      */
     feature?: Feature<Geometry>;
     /** Called immediately on click */
-    onClick?: (e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (e: RFeatureUIEvent) => boolean | void;
+    onSingleClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called on double click */
-    onDblClick?: (e: RFeatureUIEvent) => boolean | void;
+    onDblClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerDrag?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called when the object is released */
-    onPointerDragEnd?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerDragEnd?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called on every pointer movement over the RFeature, use sparingly */
-    onPointerMove?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called once when the pointer moves over the RFeature */
-    onPointerEnter?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called once when the pointer moves out of the RFeature */
-    onPointerLeave?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerLeave?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
     /** Called on every change */
-    onChange?: (e: RFeatureBaseEvent) => void;
+    onChange?: (this: RFeature, e: RFeatureBaseEvent) => void;
 }
 
 type FeatureRef = {

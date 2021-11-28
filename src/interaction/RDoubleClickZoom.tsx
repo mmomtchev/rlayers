@@ -1,5 +1,4 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DoubleClickZoom} from 'ol/interaction/DoubleClickZoom';
 
@@ -14,7 +13,7 @@ export interface RDoubleClickZoomProps {
      * @default 1 */
     delta?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RDoubleClickZoom, e: ObjectEvent) => void;
 }
 
 /** Zooming by double click */

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as KeyboardZoom} from 'ol/interaction/KeyboardZoom';
 
@@ -16,7 +16,7 @@ export interface RKeyboardZoomProps {
      * @default 1 */
     delta?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RKeyboardZoom, e: ObjectEvent) => void;
 }
 
 /** Zoom with +/- keys on the keyboard */

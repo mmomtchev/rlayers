@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragRotate} from 'ol/interaction/DragRotate';
 
@@ -13,7 +13,7 @@ export interface RDragRotateProps {
      * @default 250 */
     duration?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RDragRotate, e: ObjectEvent) => void;
 }
 
 /** Rotation by clicking and dragging */

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Map} from 'ol';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 import BaseEvent from 'ol/events/Event';
@@ -30,7 +29,7 @@ export interface RLayerProps {
     /** The layer will be reprojected if its projection is different than the map */
     projection?: string;
     /** Called on every change */
-    onChange?: (e: BaseEvent) => void;
+    onChange?: (this: RLayer<RLayerProps>, e: BaseEvent) => void;
 }
 
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record<string, never>> {

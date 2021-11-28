@@ -14,7 +14,7 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     /** Layer name */
     layer: string;
     /** Called when the WMTS capabilities have been acquired */
-    onSourceReady?: (opt: Options) => void;
+    onSourceReady?: (this: RLayerWMTS, opt: Options) => void;
 }
 
 /**

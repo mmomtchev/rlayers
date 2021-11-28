@@ -1,5 +1,5 @@
 import React from 'react';
-import {Collection, Feature, Map, MapBrowserEvent} from 'ol';
+import {Collection, Feature} from 'ol';
 import {default as Translate, TranslateEvent} from 'ol/interaction/Translate';
 import Geometry from 'ol/geom/Geometry';
 import BaseLayer from 'ol/layer/Base';
@@ -22,11 +22,11 @@ export interface RTranslateProps {
      * @default 0 */
     hitTolerance?: number;
     /** Called when the translation is released */
-    onTranslateEnd?: (e: TranslateEvent) => void;
+    onTranslateEnd?: (this: RTranslate, e: TranslateEvent) => void;
     /** Called when the translation is started */
-    onTranslateStart?: (e: TranslateEvent) => void;
+    onTranslateStart?: (this: RTranslate, e: TranslateEvent) => void;
     /** Called on every pointer move while the translation is active */
-    onTranslating?: (e: TranslateEvent) => void;
+    onTranslating?: (this: RTranslate, e: TranslateEvent) => void;
 }
 
 /**

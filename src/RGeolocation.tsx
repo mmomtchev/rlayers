@@ -20,9 +20,9 @@ export interface RGeolocationProps {
      * @default viewProjection */
     projection?: string;
     /** Called on every change */
-    onChange?: (e: BaseEvent) => void;
+    onChange?: (this: RGeolocation, e: BaseEvent) => void;
     /** Called on error */
-    onError?: (e: BaseEvent) => void;
+    onError?: (this: RGeolocation, e: BaseEvent) => void;
 }
 
 /**

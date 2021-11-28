@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {Pixel} from 'ol/pixel';
 import {default as DragBox, DragBoxEvent} from 'ol/interaction/DragBox';
 
@@ -14,12 +14,17 @@ export interface RDragBoxProps {
     /** Minimum area that needs to be selected */
     minArea?: number;
     /** An optional OpenLayers condition */
-    boxEndCondition?: (e: MapBrowserEvent<UIEvent>, p1: Pixel, p2: Pixel) => boolean;
+    boxEndCondition?: (
+        this: RDragBox,
+        e: MapBrowserEvent<UIEvent>,
+        p1: Pixel,
+        p2: Pixel
+    ) => boolean;
     /** Called when the user starts dragging */
-    onBoxStart?: (e: DragBoxEvent) => void;
+    onBoxStart?: (this: RDragBox, e: DragBoxEvent) => void;
     /** Called on selection
      * (note that this is the OpenLayers event, not the constructor property) */
-    onBoxEnd?: (e: DragBoxEvent) => void;
+    onBoxEnd?: (this: RDragBox, e: DragBoxEvent) => void;
 }
 
 /** A dragbox, can be used for selecting features, see `RDragZoom` for zooming */

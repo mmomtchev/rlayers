@@ -1,5 +1,4 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as PinchZoom} from 'ol/interaction/PinchZoom';
 
@@ -11,7 +10,7 @@ export interface RPinchZoomProps {
      * @default 400 */
     duration?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RPinchZoom, e: ObjectEvent) => void;
 }
 
 /** Zoom by pinching */

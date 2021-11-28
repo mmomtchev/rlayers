@@ -8,11 +8,11 @@ import {default as RLayer, RLayerProps} from './RLayer';
 
 export interface RLayerRasterProps extends RLayerProps {
     /** Triggered when all currently visible tiles have finished loading */
-    onTileLoadEnd?: (e: TileSourceEvent) => void;
+    onTileLoadEnd?: (this: RLayerRaster<RLayerRasterProps>, e: TileSourceEvent) => void;
     /** Called when a tile starts loading */
-    onTileLoadStart?: (e: TileSourceEvent) => void;
+    onTileLoadStart?: (this: RLayerRaster<RLayerRasterProps>, e: TileSourceEvent) => void;
     /** Called when tile loading results in an error */
-    onTileLoadError?: (e: TileSourceEvent) => void;
+    onTileLoadError?: (this: RLayerRaster<RLayerRasterProps>, e: TileSourceEvent) => void;
 }
 
 /** The common base of all raster layers, not meant to be used directly */

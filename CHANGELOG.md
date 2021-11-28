@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] WIP
 
-Have strict types for `event.target` whenever possible
+Have strict types for `this` and `event.target` whenever possible in the event handlers
 Support replacing the bound *OpenLayers* feature object when updating an `RFeature`
 
 ### [1.1.1] 2021-11-01

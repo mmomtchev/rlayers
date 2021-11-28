@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragZoom} from 'ol/interaction/DragZoom';
 
@@ -22,7 +22,7 @@ export interface RDragZoomProps {
      * @default 64 */
     minArea?: number;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RDragZoom, e: ObjectEvent) => void;
 }
 
 /** Zoom by dragging a box, see `RDragBox` for selecting features */

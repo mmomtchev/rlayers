@@ -36,27 +36,45 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
     /** Default onClick handler for loaded features */
-    onClick?: (e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RFeatureUIEvent) => boolean | void;
     /** Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
      * use onFeaturesLoadEnd for features loaded via `url`
      */
-    onAddFeature?: (e: VectorSourceEvent<Geometry>) => boolean | void;
+    onAddFeature?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: VectorSourceEvent<Geometry>
+    ) => boolean | void;
     /** Called when the external features have been loaded from `url`
      *
      * e.features will contain the features which still
      * won't be loaded into the layer
      */
-    onFeaturesLoadEnd?: (e: VectorSourceEvent<Geometry>) => boolean | void;
+    onFeaturesLoadEnd?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: VectorSourceEvent<Geometry>
+    ) => boolean | void;
     /** Default onPointerMove handler for loaded features */
-    onPointerMove?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: RFeatureUIEvent
+    ) => boolean | void;
     /** Default onPointerEnter handler for loaded features */
-    onPointerEnter?: (e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: RFeatureUIEvent
+    ) => boolean | void;
     /** Default onPointerLeave handler for loaded features */
-    onPointerLeave?: (e: RFeatureUIEvent) => boolean | void;
-    onPostRender?: (e: RenderEvent) => boolean | void;
-    onPreRender?: (e: RenderEvent) => boolean | void;
+    onPointerLeave?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: RFeatureUIEvent
+    ) => boolean | void;
+    onPostRender?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: RenderEvent
+    ) => boolean | void;
+    onPreRender?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RenderEvent) => boolean | void;
 }
 
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {

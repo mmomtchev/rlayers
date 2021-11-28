@@ -39,26 +39,26 @@ export interface RMapProps {
      */
     projection?: string;
     /** Called immediately on click */
-    onClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onSingleClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on double click */
-    onDblClick?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onDblClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when the user starts panning the map */
-    onMoveStart?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onMoveStart?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called when the user stops panning the map */
-    onMoveEnd?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onMoveEnd?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerDrag?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer movement, use with care */
-    onPointerMove?: (e: MapBrowserEvent<UIEvent>) => boolean | void;
-    onPostRender?: (e: MapEvent) => boolean | void;
-    onPreCompose?: (e: RenderEvent) => boolean | void;
-    onPostCompose?: (e: RenderEvent) => boolean | void;
-    onRenderComplete?: (e: RenderEvent) => boolean | void;
+    onPointerMove?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPostRender?: (this: RMap, e: MapEvent) => boolean | void;
+    onPreCompose?: (this: RMap, e: RenderEvent) => boolean | void;
+    onPostCompose?: (this: RMap, e: RenderEvent) => boolean | void;
+    onRenderComplete?: (this: RMap, e: RenderEvent) => boolean | void;
     /** Called on every change */
-    onChange?: (e: BaseEvent) => void;
+    onChange?: (this: RMap, e: BaseEvent) => void;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** Extent of the map, cannot be dynamically modified

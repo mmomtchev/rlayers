@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as MouseWheelZoom} from 'ol/interaction/MouseWheelZoom';
 
@@ -22,7 +22,7 @@ export interface RMouseWheelZoomProps {
      * @default false */
     constrainResolution?: boolean;
     /** Called on every change */
-    onChange?: (e: ObjectEvent) => void;
+    onChange?: (this: RMouseWheelZoom, e: ObjectEvent) => void;
 }
 
 /** Mouse wheel zoom */
