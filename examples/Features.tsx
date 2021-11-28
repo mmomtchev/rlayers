@@ -1,8 +1,6 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Feature} from 'ol';
-import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RStyle, MapBrowserEvent} from 'rlayers';
@@ -40,13 +38,8 @@ export default function Features(): JSX.Element {
                     format={new GeoJSON({featureProjection: 'EPSG:3857'})}
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                     onPointerEnter={useCallback(
-                        (e: MapBrowserEvent<UIEvent>) => {
-                            setFlow(
-                                [
-                                    ...flow,
-                                    'Entering ' + (e.target as Feature<Geometry>).get('nom')
-                                ].slice(-16)
-                            );
+                        (e) => {
+                            setFlow([...flow, 'Entering ' + e.target.get('nom')].slice(-16));
                         },
                         [flow]
                     )}

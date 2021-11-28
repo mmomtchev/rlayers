@@ -1,8 +1,7 @@
 import React, {useCallback} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Geometry, Point} from 'ol/geom';
-import {Feature} from 'ol';
+import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
@@ -14,9 +13,9 @@ const coords: Record<string, Coordinate> = {
 };
 
 // This example is meant to illustrate the use of the various RFeature callbacks
-// If you simply want to implement a translation interaction, the Interactions
-// example has a method which handles the pointer movements internally
-// with a much better performance
+// If you simply want to implement a translation interaction,
+// the Move & Select example has a method which handles the pointer movements
+// internally with a much better performance
 export default function PinDrop(): JSX.Element {
     const [loc, setLoc] = React.useState(coords.Montmartre);
     return (

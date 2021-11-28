@@ -1,6 +1,6 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
-import {Geometry, Point} from 'ol/geom';
+import {Point} from 'ol/geom';
 import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
 import 'ol/ol.css';

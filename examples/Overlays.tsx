@@ -1,8 +1,7 @@
 import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
-import {Geometry, Point} from 'ol/geom';
-import {Feature} from 'ol';
+import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';

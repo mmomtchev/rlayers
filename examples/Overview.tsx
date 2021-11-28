@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
+import {Button} from 'react-bootstrap';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RControl} from 'rlayers';
@@ -10,12 +11,21 @@ const origin = [2.364, 48.82];
 // Include the OpenLayers built-in .ol-overviewmap to avoid recreating everything from scratch
 
 export default function Overview(): JSX.Element {
+    const [collapsed, setCollapsed] = React.useState(false);
     return (
-        <RMap className='example-map' initial={{center: fromLonLat(origin), zoom: 11}}>
-            <ROSM />
-            <RControl.ROverviewMap className='ol-overviewmap example-overview'>
+        <React.Fragment>
+            <RMap className='example-map' initial={{center: fromLonLat(origin), zoom: 11}}>
                 <ROSM />
-            </RControl.ROverviewMap>
-        </RMap>
+                <RControl.ROverviewMap
+                    className='ol-overviewmap example-overview'
+                    collapsed={collapsed}
+                >
+                    <ROSM />
+                </RControl.ROverviewMap>
+            </RMap>
+            <Button onClick={useCallback(() => setCollapsed(!collapsed), [collapsed])}>
+                Click here to toggle
+            </Button>
+        </React.Fragment>
     );
 }

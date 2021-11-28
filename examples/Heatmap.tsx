@@ -24,7 +24,7 @@ export default function Heatmap(): JSX.Element {
                     radius={radius}
                     format={reader}
                     url={earthquakes}
-                    weight={useCallback((f: Feature<Geometry>) => parseFloat(f.get('mag')) - 5, [])}
+                    weight={useCallback((f) => parseFloat(f.get('mag')) - 5, [])}
                 />
             </RMap>
             <div className='d-flex flex-row w-100'>

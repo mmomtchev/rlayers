@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {Map, MapBrowserEvent} from 'ol';
+import {MapBrowserEvent} from 'ol';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
