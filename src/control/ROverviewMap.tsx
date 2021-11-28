@@ -6,9 +6,9 @@ import {RContext, RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 export interface OverviewProps extends RControlProps {
-    /** User-collapsible */
+    /** User-collapsible @default true */
     collapsible?: boolean;
-    /** Initial state */
+    /** State @default true */
     collapsed?: boolean;
     /** Label when collapsed */
     collapseLabel?: string;
@@ -44,6 +44,12 @@ export default class ROverviewMap extends RControlBase<OverviewProps, Record<str
             label: props.label,
             collapseLabel: props.collapseLabel
         };
+    }
+
+    refresh(prevProps?: OverviewProps): void {
+        super.refresh(prevProps);
+        if (prevProps?.collapsed !== this.props.collapsed)
+            this.ol.setCollapsed(this.props.collapsed);
     }
 
     render(): JSX.Element {

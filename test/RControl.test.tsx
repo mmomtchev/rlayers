@@ -11,14 +11,14 @@ const RControlButton = <button>X</button>;
 
 describe('<RControl>', () => {
     it('should render all the RControls', async () => {
-        const comp = (
+        const comp = (collapsed) => (
             <RMap {...common.mapProps} noDefaultControls={true}>
                 <RControl.RLayers>
                     <ROSM />
                     <RLayerStamen layer='toner' properties={{label: 'toner'}} />
                 </RControl.RLayers>
                 <RControl.RScaleLine />
-                <RControl.RAttribution />
+                <RControl.RAttribution collapsed={collapsed} />
                 <RControl.RZoom />
                 <RControl.RZoomSlider />
                 <RControl.RCustom className='example-RControl'>
@@ -37,18 +37,21 @@ describe('<RControl>', () => {
                     label='&#x6269;'
                     labelActive='&#x564f;'
                 />
-                <RControl.ROverviewMap className='ol-overviewmap example-overview'>
+                <RControl.ROverviewMap
+                    collapsed={collapsed}
+                    className='ol-overviewmap example-overview'
+                >
                     <ROSM />
                 </RControl.ROverviewMap>
             </RMap>
         );
-        const {container, getByLabelText, rerender, unmount} = render(comp);
+        const {container, getByLabelText, rerender, unmount} = render(comp(false));
         expect(container.innerHTML).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
         if (button === null) throw new Error('no button');
         fireEvent.click(button);
-        rerender(comp);
+        rerender(comp(true));
 
         const radio = getByLabelText('toner') as HTMLInputElement;
         fireEvent.click(radio);

@@ -4,6 +4,7 @@ import {Options} from 'ol/control/Control';
 
 import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
+import debug from '../debug';
 
 export interface RControlProps {
     className?: string;
