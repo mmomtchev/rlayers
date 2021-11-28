@@ -73,7 +73,7 @@ export default function IGCComp(): JSX.Element {
         flightPath: React.useRef([]) as React.RefObject<RStyle[]>
     };
 
-    // createRef insted of useRef here will severely impact performance
+    // createRef instead of useRef here will severely impact performance
     const igcVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
     const highlightVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
 
@@ -110,6 +110,8 @@ export default function IGCComp(): JSX.Element {
                         // onPointerMove will be a new anonymous function on every render
                         const source = igcVectorLayer.current.source;
                         const feature = source.getClosestFeatureToCoordinate(e.coordinate);
+                        // Did the user move the mouse before the flight paths were loaded?
+                        if (feature === null) return;
                         const point = feature.getGeometry().getClosestPoint(e.coordinate);
                         const date = new Date(point[2] * 1000);
                         setPoint(new Point(point));
@@ -237,7 +239,6 @@ export default function IGCComp(): JSX.Element {
                                     newHighlights.push(coords);
                                 });
                                 setHighlights(newHighlights);
-                                this.context.map.render();
                             },
                             [igcVectorLayer, flight]
                         )}
