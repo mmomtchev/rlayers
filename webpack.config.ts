@@ -61,7 +61,8 @@ const webpackConfig = (env): Configuration => ({
                 env: {
                     DEBUG: !env.production || env.development
                 }
-            }
+            },
+            VERSION: JSON.stringify(require('./package.json').version)
         }),
         new ForkTsCheckerWebpackPlugin({
             eslint: {
