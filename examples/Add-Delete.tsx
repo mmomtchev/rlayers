@@ -76,7 +76,7 @@ export default function Interactions(): JSX.Element {
                             }}
                         >
                             <ROverlay>
-                                <div>{f.get('uid')}</div>
+                                <div className={'user-select-none'}>{f.get('uid')}</div>
                             </ROverlay>
                         </RFeature>
                     ))}
