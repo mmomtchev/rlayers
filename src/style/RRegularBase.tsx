@@ -41,7 +41,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
     render(): JSX.Element {
         return (
             <div>
-                <RContext.Provider value={{...this.context, style: (this as unknown) as Style}}>
+                <RContext.Provider value={{...this.context, style: this as unknown as Style}}>
                     {this.props.children}
                 </RContext.Provider>
             </div>

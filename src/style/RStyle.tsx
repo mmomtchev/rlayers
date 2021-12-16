@@ -158,7 +158,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
         // style is a React.RefObject
         // React.RefObjects are just plain JS objects after JS transpilation
         if (Object.keys(style).includes('current'))
-            asRStyle = ((style as unknown) as RStyleRef).current;
+            asRStyle = (style as unknown as RStyleRef).current;
 
         if (asRStyle) {
             // style is a static RStyle or RStyleArray or reference

@@ -80,13 +80,8 @@ type FeatureRef = {
  *
  */
 export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
-    static pointerEvents: (
-        | 'click'
-        | 'pointerdrag'
-        | 'pointermove'
-        | 'singleclick'
-        | 'dblclick'
-    )[] = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
+    static pointerEvents: ('click' | 'pointerdrag' | 'pointermove' | 'singleclick' | 'dblclick')[] =
+        ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
     static lastFeaturesEntered: FeatureRef[] = [];
     static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 3;
