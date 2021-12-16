@@ -48,9 +48,10 @@ export default function GeoData(): JSX.Element {
                     format={parser}
                     url={departements}
                     onPointerEnter={useCallback((e) => setCurrent(e.target), [])}
-                    onPointerLeave={useCallback((e) => current === e.target && setCurrent(null), [
-                        current
-                    ])}
+                    onPointerLeave={useCallback(
+                        (e) => current === e.target && setCurrent(null),
+                        [current]
+                    )}
                 >
                     {/* When styling each feature, compute the color from the population data
                      * The function is memoized and it is replaced only once - when the population data

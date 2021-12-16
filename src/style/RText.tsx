@@ -52,7 +52,7 @@ export default class RText extends RBase<RTextProps> {
     render(): JSX.Element {
         return (
             <div>
-                <RContext.Provider value={{...this.context, style: (this.ol as unknown) as Style}}>
+                <RContext.Provider value={{...this.context, style: this.ol as unknown as Style}}>
                     {this.props.children}
                 </RContext.Provider>
             </div>
