@@ -12,13 +12,22 @@ import debug from '../debug';
 export interface RLayerVectorTileProps extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */
     url: string;
-    /** Style to be used for rendering the features
+    /**
+     * Style to be used for rendering the features
      * You can use a dynamic style, but the property value must stay the same
      * ie switching from a static OpenLayers style to a RefObject is not supported
      */
     style: RStyleLike;
     /** Vector tile format */
     format: FeatureFormat;
+    /**
+     * Width of the frame around the viewport that shall be rendered too
+     * so that the symbols, whose center is outside of the viewport,
+     * but are partially inside, can be rendered
+     *
+     * this property currently does not support dynamic updates
+     */
+    renderBuffer?: number;
     /** onClick handler for loaded features */
     onClick?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */
@@ -51,7 +60,8 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         });
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),
-            source: this.source
+            source: this.source,
+            renderBuffer: this.props.renderBuffer
         });
         this.eventSources = [this.ol, this.source];
         RFeature.initEventRelay(this.context.map);

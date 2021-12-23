@@ -17,9 +17,13 @@ import Geometry from 'ol/geom/Geometry';
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */
     url?: string;
-    /** Width of the frame around the viewport that shall be rendered too
+    /**
+     * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
-     * but are partially inside, can be rendered */
+     * but are partially inside, can be rendered
+     *
+     * this property currently does not support dynamic updates
+     */
     renderBuffer?: number;
     /** OpenLayers features that will be loaded
      *

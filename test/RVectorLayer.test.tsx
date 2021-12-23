@@ -1,6 +1,5 @@
 window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
-import {promisify} from 'util';
 import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
@@ -20,15 +19,18 @@ describe('<RLayerVector>', () => {
         const refMap = React.createRef() as React.RefObject<RMap>;
         const {container, unmount, rerender} = render(
             <RMap ref={refMap} {...common.mapProps}>
-                <RLayerVector ref={refVector} />
+                <RLayerVector ref={refVector} renderBuffer={250} />
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(refVector.current).toBeInstanceOf(RLayerVector);
         expect(refMap.current?.ol.getLayers().getLength()).toBe(1);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((refVector.current?.ol as any).renderBuffer_).toBe(250);
         rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
         expect(refVector.current).toBeNull();
         expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
+        expect(refMap.current?.ol);
         unmount();
     });
     it('should throw an error without a Map', () => {

@@ -18,17 +18,20 @@ const props = {
 };
 
 const dummyGeom = new Point([0, 0]);
-const dummyFeat0 = ({id: 0} as unknown) as RenderFeature;
-const dummyFeat1 = ({id: 1} as unknown) as RenderFeature;
+const dummyFeat0 = {id: 0} as unknown as RenderFeature;
+const dummyFeat1 = {id: 1} as unknown as RenderFeature;
 
 describe('<RLayerVectorTiles>', () => {
     it('should create a vector tile layer', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
         const {container, unmount} = render(
             <RMap {...common.mapProps}>
-                <RLayerVectorTile {...props} />
+                <RLayerVectorTile {...props} ref={ref} renderBuffer={250} />
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((ref.current?.ol as any).renderBuffer_).toBe(250);
         unmount();
     });
     it('should throw an error without a Map', () => {

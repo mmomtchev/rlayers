@@ -36,7 +36,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
             format: this.props.format,
             loader: this.props.loader
         });
-        this.ol = new LayerHeatmap({source: this.source, ...props});
+        this.ol = new LayerHeatmap({...props, source: this.source});
         this.eventSources = [this.ol, this.source];
         this.source.on('featuresloadend', this.newFeature);
         this.source.on('addfeature', this.newFeature);
