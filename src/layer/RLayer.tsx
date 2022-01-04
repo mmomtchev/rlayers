@@ -1,6 +1,7 @@
 import React from 'react';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
+import LayerRenderer from 'ol/renderer/Layer';
 import BaseEvent from 'ol/events/Event';
 
 import {RContext, RContextType} from '../context';
@@ -33,7 +34,8 @@ export interface RLayerProps {
 }
 
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record<string, never>> {
-    ol: Layer<Source>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
 
     constructor(props: Readonly<P>, context: React.Context<RContextType>) {

@@ -8,6 +8,7 @@ import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
 import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
+import LayerRenderer from 'ol/renderer/Layer';
 
 export const RContext = React.createContext({} as RContextType);
 
@@ -18,10 +19,12 @@ export interface RContextType {
     /** The current map */
     map?: Map;
     /** The current layer */
-    layer?: Layer<Source>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    layer?: Layer<Source, LayerRenderer<any>>;
     source?: Source;
     /** The current vector layer */
-    vectorlayer?: BaseVector<SourceVector<Geometry>>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    vectorlayer?: BaseVector<SourceVector<Geometry>, LayerRenderer<any>>;
     vectorsource?: SourceVector<Geometry>;
     /** The current RFeature */
     feature?: Feature<Geometry>;

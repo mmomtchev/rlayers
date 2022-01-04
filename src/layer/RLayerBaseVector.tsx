@@ -3,6 +3,7 @@ import {Feature, MapBrowserEvent} from 'ol';
 import {VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
+import LayerRenderer from 'ol/renderer/Layer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader} from 'ol/featureloader';
@@ -82,7 +83,8 @@ export interface RLayerBaseVectorProps extends RLayerProps {
 }
 
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
-    ol: BaseVector<SourceVector<Geometry>>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ol: BaseVector<SourceVector<Geometry>, LayerRenderer<any>>;
     source: SourceVector<Geometry>;
     static relayedEvents = {
         click: 'Click',

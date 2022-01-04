@@ -2,6 +2,7 @@ import React from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import BaseVectorLayer from 'ol/layer/BaseVector';
+import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import SourceVector from 'ol/source/Vector';
 import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
@@ -59,7 +60,7 @@ export interface RFeatureProps {
 
 type FeatureRef = {
     feature: Feature<Geometry>;
-    layer: BaseVectorLayer<SourceVector<Geometry>>;
+    layer: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>;
 };
 
 /**
@@ -121,8 +122,10 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
-            (f: Feature<Geometry>, l: BaseVectorLayer<SourceVector<Geometry>>) =>
-                triggered.push({feature: f, layer: l}) && false,
+            (
+                f: Feature<Geometry>,
+                l: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>
+            ) => triggered.push({feature: f, layer: l}) && false,
             {
                 hitTolerance: RFeature.hitTolerance
             }
