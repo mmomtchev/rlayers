@@ -30,15 +30,20 @@ It has nothing to do with *react-openlayers* which stopped at *OpenLayers* 3. In
 npm --save install rlayers ol react react-dom
 ```
 
+### Compatibility Matrix
+
 *OpenLayers* and *React* are peer dependencies and should be installed separately.
 
 *React* is supported from version 16.8.0.
 
-*rlayers@1.0* supports 6.0 >= *OpenLayers* < 6.6
-
-*rlayers@1.1* supports *OpenLayers* >= 6.6
-
-Currently the default install is *rlayers@1.0*, *rlayers@1.1* is available as *rlayers@next*
+---
+| rlayers | OpenLayers |
+--- | --- |
+| 1.0 | 6.0 to 6.5.99 |
+| 1.1 | 6.6 to 6.9.99 |
+| 1.2 `(@latest)` | 6.6 to 6.9.99 |
+| 1.3 `(@next)` | 6.10+ |
+---
 
 ## Usage
 
