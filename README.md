@@ -36,10 +36,11 @@ npm --save install rlayers ol react react-dom
 
 *rlayers@1.0* supports 6.0 >= *OpenLayers* < 6.6
 
-*rlayers@1.1* supports *OpenLayers* >= 6.6
+*rlayers@1.1* and *rlayers@1.2* support 6.6 >= *OpenLayers* < 6.10
 
-Currently the default install is *rlayers@1.0*, *rlayers@1.1* is available as *rlayers@next*
+*rlayers@1.3* will support *OpenLayers* >= 6.10
 
+Currently the default install is *rlayers@1.2*
 ## Usage
 
 *rlayers* is a set of reusable *React* components that can be nested in various ways to create map applications for the web through *React* composition in the true **spirit of *React***.
