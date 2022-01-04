@@ -23,6 +23,8 @@ export {default as RLayerStamen, RLayerStamenProps} from './layer/RLayerStamen';
 export {default as RLayerHeatmap, RLayerHeatmapProps} from './layer/RLayerHeatmap';
 export {default as RLayerCluster, RLayerClusterProps} from './layer/RLayerCluster';
 export {default as RLayerVectorTile, RLayerVectorTileProps} from './layer/RLayerVectorTile';
+export {default as RLayerTileWebGL, RLayerTileWebGLProps} from './layer/RLayerTileWebGL';
+export {default as ROSMWebGL, ROSMWebGLProps} from './layer/ROSMWebGL';
 
 export * as RControl from './control';
 export * as RInteraction from './interaction';

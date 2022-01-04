@@ -7,8 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.0] WIP
  * Support OpenLayers 6.10
+ * Initial WebGL support
 
-# [1.2.1] 2022-01-04
+### [1.2.1] 2022-01-04
  * Restrict OpenLayers to 6.6 to 6.9.99 for the rlayers 1.2 branch, OpenLayers 6.10 requires rlayers 1.3
  * Fix #20, renderBuffer parameter ignored
 

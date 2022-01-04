@@ -1,13 +1,13 @@
 import React from 'react';
 import {Map} from 'ol';
-import {Tile as LayerTile} from 'ol/layer';
+import {WebGLTile as LayerTileWebGL} from 'ol/layer';
 import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {RContextType} from '../context';
-import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
-export interface RLayerTileProps extends RLayerRasterProps {
+export interface RLayerTileWebGLProps extends RLayerWebGLProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;
     /**
@@ -21,31 +21,37 @@ export interface RLayerTileProps extends RLayerRasterProps {
 }
 
 /**
- * A layer with XYZ raster tiles
+ * A layer with XYZ raster tiles rendered by WebGL
  *
  * Requires an `RMap` context
  */
-export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
-    ol: LayerTile<XYZ>;
+export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
+    ol: LayerTileWebGL;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileWebGLProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
-        this.ol = new LayerTile({source: this.source});
+        this.ol = new LayerTileWebGL({
+            opacity: 0.9,
+            source: this.source,
+            cacheSize: props.cacheSize
+        });
         this.eventSources = [this.ol, this.source];
     }
 
     createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
+            interpolate: true,
             projection: this.props.projection,
-            tileGrid: this.props.tileGrid
+            tileGrid: this.props.tileGrid,
+            crossOrigin: 'anonymous'
         });
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerTileProps): void {
+    refresh(prevProps?: RLayerTileWebGLProps): void {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid) this.createSource();
         if (this.props.url && prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);

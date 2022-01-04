@@ -13,6 +13,7 @@ const examples = {
     extent: {title: 'Constrained view', file: 'Extent'},
     state: {title: 'External state', file: 'ExternalState'},
     animation: {title: 'Animated icon', file: 'AnimatedOverlay'},
+    webgl: {title: 'WebGL layers', file: 'WebGL'},
     overview: {title: 'Overview', file: 'Overview'},
     popups: {title: 'Popups', file: 'Popups'},
     features: {title: 'GeoJSON', file: 'Features'},

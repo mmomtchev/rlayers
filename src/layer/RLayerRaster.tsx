@@ -2,7 +2,7 @@ import React from 'react';
 import {Map} from 'ol';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
-import CanvasLayerRenderer from 'ol/renderer/canvas/Layer';
+import LayerRenderer from 'ol/renderer/Layer';
 import {TileSourceEvent} from 'ol/source/Tile';
 
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -19,6 +19,6 @@ export interface RLayerRasterProps extends RLayerProps {
 /** The common base of all raster layers, not meant to be used directly */
 export default class RLayerRaster<P extends RLayerRasterProps> extends RLayer<P> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ol: Layer<Source, CanvasLayerRenderer<any>>;
+    ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
 }
