@@ -45,6 +45,26 @@ jobs:
     - run: npm test
 
 
+  react-versions:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        react-version: [ '16.8', '16.14', '17.0.2' ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: npm i
+    - run: npm --force i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }}
+    - run: tsc
+    - run: npm test
+
+
   codecov:
 
     runs-on: ubuntu-latest
