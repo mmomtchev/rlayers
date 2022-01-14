@@ -10,38 +10,51 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  default:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: npm i
+    - run: npm run build --if-present
+    - run: npm test
+
+
+  ol-versions:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [ 14.x ]
+        ol-version: [ '6.10', '6.11' ]
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
     - run: npm i
+    - run: npm i ol@${{ matrix.ol-version }}
     - run: npm run build --if-present
     - run: npm test
+
 
   codecov:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [ 14.x ]
-
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
     - run: npm i
     - run: npm run test
       env:
