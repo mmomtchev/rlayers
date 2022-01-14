@@ -4,6 +4,10 @@ import {VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import LayerRenderer from 'ol/renderer/Layer';
+import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
+import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
+import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
+import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader} from 'ol/featureloader';
@@ -83,8 +87,13 @@ export interface RLayerBaseVectorProps extends RLayerProps {
 }
 
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ol: BaseVector<SourceVector<Geometry>, LayerRenderer<any>>;
+    ol: BaseVector<
+        SourceVector<Geometry>,
+        | CanvasVectorLayerRenderer
+        | CanvasVectorTileLayerRenderer
+        | CanvasVectorImageLayerRenderer
+        | WebGLPointsLayerRenderer
+    >;
     source: SourceVector<Geometry>;
     static relayedEvents = {
         click: 'Click',

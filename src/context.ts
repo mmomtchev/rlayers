@@ -4,6 +4,10 @@ import Layer from 'ol/layer/Layer';
 import Source from 'ol/source/Source';
 import BaseVector from 'ol/layer/BaseVector';
 import SourceVector from 'ol/source/Vector';
+import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
+import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
+import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
+import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Feature} from 'ol';
 import {Coordinate} from 'ol/coordinate';
 import Style from 'ol/style/Style';
@@ -24,7 +28,13 @@ export interface RContextType {
     source?: Source;
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    vectorlayer?: BaseVector<SourceVector<Geometry>, LayerRenderer<any>>;
+    vectorlayer?: BaseVector<
+        SourceVector<Geometry>,
+        | CanvasVectorLayerRenderer
+        | CanvasVectorTileLayerRenderer
+        | CanvasVectorImageLayerRenderer
+        | WebGLPointsLayerRenderer
+    >;
     vectorsource?: SourceVector<Geometry>;
     /** The current RFeature */
     feature?: Feature<Geometry>;
