@@ -40,6 +40,7 @@ jobs:
       with:
         node-version: 14.x
     - run: npm i ol@${{ matrix.ol-version }} react@16.14 react-dom@16.14 react-test-renderer@16.14
+    - run: npm i
     - run: tsc
     - run: npm test -- -u
 
@@ -60,6 +61,7 @@ jobs:
         node-version: 14.x
     - run: npm i ol
     - run: npm --force i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }}
+    - run: npm i
     - run: tsc
     - run: npm test
 
