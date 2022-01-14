@@ -4,7 +4,7 @@ module.exports = {
     transform: {
         '^.+\.(t|j)sx?$': 'ts-jest'
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|txml))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff))'],
     moduleNameMapper: {
         '^rlayers$': '<rootDir>/src',
         '^rlayers\/(.*)$': '<rootDir>/src/$1',        
