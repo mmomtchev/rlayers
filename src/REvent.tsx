@@ -74,8 +74,10 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         const eventSources = this.eventSources ?? [this.ol];
         for (const h of Object.keys(this.handlers ?? {})) {
             debug('cleaning up handler', this, h, this.handlers[h]);
-            if (this.handlers[h])
+            if (this.handlers[h]) {
                 for (const source of eventSources) source.un(this.olEventName(h), this.handlers[h]);
+                this.handlers[h] = undefined;
+            }
         }
     }
 

@@ -82,6 +82,77 @@ describe('<RTranslate>', () => {
         common.expectToCallListener(start[0], handler);
         unmount();
     });
+
+    it('should support filtering', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RTranslate>;
+        const handler = jest.fn();
+        const filter = jest.fn(() => true);
+        const component = (
+            <RMap {...common.mapProps}>
+                <RInteraction.RTranslate
+                    hitTolerance={5}
+                    ref={ref}
+                    filter={filter}
+                    onTranslateEnd={handler}
+                    onTranslateStart={handler}
+                />
+            </RMap>
+        );
+        const {rerender} = render(component);
+
+        const end = ref.current?.ol.getListeners('translateend');
+        const start = ref.current?.ol.getListeners('translatestart');
+        if (end === undefined || start === undefined) throw new Error('listeners not installed');
+
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        common.expectToCall((ref.current?.ol as any).filter_, filter);
+
+        rerender(component);
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        common.expectToCall((ref.current?.ol as any).filter_, filter);
+    });
+
+    it('should not lose event handlers on update', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RTranslate>;
+        const handler = jest.fn();
+        const {rerender} = render(
+            <RMap {...common.mapProps}>
+                <RInteraction.RTranslate
+                    hitTolerance={5}
+                    ref={ref}
+                    onTranslateEnd={handler}
+                    onTranslateStart={handler}
+                />
+            </RMap>
+        );
+
+        let end = ref.current?.ol.getListeners('translateend');
+        let start = ref.current?.ol.getListeners('translatestart');
+        if (end === undefined || start === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
+
+        rerender(
+            <RMap {...common.mapProps}>
+                <RInteraction.RTranslate
+                    hitTolerance={5}
+                    filter={() => true}
+                    ref={ref}
+                    onTranslateEnd={handler}
+                    onTranslateStart={handler}
+                />
+            </RMap>
+        );
+        end = ref.current?.ol.getListeners('translateend');
+        start = ref.current?.ol.getListeners('translatestart');
+        if (end === undefined || start === undefined) throw new Error('listeners not installed');
+        common.expectToCallListener(end[0], handler);
+        common.expectToCallListener(start[0], handler);
+    });
 });
 
 describe('<RDraw>', () => {

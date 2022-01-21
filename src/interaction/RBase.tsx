@@ -30,9 +30,9 @@ export default class RBase<P> extends RlayersBase<P, Record<string, never>> {
         for (const p of this.classProps)
             if (prevProps && prevProps[p] !== this.props[p]) {
                 debug('Replacing interaction', this, prevProps);
-                this.context.map.removeInteraction(this.ol);
+                this.componentWillUnmount();
                 this.ol = this.createOL(this.props);
-                this.context.map.addInteraction(this.ol);
+                this.componentDidMount();
                 break;
             }
         super.refresh(prevProps);
