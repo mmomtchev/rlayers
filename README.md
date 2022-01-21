@@ -37,12 +37,12 @@ npm --save install rlayers ol react react-dom
 *React* is supported from version 16.8.0.
 
 ---
-| rlayers | Unit tested *OpenLayers* versions | Unit tested *React* versions |
+| rlayers | Unit-tested *OpenLayers* versions | Unit-tested *React* versions |
 --- | --- | --- |
 | 1.0 (*obsolete*) | 6.0 | 16.8, 16.14, 17.0.2
 | 1.1 (*obsolete*) | 6.6, 6.7, 6.8, 6.9 | 16.8, 16.14, 17.0.2
 | 1.2 `(@latest)` | 6.6, 6.7, 6.8, 6.9 | 16.8, 16.14, 17.0.2
-| 1.3 `(@next)` | 6.10, 6.11 | 16.8, 16.14, 17.0.2
+| 1.3 `(@next)` | 6.10, 6.11, 6.12 | 16.8, 16.14, 17.0.2
 ---
 
 ## Usage
