@@ -84,7 +84,7 @@ export default function VectorTiles(): JSX.Element {
                 {/* This is the background raster map */}
                 <RLayerTile
                     properties={{label: 'Watercolor'}}
-                    url='http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
+                    url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
                 />
                 {/* These are the administrative borders */}
                 <RLayerVectorTile
