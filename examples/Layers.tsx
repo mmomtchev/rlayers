@@ -46,7 +46,7 @@ export default function Layers(): JSX.Element {
                 />
                 <RLayerTile
                     properties={{label: 'Watercolor'}}
-                    url='http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
+                    url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
                 />
                 <RLayerTileJSON
                     properties={{label: 'Mapbox TileJSON'}}
