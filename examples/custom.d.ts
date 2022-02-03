@@ -1,3 +1,5 @@
+// These come from webpack
+
 declare module '*.svg' {
     const content: string;
     export default content;
@@ -14,3 +16,4 @@ declare module '*.geojson' {
 }
 
 declare const VERSION: string;
+declare const MAPBOX_TOKEN: string;

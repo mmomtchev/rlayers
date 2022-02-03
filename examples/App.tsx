@@ -30,7 +30,8 @@ const examples = {
     vectortiles: {title: 'Vector tiles', file: 'VectorTiles'},
     reproj: {title: 'Reprojection', file: 'Reprojection'},
     routing: {title: 'Navigation', file: 'Routing'},
-    igc: {title: 'Performance', file: 'IGC'}
+    igc: {title: 'Performance', file: 'IGC'},
+    addon: {title: 'Extending rlayers', file: 'Addon'}
 };
 
 // The examples use a code-loading technique that I have described in
