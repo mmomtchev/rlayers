@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/rlayers)](https://www.npmjs.com/package/rlayers)
 [![Node.js CI](https://github.com/mmomtchev/rlayers/workflows/Node.js%20CI/badge.svg)](https://github.com/mmomtchev/rlayers/actions?query=workflow%3A%22Node.js+CI%22)
 [![codecov](https://codecov.io/gh/mmomtchev/rlayers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/rlayers)
-
+[![downloads](https://img.shields.io/npm/dm/rlayers)](https://www.npmjs.com/package/rlayers)
 
 *rlayers* is an opinionated set of *React* components for *OpenLayers*.
 
