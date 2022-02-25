@@ -6,7 +6,7 @@ import {cleanup, fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
 import {Point} from 'ol/geom';
-import {RFeature, RLayerVector, RContext, RMap} from 'rlayers';
+import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
 
 const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
@@ -197,6 +197,28 @@ describe('<RLayerVector>', () => {
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();
         expect(handler.mock.calls[0]).toEqual(['http://url2']);
+        unmount();
+    });
+});
+
+describe('<RLayerVectorImage>', () => {
+    it('should create and remove a vector layer', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVectorImage>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount, rerender} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVectorImage ref={refVector} renderBuffer={250} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVectorImage);
+        expect(refMap.current?.ol.getLayers().getLength()).toBe(1);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((refVector.current?.ol as any).renderBuffer_).toBe(250);
+        rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
+        expect(refVector.current).toBeNull();
+        expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
+        expect(refMap.current?.ol);
         unmount();
     });
 });

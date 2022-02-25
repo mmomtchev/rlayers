@@ -14,6 +14,7 @@ export {
 } from './layer/RLayerBaseVector';
 
 export {default as RLayerVector} from './layer/RLayerVector';
+export {default as RLayerVectorImage} from './layer/RLayerVectorImage';
 export {default as ROSM, ROSMProps} from './layer/ROSM';
 export {default as RLayerWMTS, RLayerWMTSProps} from './layer/RLayerWMTS';
 export {default as RLayerWMS, RLayerWMSProps} from './layer/RLayerWMS';
