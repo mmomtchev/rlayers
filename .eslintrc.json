@@ -48,7 +48,8 @@
             {
                 "avoidEscape": true
             }
-        ]
+        ],
+        "react/jsx-key": "off"
     },
     "settings": {
         "react": {
