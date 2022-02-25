@@ -3,6 +3,7 @@ import {Map, Feature} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
+import BaseObject from 'ol/Object';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -26,9 +27,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
     source: SourceCluster;
     cluster: SourceVector<Geometry>;
 
-    constructor(props: Readonly<RLayerClusterProps>, context: React.Context<RContextType>) {
-        super(props, context);
-
+    createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
         this.cluster = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -41,10 +40,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
             source: this.source,
             style: RStyle.getStyle(props.style)
         });
-        this.eventSources = [this.ol, this.source, this.cluster];
-        this.source.on('featuresloadend', this.newFeature);
-        this.source.on('addfeature', this.newFeature);
-        this.attachEventHandlers();
+        return [this.ol, this.source, this.cluster];
     }
 
     refresh(prev?: RLayerClusterProps): void {

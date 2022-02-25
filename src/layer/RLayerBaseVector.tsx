@@ -11,6 +11,8 @@ import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader} from 'ol/featureloader';
+import Geometry from 'ol/geom/Geometry';
+import BaseObject from 'ol/Object';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -18,7 +20,6 @@ import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
-import Geometry from 'ol/geom/Geometry';
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */
     url?: string;
@@ -86,6 +87,11 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     onPreRender?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RenderEvent) => boolean | void;
 }
 
+/**
+ * An abstract class used for grouping code common to all Vector layers
+ *
+ * Meant to be extended
+ */
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
     ol: BaseVector<
         SourceVector<Geometry>,
@@ -105,12 +111,19 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
     constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
         RFeature.initEventRelay(this.context.map);
+        this.eventSources = this.createSource(props);
+        this.source.on('featuresloadend', this.newFeature);
+        this.source.on('addfeature', this.newFeature);
+        this.attachEventHandlers();
+    }
+
+    createSource(props: Readonly<P>): BaseObject[] {
+        throw new Error('RLayerBaseVector is an abstract class');
     }
 
     newFeature = (e: VectorSourceEvent<Geometry>): void => {
         if (e.feature) this.attachFeatureHandlers([e.feature]);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((e as any).features) this.attachFeatureHandlers((e as any).features);
+        if (e.features) this.attachFeatureHandlers(e.features);
     };
 
     attachFeatureHandlers(features: Feature<Geometry>[], prevProps?: P): void {

@@ -7,6 +7,7 @@ import Geometry from 'ol/geom/Geometry';
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
+import BaseObject from 'ol/Object';
 import debug from '../debug';
 
 /**
@@ -22,8 +23,7 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
     ol: LayerVector<SourceVector<Geometry>>;
     source: SourceVector<Geometry>;
 
-    constructor(props: Readonly<RLayerBaseVectorProps>, context: React.Context<RContextType>) {
-        super(props, context);
+    createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -35,10 +35,7 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
             style: RStyle.getStyle(this.props.style),
             source: this.source
         });
-        this.eventSources = [this.ol, this.source];
-        this.source.on('featuresloadend', this.newFeature);
-        this.source.on('addfeature', this.newFeature);
-        this.attachEventHandlers();
+        return [this.ol, this.source];
     }
 
     refresh(prevProps?: RLayerBaseVectorProps): void {

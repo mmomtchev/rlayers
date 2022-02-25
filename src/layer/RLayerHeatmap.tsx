@@ -2,6 +2,7 @@ import React from 'react';
 import {Map, Feature} from 'ol';
 import {Heatmap as LayerHeatmap} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
+import BaseObject from 'ol/Object';
 
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -28,8 +29,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
     ol: LayerHeatmap;
     source: SourceVector<Geometry>;
 
-    constructor(props: Readonly<RLayerHeatmapProps>, context: React.Context<RContextType>) {
-        super(props, context);
+    createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -37,10 +37,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
             loader: this.props.loader
         });
         this.ol = new LayerHeatmap({...props, source: this.source});
-        this.eventSources = [this.ol, this.source];
-        this.source.on('featuresloadend', this.newFeature);
-        this.source.on('addfeature', this.newFeature);
-        this.attachEventHandlers();
+        return [this.ol, this.source];
     }
 
     refresh(prev?: RLayerHeatmapProps): void {
