@@ -60,6 +60,7 @@ jobs:
       with:
         node-version: 14.x
     - run: npm --force i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} react-bootstrap@1.6.4
+    - run: npm i
     - run: tsc
     - run: npm test
     - run: npm run build:examples
