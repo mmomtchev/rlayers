@@ -1,3 +1,4 @@
+import BaseObject from 'ol/Object';
 import React from 'react';
 import {RContext, RContextType} from './context';
 import debug from './debug';
@@ -7,12 +8,12 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     context: RContextType;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    eventSources: any[];
+    eventSources: BaseObject[];
     handlers: Record<string, (e: unknown) => boolean | void>;
 
-    olEventName(ev: string): string {
-        return ev.substring(2).toLowerCase();
+    // 'change' is available on all objects
+    olEventName(ev: string): 'change' {
+        return ev.substring(2).toLowerCase() as 'change';
     }
 
     attachEventHandlers(): void {
