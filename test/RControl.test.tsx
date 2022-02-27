@@ -46,7 +46,9 @@ describe('<RControl>', () => {
             </RMap>
         );
         const {container, getByLabelText, rerender, unmount} = render(comp(false));
-        expect(container.innerHTML).toMatchSnapshot();
+        expect(
+            container.innerHTML.replace('ol-attribution-collapse', 'ol-attribution-collpase')
+        ).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
         if (button === null) throw new Error('no button');
