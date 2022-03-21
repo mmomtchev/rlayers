@@ -1,5 +1,5 @@
 webpack.config.ts
-jest.config.js
+jest*config.js
 styleguide.config.js
 examples/geojson-vt-server
 publish-ghpages.js

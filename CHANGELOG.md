@@ -6,18 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### [1.3.2] WIP
+
  * Fix [#37], switch to inline sources in source maps
 
 ### [1.3.1] 2022-02-27
+
  * Support OpenLayers 6.13
  * Add `RLayerVectorImage` supporting OpenLayers `VectorImage` layers
 
 ## [1.3.0] 2022-01-28
+
  * Support OpenLayers 6.12
  * Initial WebGL support
  * Fix [#27], do not lose the event handlers when updating properties that require replacing the underlying *OpenLayers* object, impacts the interactions and `RFeature` with `feature=` property
 
 ### [1.2.1] 2022-01-04
+
  * Restrict OpenLayers to 6.6 to 6.9.99 for the rlayers 1.2 branch, OpenLayers 6.10 requires rlayers 1.3
  * Fix [#20], renderBuffer parameter ignored
 
