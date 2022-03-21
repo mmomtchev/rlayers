@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  test_npm_binaries:
+  test_npm_package:
 
     runs-on: ${{ matrix.platforms }}
 
@@ -30,7 +30,7 @@ jobs:
         mv rlayers-${{ github.event.inputs.version }}/test .
         npm install
     - name: Install from npm
-      run:  npm install --force gdal-async@${{ github.event.inputs.version }}
+      run:  npm install --force rlayers@${{ github.event.inputs.version }}
     - name: Run the unit tests
       run: npx jest -c jest.standalone.config.js
 
