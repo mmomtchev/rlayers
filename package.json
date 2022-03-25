@@ -47,7 +47,8 @@
     "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
-    "lru-cache": "^6.0.0"
+    "lru-cache": "^6.0.0",
+    "geotiff": "=2.0.4"
   },
   "peerDependencies": {
     "ol": ">=6.10.0",
