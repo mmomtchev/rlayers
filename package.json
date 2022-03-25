@@ -23,7 +23,8 @@
     "preversion": "npm run test",
     "version": "npm run clean && npm run build && git add package.json",
     "postversion": "git push && git push --tags && npm run doc:publish",
-    "dist": "tar zcvf dist/rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers"
+    "dist": "tar zcvf dist/rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers",
+    "postpublish": "gh workflow run test-npm.yml -F version=$npm_package_version"
   },
   "repository": {
     "type": "git",
