@@ -9,6 +9,13 @@ module.exports = {
         '\\.(css|less)$': '<rootDir>/test/css.js',
         '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'
     },
+    globals: {
+        "ts-jest": {
+            tsconfig: {
+                outDir: "./.ts-jest"
+            }
+        }
+    },
     setupFiles: ['jest-canvas-mock'],
     setupFilesAfterEnv: [
         '@testing-library/react/dont-cleanup-after-each',
