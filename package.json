@@ -5,10 +5,10 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "clean": "rimraf dist && rimraf docs",
+    "clean": "tsc --build --clean && rimraf docs control style layer interaction",
     "build": "npm run clean && npm run build:lib && npm run build:examples && npm run build:doc",
     "build:lib": "tsc && npm run build:css",
-    "build:css": "copyfiles -f src/control/layers.css dist/control",
+    "build:css": "copyfiles -f src/control/layers.css control",
     "build:examples": "webpack --mode=production --env production",
     "build:doc": "npx styleguidist build",
     "dev": "webpack-cli serve --mode=development --env development --open",
@@ -23,7 +23,6 @@
     "preversion": "npm run test",
     "version": "npm run clean && npm run build && git add package.json",
     "postversion": "git push && git push --tags && npm run doc:publish",
-    "dist": "tar zcvf dist/rlayers.tar.gz -C .. --exclude-from=.npmignore --xform \"s:^rlayers/dist:rlayers:\" rlayers",
     "postpublish": "gh workflow run test-npm.yml -F version=$npm_package_version"
   },
   "repository": {

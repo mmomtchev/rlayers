@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "sourceMap": true,
-        "inlineSources": true,
         "noImplicitAny": false,
         "module": "commonjs",
         "target": "es5",
@@ -10,7 +9,7 @@
             "dom",
             "dom.iterable"
         ],
-        "outDir": "./dist",
+        "outDir": ".",
         "declaration": true,
         "declarationMap": true,
         "removeComments": true,
@@ -30,5 +29,6 @@
     },
     "include": [
         "./src"
-    ]
+    ],
+    "exclude": []
 }
