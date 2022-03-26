@@ -9,6 +9,7 @@
             "dom",
             "dom.iterable"
         ],
+        "outDir": ".",
         "declaration": true,
         "declarationMap": true,
         "removeComments": true,
