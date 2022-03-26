@@ -4,7 +4,7 @@ module.exports = {
     transform: {
         '^.+\.(t|j)sx?$': 'ts-jest'
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru))'],
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/test/css.js',
         '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'
