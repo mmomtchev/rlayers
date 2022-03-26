@@ -44,10 +44,10 @@ jobs:
     steps:
       - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
       - run: |
-        cd rlayers-npm-tests/cra-js
-        npm install
-        npm i rlayers@${{ github.event.inputs.version }} ol@latest
-        npm run build
+          cd rlayers-npm-tests/cra-js
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
 
 
   cra_ts:
@@ -57,10 +57,10 @@ jobs:
     steps:
       - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
       - run: |
-        cd rlayers-npm-tests/cra-ts
-        npm install
-        npm i rlayers@${{ github.event.inputs.version }} ol@latest
-        npm run build
+          cd rlayers-npm-tests/cra-ts
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
 
 
   nextjs12:
@@ -70,7 +70,7 @@ jobs:
     steps:
       - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
       - run: |
-        cd rlayers-npm-tests/next12
-        npm install
-        npm i rlayers@${{ github.event.inputs.version }} ol@latest
-        npm run build
+          cd rlayers-npm-tests/next12
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
