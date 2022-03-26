@@ -36,3 +36,41 @@ jobs:
     - name: Run the unit tests
       run: npx jest -c jest.standalone.config.js
 
+
+  cra_js:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - run: |
+        cd rlayers-npm-tests/cra-js
+        npm install
+        npm i rlayers@${{ github.event.inputs.version }} ol@latest
+        npm run build
+
+
+  cra_ts:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - run: |
+        cd rlayers-npm-tests/cra-ts
+        npm install
+        npm i rlayers@${{ github.event.inputs.version }} ol@latest
+        npm run build
+
+
+  nextjs12:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - run: |
+        cd rlayers-npm-tests/next12
+        npm install
+        npm i rlayers@${{ github.event.inputs.version }} ol@latest
+        npm run build
