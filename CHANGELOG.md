@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [1.3.2] WIP
 
+ * Support OpenLayers 6.14
  * Fix [#37], switch to inline sources in source maps
 
 ### [1.3.1] 2022-02-27

@@ -9,6 +9,19 @@ import * as common from './common';
 
 const RControlButton = <button>X</button>;
 
+// Various slight differences between the range of supported OpenLayers versions
+const backCompat = (html) =>
+    html
+        .replace('ol-attribution-collapse', 'ol-attribution-collpase')
+        .replace(
+            '<button title="Toggle full-screen" type="button" class="ol-full-screen-false">',
+            '<button type="button" title="Toggle full-screen">'
+        )
+        .replace(
+            '<button title="Toggle full-screen" type="button" class="example-fullscreen-false">',
+            '<button type="button" title="Toggle full-screen">'
+        );
+
 describe('<RControl>', () => {
     it('should render all the RControls', async () => {
         const comp = (collapsed) => (
@@ -46,9 +59,7 @@ describe('<RControl>', () => {
             </RMap>
         );
         const {container, getByLabelText, rerender, unmount} = render(comp(false));
-        expect(
-            container.innerHTML.replace('ol-attribution-collapse', 'ol-attribution-collpase')
-        ).toMatchSnapshot();
+        expect(backCompat(container.innerHTML)).toMatchSnapshot();
 
         const button = container.querySelector('span>button');
         if (button === null) throw new Error('no button');
@@ -57,7 +68,7 @@ describe('<RControl>', () => {
 
         const radio = getByLabelText('toner') as HTMLInputElement;
         fireEvent.click(radio);
-        expect(container.innerHTML).toMatchSnapshot();
+        expect(backCompat(container.innerHTML)).toMatchSnapshot();
         unmount();
     });
     it('should throw an error without a Map', () => {
