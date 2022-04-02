@@ -11,6 +11,7 @@ layer
 control
 style
 interaction
+!src/**
 context.d.ts
 context.d.ts.map
 context.js
