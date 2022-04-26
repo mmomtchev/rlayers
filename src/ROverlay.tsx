@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {Overlay} from 'ol';
 
 import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
-export interface ROverlayProps {
+export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Content to be displayed */
     content?: string | HTMLElement | React.ElementType;
     /** CSS class */

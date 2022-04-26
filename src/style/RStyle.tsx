@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import ReactDOM from 'react-dom';
 import LRU from 'lru-cache';
 import {Map, Feature} from 'ol';
@@ -9,7 +9,7 @@ import {RlayersBase} from '../REvent';
 import debug from '../debug';
 import Geometry from 'ol/geom/Geometry';
 
-export interface RStyleProps {
+export interface RStyleProps extends PropsWithChildren<unknown> {
     /** render function to be passed the feature and the resolution for dynamic styles
      *
      * a dynamic style cannot become a static style or the inverse

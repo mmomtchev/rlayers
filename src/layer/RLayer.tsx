@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
@@ -8,7 +8,7 @@ import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
-export interface RLayerProps {
+export interface RLayerProps extends PropsWithChildren<unknown> {
     /** State of the layer */
     visible?: boolean;
     /** Opacity when blending */

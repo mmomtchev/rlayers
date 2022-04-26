@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {Control as Control} from 'ol/control';
 import {Options} from 'ol/control/Control';
 
@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
-export interface RControlProps {
+export interface RControlProps extends PropsWithChildren<unknown> {
     className?: string;
     target?: React.RefObject<HTMLElement>;
 }

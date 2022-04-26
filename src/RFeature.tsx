@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import BaseVectorLayer from 'ol/layer/BaseVector';
@@ -21,7 +21,7 @@ export class RFeatureBaseEvent extends BaseEvent {
     target: Feature<Geometry>;
 }
 
-export interface RFeatureProps {
+export interface RFeatureProps extends PropsWithChildren<unknown> {
     /** OpenLayers geometry, mutually exclusive with feature */
     geometry?: Geometry;
     /** OpenLayers style */

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 
 import {RContext, RContextType} from '../context';
 import debug from '../debug';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RBaseProps {}
+export interface RBaseProps extends PropsWithChildren<unknown> {}
 
 export default class RBase<P extends RBaseProps> extends React.PureComponent<
     P,

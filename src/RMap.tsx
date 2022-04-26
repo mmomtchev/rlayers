@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropsWithChildren} from 'react';
 import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
 import BaseEvent from 'ol/events/Event';
@@ -15,7 +15,7 @@ export type RView = {
     zoom: number;
 };
 
-export interface RMapProps {
+export interface RMapProps extends PropsWithChildren<unknown> {
     /** The initial view parameters - {center, zoom}, reset only on full component reload */
     initial: RView;
     /** External view state with React semantics */
