@@ -46,13 +46,9 @@ jobs:
     - run: npm test
 
 
-  react-versions:
+  react-16.8:
 
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        react-version: [ '16.8', '16.14', '17.0.2' ]
 
     steps:
     - uses: actions/checkout@v2
@@ -61,9 +57,43 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} \
-          @types/react@${{ matrix.react-version }} @types/react-dom@${{ matrix.react-version }} \
-          react-bootstrap@1.6.4 @testing-library/react@11
+        npm i react@16.8 react-dom@16.8 react-test-renderer@16.8 @types/react@16 @types/react-dom@16 react-bootstrap@1
+    - run: npm i
+    - run: tsc
+    - run: npm test
+    - run: npm run build:examples
+
+
+  react-16.14:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: |
+        npm i react@16.14 react-dom@16.14 react-test-renderer@16.14 @types/react@16 @types/react-dom@16 react-bootstrap@1
+    - run: npm i
+    - run: tsc
+    - run: npm test
+    - run: npm run build:examples
+
+
+  react-17:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: |
+        npm i react@17 react-dom@17 react-test-renderer@17 @types/react@17 @types/react-dom@17 react-bootstrap@2
     - run: npm i
     - run: tsc
     - run: npm test
@@ -81,9 +111,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} \
-          @types/react@${{ matrix.react-version }} @types/react-dom@${{ matrix.react-version }} \
-          react-bootstrap@1.6.4
+        npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 react-bootstrap@2
     - run: npm i
     - run: tsc
     - run: npm test
