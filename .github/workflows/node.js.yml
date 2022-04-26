@@ -60,7 +60,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    - run: npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} react-bootstrap@1.6.4 @testing-library/react@11
+    - run: |
+        npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} \
+          @types/react@${{ matrix.react-version }} @types/react-dom@${{ matrix.react-version }} \
+          react-bootstrap@1.6.4 @testing-library/react@11
     - run: npm i
     - run: tsc
     - run: npm test
@@ -77,7 +80,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 14.x
-    - run: npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} react-bootstrap@1.6.4
+    - run: |
+        npm i react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} react-test-renderer@${{ matrix.react-version }} \
+          @types/react@${{ matrix.react-version }} @types/react-dom@${{ matrix.react-version }} \
+          react-bootstrap@1.6.4
     - run: npm i
     - run: tsc
     - run: npm test
