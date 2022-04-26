@@ -46,7 +46,7 @@ jobs:
     - run: npm test
 
 
-  react-16.8:
+  react-16-8:
 
     runs-on: ubuntu-latest
 
@@ -64,7 +64,7 @@ jobs:
     - run: npm run build:examples
 
 
-  react-16.14:
+  react-16-14:
 
     runs-on: ubuntu-latest
 
