@@ -68,11 +68,9 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
         }
         const style = new Style({zIndex: this.props.zIndex});
         const render = (
-            <React.Fragment>
-                <RContext.Provider value={{...this.context, style}}>
-                    {this.props.render(f, r)}
-                </RContext.Provider>
-            </React.Fragment>
+            <RContext.Provider value={{...this.context, style}}>
+                {this.props.render(f, r)}
+            </RContext.Provider>
         );
         ReactDOM.render(render, document.createElement('div'));
         if (this.cache) this.cache.set(hash, style);
@@ -102,14 +100,11 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
     }
 
     render(): JSX.Element {
+        if (this.props.render) return null;
         return (
-            <React.Fragment>
-                {this.props.render ? null : (
-                    <RContext.Provider value={{...this.context, style: this.ol as Style}}>
-                        {this.props.children}
-                    </RContext.Provider>
-                )}
-            </React.Fragment>
+            <RContext.Provider value={{...this.context, style: this.ol as Style}}>
+                {this.props.children}
+            </RContext.Provider>
         );
     }
 
