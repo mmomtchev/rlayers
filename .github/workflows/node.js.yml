@@ -118,6 +118,24 @@ jobs:
     - run: npm run build:examples
 
 
+  react-18-1:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: |
+        npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 react-bootstrap@2 @testing-library/react@13
+    - run: npm i
+    - run: tsc
+    - run: npm test
+    - run: npm run build:examples
+
+
   codecov:
 
     runs-on: ubuntu-latest

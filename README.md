@@ -44,7 +44,7 @@ npm --save install rlayers ol react react-dom
 | 1.0 (*obsolete*) | 6.0 | 16.8, 16.14, 17.0.2
 | 1.1 (*obsolete*) | 6.6, 6.7, 6.8, 6.9 | 16.8, 16.14, 17.0.2
 | 1.2 | 6.6, 6.7, 6.8, 6.9 | 16.8, 16.14, 17.0.2
-| 1.3 `(@latest)` | 6.10, 6.11, 6.12, 6.13, 6.14, 6.14.1 | 16.8, 16.14, 17.0.2, 18.0.0
+| 1.3 `(@latest)` | 6.10, 6.11, 6.12, 6.13, 6.14, 6.14.1 | 16.8, 16.14, 17.0.2, 18.0.0, 18.1.0
 ---
 
 When using dynamic styles with React 18, you may get a warning in the console in debug mode: https://github.com/mmomtchev/rlayers/issues/40. You can safely ignore it as has no functional consequences - React 18, including the concurrent renderer, is fully supported.
