@@ -54,6 +54,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 return this.source;
             })
             .catch((e) => {
+                // eslint-disable-next-line no-console
                 console.error('failed loading WMTS capabilities', e);
                 this.source = undefined;
                 return null;

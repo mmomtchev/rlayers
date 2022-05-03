@@ -46,7 +46,6 @@ class MyLayerMapbox extends RLayer<MyLayerMapboxProps> {
  * Using your custom component
  */
 export default function Addon(): JSX.Element {
-    console.log(MAPBOX_TOKEN);
     return (
         <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
             <MyLayerMapbox

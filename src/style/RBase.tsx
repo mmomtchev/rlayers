@@ -36,6 +36,7 @@ export default class RBase<P extends RBaseProps> extends React.PureComponent<
                 if (this.ol['set' + m]) {
                     this.ol['set' + m](this.props[p]);
                 } else {
+                    // eslint-disable-next-line no-console
                     console.error(
                         `Underlying OpenLayers object does not support updating of ${p} after object creation. ` +
                             'If you are using an anonymous constant array or object, ' +

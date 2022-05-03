@@ -49,7 +49,8 @@
                 "avoidEscape": true
             }
         ],
-        "react/jsx-key": "off"
+        "react/jsx-key": "off",
+        "no-console": "warn"
     },
     "settings": {
         "react": {
