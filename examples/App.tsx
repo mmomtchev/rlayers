@@ -72,29 +72,42 @@ const App = (): JSX.Element => {
                 </div>
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>
-                        <Route exact path='/'>
-                            <div className='ml-2'>
-                                <React.Suspense fallback={<div>Loading...</div>}>
-                                    <ReadmeBlock />
-                                </React.Suspense>
-                            </div>
-                        </Route>
-                        {Object.keys(examples).map((e) => (
-                            <Route key={e} path={`/${e}`}>
-                                <div className='row'>
-                                    <div className='col-12 col-xl-5 mb-1'>
-                                        <React.Suspense fallback={<div>Loading component...</div>}>
-                                            {React.createElement(examples[e].comp)}
+                        <Routes>
+                            <Route
+                                path='/'
+                                element={
+                                    <div className='ml-2'>
+                                        <React.Suspense fallback={<div>Loading...</div>}>
+                                            <ReadmeBlock />
                                         </React.Suspense>
                                     </div>
-                                    <div className='col-12 col-xl-7 codeblock'>
-                                        <React.Suspense fallback={<div>Parsing code...</div>}>
-                                            <CodeBlock code={examples[e].code} />
-                                        </React.Suspense>
-                                    </div>
-                                </div>
-                            </Route>
-                        ))}
+                                }
+                            />
+                            {Object.keys(examples).map((e) => (
+                                <Route
+                                    key={e}
+                                    path={`/${e}`}
+                                    element={
+                                        <div className='row'>
+                                            <div className='col-12 col-xl-5 mb-1'>
+                                                <React.Suspense
+                                                    fallback={<div>Loading component...</div>}
+                                                >
+                                                    {React.createElement(examples[e].comp)}
+                                                </React.Suspense>
+                                            </div>
+                                            <div className='col-12 col-xl-7 codeblock'>
+                                                <React.Suspense
+                                                    fallback={<div>Parsing code...</div>}
+                                                >
+                                                    <CodeBlock code={examples[e].code} />
+                                                </React.Suspense>
+                                            </div>
+                                        </div>
+                                    }
+                                />
+                            ))}
+                        </Routes>
                     </div>
                 </div>
             </div>
