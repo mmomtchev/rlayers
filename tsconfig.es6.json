@@ -1,41 +1,11 @@
 {
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "sourceMap": true,
-        "noImplicitAny": false,
         "module": "esnext",
         "target": "es6",
-        "lib": [
-            "esnext",
-            "dom",
-            "dom.iterable"
-        ],
         "outDir": "./dist",
-        "declaration": true,
-        "declarationMap": true,
-        "removeComments": true,
-        "allowSyntheticDefaultImports": true,
-        "jsx": "react",
-        "allowJs": true,
-        "baseUrl": "./",
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "downlevelIteration": true,
-        "skipLibCheck": true,
-        "paths": {
-            "rlayers": [
-                "./src"
-            ],
-            "rlayers/*": [
-                "./src/*"
-            ]
-        }
     },
     "include": [
         "./src"
-    ],
-    "exclude": [],
-    "ts-node": {
-        "transpileOnly": true
-    }
+    ]
 }
