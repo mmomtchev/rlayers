@@ -33,14 +33,6 @@ export default function Layers(): JSX.Element {
                     attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                 />
                 <RLayerTile
-                    properties={{label: 'HillShading'}}
-                    url='http://tiles.wmflabs.org/hillshading/{z}/{x}/{y}.png'
-                />
-                <RLayerTile
-                    properties={{label: 'Mapnik'}}
-                    url='https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
-                />
-                <RLayerTile
                     properties={{label: 'Transport'}}
                     url='http://tile.thunderforest.com/transport/{z}/{x}/{y}.png'
                 />
