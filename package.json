@@ -4,11 +4,36 @@
   "description": "React Components for OpenLayers",
   "main": "index.js",
   "types": "index.d.ts",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./dist/index.js"
+    },
+    "./style": {
+      "require": "./style/index.js",
+      "import": "./dist/style/index.js"
+    },
+    "./layer": {
+      "require": "./layer/index.js",
+      "import": "./dist/layer/index.js"
+    },
+    "./control": {
+      "require": "./control/index.js",
+      "import": "./dist/control/index.js"
+    },
+    "./interaction": {
+      "require": "./interaction/index.js",
+      "import": "./dist/interaction/index.js"
+    }
+  },
   "scripts": {
-    "clean": "tsc --build --clean && rimraf docs control style layer interaction",
-    "build": "npm run clean && npm run build:lib && npm run build:examples && npm run build:doc",
+    "clean": "tsc --build --clean && rimraf docs control style layer interaction dist",
+    "build": "npm run clean && npm run build:lib && npm run build:lib:es6 && npm run build:examples && npm run build:doc",
     "build:lib": "tsc && npm run build:css",
+    "build:lib:es6": "tsc -p tsconfig.es6.json && npm run build:css:es6",
     "build:css": "copyfiles -f src/control/layers.css control",
+    "build:css:es6": "copyfiles -f src/control/layers.css dist/control",
     "build:examples": "webpack --mode=production --env production",
     "build:doc": "npx styleguidist build",
     "dev": "webpack-cli serve --mode=development --env development --open",
