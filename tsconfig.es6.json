@@ -2,14 +2,14 @@
     "compilerOptions": {
         "sourceMap": true,
         "noImplicitAny": false,
-        "module": "commonjs",
-        "target": "es5",
+        "module": "esnext",
+        "target": "es6",
         "lib": [
             "esnext",
             "dom",
             "dom.iterable"
         ],
-        "outDir": ".",
+        "outDir": "./dist",
         "declaration": true,
         "declarationMap": true,
         "removeComments": true,
