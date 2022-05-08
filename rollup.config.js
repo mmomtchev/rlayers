@@ -1,4 +1,5 @@
 import {nodeResolve} from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 export default {
     input: 'dist/index.js',
@@ -11,7 +12,6 @@ export default {
             ol: 'ol',
             react: 'React',
             'react-dom': 'ReactDOM',
-            'lru-cache': 'LRUCache',
             'ol/events/Event': 'ol.events.Event',
             'ol/extent': 'ol.extent',
             'ol/render/Event': 'ol.render.Event',
@@ -43,10 +43,11 @@ export default {
             'ol/Geolocation': 'ol.Geolocation'
         }
     },
-    external: [/node_modules/],
+    external: [/node_modules\/(?!lru-cache|yallist)/],
     plugins: [
         nodeResolve({
             preferBuiltins: false
-        })
+        }),
+        commonjs()
     ]
 };

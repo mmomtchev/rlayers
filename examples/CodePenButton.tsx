@@ -80,7 +80,6 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                         'https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js;' +
                         'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js;' +
                         'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js;' +
-                        'https://cdn.jsdelivr.net/npm/js-lru-cache@0.1.10/dist/lru-cache.min.js;' +
                         'https://pelikan.garga.net/cdn-bundle.js',
                     css_external:
                         'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css;' +
