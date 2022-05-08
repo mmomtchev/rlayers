@@ -42,7 +42,6 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
             r = r.replace(/^\n+/, '');
             r = r.replace(/export default function (.*)/, 'function Comp() {');
             r += "\nReactDOM.createRoot(document.getElementById('root')).render(<Comp />);\n";
-            console.log(renames);
             for (const m of renames)
                 r = r.replace(
                     new RegExp('([^A-Za-z.])' + m.from + '\\b', 'g'),
@@ -68,7 +67,10 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                 type='hidden'
                 name='data'
                 value={JSON.stringify({
-                    title: 'react-edit-list ' + props.title,
+                    title: 'rlayers ' + props.title,
+                    description:
+                        'This is an editable example from rlayers - https://mmomtchev.githb.io/rlayers',
+                    tags: ['openlayers', 'react', 'maps', 'rlayers'],
                     html: '<div id="root"></div>',
                     js: text,
                     js_pre_processor: 'typescript',
