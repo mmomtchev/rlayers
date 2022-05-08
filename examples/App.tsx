@@ -47,6 +47,10 @@ for (const ex of Object.keys(examples)) {
     examples[ex].code = import(
         /* webpackPrefetch: true */ `!!html-loader?{"minimize":false}!./jsx-loader.ts!./${examples[ex].file}.tsx`
     ).then((code) => code.default);
+
+    examples[ex].text = import(
+        /* webpackPrefetch: true */ `!!raw-loader!./${examples[ex].file}.tsx`
+    ).then((text) => text.default);
 }
 
 const LeftMenuItem = (props): JSX.Element => (
@@ -100,7 +104,11 @@ const App = (): JSX.Element => {
                                                 <React.Suspense
                                                     fallback={<div>Parsing code...</div>}
                                                 >
-                                                    <CodeBlock code={examples[e].code} />
+                                                    <CodeBlock
+                                                        title={examples[e].title}
+                                                        code={examples[e].code}
+                                                        text={examples[e].text}
+                                                    />
                                                 </React.Suspense>
                                             </div>
                                         </div>

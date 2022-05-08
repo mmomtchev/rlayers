@@ -4,7 +4,7 @@ import webpack, {Configuration} from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import {TsconfigPathsPlugin} from 'tsconfig-paths-webpack-plugin';
-import * as React from 'react';
+import React from 'react';
 
 const webpackConfig = (env): Configuration => {
     let reactMajorVersion = +React.version.split('.')[0];
