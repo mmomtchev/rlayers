@@ -4,6 +4,15 @@ import React from 'react';
 // @ts-ignore
 import exampleCss from '!!raw-loader!./example.css';
 
+const alias = (t: string): string =>
+    t
+        .replace(/\//g, '.')
+        .replace(/rlayers\.style/g, 'rlayers.RStyle')
+        .replace(/rlayers\.control/g, 'rlayers.RControl')
+        .replace(/rlayers\.interaction/g, 'rlayers.RInteraction')
+        .replace(/react-bootstrap/g, 'ReactBootstrap')
+        .replace(/react/g, 'React');
+
 const CodePenButton = React.memo(function _CodePenButton(props: {
     text: Promise<string>;
     title: string;
@@ -16,18 +25,12 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
             let regex = /import .*\{([A-Za-z,\s\n]+)\}.* from '(.*)'/g;
             while ((m = regex.exec(r)) !== null) {
                 const imports = m[1].replace(/\s/g, '').replace(/\n/g, '').split(',');
-                const path = m[2]
-                    .replace(/\//g, '.')
-                    .replace(/react-bootstrap/g, 'ReactBootstrap')
-                    .replace(/react/g, 'React');
+                const path = alias(m[2]);
                 for (const i of imports) renames.push({from: i, to: `${path}.${i}`});
             }
             regex = /import ([A-Za-z]+) from '(ol.*)'/g;
             while ((m = regex.exec(r)) !== null) {
-                const path = m[2]
-                    .replace(/\//g, '.')
-                    .replace(/react-bootstrap/g, 'ReactBootstrap')
-                    .replace(/react/g, 'React');
+                const path = alias(m[2]);
                 renames.push({from: m[1], to: path});
             }
             regex = /import ([A-Za-z]+) from '(.*\.svg)'/g;
@@ -35,10 +38,11 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                 const path = `'https://cdn.jsdelivr.net/npm/rlayers@1.3.4/examples/${m[2]}'`;
                 renames.push({from: m[1], to: path});
             }
-            r = r.replace(/import[^;]+;\n/g, '');
+            r = r.replace(/import [^;]+;\n/g, '');
             r = r.replace(/^\n+/, '');
             r = r.replace(/export default function (.*)/, 'function Comp() {');
             r += "\nReactDOM.createRoot(document.getElementById('root')).render(<Comp />);\n";
+            console.log(renames);
             for (const m of renames)
                 r = r.replace(
                     new RegExp('([^A-Za-z.])' + m.from + '\\b', 'g'),
@@ -49,6 +53,8 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
     }, [props.text]);
 
     const ref = React.useRef<HTMLFormElement>();
+
+    if (text && text.match(/in CodePen/)) return null;
     return (
         <form
             className='position-absolute my-2 mx-4'
@@ -72,6 +78,7 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                         'https://cdnjs.cloudflare.com/ajax/libs/react/18.1.0/umd/react.development.min.js;' +
                         'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.1.0/umd/react-dom.development.min.js;' +
                         'https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js;' +
+                        'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js;' +
                         'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js;' +
                         'https://cdn.jsdelivr.net/npm/js-lru-cache@0.1.10/dist/lru-cache.min.js;' +
                         'https://pelikan.garga.net/cdn-bundle.js',

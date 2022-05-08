@@ -27,6 +27,7 @@ import {
 import {RStyle, RStroke, RFill, RCircle, useRStyle} from 'rlayers/style';
 import 'ol/ol.css';
 
+// This won't work in CodePen
 import ClementLatour from '!!file-loader!./data/igc/Clement-Latour.igc';
 import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';
 import SylvainDhonneur from '!!file-loader!./data/igc/Sylvain-Dhonneur.igc';

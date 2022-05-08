@@ -51,6 +51,7 @@ export default function Addon(): JSX.Element {
             <MyLayerMapbox
                 styleUrl={'mapbox://styles/mapbox/bright-v9'}
                 // Be sure to get your own Mapbox token
+                // (this won't work in CodePen)
                 accessToken={MAPBOX_TOKEN}
             />
         </RMap>
