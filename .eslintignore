@@ -1,5 +1,6 @@
 webpack.config.ts
 jest*config.js
+rollup.config.js
 styleguide.config.js
 examples/geojson-vt-server
 publish-ghpages.js

@@ -1,7 +1,7 @@
 import React from 'react';
 import {fromLonLat, transform} from 'ol/proj';
 import {LineString, Point} from 'ol/geom';
-import {Polyline as PolylineFormat} from 'ol/format';
+import {Polyline} from 'ol/format';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RFeature} from 'rlayers';
@@ -21,12 +21,12 @@ function fillAddress(point: Point): Promise<string> {
         .catch((e) => e.message);
 }
 
-const polyReader = new PolylineFormat();
+const polyReader = new Polyline();
 function parseRoute(routes): LineString {
     if (routes && routes.length > 0) {
         const f = polyReader.readFeature(routes[0].geometry);
         f.getGeometry().transform('EPSG:4326', 'EPSG:3857');
-        return f.getGeometry();
+        return f.getGeometry() as LineString;
     }
     return null;
 }

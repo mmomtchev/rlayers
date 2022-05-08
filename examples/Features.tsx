@@ -14,6 +14,7 @@ export default function Features(): JSX.Element {
             <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
                 <ROSM />
                 {/* From a static file included at bundling time */}
+                {/* (this won't work in CodePen) */}
                 <RLayerVector
                     zIndex={10}
                     features={new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(

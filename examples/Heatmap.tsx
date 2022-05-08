@@ -8,6 +8,7 @@ import 'ol/ol.css';
 import {RMap, RLayerStamen, RLayerHeatmap} from 'rlayers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
+// (this won't work in CodePen)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 const reader = new GeoJSON({featureProjection: 'EPSG:3857'});

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] WIP
  * Provide an alternative ES6 modules version of rlayers with a `package.json` exports map
+ * Provide a CDN bundle version for direct inclusion in static pages
  * Render the examples in React 18 mode when available
 
 ### [1.3.4] 2022-04-26
