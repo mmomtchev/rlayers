@@ -4,6 +4,13 @@ import React from 'react';
 // @ts-ignore
 import exampleCss from '!!raw-loader!./example.css';
 
+import packageLock from '../package-lock.json';
+const versionReact = packageLock.packages['node_modules/react'].version;
+const versionOL = packageLock.packages['node_modules/ol'].version;
+const versionBootstrap = packageLock.packages['node_modules/bootstrap'].version;
+const versionReactBootstrap = packageLock.packages['node_modules/react-bootstrap'].version;
+const versionProj4 = packageLock.packages['node_modules/proj4'].version;
+
 const alias = (t: string): string =>
     t
         .replace(/\//g, '.')
@@ -35,7 +42,7 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
             }
             regex = /import ([A-Za-z]+) from '(.*\.svg)'/g;
             while ((m = regex.exec(r)) !== null) {
-                const path = `'https://cdn.jsdelivr.net/npm/rlayers@1.3.4/examples/${m[2]}'`;
+                const path = `'https://cdn.jsdelivr.net/npm/rlayers/examples/${m[2]}'`;
                 renames.push({from: m[1], to: path});
             }
             r = r.replace(/import [^;]+;\n/g, '');
@@ -73,16 +80,16 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                     js_pre_processor: 'typescript',
                     css: exampleCss,
                     js_external:
-                        'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js;' +
-                        'https://cdnjs.cloudflare.com/ajax/libs/react/18.1.0/umd/react.development.min.js;' +
-                        'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.1.0/umd/react-dom.development.min.js;' +
-                        'https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js;' +
-                        'https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js;' +
-                        'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js;' +
+                        `https://cdn.jsdelivr.net/npm/bootstrap@${versionBootstrap}/dist/js/bootstrap.min.js;` +
+                        `https://cdnjs.cloudflare.com/ajax/libs/react/${versionReact}/umd/react.development.min.js;` +
+                        `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${versionReact}/umd/react-dom.development.min.js;` +
+                        `https://unpkg.com/react-bootstrap@${versionReactBootstrap}/dist/react-bootstrap.min.js;` +
+                        `https://cdnjs.cloudflare.com/ajax/libs/proj4js/${versionProj4}/proj4.js;` +
+                        `https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v${versionOL}/build/ol.js;` +
                         'https://pelikan.garga.net/cdn-bundle.js',
                     css_external:
-                        'https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css;' +
-                        'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css'
+                        `https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v${versionOL}/css/ol.css;` +
+                        `https://cdn.jsdelivr.net/npm/bootstrap@${versionBootstrap}/dist/css/bootstrap.min.css`
                 })}
             />
             <button
