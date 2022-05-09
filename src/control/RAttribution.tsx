@@ -5,6 +5,9 @@ import {Options} from 'ol/control/Attribution';
 import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
+/**
+ * Properties for RAttribution
+ */
 export interface RAttributionProps extends RControlProps {
     /** Is it user-collapsible (some licenses do not allow it) @default true */
     collapsible?: boolean;
@@ -17,7 +20,7 @@ export interface RAttributionProps extends RControlProps {
  *
  * Requires an `RMap` context
  */
-export default class RAtrribution extends RControlBase<RAttributionProps, Record<string, never>> {
+export default class RAttribution extends RControlBase<RAttributionProps, Record<string, never>> {
     ol: Attribution;
 
     constructor(props: Readonly<RAttributionProps>, context: React.Context<RContextType>) {

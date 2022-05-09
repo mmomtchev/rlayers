@@ -5,6 +5,9 @@ import {default as DoubleClickZoom} from 'ol/interaction/DoubleClickZoom';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RDoubleClickZoom
+ */
 export interface RDoubleClickZoomProps {
     /** Animation duration
      * @default 250 */

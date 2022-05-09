@@ -5,6 +5,9 @@ import {default as PinchZoom} from 'ol/interaction/PinchZoom';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RPinchZoom
+ */
 export interface RPinchZoomProps {
     /** Animation duration
      * @default 400 */

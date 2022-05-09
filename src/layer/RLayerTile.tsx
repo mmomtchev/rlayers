@@ -7,6 +7,9 @@ import TileGrid from 'ol/tilegrid/TileGrid';
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
+/**
+ * Properties for RLayerTile
+ */
 export interface RLayerTileProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;

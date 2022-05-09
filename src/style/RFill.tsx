@@ -5,6 +5,9 @@ import {Fill} from 'ol/style';
 import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RFill
+ */
 export interface RFillProps extends RBaseProps {
     /** color */
     color?: ColorLike;

@@ -5,6 +5,9 @@ import {RContext} from '../context';
 import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 
+/**
+ * Properties for RRegularBase
+ */
 export interface RRegularBaseProps extends RImageProps {
     /** Radius of the polygon */
     radius?: number;

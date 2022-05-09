@@ -4,6 +4,9 @@ import {Circle} from 'ol/style';
 import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';
 
+/**
+ * Properties for RCircle
+ */
 export interface RCircleProps extends RRegularBaseProps {
     /** Radius */
     radius: number;

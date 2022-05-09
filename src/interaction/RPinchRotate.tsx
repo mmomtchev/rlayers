@@ -5,6 +5,9 @@ import {default as PinchRotate} from 'ol/interaction/PinchRotate';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RPinchRotate
+ */
 export interface RPinchRotateProps {
     /** Minimum angle in radians for rotation
      * @default 0.3 */

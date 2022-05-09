@@ -6,11 +6,17 @@ import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
+/**
+ * Properties for RControl
+ */
 export interface RControlProps extends PropsWithChildren<unknown> {
     className?: string;
     target?: React.RefObject<HTMLElement>;
 }
 
+/**
+ * An abstract class serving as base for all controls, not meant to be used directly
+ */
 export default class RControlBase<P extends RControlProps, S> extends RlayersBase<P, S> {
     ol: Control;
 

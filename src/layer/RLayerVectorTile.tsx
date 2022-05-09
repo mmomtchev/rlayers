@@ -9,6 +9,9 @@ import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
+/**
+ * Properties for RLayerVectorTile
+ */
 export interface RLayerVectorTileProps extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */
     url: string;

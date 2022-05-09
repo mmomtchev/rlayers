@@ -6,6 +6,9 @@ import {default as DragRotate} from 'ol/interaction/DragRotate';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RDragRotate
+ */
 export interface RDragRotateProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;

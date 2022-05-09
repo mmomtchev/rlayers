@@ -5,6 +5,9 @@ import {Stroke} from 'ol/style';
 import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RStroke
+ */
 export interface RStrokeProps extends RBaseProps {
     /** color */
     color: ColorLike;

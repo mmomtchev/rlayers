@@ -6,6 +6,9 @@ import {OSM} from 'ol/source';
 import {RContextType} from '../context';
 import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
+/**
+ * Properties for ROSMWebGL
+ */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ROSMWebGLProps extends RLayerWebGLProps {}
 

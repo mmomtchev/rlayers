@@ -6,6 +6,9 @@ import {default as KeyboardPan} from 'ol/interaction/KeyboardPan';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RKeyboardPan
+ */
 export interface RKeyboardPanProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;

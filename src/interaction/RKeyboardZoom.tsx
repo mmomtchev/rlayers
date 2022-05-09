@@ -6,6 +6,9 @@ import {default as KeyboardZoom} from 'ol/interaction/KeyboardZoom';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RKeyboardZoom
+ */
 export interface RKeyboardZoomProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;

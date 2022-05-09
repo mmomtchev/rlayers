@@ -5,6 +5,9 @@ import {Options} from 'ol/control/FullScreen';
 import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
+/**
+ * Properties for RFullScreen
+ */
 export interface RFullScreenProps extends RControlProps {
     /** A new HTML target for the map after switching to full-screen,
      * can be used for CSS customization

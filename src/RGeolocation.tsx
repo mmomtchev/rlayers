@@ -6,6 +6,9 @@ import BaseEvent from 'ol/events/Event';
 import {RlayersBase} from './REvent';
 import {RContextType} from './context';
 
+/**
+ * Properties for RGeolocation
+ */
 export interface RGeolocationProps {
     /** Continuous tracking
      * @default false */

@@ -7,6 +7,9 @@ import {TileSourceEvent} from 'ol/source/Tile';
 
 import {default as RLayer, RLayerProps} from './RLayer';
 
+/**
+ * Properties for RLayerRaster
+ */
 export interface RLayerRasterProps extends RLayerProps {
     /** Triggered when all currently visible tiles have finished loading */
     onTileLoadEnd?: (this: RLayerRaster<RLayerRasterProps>, e: TileSourceEvent) => void;

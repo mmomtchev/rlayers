@@ -8,6 +8,9 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
+/**
+ * Properties for RLayerWMTS
+ */
 export interface RLayerWMTSProps extends RLayerRasterProps {
     /** URL for the WMTS getCapabilites request */
     url: string;

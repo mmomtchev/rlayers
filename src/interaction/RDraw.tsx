@@ -7,6 +7,9 @@ import {default as RPointer} from './RPointer';
 import {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
+/**
+ * Properties for RDraw
+ */
 export interface RDrawProps {
     /** Type of the geometry */
     type:

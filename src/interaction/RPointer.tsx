@@ -6,6 +6,9 @@ import {RContextType} from '../context';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RPointer
+ */
 export interface RPointerProps {
     /** Called on down event (click or touch)
      * if it returns true, a drag sequence is started

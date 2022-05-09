@@ -5,6 +5,9 @@ import {Size} from 'ol/size';
 import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RImage
+ */
 export interface RImageProps extends RBaseProps {
     /** Opacity */
     opacity?: number;
@@ -18,6 +21,9 @@ export interface RImageProps extends RBaseProps {
     displacement?: number[];
 }
 
+/**
+ * An abstract class serving as base for all styles that render an image
+ */
 export default class RImage<P extends RImageProps> extends RBase<P> {
     static classProps = ['opacity', 'rotateWithView', 'rotation', 'scale', 'displacement'];
     ol: Image;

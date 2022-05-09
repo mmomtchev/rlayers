@@ -9,6 +9,9 @@ import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 
+/**
+ * Properties for RLayerCluster
+ */
 export interface RLayerClusterProps extends RLayerBaseVectorProps {
     /** Clustering distance */
     distance?: number;

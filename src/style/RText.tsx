@@ -6,6 +6,9 @@ import {RContext} from '../context';
 import {default as RBase, RBaseProps} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RText
+ */
 export interface RTextProps extends RBaseProps {
     /** The text that will be displayed */
     text: string;

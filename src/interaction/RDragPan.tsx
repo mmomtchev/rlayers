@@ -6,6 +6,9 @@ import {default as DragPan} from 'ol/interaction/DragPan';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RDragPan
+ */
 export interface RDragPanProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;

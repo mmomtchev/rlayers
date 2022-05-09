@@ -6,6 +6,9 @@ import {default as MouseWheelZoom} from 'ol/interaction/MouseWheelZoom';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RMouseWheelZoom
+ */
 export interface RMouseWheelZoomProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;

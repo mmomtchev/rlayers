@@ -6,6 +6,9 @@ import {Options} from 'ol/control/ZoomSlider';
 import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
+/**
+ * Properties for RZoomSlider
+ */
 export interface RZoomSliderProps extends RControlProps {
     /** Animation duration
      * @default 200 */

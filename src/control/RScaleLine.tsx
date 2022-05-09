@@ -5,6 +5,9 @@ import {Options, Units} from 'ol/control/ScaleLine';
 import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
+/**
+ * Properties for RScaleLine
+ */
 export interface RScaleLineProps extends RControlProps {
     /** Minimum width */
     minWidth?: number;

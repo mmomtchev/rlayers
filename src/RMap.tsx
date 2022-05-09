@@ -15,6 +15,9 @@ export type RView = {
     zoom: number;
 };
 
+/**
+ * Properties for RMap
+ */
 export interface RMapProps extends PropsWithChildren<unknown> {
     /** The initial view parameters - {center, zoom}, reset only on full component reload */
     initial: RView;

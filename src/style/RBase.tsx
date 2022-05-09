@@ -3,9 +3,15 @@ import React, {PropsWithChildren} from 'react';
 import {RContext, RContextType} from '../context';
 import debug from '../debug';
 
+/**
+ * Properties for RBase
+ */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RBaseProps extends PropsWithChildren<unknown> {}
 
+/**
+ * An abstract class used as base for all Style components, not meant to be used directly
+ */
 export default class RBase<P extends RBaseProps> extends React.PureComponent<
     P,
     Record<string, never>

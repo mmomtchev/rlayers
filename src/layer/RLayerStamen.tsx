@@ -6,6 +6,9 @@ import {Stamen} from 'ol/source';
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
+/**
+ * Properties for RLayerStamen
+ */
 export interface RLayerStamenProps extends RLayerRasterProps {
     /** Stamen layer name */
     layer?: string;

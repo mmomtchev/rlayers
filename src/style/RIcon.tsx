@@ -8,6 +8,9 @@ import {Color} from 'ol/color';
 import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 
+/**
+ * Properties for RIcon
+ */
 export interface RIconProps extends RImageProps {
     anchor?: number[];
     anchorXUnits?: 'fraction' | 'pixels';

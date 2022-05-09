@@ -6,6 +6,9 @@ import {default as DragZoom} from 'ol/interaction/DragZoom';
 import {default as RBase} from './RBase';
 import debug from '../debug';
 
+/**
+ * Properties for RDragZoom
+ */
 export interface RDragZoomProps {
     /** Optionnal CSS class for styling the box
      * @default ol-dragzoom */
