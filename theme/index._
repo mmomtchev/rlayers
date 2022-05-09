@@ -103,6 +103,7 @@
           <% } else { %>
           <%= renderSection({
             section: s,
+            lvl: 4,
             renderSection: renderSection,
             renderSectionList: renderSectionList,
             renderParamProperty: renderParamProperty
