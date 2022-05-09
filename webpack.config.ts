@@ -1,12 +1,13 @@
 // This webpack builds the examples, the library dist files are built with tsc
 import path from 'path';
-import webpack, {Configuration} from 'webpack';
+import webpack from 'webpack';
+import 'webpack-dev-server';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import {TsconfigPathsPlugin} from 'tsconfig-paths-webpack-plugin';
 import React from 'react';
 
-const webpackConfig = (env): Configuration => {
+const webpackConfig = (env): webpack.Configuration => {
     let reactMajorVersion = +React.version.split('.')[0];
     if (reactMajorVersion >= 18) {
         console.log('React 18 detected');
@@ -14,7 +15,7 @@ const webpackConfig = (env): Configuration => {
         console.log('React 16/17 detected');
     }
 
-    const conf: Configuration = {
+    const conf: webpack.Configuration = {
         entry: reactMajorVersion >= 18 ? './examples/index-react18.tsx' : './examples/index.tsx',
         ...(env.production || !env.development ? {} : {devtool: 'eval-source-map'}),
         resolve: {
