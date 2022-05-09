@@ -226,7 +226,7 @@ As of March 2022, SSR support is stale and I am not working on it anymore.
 
 ## API
 
-You can browse the full documentation at <https://mmomtchev.github.io/rlayers/api>
+You can browse the full documentation at <https://mmomtchev.github.io/rlayers/api> in HTML or <https://github.com/mmomtchev/rlayers/blob/gh-pages/API.md> in Markdown.
 
 ## License
 [ISC](https://choosealicense.com/licenses/isc/)
