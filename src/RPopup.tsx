@@ -3,6 +3,9 @@ import React from 'react';
 import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 
+/**
+ * @propsfor RPopup
+ */
 export interface RPopupProps extends ROverlayProps {
     /**
      * Trigger action, 'click' or 'hover'
@@ -28,7 +31,7 @@ export interface RPopupProps extends ROverlayProps {
  *
  * (ie it must be descendant of a `RFeature`)
  */
-export default class Popup extends ROverlayBase<RPopupProps> {
+export default class RPopup extends ROverlayBase<RPopupProps> {
     visible: boolean;
     showing: number | undefined;
     hiding: number | undefined;

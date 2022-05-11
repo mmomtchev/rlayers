@@ -21,6 +21,9 @@ export class RFeatureBaseEvent extends BaseEvent {
     target: Feature<Geometry>;
 }
 
+/**
+ * @propsfor RFeature
+ */
 export interface RFeatureProps extends PropsWithChildren<unknown> {
     /** OpenLayers geometry, mutually exclusive with feature */
     geometry?: Geometry;

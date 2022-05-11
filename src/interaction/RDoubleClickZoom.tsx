@@ -2,9 +2,12 @@ import React from 'react';
 import {ObjectEvent} from 'ol/Object';
 import {default as DoubleClickZoom} from 'ol/interaction/DoubleClickZoom';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
+/**
+ * @propsfor RDoubleClickZoom
+ */
 export interface RDoubleClickZoomProps {
     /** Animation duration
      * @default 250 */
@@ -17,7 +20,7 @@ export interface RDoubleClickZoomProps {
 }
 
 /** Zooming by double click */
-export default class RDoubleClickZoom extends RBase<RDoubleClickZoomProps> {
+export default class RDoubleClickZoom extends RBaseInteraction<RDoubleClickZoomProps> {
     static classProps = ['duration', 'delta'];
     ol: DoubleClickZoom;
 

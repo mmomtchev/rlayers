@@ -4,12 +4,15 @@ import {Control} from 'ol/control';
 import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
-export interface LayersProps extends RControlProps {
+/**
+ * @propsfor RLayer
+ */
+export interface RLayersProps extends RControlProps {
     /** Custom element for rendering */
     element?: React.ReactElement;
 }
 
-export interface LayersState {
+export interface RLayersState {
     collapsed: boolean;
     visible: boolean[];
 }
@@ -22,11 +25,11 @@ export interface LayersState {
  *
  * Requires an `RMap` context
  */
-export default class RLayers extends RControlBase<LayersProps, LayersState> {
+export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<LayersProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayersProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.targetRef = React.createRef();
         this.state = {collapsed: true, visible: [true]};
@@ -46,7 +49,7 @@ export default class RLayers extends RControlBase<LayersProps, LayersState> {
         this.context.map.un('change', this.onchange);
     }
 
-    toOLProps(props: LayersProps): Record<string, unknown> {
+    toOLProps(props: RLayersProps): Record<string, unknown> {
         return {
             ...super.toOLProps(props),
             element: this.targetRef?.current

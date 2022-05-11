@@ -1,0 +1,87 @@
+defaultGlobals: false
+
+documentation-stylist:
+    externalCrossLinks: scripts/externalCrossLinks.js
+
+toc:
+    - name: Core
+      description: Core Components
+      children:
+          - RMap
+          - RView
+          - RFeature
+          - ROverlay
+          - RPopup
+          - RGeolocation
+          - RContextType
+
+    - name: Layers
+      description: Layer Components
+      children:
+          - RLayerBaseVector
+          - RLayerCluster
+          - RLayerHeatmap
+          - RLayerRaster
+          - RLayerStamen
+          - RLayerTileJSON
+          - RLayerTile
+          - RLayerTileWebGL
+          - RLayerTileWMS
+          - RLayer
+          - RLayerVectorImage
+          - RLayerVectorTile
+          - RLayerVector
+          - RLayerWebGL
+          - RLayerWMS
+          - RLayerWMTS
+          - ROSM
+          - ROSMWebGL
+
+    - name: Controls
+      description: Map Control Components
+      children:
+          - RAttribution
+          - RControlBase
+          - RCustom
+          - RFullScreen
+          - RLayers
+          - ROverviewMap
+          - RRotate
+          - RScaleLine
+          - RZoomSlider
+          - RZoom
+
+    - name: Styles
+      description: Virtual Components for Defining Styles
+      file: src/style/RStyle.md
+      children:
+          - RStyle
+          - RStyleArray
+          - RBaseStyle
+          - RCircle
+          - RFill
+          - RIcon
+          - RImage
+          - RRegularBase
+          - RRegularShape
+          - RStroke
+          - RText
+
+    - name: Interactions
+      description: Virtual Components for Defining Interactions
+      children:
+          - RBaseInteraction
+          - RDoubleClickZoom
+          - RDragBox
+          - RDragPan
+          - RDragRotate
+          - RDragZoom
+          - RDraw
+          - RKeyboardPan
+          - RKeyboardZoom
+          - RModify
+          - RMouseWheelZoom
+          - RPinchRotate
+          - RPinchZoom
+          - RPointer
+          - RTranslate

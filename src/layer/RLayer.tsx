@@ -8,6 +8,9 @@ import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
+/**
+ * @propsfor RLayerProps
+ */
 export interface RLayerProps extends PropsWithChildren<unknown> {
     /** State of the layer */
     visible?: boolean;
@@ -33,6 +36,9 @@ export interface RLayerProps extends PropsWithChildren<unknown> {
     onChange?: (this: RLayer<RLayerProps>, e: BaseEvent) => void;
 }
 
+/**
+ * Abstract base class for all layers, not meant to be used directly
+ */
 export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record<string, never>> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: Layer<Source, LayerRenderer<any>>;

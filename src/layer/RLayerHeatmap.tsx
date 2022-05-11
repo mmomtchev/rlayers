@@ -8,6 +8,9 @@ import {Point} from 'ol/geom';
 import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 
+/**
+ * @propsfor RLayerHeatmap
+ */
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     /** Blurring */
     blur?: number;

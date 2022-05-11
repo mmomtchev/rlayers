@@ -6,11 +6,17 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 // TileWMS options from https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html
+/**
+ * @propsfor RLayerTileWMS
+ */
 export interface RLayerTileWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;
     url: string;
 }
 
+/**
+ * Tiled layer using WMS
+ */
 export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     ol: TileLayer<TileWMS>;
     source: TileWMS;

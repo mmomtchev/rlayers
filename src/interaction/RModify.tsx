@@ -6,6 +6,9 @@ import {default as RPointer} from './RPointer';
 import {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
+/**
+ * @propsfor RModify
+ */
 export interface RModifyProps {
     /** An optionnal condition for triggering the interaction
      * @default primaryAction */

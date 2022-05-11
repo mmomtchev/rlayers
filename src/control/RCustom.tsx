@@ -12,7 +12,7 @@ import {default as RControlBase, RControlProps} from './RControlBase';
  *
  * [See this for an example](https://mmomtchev.github.io/rlayers/#/controls)
  */
-export default class Custom extends RControlBase<RControlProps, Record<string, never>> {
+export default class RCustom extends RControlBase<RControlProps, Record<string, never>> {
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 

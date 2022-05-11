@@ -3,9 +3,12 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragZoom} from 'ol/interaction/DragZoom';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
+/**
+ * @propsfor RDragZoom
+ */
 export interface RDragZoomProps {
     /** Optionnal CSS class for styling the box
      * @default ol-dragzoom */
@@ -26,7 +29,7 @@ export interface RDragZoomProps {
 }
 
 /** Zoom by dragging a box, see `RDragBox` for selecting features */
-export default class RDragZoom extends RBase<RDragZoomProps> {
+export default class RDragZoom extends RBaseInteraction<RDragZoomProps> {
     static classProps = ['className', 'condition', 'duration', 'out', 'minArea'];
     ol: DragZoom;
 

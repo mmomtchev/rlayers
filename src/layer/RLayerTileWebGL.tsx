@@ -7,6 +7,9 @@ import TileGrid from 'ol/tilegrid/TileGrid';
 import {RContextType} from '../context';
 import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
+/**
+ * @propsfor RLayerTileWebGL
+ */
 export interface RLayerTileWebGLProps extends RLayerWebGLProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;

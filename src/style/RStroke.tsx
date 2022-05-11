@@ -2,10 +2,13 @@ import React from 'react';
 import {ColorLike} from 'ol/colorlike';
 import {Stroke} from 'ol/style';
 
-import {default as RBase, RBaseProps} from './RBase';
+import {default as RBaseStyle, RBaseStyleProps} from './RBaseStyle';
 import debug from '../debug';
 
-export interface RStrokeProps extends RBaseProps {
+/**
+ * @propsfor RStroke
+ */
+export interface RStrokeProps extends RBaseStyleProps {
     /** color */
     color: ColorLike;
     /** width */
@@ -25,7 +28,7 @@ export interface RStrokeProps extends RBaseProps {
  *
  * Requires an `RStyle` context
  */
-export default class RStroke extends RBase<RStrokeProps> {
+export default class RStroke extends RBaseStyle<RStrokeProps> {
     static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     ol: Stroke;
 

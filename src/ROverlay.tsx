@@ -4,6 +4,9 @@ import {Overlay} from 'ol';
 import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
+/**
+ * @propsfor ROverlay
+ */
 export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Content to be displayed */
     content?: string | HTMLElement | React.ElementType;
@@ -28,7 +31,8 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
  *
  * (ie it must be descendant of a `RFeature`)
  *
- * @visibleName ROverlay
+ * @name ROverlay
+ * @constructor
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record<string, never>> {
     ol: Overlay;

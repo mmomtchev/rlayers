@@ -4,6 +4,9 @@ import {RegularShape} from 'ol/style';
 import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';
 
+/**
+ * @propsfor RRegularShape
+ */
 export interface RRegularShapeProps extends RRegularBaseProps {
     /** Outer radius */
     radius1?: number;

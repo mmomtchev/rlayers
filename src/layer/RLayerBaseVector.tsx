@@ -20,6 +20,9 @@ import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
+/**
+ * @propsfor RLayerBaseVector
+ */
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */
     url?: string;

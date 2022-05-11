@@ -5,7 +5,10 @@ import {Options} from 'ol/control/OverviewMap';
 import {RContext, RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
-export interface OverviewProps extends RControlProps {
+/**
+ * @propsfor ROverviewMap
+ */
+export interface ROverviewProps extends RControlProps {
     /** User-collapsible @default true */
     collapsible?: boolean;
     /** State @default true */
@@ -27,15 +30,15 @@ export interface OverviewProps extends RControlProps {
  *
  * Provides an 'RMap` context - allowing to nest overview layers in it
  */
-export default class ROverviewMap extends RControlBase<OverviewProps, Record<string, never>> {
+export default class ROverviewMap extends RControlBase<ROverviewProps, Record<string, never>> {
     ol: OverviewMap;
 
-    constructor(props: Readonly<OverviewProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<ROverviewProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OverviewMap(this.toOLProps(props));
     }
 
-    toOLProps(props: OverviewProps): Options {
+    toOLProps(props: ROverviewProps): Options {
         return {
             ...super.toOLProps(props),
             className: props.className,
@@ -46,7 +49,7 @@ export default class ROverviewMap extends RControlBase<OverviewProps, Record<str
         };
     }
 
-    refresh(prevProps?: OverviewProps): void {
+    refresh(prevProps?: ROverviewProps): void {
         super.refresh(prevProps);
         if (prevProps?.collapsed !== this.props.collapsed)
             this.ol.setCollapsed(this.props.collapsed);

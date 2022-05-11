@@ -3,10 +3,13 @@ import {Size} from 'ol/size';
 import {Text, Style} from 'ol/style';
 
 import {RContext} from '../context';
-import {default as RBase, RBaseProps} from './RBase';
+import {default as RBaseStyle, RBaseStyleProps} from './RBaseStyle';
 import debug from '../debug';
 
-export interface RTextProps extends RBaseProps {
+/**
+ * @propsfor RText
+ */
+export interface RTextProps extends RBaseStyleProps {
     /** The text that will be displayed */
     text: string;
     /** Font */
@@ -34,7 +37,7 @@ export interface RTextProps extends RBaseProps {
  *
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
-export default class RText extends RBase<RTextProps> {
+export default class RText extends RBaseStyle<RTextProps> {
     static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
     ol: Text;
 

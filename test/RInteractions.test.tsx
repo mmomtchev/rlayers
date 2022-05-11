@@ -3,6 +3,7 @@ import React from 'react';
 import {cleanup, fireEvent, render} from '@testing-library/react';
 
 import {RMap, RInteraction, RLayerVector} from 'rlayers';
+import RBaseInteraction from 'rlayers/interaction/RBaseInteraction';
 import * as common from './common';
 
 describe('<RDragBox>', () => {
@@ -24,9 +25,12 @@ describe('<RDragBox>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => render(<RInteraction.RDragBox />)).toThrow('must be part of a');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should update DragBox handlers', async () => {
@@ -171,7 +175,9 @@ describe('<RDraw>', () => {
         unmount();
     });
     it('should throw without LayerVector', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() =>
             render(
@@ -180,6 +186,7 @@ describe('<RDraw>', () => {
                 </RMap>
             )
         ).toThrowError('part of');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });
@@ -200,7 +207,9 @@ describe('<RModify>', () => {
         unmount();
     });
     it('should throw without LayerVector', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() =>
             render(
@@ -209,6 +218,25 @@ describe('<RModify>', () => {
                 </RMap>
             )
         ).toThrowError('part of');
+        // eslint-disable-next-line no-console
+        console.error = err;
+    });
+});
+
+describe('<RBaseInteraction>', () => {
+    it('should throw', async () => {
+        // eslint-disable-next-line no-console
+        const err = console.error;
+        // eslint-disable-next-line no-console
+        console.error = () => undefined;
+        expect(() =>
+            render(
+                <RMap {...common.mapProps}>
+                    <RBaseInteraction />
+                </RMap>
+            )
+        ).toThrowError('RBaseInteraction should not be directly instantiated');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });

@@ -6,6 +6,9 @@ import {default as DragBox, DragBoxEvent} from 'ol/interaction/DragBox';
 import {default as RPointer} from './RPointer';
 import debug from '../debug';
 
+/**
+ * @propsfor RDragBox
+ */
 export interface RDragBoxProps {
     /** A CSS class to be used for the box */
     className?: string;

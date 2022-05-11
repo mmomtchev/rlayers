@@ -11,10 +11,15 @@ import {RlayersBase} from './REvent';
 
 /** Center and zoom level */
 export type RView = {
+    /** Center of the map */
     center: Coordinate;
+    /** Zoom level, 0 is the whole world, 28 is maximum resolution */
     zoom: number;
 };
 
+/**
+ * @propsfor RMap
+ */
 export interface RMapProps extends PropsWithChildren<unknown> {
     /** The initial view parameters - {center, zoom}, reset only on full component reload */
     initial: RView;
@@ -53,9 +58,13 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     onPointerDrag?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on every pointer movement, use with care */
     onPointerMove?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    /** Called after a layer has been rendered */
     onPostRender?: (this: RMap, e: MapEvent) => boolean | void;
+    /** Called before layers are composed */
     onPreCompose?: (this: RMap, e: RenderEvent) => boolean | void;
+    /** Called after layers are composed */
     onPostCompose?: (this: RMap, e: RenderEvent) => boolean | void;
+    /** Called after completely rendering the map */
     onRenderComplete?: (this: RMap, e: RenderEvent) => boolean | void;
     /** Called on every change */
     onChange?: (this: RMap, e: BaseEvent) => void;

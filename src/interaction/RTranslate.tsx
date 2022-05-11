@@ -8,6 +8,9 @@ import RenderFeature from 'ol/render/Feature';
 import {default as RPointer} from './RPointer';
 import debug from '../debug';
 
+/**
+ * @propsfor RTranslate
+ */
 export interface RTranslateProps {
     /** Translatable features
      * @default all */

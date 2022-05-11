@@ -5,6 +5,9 @@ import {Options} from 'ol/control/Rotate';
 import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
+/**
+ * @propsfor RRotate
+ */
 export interface RRotateProps extends RControlProps {
     /** Label */
     label?: string;

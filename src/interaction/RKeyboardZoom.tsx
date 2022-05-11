@@ -3,9 +3,12 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as KeyboardZoom} from 'ol/interaction/KeyboardZoom';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
+/**
+ * @propsfor RKeyboardZoom
+ */
 export interface RKeyboardZoomProps {
     /** An optional OpenLayers condition */
     condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
@@ -20,7 +23,7 @@ export interface RKeyboardZoomProps {
 }
 
 /** Zoom with +/- keys on the keyboard */
-export default class RKeyboardZoom extends RBase<RKeyboardZoomProps> {
+export default class RKeyboardZoom extends RBaseInteraction<RKeyboardZoomProps> {
     static classProps = ['condition', 'duration', 'delta'];
     ol: KeyboardZoom;
 

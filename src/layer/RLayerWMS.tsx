@@ -5,11 +5,17 @@ import React from 'react';
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
+/**
+ * @propsfor RLayerWMS
+ */
 export interface RLayerWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;
     url: string;
 }
 
+/**
+ * A layer that renders WMS maps as a single image
+ */
 export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     ol: ImageLayer<ImageWMS>;
     source: ImageWMS;

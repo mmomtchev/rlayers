@@ -2,10 +2,13 @@ import React from 'react';
 import {Image} from 'ol/style';
 import {Size} from 'ol/size';
 
-import {default as RBase, RBaseProps} from './RBase';
+import {default as RBaseStyle, RBaseStyleProps} from './RBaseStyle';
 import debug from '../debug';
 
-export interface RImageProps extends RBaseProps {
+/**
+ * @propsfor RImage
+ */
+export interface RImageProps extends RBaseStyleProps {
     /** Opacity */
     opacity?: number;
     /** Rotate with view */
@@ -18,7 +21,10 @@ export interface RImageProps extends RBaseProps {
     displacement?: number[];
 }
 
-export default class RImage<P extends RImageProps> extends RBase<P> {
+/**
+ * An abstract class serving as base for all styles that render an image
+ */
+export default class RImage<P extends RImageProps> extends RBaseStyle<P> {
     static classProps = ['opacity', 'rotateWithView', 'rotation', 'scale', 'displacement'];
     ol: Image;
 
