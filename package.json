@@ -42,7 +42,7 @@
     "dev": "webpack-cli serve --mode=development --env development --open",
     "prod": "webpack-cli serve --mode=production --env production --open",
     "doc:watch": "npx styleguidist server",
-    "doc:publish": "node publish-ghpages.js",
+    "doc:publish": "node scripts/publish-ghpages.js",
     "lint": "eslint './{examples,src}/**/*.{ts,tsx}'",
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
     "test": "jest",
