@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  * Provide an alternative ES6 modules version of rlayers with a `package.json` exports map
  * Provide a CDN bundle version for direct inclusion in static pages
  * Render the examples in React 18 mode when available
+ * New documentation subsystem based on `documentation.js` with `documentation-stylist`
 
 ### [1.3.4] 2022-04-26
  * TypeScript compatibility with `@types/react@18.0.0`
