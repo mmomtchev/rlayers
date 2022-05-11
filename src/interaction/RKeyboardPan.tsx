@@ -3,11 +3,11 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as KeyboardPan} from 'ol/interaction/KeyboardPan';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RKeyboardPan
+ * @propsfor RKeyboardPan
  */
 export interface RKeyboardPanProps {
     /** An optional OpenLayers condition */
@@ -23,7 +23,7 @@ export interface RKeyboardPanProps {
 }
 
 /** Pan with the arrow keys on the keyboard */
-export default class RKeyboardPan extends RBase<RKeyboardPanProps> {
+export default class RKeyboardPan extends RBaseInteraction<RKeyboardPanProps> {
     static classProps = ['condition', 'duration', 'pixelDelta'];
     ol: KeyboardPan;
 

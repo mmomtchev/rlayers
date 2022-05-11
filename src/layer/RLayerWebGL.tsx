@@ -8,7 +8,7 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
- * Properties for RLayerWebGL
+ * @propsfor RLayerWebGL
  */
 export interface RLayerWebGLProps extends RLayerRasterProps {
     /**

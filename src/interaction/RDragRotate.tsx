@@ -3,11 +3,11 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragRotate} from 'ol/interaction/DragRotate';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RDragRotate
+ * @propsfor RDragRotate
  */
 export interface RDragRotateProps {
     /** An optional OpenLayers condition */
@@ -20,7 +20,7 @@ export interface RDragRotateProps {
 }
 
 /** Rotation by clicking and dragging */
-export default class RDragRotate extends RBase<RDragRotateProps> {
+export default class RDragRotate extends RBaseInteraction<RDragRotateProps> {
     static classProps = ['condition', 'duration'];
     ol: DragRotate;
 

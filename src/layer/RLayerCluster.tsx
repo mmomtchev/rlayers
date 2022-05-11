@@ -10,7 +10,7 @@ import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVe
 import {default as RStyle} from '../style/RStyle';
 
 /**
- * Properties for RLayerCluster
+ * @propsfor RLayerCluster
  */
 export interface RLayerClusterProps extends RLayerBaseVectorProps {
     /** Clustering distance */

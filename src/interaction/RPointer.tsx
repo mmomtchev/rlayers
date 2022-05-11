@@ -3,11 +3,11 @@ import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
 import {RContextType} from '../context';
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RPointer
+ * @propsfor RPointer
  */
 export interface RPointerProps {
     /** Called on down event (click or touch)
@@ -29,7 +29,7 @@ export interface RPointerProps {
  *
  * It is meant to be be extended by more specific interactions
  */
-export default class RPointer<P> extends RBase<P> {
+export default class RPointer<P> extends RBaseInteraction<P> {
     static classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
     classProps: string[];
     ol: Pointer;

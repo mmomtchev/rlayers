@@ -7,7 +7,7 @@ import {default as RPointer} from './RPointer';
 import debug from '../debug';
 
 /**
- * Properties for RDragBox
+ * @propsfor RDragBox
  */
 export interface RDragBoxProps {
     /** A CSS class to be used for the box */

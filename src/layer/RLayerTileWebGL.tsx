@@ -8,7 +8,7 @@ import {RContextType} from '../context';
 import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
 /**
- * Properties for RLayerTileWebGL
+ * @propsfor RLayerTileWebGL
  */
 export interface RLayerTileWebGLProps extends RLayerWebGLProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */

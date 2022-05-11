@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for RAttribution
+ * @propsfor RAttribution
  */
 export interface RAttributionProps extends RControlProps {
     /** Is it user-collapsible (some licenses do not allow it) @default true */

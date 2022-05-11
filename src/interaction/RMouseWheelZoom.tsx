@@ -3,11 +3,11 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as MouseWheelZoom} from 'ol/interaction/MouseWheelZoom';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RMouseWheelZoom
+ * @propsfor RMouseWheelZoom
  */
 export interface RMouseWheelZoomProps {
     /** An optional OpenLayers condition */
@@ -29,7 +29,7 @@ export interface RMouseWheelZoomProps {
 }
 
 /** Mouse wheel zoom */
-export default class RMouseWheelZoom extends RBase<RMouseWheelZoomProps> {
+export default class RMouseWheelZoom extends RBaseInteraction<RMouseWheelZoomProps> {
     static classProps = ['condition', 'maxDelta', 'duration', 'useAnchor', 'constrainResolution'];
     ol: MouseWheelZoom;
 

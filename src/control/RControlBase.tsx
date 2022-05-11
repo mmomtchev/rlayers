@@ -7,7 +7,7 @@ import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 /**
- * Properties for RControl
+ * @propsfor RControl
  */
 export interface RControlProps extends PropsWithChildren<unknown> {
     className?: string;

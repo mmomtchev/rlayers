@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for RFullScreen
+ * @propsfor RFullScreen
  */
 export interface RFullScreenProps extends RControlProps {
     /** A new HTML target for the map after switching to full-screen,

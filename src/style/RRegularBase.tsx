@@ -6,7 +6,7 @@ import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 
 /**
- * Properties for RRegularBase
+ * @propsfor RRegularBase
  */
 export interface RRegularBaseProps extends RImageProps {
     /** Radius of the polygon */
@@ -27,7 +27,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
 
     setStroke(s: Stroke): void {
         /* This a sneaky way around OpenLayers not supporting
-         * setStroke/setFill on RegularBase-derived classes */
+         * setStroke/setFill on RegulaRBaseStyle-derived classes */
         this.stroke = s;
         this.ol = this.create(this.props);
         super.set(this.ol);
@@ -35,7 +35,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
 
     setFill(f: Fill): void {
         /* This a sneaky way around OpenLayers not supporting
-         * setStroke/setFill on RegularBase-derived classes */
+         * setStroke/setFill on RegulaRBaseStyle-derived classes */
         this.fill = f;
         this.ol = this.create(this.props);
         super.set(this.ol);

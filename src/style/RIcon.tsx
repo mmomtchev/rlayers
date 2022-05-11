@@ -9,7 +9,7 @@ import RImage, {RImageProps} from './RImage';
 import debug from '../debug';
 
 /**
- * Properties for RIcon
+ * @propsfor RIcon
  */
 export interface RIconProps extends RImageProps {
     anchor?: number[];

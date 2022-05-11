@@ -7,7 +7,7 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
- * Properties for RLayerStamen
+ * @propsfor RLayerStamen
  */
 export interface RLayerStamenProps extends RLayerRasterProps {
     /** Stamen layer name */

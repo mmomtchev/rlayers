@@ -7,7 +7,7 @@ import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 // TileWMS options from https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html
 /**
- * Properties for RLayerTileWMS
+ * @propsfor RLayerTileWMS
  */
 export interface RLayerTileWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;

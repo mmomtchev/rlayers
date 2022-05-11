@@ -9,7 +9,7 @@ import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 
 /**
- * Properties for RLayerHeatmap
+ * @propsfor RLayerHeatmap
  */
 export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     /** Blurring */

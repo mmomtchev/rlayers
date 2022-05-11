@@ -22,7 +22,7 @@ export class RFeatureBaseEvent extends BaseEvent {
 }
 
 /**
- * Properties for RFeature
+ * @propsfor RFeature
  */
 export interface RFeatureProps extends PropsWithChildren<unknown> {
     /** OpenLayers geometry, mutually exclusive with feature */

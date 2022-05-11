@@ -9,7 +9,7 @@ import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 /**
- * Properties for RLayerProps
+ * @propsfor RLayerProps
  */
 export interface RLayerProps extends PropsWithChildren<unknown> {
     /** State of the layer */

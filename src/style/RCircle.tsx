@@ -5,7 +5,7 @@ import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';
 
 /**
- * Properties for RCircle
+ * @propsfor RCircle
  */
 export interface RCircleProps extends RRegularBaseProps {
     /** Radius */

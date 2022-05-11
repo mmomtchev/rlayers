@@ -5,7 +5,7 @@ import RRegularBase, {RRegularBaseProps} from './RRegularBase';
 import debug from '../debug';
 
 /**
- * Properties for RRegularShape
+ * @propsfor RRegularShape
  */
 export interface RRegularShapeProps extends RRegularBaseProps {
     /** Outer radius */

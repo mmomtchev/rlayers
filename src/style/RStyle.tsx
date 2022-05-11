@@ -10,7 +10,7 @@ import debug from '../debug';
 import Geometry from 'ol/geom/Geometry';
 
 /**
- * Properties for RStyle
+ * @propsfor RStyle
  */
 export interface RStyleProps extends PropsWithChildren<unknown> {
     /** render function to be passed the feature and the resolution for dynamic styles

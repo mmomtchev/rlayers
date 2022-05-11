@@ -4,7 +4,7 @@ import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 
 /**
- * Properties for RPopup
+ * @propsfor RPopup
  */
 export interface RPopupProps extends ROverlayProps {
     /**

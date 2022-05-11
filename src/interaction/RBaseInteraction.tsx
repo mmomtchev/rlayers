@@ -10,7 +10,7 @@ import debug from '../debug';
  *
  * It is meant to be be extended by more specific interactions
  */
-export default class RBase<P> extends RlayersBase<P, Record<string, never>> {
+export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, never>> {
     static classProps: string[] = [];
     classProps: string[];
     ol: Interaction;
@@ -23,7 +23,7 @@ export default class RBase<P> extends RlayersBase<P, Record<string, never>> {
     }
 
     createOL(props: P): Interaction {
-        throw new Error('RBase should not be directly instantiated');
+        throw new Error('RBaseInteraction should not be directly instantiated');
     }
 
     refresh(prevProps?: P): void {

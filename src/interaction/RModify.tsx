@@ -7,7 +7,7 @@ import {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
 /**
- * Properties for RModify
+ * @propsfor RModify
  */
 export interface RModifyProps {
     /** An optionnal condition for triggering the interaction

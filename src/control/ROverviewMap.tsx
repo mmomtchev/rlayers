@@ -6,7 +6,7 @@ import {RContext, RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for ROverviewMap
+ * @propsfor ROverviewMap
  */
 export interface ROverviewProps extends RControlProps {
     /** User-collapsible @default true */

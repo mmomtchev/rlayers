@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for RScaleLine
+ * @propsfor RScaleLine
  */
 export interface RScaleLineProps extends RControlProps {
     /** Minimum width */

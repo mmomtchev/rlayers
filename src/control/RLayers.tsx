@@ -5,7 +5,7 @@ import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
 /**
- * Properties for RLayer
+ * @propsfor RLayer
  */
 export interface RLayersProps extends RControlProps {
     /** Custom element for rendering */

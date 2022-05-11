@@ -7,7 +7,7 @@ import {RlayersBase} from './REvent';
 import {RContextType} from './context';
 
 /**
- * Properties for RGeolocation
+ * @propsfor RGeolocation
  */
 export interface RGeolocationProps {
     /** Continuous tracking

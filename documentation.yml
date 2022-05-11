@@ -1,139 +1,87 @@
 defaultGlobals: false
 
+documentation-stylist:
+    externalCrossLinks: scripts/externalCrossLinks.js
+
 toc:
     - name: Core
-      description: Core Componentes
+      description: Core Components
       children:
           - RMap
-          - RMapProps
           - RView
           - RFeature
-          - RFeatureProps
           - ROverlay
-          - ROverlayProps
           - RPopup
-          - RPopupProps
           - RGeolocation
-          - RGeolocationProps
           - RContextType
 
     - name: Layers
       description: Layer Components
       children:
           - RLayerBaseVector
-          - RLayerBaseVectorProps
           - RLayerCluster
-          - RLayerClusterProps
           - RLayerHeatmap
-          - RLayerHeatmapProps
           - RLayerRaster
-          - RLayerRasterProps
           - RLayerStamen
-          - RLayerStamenProps
           - RLayerTileJSON
-          - RLayerTileJSONProps
           - RLayerTile
-          - RLayerTileProps
           - RLayerTileWebGL
-          - RLayerTileWebGLProps
           - RLayerTileWMS
-          - RLayerTileWMSProps
           - RLayer
-          - RLayerProps
           - RLayerVectorImage
           - RLayerVectorTile
-          - RLayerVectorTileProps
           - RLayerVector
           - RLayerWebGL
-          - RLayerWebGLProps
           - RLayerWMS
-          - RLayerWMSProps
           - RLayerWMTS
-          - RLayerWMTSProps
           - ROSM
-          - ROSMProps
           - ROSMWebGL
-          - ROSMWebGLProps
 
     - name: Controls
       description: Map Control Components
       children:
           - RAttribution
-          - RAttributionProps
           - RControlBase
-          - RControlProps
           - RCustom
           - RFullScreen
-          - RFullScreenProps
           - RLayers
-          - RLayersProps
           - ROverviewMap
-          - ROverviewProps
           - RRotate
-          - RRotateProps
           - RScaleLine
-          - RScaleLineProps
           - RZoomSlider
-          - RZoomSliderProps
           - RZoom
-          - RZoomProps
 
     - name: Styles
       description: Virtual Components for Defining Styles
       file: src/style/RStyle.md
       children:
           - RStyle
-          - RStyleProps
           - RStyleArray
-          - RBase
-          - RBaseProps
+          - RBaseStyle
           - RCircle
-          - RCircleProps
           - RFill
-          - RFillProps
           - RIcon
-          - RIconProps
           - RImage
-          - RImageProps
           - RRegularBase
-          - RRegularBaseProps
           - RRegularShape
-          - RRegularShapeProps
           - RStroke
-          - RStrokeProps
           - RText
-          - RTextProps
 
     - name: Interactions
       description: Virtual Components for Defining Interactions
       children:
-          - RBase
-          - RBaseProps
+          - RBaseInteraction
           - RDoubleClickZoom
-          - RDoubleClickZoomProps
           - RDragBox
-          - RDragBoxProps
           - RDragPan
-          - RDragPanProps
           - RDragRotate
-          - RDragRotateProps
           - RDragZoom
-          - RDragZoomProps
           - RDraw
-          - RDrawProps
           - RKeyboardPan
-          - RKeyboardPanProps
           - RKeyboardZoom
-          - RKeyboardZoomProps
           - RModify
-          - RModifyProps
           - RMouseWheelZoom
-          - RMouseWheelZoomProps
           - RPinchRotate
-          - RPinchRotateProps
           - RPinchZoom
-          - RPinchZoomProps
           - RPointer
-          - RPointerProps
           - RTranslate
-          - RTranslateProps

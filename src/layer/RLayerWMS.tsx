@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
- * Properties for RLayerWMS
+ * @propsfor RLayerWMS
  */
 export interface RLayerWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;

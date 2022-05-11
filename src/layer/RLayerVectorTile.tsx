@@ -10,7 +10,7 @@ import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
 /**
- * Properties for RLayerVectorTile
+ * @propsfor RLayerVectorTile
  */
 export interface RLayerVectorTileProps extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */

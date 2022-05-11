@@ -6,7 +6,7 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for RRotate
+ * @propsfor RRotate
  */
 export interface RRotateProps extends RControlProps {
     /** Label */

@@ -3,11 +3,11 @@ import {MapBrowserEvent} from 'ol';
 import {ObjectEvent} from 'ol/Object';
 import {default as DragPan} from 'ol/interaction/DragPan';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RDragPan
+ * @propsfor RDragPan
  */
 export interface RDragPanProps {
     /** An optional OpenLayers condition */
@@ -23,7 +23,7 @@ export interface RDragPanProps {
 }
 
 /** Panning by dragging */
-export default class RDragPan extends RBase<RDragPanProps> {
+export default class RDragPan extends RBaseInteraction<RDragPanProps> {
     static classProps = ['condition', 'kinetic'];
     ol: DragPan;
 

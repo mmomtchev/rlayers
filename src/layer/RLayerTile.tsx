@@ -8,7 +8,7 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
- * Properties for RLayerTile
+ * @propsfor RLayerTile
  */
 export interface RLayerTileProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */

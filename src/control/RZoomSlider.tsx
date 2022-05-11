@@ -7,7 +7,7 @@ import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
- * Properties for RZoomSlider
+ * @propsfor RZoomSlider
  */
 export interface RZoomSliderProps extends RControlProps {
     /** Animation duration

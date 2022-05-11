@@ -21,7 +21,7 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 
 import debug from '../debug';
 /**
- * Properties for RLayerBaseVector
+ * @propsfor RLayerBaseVector
  */
 export interface RLayerBaseVectorProps extends RLayerProps {
     /** URL for loading features, requires `format` */

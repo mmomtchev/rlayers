@@ -9,7 +9,7 @@ import {default as RPointer} from './RPointer';
 import debug from '../debug';
 
 /**
- * Properties for RTranslate
+ * @propsfor RTranslate
  */
 export interface RTranslateProps {
     /** Translatable features

@@ -4,15 +4,15 @@ import {RContext, RContextType} from '../context';
 import debug from '../debug';
 
 /**
- * Properties for RBase
+ * @propsfor RBaseStyle
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface RBaseProps extends PropsWithChildren<unknown> {}
+export interface RBaseStyleProps extends PropsWithChildren<unknown> {}
 
 /**
  * An abstract class used as base for all Style components, not meant to be used directly
  */
-export default class RBase<P extends RBaseProps> extends React.PureComponent<
+export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureComponent<
     P,
     Record<string, never>
 > {
@@ -30,7 +30,7 @@ export default class RBase<P extends RBaseProps> extends React.PureComponent<
 
     /* istanbul ignore next */
     create(props: P): unknown {
-        throw new Error('RBase is an abstract class');
+        throw new Error('RBaseStyle is an abstract class');
     }
 
     refresh(prevProps?: P): void {

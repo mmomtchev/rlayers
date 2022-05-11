@@ -5,7 +5,7 @@ import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
 /**
- * Properties for ROverlay
+ * @propsfor ROverlay
  */
 export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Content to be displayed */

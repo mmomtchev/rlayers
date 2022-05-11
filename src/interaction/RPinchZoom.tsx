@@ -2,11 +2,11 @@ import React from 'react';
 import {ObjectEvent} from 'ol/Object';
 import {default as PinchZoom} from 'ol/interaction/PinchZoom';
 
-import {default as RBase} from './RBase';
+import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 
 /**
- * Properties for RPinchZoom
+ * @propsfor RPinchZoom
  */
 export interface RPinchZoomProps {
     /** Animation duration
@@ -17,7 +17,7 @@ export interface RPinchZoomProps {
 }
 
 /** Zoom by pinching */
-export default class RPinchZoom extends RBase<RPinchZoomProps> {
+export default class RPinchZoom extends RBaseInteraction<RPinchZoomProps> {
     static classProps = ['duration'];
     ol: PinchZoom;
 
