@@ -1,6 +1,6 @@
 defaultGlobals: false
 
-documentation-stylist:
+documentation-hipster:
     externalCrossLinks: scripts/externalCrossLinks.js
 
 toc:
