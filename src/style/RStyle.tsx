@@ -51,7 +51,7 @@ export const createRStyle = (): RStyleRef => React.createRef();
 export default class RStyle extends RlayersBase<RStyleProps, Record<string, never>> {
     ol: StyleLike;
     childRefs: RStyleRef[];
-    cache: LRU;
+    cache: LRU<string, Style>;
 
     constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
         super(props, context);
@@ -63,7 +63,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
 
     style = (f: Feature<Geometry>, r: number): Style | Style[] => {
         if (this.ol !== this.style) return this.ol as Style;
-        let hash;
+        let hash: string;
         if (this.cache) {
             hash = this.props.cacheId(f, r);
             const style = this.cache.get(hash);
