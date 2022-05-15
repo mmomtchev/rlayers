@@ -30,7 +30,7 @@
   "jsdelivr": "dist/cdn-bundle.js",
   "scripts": {
     "clean": "tsc --build --clean && rimraf docs control style layer interaction dist",
-    "build": "npm run clean && npm run build:examples && npm run build:doc",
+    "build": "npm run clean && npm run build:lib && npm run build:examples && npm run build:doc",
     "build:lib": "npm run build:lib:cjs && npm run build:lib:es6 && npm run build:lib:cjs",
     "build:lib:cjs": "tsc && npm run build:css",
     "build:lib:es6": "tsc -p tsconfig.es6.json && npm run build:css:es6",
@@ -74,7 +74,7 @@
     "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
-    "lru-cache": "^7.9.0"
+    "lru-cache": "^7.10.0"
   },
   "peerDependencies": {
     "ol": ">=6.10.0",
