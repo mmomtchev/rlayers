@@ -8,7 +8,6 @@ import packageLock from '../package-lock.json';
 const versionReact = packageLock.packages['node_modules/react'].version;
 const versionOL = packageLock.packages['node_modules/ol'].version;
 const versionBootstrap = packageLock.packages['node_modules/bootstrap'].version;
-const versionReactBootstrap = packageLock.packages['node_modules/react-bootstrap'].version;
 const versionProj4 = packageLock.packages['node_modules/proj4'].version;
 
 const alias = (t: string): string =>
@@ -17,7 +16,6 @@ const alias = (t: string): string =>
         .replace(/rlayers\.style/g, 'rlayers.RStyle')
         .replace(/rlayers\.control/g, 'rlayers.RControl')
         .replace(/rlayers\.interaction/g, 'rlayers.RInteraction')
-        .replace(/react-bootstrap/g, 'ReactBootstrap')
         .replace(/react/g, 'React');
 
 const CodePenButton = React.memo(function _CodePenButton(props: {
@@ -83,7 +81,6 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                         `https://cdn.jsdelivr.net/npm/bootstrap@${versionBootstrap}/dist/js/bootstrap.min.js;` +
                         `https://cdnjs.cloudflare.com/ajax/libs/react/${versionReact}/umd/react.development.min.js;` +
                         `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${versionReact}/umd/react-dom.development.min.js;` +
-                        `https://unpkg.com/react-bootstrap@${versionReactBootstrap}/dist/react-bootstrap.min.js;` +
                         `https://cdnjs.cloudflare.com/ajax/libs/proj4js/${versionProj4}/proj4.js;` +
                         `https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v${versionOL}/build/ol.js;` +
                         'https://pelikan.garga.net/cdn-bundle.js',

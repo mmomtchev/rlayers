@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
-import {Button} from 'react-bootstrap';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RControl} from 'rlayers';
@@ -23,9 +22,12 @@ export default function Overview(): JSX.Element {
                     <ROSM />
                 </RControl.ROverviewMap>
             </RMap>
-            <Button onClick={useCallback(() => setCollapsed(!collapsed), [collapsed])}>
+            <button
+                className='btn btn-primary'
+                onClick={useCallback(() => setCollapsed(!collapsed), [collapsed])}
+            >
                 Optional external toggle
-            </Button>
+            </button>
         </React.Fragment>
     );
 }

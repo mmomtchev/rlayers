@@ -4,7 +4,6 @@ import './example.css';
 import './ghp.css';
 import React from 'react';
 import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom';
-import {Button} from 'react-bootstrap';
 
 const examples = {
     simple: {title: 'Simple map', file: 'Simple'},
@@ -55,9 +54,7 @@ for (const ex of Object.keys(examples)) {
 
 const LeftMenuItem = (props): JSX.Element => (
     <Link to={props.id}>
-        <Button className='w-100' variant='light'>
-            {props.title}
-        </Button>
+        <button className='w-100 btn btn-light'>{props.title}</button>
     </Link>
 );
 
