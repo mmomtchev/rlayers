@@ -57,7 +57,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@16.8 react-dom@16.8 react-test-renderer@16.8 @types/react@16 @types/react-dom@16 react-bootstrap@1 @testing-library/react@11
+        npm i react@16.8 react-dom@16.8 react-test-renderer@16.8 @types/react@16 @types/react-dom@16 @testing-library/react@11
     - run: npm i
     - run: tsc
     - run: npm test
@@ -75,7 +75,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@16.14 react-dom@16.14 react-test-renderer@16.14 @types/react@16 @types/react-dom@16 react-bootstrap@1 @testing-library/react@11
+        npm i react@16.14 react-dom@16.14 react-test-renderer@16.14 @types/react@16 @types/react-dom@16 @testing-library/react@11
     - run: npm i
     - run: tsc
     - run: npm test
@@ -93,7 +93,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@17 react-dom@17 react-test-renderer@17 @types/react@17 @types/react-dom@17 react-bootstrap@2 @testing-library/react@11
+        npm i react@17 react-dom@17 react-test-renderer@17 @types/react@17 @types/react-dom@17 @testing-library/react@11
     - run: npm i
     - run: tsc
     - run: npm test
@@ -111,7 +111,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 react-bootstrap@2 @testing-library/react@13
+        npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 @testing-library/react@13
     - run: npm i
     - run: tsc
     - run: npm test
@@ -129,7 +129,7 @@ jobs:
       with:
         node-version: 14.x
     - run: |
-        npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 react-bootstrap@2 @testing-library/react@13
+        npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 @testing-library/react@13
     - run: npm i
     - run: tsc
     - run: npm test
