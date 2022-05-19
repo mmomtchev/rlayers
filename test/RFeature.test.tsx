@@ -1,7 +1,7 @@
 window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
 import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Pixel} from 'ol/pixel';

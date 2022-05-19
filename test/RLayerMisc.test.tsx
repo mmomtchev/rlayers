@@ -1,6 +1,6 @@
 window.URL.createObjectURL = jest.fn();
 import React from 'react';
-import {cleanup, fireEvent, render} from '@testing-library/react';
+import {fireEvent, render} from '@testing-library/react';
 
 import proj4 from 'proj4';
 import {register as proj4register} from 'ol/proj/proj4';

@@ -1,6 +1,6 @@
 window.URL.createObjectURL = jest.fn();
 import React from 'react';
-import {cleanup, fireEvent, getByText, queryByText, render} from '@testing-library/react';
+import {fireEvent, getByText, queryByText, render} from '@testing-library/react';
 
 import {Point} from 'ol/geom';
 import {RMap, ROSM, RFeature, RLayerVector, ROverlay} from 'rlayers';
