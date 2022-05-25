@@ -3,8 +3,8 @@ import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
 import BaseEvent from 'ol/events/Event';
 import {Extent} from 'ol/extent';
-
 import {Coordinate} from 'ol/coordinate';
+import {ProjectionLike} from 'ol/proj';
 
 import {RContext} from './context';
 import {RlayersBase} from './REvent';
@@ -42,7 +42,7 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     /** View projection
      * @default 'ESPG:3857'
      */
-    projection?: string;
+    projection?: ProjectionLike;
     /** Called immediately on click */
     onClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
     /** Called on single click when the double click timer has expired */
