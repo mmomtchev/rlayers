@@ -35,6 +35,7 @@ describe('<RControl>', () => {
                 <RControl.RZoom />
                 <RControl.RZoomSlider />
                 <RControl.RMousePosition />
+                <RControl.RZoomToExtent />
                 <RControl.RCustom className='example-RControl'>
                     <RContext.Consumer>
                         {({map}) => {
