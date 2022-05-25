@@ -34,6 +34,7 @@ describe('<RControl>', () => {
                 <RControl.RAttribution collapsed={collapsed} />
                 <RControl.RZoom />
                 <RControl.RZoomSlider />
+                <RControl.RMousePosition />
                 <RControl.RCustom className='example-RControl'>
                     <RContext.Consumer>
                         {({map}) => {

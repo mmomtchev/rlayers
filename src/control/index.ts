@@ -7,3 +7,4 @@ export {default as RCustom} from './RCustom';
 export {default as RLayers} from './RLayers';
 export {default as ROverviewMap} from './ROverviewMap';
 export {default as RFullScreen} from './RFullScreen';
+export {default as RMousePosition} from './RMousePosition';
