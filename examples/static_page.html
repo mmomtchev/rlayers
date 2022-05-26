@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/css/ol.css" type="text/css" />
+    <style>
+        .map {
+            height: 600px;
+            width: 100%;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.8.0/proj4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.14.1/build/ol.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://pelikan.garga.net/cdn-bundle.js"></script>
+    <title>rlayers</title>
+</head>
+
+<body>
+    <h1>rlayers</h1>
+    <h3>Fully Static Web Page Example</h3>
+    <div id="root"></div>
+    <script type="text/javascript">
+        function App() {
+            return React.createElement(
+                rlayers.RMap,
+                {
+                    className: 'map',
+                    initial: { center: ol.proj.fromLonLat([2.364, 48.82]), zoom: 11 }
+                },
+                React.createElement(rlayers.ROSM)
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+    </script>
+</body>
+
+</html>

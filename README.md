@@ -112,6 +112,8 @@ import locationIcon from './svg/location.svg';
 </RMap>
 ```
 
+Check [examples/static_pages.html](https://github.com/mmomtchev/rlayers/tree/master/examples/static_page.html) for a fully self-contained static HTML page using _rlayers_
+
 #### Contexts
 
 Composition works by using _React_ Contexts. Every nested element uses the context of its nearest parent.
