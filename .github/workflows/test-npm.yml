@@ -26,7 +26,7 @@ jobs:
         curl https://codeload.github.com/mmomtchev/rlayers/zip/refs/tags/v${{ github.event.inputs.version }} --output repo.zip
         unzip repo.zip
         mv rlayers-${{ github.event.inputs.version }}/package.json .
-        mv rlayers-${{ github.event.inputs.version }}/tsconfig.json .
+        mv rlayers-${{ github.event.inputs.version }}/tsconfig*.json .
         mv rlayers-${{ github.event.inputs.version }}/jest*config.js .
         mv rlayers-${{ github.event.inputs.version }}/examples .
         mv rlayers-${{ github.event.inputs.version }}/test .
