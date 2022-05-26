@@ -96,7 +96,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
             } else if (this.context?.feature?.setStyle) this.context.feature.setStyle(this.ol);
             else if (this.context?.vectorlayer?.setStyle)
                 this.context.vectorlayer.setStyle(this.ol);
-            if (this.cache) this.cache.reset();
+            if (this.cache) this.cache.clear();
         }
         if (this.ol instanceof Style && (!prevProps || prevProps.zIndex !== this.props.zIndex))
             (this.ol as Style).setZIndex(this.props.zIndex);
