@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  * Provide a CDN bundle version for direct inclusion in static pages
  * Render the examples in React 18 mode when available
  * New documentation subsystem based on `documentation.js` with `documentation-stylist`
+ * Always use `ProjectionLike` type for projections [#62]
 
 ### [1.3.4] 2022-04-26
  * TypeScript compatibility with `@types/react@18.0.0`
