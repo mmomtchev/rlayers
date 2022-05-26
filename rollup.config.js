@@ -1,5 +1,6 @@
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import {terser} from 'rollup-plugin-terser';
 
 export default {
     input: 'dist/index.js',
@@ -8,6 +9,7 @@ export default {
         format: 'iife',
         sourcemap: true,
         name: 'rlayers',
+        compact: true,
         globals: {
             ol: 'ol',
             react: 'React',
@@ -27,6 +29,8 @@ export default {
             'ol/source/Vector': 'ol.source.Vector',
             'ol/source/WMTS': 'ol.source.WMTS',
             'ol/control': 'ol.control',
+            'ol/control/MousePosition': 'ol.control.MousePosition',
+            'ol/control/ZoomToExtent': 'ol.control.ZoomToExtent',
             'ol/interaction/DragBox': 'ol.interaction.DragBox',
             'ol/interaction/Translate': 'ol.interaction.Translate',
             'ol/interaction/Draw': 'ol.interaction.Draw',
@@ -48,6 +52,7 @@ export default {
         nodeResolve({
             preferBuiltins: false
         }),
-        commonjs()
+        commonjs(),
+        terser()
     ]
 };
