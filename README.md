@@ -8,6 +8,9 @@
 [![codecov](https://codecov.io/gh/mmomtchev/rlayers/branch/master/graph/badge.svg)](https://codecov.io/gh/mmomtchev/rlayers)
 [![downloads](https://img.shields.io/npm/dm/rlayers)](https://www.npmjs.com/package/rlayers)
 
+![© OpenStreetMap contributors](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref1.png)
+![Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref2.png)
+
 _rlayers_ is an opinionated set of _React_ components for _OpenLayers_.
 
 It's design policy is:
@@ -22,10 +25,15 @@ It's design policy is:
 -   The current target is _OpenLayers_ 6+
 -   Avoid dependencies when built except for _React_ and OpenLayers (the examples have some dependencies) - currently the single one is [`lru-cache`](https://www.npmjs.com/package/lru-cache) at 8Kbytes
 
-It has nothing to do with _react-openlayers_ which stopped at _OpenLayers_ 3. In fact, it is more inspired by _react-leaflet_ than _react-openlayers_.
+## Alternatives
 
-![© OpenStreetMap contributors](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref1.png)
-![Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)](https://gist.githubusercontent.com/mmomtchev/e789dfa545b97c7ae97770f1b5606172/raw/79b486bcc8c45b069e3a8f552c82360de80febff/ref2.png)
+**<- Light-Weight --- Feature-Rich ->**
+
+[pigeon-maps](https://pigeon-maps.js.org/) - [react-leaflet](https://react-leaflet.js.org/) - [rlayers](https://https://mmomtchev.github.io/rlayers/)
+
+Among the completely free and open source alternatives for creating maps with _React_, on a scale going from the most light-weight to the most feature-rich solution, _rlayers_ is the right-most one.
+
+It offers the full power _OpenLayers_ - dynamic reprojections, comprehensive event handlers, a very rich set of supported formats, interfaces and layer types and a very good performance for very complex maps. This comes at the price of a quite significant total bundle size.
 
 ## Installation
 
