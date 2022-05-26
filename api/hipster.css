@@ -1,0 +1,72 @@
+ul li h3 {
+    font-size: 1.5rem;
+}
+
+ul li ul li h3 {
+    font-size: 1rem;
+}
+
+ul li ul li ul li h3 {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-top: 5rem;
+}
+
+section section h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+section section section h2 {
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+section section a {
+    justify-self: end;
+}
+
+h7 {
+    font-weight: 600;
+}
+
+.nav-section {
+    max-height: 99vh;
+    min-width: max-content;
+    overflow-y: scroll;
+    position: sticky;
+    top: 0;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+}
+
+.main-section {
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    min-width: 40vw;
+}
+
+.btn-collapse {
+    width: 1rem;
+}
+
+[data-bs-toggle="collapse"].collapsed .if-not-collapsed {
+    display: none;
+}
+
+[data-bs-toggle="collapse"]:not(.collapsed) .if-collapsed {
+    display: none;
+}
+
+code a {
+    color: #d63384;
+}
