@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add `RMousePosition` control for `ol.control.MousePosition` [#60]
 -   Add `RZoomToExtent` control for `ol.control.ZoomToExtent` [#61]
 -   Always use `ProjectionLike` type for projections [#62]
+-   Support setting and reading the resolution in `RView`
 
 ### [1.3.4] 2022-04-26
 
