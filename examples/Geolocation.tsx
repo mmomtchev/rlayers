@@ -22,6 +22,8 @@ export default function Geolocation(): JSX.Element {
                     const geoloc = e.target as OLGeoLoc;
                     setPos(new Point(geoloc.getPosition()));
                     setAccuracy(geoloc.getAccuracyGeometry());
+
+                    // Low-level access to the OpenLayers API
                     this.context.map.getView().fit(geoloc.getAccuracyGeometry(), {
                         duration: 250,
                         maxZoom: 15
