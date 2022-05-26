@@ -9,6 +9,7 @@ import {VectorTile} from 'ol/layer';
 import {Feature} from 'ol';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
+import {act} from 'react-dom/test-utils';
 
 describe('<RFeature>', () => {
     it('should create features', async () => {
@@ -58,17 +59,19 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
-        if (map.current === null) throw new Error('map.current is null');
-        for (const evname of mapEvents)
-            for (const r of ref)
-                r.current?.ol.dispatchEvent(
-                    common.createEvent(evname.toLowerCase(), map.current.ol)
-                );
-        for (const evname of featureEvents)
-            for (const r of ref)
-                r.current?.ol.dispatchEvent(
-                    common.createEvent(evname.toLowerCase(), map.current.ol)
-                );
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            for (const evname of mapEvents)
+                for (const r of ref)
+                    r.current?.ol.dispatchEvent(
+                        common.createEvent(evname.toLowerCase(), map.current.ol)
+                    );
+            for (const evname of featureEvents)
+                for (const r of ref)
+                    r.current?.ol.dispatchEvent(
+                        common.createEvent(evname.toLowerCase(), map.current.ol)
+                    );
+        });
         expect(container.innerHTML).toMatchSnapshot();
         // +1 because there is one implicit change at creation
         expect(handler).toHaveBeenCalledTimes((mapEvents.length + featureEvents.length + 1) * 2);
@@ -220,10 +223,12 @@ describe('<RFeature>', () => {
             throw new Error('unexpected');
         });
 
-        for (const ev of mapEvents) {
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
-        }
+        act(() => {
+            for (const ev of mapEvents) {
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+            }
+        });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[2]).toHaveBeenCalledTimes(0);
@@ -248,10 +253,12 @@ describe('<RFeature>', () => {
             </RMap>
         );
 
-        for (const ev of mapEvents) {
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
-        }
+        act(() => {
+            for (const ev of mapEvents) {
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+            }
+        });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[2]).toHaveBeenCalledTimes(mapEvents.length * 2);
@@ -274,10 +281,12 @@ describe('<RFeature>', () => {
             </RMap>
         );
 
-        for (const ev of mapEvents) {
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-            map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
-        }
+        act(() => {
+            for (const ev of mapEvents) {
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+            }
+        });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[1]).toHaveBeenCalledTimes(mapEvents.length);
         expect(handlers[2]).toHaveBeenCalledTimes(mapEvents.length * 2);
@@ -331,23 +340,42 @@ describe('<RFeature>', () => {
             return undefined;
         });
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(0);
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(0);
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+        });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointerdrag', map.current.ol, 10, true));
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        act(() => {
+            if (map.current === null) throw new Error('map.current is null');
+            map.current.ol.dispatchEvent(
+                common.createEvent('pointerdrag', map.current.ol, 10, true)
+            );
+            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(2);
@@ -355,7 +383,9 @@ describe('<RFeature>', () => {
         expect(RFeature.lastFeaturesDragged.length).toBe(0);
         expect(RFeature.lastFeaturesEntered.length).toBe(0);
     });
+
     it('should throw an error without a Layer', () => {
+        /* eslint-disable no-console */
         const err = console.error;
         console.error = () => undefined;
         expect(() => render(<RFeature />)).toThrow('must be part of');
