@@ -15,6 +15,14 @@ export type RView = {
     center: Coordinate;
     /** Zoom level, 0 is the whole world, 28 is maximum resolution */
     zoom: number;
+    /**
+     * Optional resolution in meters per pixel
+     *
+     * When set, it takes precedence over the zoom level
+     *
+     * @default zoom
+     */
+    resolution?: number;
 };
 
 /**
@@ -102,7 +110,8 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
             view: new View({
                 projection: props.projection,
                 center: props.initial.center,
-                zoom: props.initial.zoom,
+                zoom: props.initial.resolution === undefined ? props.initial.zoom : undefined,
+                resolution: props.initial.resolution,
                 extent: props.extent,
                 minResolution: props.minResolution,
                 maxResolution: props.maxResolution,
@@ -121,7 +130,11 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
     updateView = (e: MapEvent): void => {
         const view = this.ol.getView();
         if (typeof this.props?.view[1] === 'function')
-            this.props.view[1]({center: view.getCenter(), zoom: view.getZoom()});
+            this.props.view[1]({
+                center: view.getCenter(),
+                zoom: view.getZoom(),
+                resolution: view.getResolution()
+            });
     };
 
     refresh(prevProps?: RMapProps): void {
@@ -133,7 +146,9 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
         }
         if (this.props.view) {
             view.setCenter(this.props.view[0].center);
-            view.setZoom(this.props.view[0].zoom);
+
+            if (this.props.view[0].resolution === undefined) view.setZoom(this.props.view[0].zoom);
+            else view.setResolution(this.props.view[0].resolution);
         }
         if (this.props.properties) this.ol.setProperties(this.props.properties);
         if (this.props.view) this.ol.on('moveend', this.updateView);
