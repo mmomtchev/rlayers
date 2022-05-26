@@ -5,16 +5,20 @@ import 'ol/ol.css';
 import 'rlayers/control/layers.css';
 
 import {RMap, RContext, ROSM, RControl} from 'rlayers';
+import {RView} from 'rlayers/RMap';
 
 const origin = [2.364, 48.82];
+const initial: RView = {center: fromLonLat(origin), zoom: 11};
 
 export default function Controls(): JSX.Element {
     const [loc, setLoc] = React.useState(origin);
+    const [view, setView] = React.useState(initial);
     return (
         <React.Fragment>
             <RMap
                 className='example-map'
-                initial={{center: fromLonLat(origin), zoom: 11}}
+                initial={initial}
+                view={[view, setView]}
                 noDefaultControls={true}
                 onClick={useCallback((e: MapBrowserEvent<UIEvent>) => {
                     const coords = e.map.getCoordinateFromPixel(e.pixel);
@@ -35,14 +39,10 @@ export default function Controls(): JSX.Element {
                     label='&#x6269;'
                     labelActive='&#x564f;'
                 />
+                {/* A control that centers the map on the last clicked point
+                 * without modifying the current zoom level */}
                 <RControl.RCustom className='example-control'>
-                    <RContext.Consumer>
-                        {({map}) => (
-                            <button onClick={() => map?.getView().setCenter(fromLonLat(loc))}>
-                                o
-                            </button>
-                        )}
-                    </RContext.Consumer>
+                    <button onClick={() => setView({...view, center: fromLonLat(loc)})}>o</button>
                 </RControl.RCustom>
             </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow'>
