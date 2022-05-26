@@ -8,3 +8,4 @@ export {default as RLayers} from './RLayers';
 export {default as ROverviewMap} from './ROverviewMap';
 export {default as RFullScreen} from './RFullScreen';
 export {default as RMousePosition} from './RMousePosition';
+export {default as RZoomToExtent} from './RZoomToExtent';
