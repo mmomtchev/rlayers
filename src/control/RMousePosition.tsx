@@ -5,6 +5,9 @@ import {ProjectionLike} from 'ol/proj';
 import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
+/**
+ * @propsfor RMousePosition
+ */
 export interface RMousePositionProps extends RControlProps {
     /**
      * Optional function to change coordinate formatting
