@@ -37,7 +37,6 @@ export default class RAttribution extends RControlBase<RAttributionProps, Record
     toOLProps(props: RAttributionProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             collapsible: props.collapsible ?? true,
             collapsed: props.collapsed
         };

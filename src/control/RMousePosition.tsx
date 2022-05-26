@@ -37,7 +37,6 @@ export default class RMousePosition extends RControlBase<
     toOLProps(props: RMousePositionProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             coordinateFormat: props.coordinateFormat,
             projection: props.projection,
             placeholder: props.placeholder

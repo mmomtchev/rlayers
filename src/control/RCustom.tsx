@@ -2,7 +2,7 @@ import React from 'react';
 import {Control as Control} from 'ol/control';
 
 import {RContextType} from '../context';
-import {default as RControlBase, RControlProps} from './RControlBase';
+import {default as RControlBase, RControlOptions, RControlProps} from './RControlBase';
 
 /** A custom control that can contain an HTMLElement
  *
@@ -26,7 +26,7 @@ export default class RCustom extends RControlBase<RControlProps, Record<string, 
         super.componentDidMount();
     }
 
-    toOLProps(props: RControlProps): Record<string, unknown> {
+    toOLProps(props: RControlProps): RControlOptions {
         return {
             ...super.toOLProps(props),
             element: this.targetRef?.current

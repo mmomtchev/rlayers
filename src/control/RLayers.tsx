@@ -2,7 +2,7 @@ import React from 'react';
 import {Control} from 'ol/control';
 
 import {RContextType} from '../context';
-import RControlBase, {RControlProps} from './RControlBase';
+import RControlBase, {RControlOptions, RControlProps} from './RControlBase';
 
 /**
  * @propsfor RLayer
@@ -49,7 +49,7 @@ export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
         this.context.map.un('change', this.onchange);
     }
 
-    toOLProps(props: RLayersProps): Record<string, unknown> {
+    toOLProps(props: RLayersProps): RControlOptions {
         return {
             ...super.toOLProps(props),
             element: this.targetRef?.current

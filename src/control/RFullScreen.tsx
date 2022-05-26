@@ -40,8 +40,7 @@ export default class RFullScreen extends RControlBase<RFullScreenProps, Record<s
             source: props.source,
             label: props.label,
             labelActive: props.labelActive,
-            tipLabel: props.tipLabel,
-            className: props.className
+            tipLabel: props.tipLabel
         };
     }
 }

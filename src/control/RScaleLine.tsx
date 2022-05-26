@@ -36,7 +36,6 @@ export default class RScaleLine extends RControlBase<RScaleLineProps, Record<str
     toOLProps(props: RScaleLineProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             minWidth: props.minWidth,
             bar: props.bar,
             text: props.text,

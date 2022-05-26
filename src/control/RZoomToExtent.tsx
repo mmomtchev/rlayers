@@ -21,7 +21,6 @@ export default class RZoomToExtent extends RControlBase<RZoomToExtentProps, Reco
     toOLProps(props: RZoomToExtentProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             extent: props.extent,
             label: props.label,
             tipLabel: props.tipLabel

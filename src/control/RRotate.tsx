@@ -31,7 +31,6 @@ export default class RRotate extends RControlBase<RRotateProps, Record<string, n
     toOLProps(props: RRotateProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             label: props.label,
             autoHide: props.autoHide
         };

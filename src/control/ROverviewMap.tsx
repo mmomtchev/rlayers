@@ -41,7 +41,6 @@ export default class ROverviewMap extends RControlBase<ROverviewProps, Record<st
     toOLProps(props: ROverviewProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             collapsible: props.collapsible,
             collapsed: props.collapsed,
             label: props.label,

@@ -40,7 +40,6 @@ export default class RZoom extends RControlBase<RZoomProps, Record<string, never
     toOLProps(props: RZoomProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             duration: props.duration,
             zoomInLabel: props.zoomInLabel,
             zoomOutLabel: props.zoomOutLabel,

@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from 'react';
 import {Control as Control} from 'ol/control';
-import {Options} from 'ol/control/Control';
+import {Options as OLOptions} from 'ol/control/Control';
 
 import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
@@ -10,8 +10,19 @@ import debug from '../debug';
  * @propsfor RControl
  */
 export interface RControlProps extends PropsWithChildren<unknown> {
+    /**
+     * Optional CSS class name
+     */
     className?: string;
+
+    /**
+     * Destination element if the control is to be rendered outside the main map element
+     */
     target?: React.RefObject<HTMLElement>;
+}
+
+export interface RControlOptions extends OLOptions {
+    className?: string;
 }
 
 /**
@@ -25,8 +36,9 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
         if (!this.context?.map) throw new Error('A control must be part of a map');
     }
 
-    toOLProps(props: P): Options {
+    toOLProps(props: P): RControlOptions {
         return {
+            className: props.className,
             target: props.target?.current
         };
     }

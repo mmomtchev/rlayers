@@ -31,7 +31,6 @@ export default class RZoomSlider extends RControlBase<RZoomSliderProps, Record<s
     toOLProps(props: RZoomSliderProps): Options {
         return {
             ...super.toOLProps(props),
-            className: props.className,
             duration: props.duration
         };
     }
