@@ -21,6 +21,11 @@ export interface RLayerTileProps extends RLayerRasterProps {
      * (ie pass a constant variable, not an anonymous {})
      */
     tileGrid?: TileGrid;
+    /**
+     * By default, OpenLayers uses interpolation to smooth images when zooming.
+     * Setting this value to true will override that.
+     */
+    noIterpolation?: boolean;
 }
 
 /**
@@ -42,6 +47,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
+            interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
             tileGrid: this.props.tileGrid
         });

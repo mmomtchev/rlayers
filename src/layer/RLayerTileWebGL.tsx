@@ -21,6 +21,11 @@ export interface RLayerTileWebGLProps extends RLayerWebGLProps {
      * (ie pass a constant variable, not an anonymous {})
      */
     tileGrid?: TileGrid;
+    /**
+     * By default, OpenLayers uses interpolation to smooth images when zooming.
+     * Setting this value to true will override that.
+     */
+    noIterpolation?: boolean;
 }
 
 /**
@@ -46,7 +51,7 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
     createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
-            interpolate: true,
+            interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
             tileGrid: this.props.tileGrid,
             crossOrigin: 'anonymous'
