@@ -225,9 +225,7 @@ export default function IGCComp(): JSX.Element {
                         onChange={useCallback(
                             // This useCallback transforms this function to a constant value
                             // None of its dependencies change after initialization
-                            // A normal function instead of an arrow lambda allows to access
-                            // the context in this
-                            function (e: InputFormEventType) {
+                            (e: InputFormEventType) => {
                                 const value = parseInt(e.currentTarget.value);
                                 setSlider(value);
                                 const source = igcVectorLayer.current.source;
