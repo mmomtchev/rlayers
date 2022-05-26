@@ -22,6 +22,10 @@
       "require": "./control/index.js",
       "import": "./dist/control/index.js"
     },
+    "./control/layers.css": {
+      "require": "./control/layers.css",
+      "import": "./dist/control/layers.css"
+    },
     "./interaction": {
       "require": "./interaction/index.js",
       "import": "./dist/interaction/index.js"
