@@ -1,5 +1,5 @@
 import React from 'react';
-import {MapBrowserEvent} from 'ol';
+import {ProjectionLike} from 'ol/proj';
 import Geolocation from 'ol/Geolocation';
 import BaseEvent from 'ol/events/Event';
 
@@ -21,7 +21,7 @@ export interface RGeolocationProps {
     };
     /** Projection for the returned coordinates
      * @default viewProjection */
-    projection?: string;
+    projection?: ProjectionLike;
     /** Called on every change */
     onChange?: (this: RGeolocation, e: BaseEvent) => void;
     /** Called on error */

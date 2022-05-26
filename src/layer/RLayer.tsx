@@ -3,6 +3,7 @@ import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
 import BaseEvent from 'ol/events/Event';
+import {ProjectionLike} from 'ol/proj';
 
 import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
@@ -31,7 +32,7 @@ export interface RLayerProps extends PropsWithChildren<unknown> {
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** The layer will be reprojected if its projection is different than the map */
-    projection?: string;
+    projection?: ProjectionLike;
     /** Called on every change */
     onChange?: (this: RLayer<RLayerProps>, e: BaseEvent) => void;
 }
