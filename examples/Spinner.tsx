@@ -10,8 +10,8 @@ export default function Layers(): JSX.Element {
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 4}}>
                 <RLayerTile
-                    onTileLoadStart={() => setLoading(loading + 1)}
-                    onTileLoadEnd={() => setLoading(loading - 1)}
+                    onTileLoadStart={() => setLoading((loading) => loading + 1)}
+                    onTileLoadEnd={() => setLoading((loading) => loading - 1)}
                     url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                     attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                 />
