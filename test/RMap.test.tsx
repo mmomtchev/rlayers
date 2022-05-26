@@ -95,6 +95,7 @@ describe('<RMap>', () => {
         const map = React.createRef() as React.RefObject<RMap>;
         let view: RView = {center: [0, 0], zoom: 0};
         const mockSetView = jest.fn((r) => (view = r));
+
         const {rerender} = render(
             <RMap {...common.mapProps} ref={map}>
                 <ROSM />
@@ -110,6 +111,16 @@ describe('<RMap>', () => {
         expect(view.center).toEqual(expect.arrayContaining(common.mapProps.initial.center));
         expect(view.zoom).toBe(common.mapProps.initial.zoom);
         expect(view.resolution).toBeGreaterThan(0);
+
+        view.resolution = 2000;
+        rerender(
+            <RMap {...common.mapProps} ref={map} view={[view, mockSetView]}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current?.ol.getView().getResolution()).toBe(2000);
+        expect(map.current?.ol.getView().getZoom()).not.toBe(11);
+
         rerender(
             <RMap {...common.mapProps} ref={map}>
                 <ROSM />
