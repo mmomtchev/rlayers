@@ -64,7 +64,7 @@ const webpackConfig = (env): webpack.Configuration => {
             new webpack.DefinePlugin({
                 process: {
                     env: {
-                        DEBUG: !env.production || env.development
+                        RLAYERS_DEBUG: !env.production || env.development
                     }
                 },
                 VERSION: JSON.stringify(require('./package.json').version),
