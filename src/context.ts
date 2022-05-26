@@ -21,27 +21,27 @@ export const RContext = React.createContext({} as RContextType);
  */
 export interface RContextType {
     /** The current map */
-    map?: Map;
+    readonly map?: Map;
     /** The current layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    layer?: Layer<Source, LayerRenderer<any>>;
-    source?: Source;
+    readonly layer?: Layer<Source, LayerRenderer<any>>;
+    readonly source?: Source;
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    vectorlayer?: BaseVector<
+    readonly vectorlayer?: BaseVector<
         SourceVector<Geometry>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    vectorsource?: SourceVector<Geometry>;
+    readonly vectorsource?: SourceVector<Geometry>;
     /** The current RFeature */
-    feature?: Feature<Geometry>;
+    readonly feature?: Feature<Geometry>;
     /** The current location */
-    location?: Coordinate;
+    readonly location?: Coordinate;
     /** The current style */
-    style?: Style;
+    readonly style?: Style;
     /** The current style array */
-    styleArray?: Style[];
+    readonly styleArray?: Style[];
 }
