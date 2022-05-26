@@ -27,14 +27,15 @@ jobs:
         unzip repo.zip
         mv rlayers-${{ github.event.inputs.version }}/package.json .
         mv rlayers-${{ github.event.inputs.version }}/tsconfig*.json .
-        mv rlayers-${{ github.event.inputs.version }}/jest*config.js .
+        mv rlayers-${{ github.event.inputs.version }}/jest.standalone.config.js jest.config.js
         mv rlayers-${{ github.event.inputs.version }}/examples .
         mv rlayers-${{ github.event.inputs.version }}/test .
-        npm install
     - name: Install from npm
       run:  npm install --force rlayers@${{ github.event.inputs.version }}
     - name: Run the unit tests
-      run: npx jest -c jest.standalone.config.js
+      run: |
+        rm package.json
+        npx jest -c jest.config.js
 
 
   cra_js:
