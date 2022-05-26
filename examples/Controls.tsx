@@ -31,9 +31,9 @@ export default function Controls(): JSX.Element {
                 <RControl.RAttribution />
                 <RControl.RZoom />
                 <RControl.RZoomSlider />
-                <RControl.RFullScreen />
                 <RControl.RFullScreen
-                    // Take a look at index.html and example.css for this one
+                    // A custom-looking full-screen control
+                    // Take a look at index.html and example.css
                     className='example-fullscreen'
                     source='fullscreen'
                     label='&#x6269;'

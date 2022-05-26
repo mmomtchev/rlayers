@@ -73,7 +73,7 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                     description:
                         'This is an editable example from rlayers - https://mmomtchev.githb.io/rlayers',
                     tags: ['openlayers', 'react', 'maps', 'rlayers'],
-                    html: '<div id="root" style="margin: 4px;"></div>',
+                    html: '<div id="fullscreen" class="fullscreen">\n  <div id="root" style="margin: 4px;">\n  </div>\n</div>',
                     js: text,
                     js_pre_processor: 'typescript',
                     css: exampleCss,
