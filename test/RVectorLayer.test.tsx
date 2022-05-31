@@ -34,9 +34,12 @@ describe('<RLayerVector>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => render(<RLayerVector />)).toThrow('must be part of');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should load GeoJSON features', async () => {
@@ -133,7 +136,7 @@ describe('<RLayerVector>', () => {
         if (map.current === null) throw new Error('failed rendering map');
         expect(render1.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource().getFeatures() || [])
+            for (const f of layer.current?.ol.getSource()?.getFeatures() || [])
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
         render1.unmount();
         // unmount -> remount -> should render the same
@@ -145,7 +148,7 @@ describe('<RLayerVector>', () => {
         const render2 = render(comp);
         expect(render2.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource().getFeatures() || []) {
+            for (const f of layer.current?.ol.getSource()?.getFeatures() || []) {
                 // do not lose handlers
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
                 // do not leak handlers
@@ -154,7 +157,7 @@ describe('<RLayerVector>', () => {
         // rerender -> should render the same
         render2.rerender(comp);
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource().getFeatures() || []) {
+            for (const f of layer.current?.ol.getSource()?.getFeatures() || []) {
                 // do not lose handlers
                 f.dispatchEvent(common.createEvent(evname, map.current.ol));
                 // do not leak handlers
@@ -185,7 +188,7 @@ describe('<RLayerVector>', () => {
         const ref = React.createRef() as React.RefObject<RLayerVector>;
         const comp = (url) => (
             <RMap {...common.mapProps}>
-                <RLayerVector ref={ref} format={new GeoJSON()} url={url} />
+                <RLayerVector ref={ref} format={parser} url={url} />
             </RMap>
         );
         const {rerender, container, unmount} = render(comp('http://url1'));
@@ -207,7 +210,12 @@ describe('<RLayerVectorImage>', () => {
         const refMap = React.createRef() as React.RefObject<RMap>;
         const {container, unmount, rerender} = render(
             <RMap ref={refMap} {...common.mapProps}>
-                <RLayerVectorImage ref={refVector} renderBuffer={250} />
+                <RLayerVectorImage
+                    url={'http://url1'}
+                    format={parser}
+                    ref={refVector}
+                    renderBuffer={250}
+                />
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
@@ -215,10 +223,25 @@ describe('<RLayerVectorImage>', () => {
         expect(refMap.current?.ol.getLayers().getLength()).toBe(1);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((refVector.current?.ol as any).renderBuffer_).toBe(250);
+        expect(refVector.current?.source.getUrl()).toBe('http://url1');
+
         rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
         expect(refVector.current).toBeNull();
         expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
         expect(refMap.current?.ol);
+
+        rerender(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVectorImage
+                    url={'http://url2'}
+                    format={parser}
+                    ref={refVector}
+                    renderBuffer={250}
+                />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current?.source.getUrl()).toBe('http://url2');
         unmount();
     });
 });
