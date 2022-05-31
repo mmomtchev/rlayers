@@ -40,6 +40,9 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
 
     refresh(prevProps?: RLayerBaseVectorProps): void {
         super.refresh(prevProps);
-        if (prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
+        if (prevProps?.url !== this.props.url) {
+            this.source.setUrl(this.props.url);
+            this.source.refresh();
+        }
     }
 }

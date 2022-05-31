@@ -8,7 +8,8 @@ import {RLayerCluster, RLayerHeatmap, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/earthquakes.geojson', 'utf-8'));
-const features = new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(geojsonFeatures);
+const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
+const features = parser.readFeatures(geojsonFeatures);
 
 describe('<RLayerCluster>', () => {
     it('should create a cluster layer', async () => {
@@ -18,6 +19,26 @@ describe('<RLayerCluster>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
+
+    it('should allow replacing the url', async () => {
+        const ref = React.createRef<RLayerCluster>();
+        const {container, unmount, rerender} = render(
+            <RMap {...common.mapProps}>
+                <RLayerCluster ref={ref} format={parser} url={'http://url1'} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current?.cluster.getUrl()).toBe('http://url1');
+
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerCluster ref={ref} format={parser} url={'http://url2'} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current?.cluster.getUrl()).toBe('http://url2');
         unmount();
     });
 });

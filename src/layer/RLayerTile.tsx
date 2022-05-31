@@ -57,6 +57,9 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     refresh(prevProps?: RLayerTileProps): void {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid) this.createSource();
-        if (this.props.url && prevProps?.url !== this.props.url) this.source.setUrl(this.props.url);
+        if (this.props.url && prevProps?.url !== this.props.url) {
+            this.source.setUrl(this.props.url);
+            this.source.refresh();
+        }
     }
 }
