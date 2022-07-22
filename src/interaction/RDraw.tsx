@@ -1,6 +1,5 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
-import GeometryType from 'ol/geom/GeometryType';
 import {default as Draw} from 'ol/interaction/Draw';
 
 import {default as RPointer} from './RPointer';
