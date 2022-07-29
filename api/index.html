@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.1 | Documentation
+        1.4.2 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.1</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.2</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -9947,7 +9947,365 @@ be supported rlayers either
                     <code><a href="#rstyle">RStyle</a></code>
                      context
         </p>
-                                                                                            </section>
+                                                                                                    <h7>Properties</h7>
+    <table class="table table-light">
+        <thead>
+                <th class="col-2">Property</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="">
+                        <code>anchor</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                    number
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Anchor. Default value is the icon center.
+        </p>
+                                <em class="me-1">default</em> <code>[0.5,0.5]</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>anchorXUnits</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'fraction'
+
+            |     
+    
+    
+    
+    'pixels'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Units in which the anchor x value is specified.
+A value of &#x27;fraction&#x27; indicates the x value is a fraction of the icon.
+A value of &#x27;pixels&#x27; indicates the x value in pixels.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>anchorYUnits</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'fraction'
+
+            |     
+    
+    
+    
+    'pixels'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Units in which the anchor y value is specified.
+A value of &#x27;fraction&#x27; indicates the x value is a fraction of the icon.
+A value of &#x27;pixels&#x27; indicates the x value in pixels.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>color</code>
+                    </td>
+                    <td class="">
+                        <code>                    <a href="https://openlayers.org/en/latest/apidoc/module-ol_color-Color.html#~Color">Color</a>
+    
+    
+    
+    
+    
+
+            |         string
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Color to tint the icon. If not specified, the icon will be left as is.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>crossOrigin</code>
+                    </td>
+                    <td class="">
+                        <code>                
+     null 
+    
+    
+    
+
+            |         string
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    The crossOrigin attribute for loaded images.
+Note that you must provide a crossOrigin value if you want to access pixel data with the Canvas renderer.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>img</code>
+                    </td>
+                    <td class="">
+                        <code>                    HTMLImageElement
+    
+    
+    
+    
+    
+
+            |         HTMLCanvasElement
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Image object for the icon.
+If the src option is not provided then the provided image must already be loaded.
+And in that case, it is required to provide the size of the image, with the imgSize option.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>offset</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                    number
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Offset, which, together with the size and the offset origin,
+define the sub-rectangle to use from the original icon image.
+        </p>
+                                <em class="me-1">default</em> <code>[0,0]</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>offsetOrigin</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'bottom-left'
+
+            |     
+    
+    
+    
+    'bottom-right'
+
+            |     
+    
+    
+    
+    'top-left'
+
+            |     
+    
+    
+    
+    'top-right'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Origin of the offset: 
+                    <code>bottom-left</code>
+                    , 
+                    <code>bottom-right</code>
+                    , 
+                    <code>top-left</code>
+                     or 
+                    <code>top-right</code>
+                    .
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>size</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_size-Size.html#~Size">Size</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Icon size in pixel.
+Can be used together with 
+                    <code>offset</code>
+                     to define the sub-rectangle to use from the origin (sprite) icon image.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>imgSize</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_size-Size.html#~Size">Size</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Image size in pixels. Only required if 
+                    <code>img</code>
+                     is set and 
+                    <code>src</code>
+                     is not, and for SVG images in Internet Explorer 11.
+The provided 
+                    <code>imgSize</code>
+                     needs to match the actual size of the image.
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>src</code>
+                    </td>
+                    <td class="">
+                        <code>        string
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Image source URI.
+        </p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</section>
 <hr>
         <section>
     <h2 id="rimage">
