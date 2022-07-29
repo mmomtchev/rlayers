@@ -74,9 +74,12 @@ describe('<RControl>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => render(<RControl.RZoom />)).toThrow('must be part of');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should render the layers RControl with a custom element', async () => {

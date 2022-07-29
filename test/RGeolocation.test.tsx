@@ -22,9 +22,12 @@ describe('<RGeolocation>', () => {
         common.expectToCallListener(listeners[0], handler);
     });
     it('should throw without a map', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => render(<RGeolocation />)).toThrow('must be part of');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });

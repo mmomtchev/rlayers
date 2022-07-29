@@ -52,8 +52,8 @@ describe('<RLayerTile>', () => {
                 />
             </RMap>
         );
-        expect(layer.current?.source.getTileGrid().getMaxZoom()).toBe(20);
-        expect(layer.current?.source.getProjection().getCode()).toBe('EPSG:4326');
+        expect(layer.current?.source.getTileGrid()?.getMaxZoom()).toBe(20);
+        expect(layer.current?.source.getProjection()?.getCode()).toBe('EPSG:4326');
     });
 
     it('should relay tile events', async () => {

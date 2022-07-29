@@ -35,9 +35,12 @@ describe('<RLayerVectorTiles>', () => {
         unmount();
     });
     it('should throw an error without a Map', () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => render(<RLayerVectorTile {...props} />)).toThrow('must be part of');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should attach event handlers to features ', async () => {

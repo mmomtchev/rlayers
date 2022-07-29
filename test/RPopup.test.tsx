@@ -107,7 +107,9 @@ describe('<RPopup>', () => {
         unmount();
     });
     it('should throw an error without a Feature', () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() =>
             render(
@@ -121,6 +123,7 @@ describe('<RPopup>', () => {
                 </RMap>
             )
         ).toThrow('must be part of a');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });

@@ -39,11 +39,14 @@ describe('<RStyle>', () => {
         );
         const {rerender} = render(comp('#000001'));
         expect((RStyle.getStyle(ref) as () => Style)().getImage().getSize()).toEqual([16, 16]);
+        // eslint-disable-next-line no-console
         const console_error = console.error;
         const warning = jest.fn();
+        // eslint-disable-next-line no-console
         console.error = warning;
         rerender(comp('#000002'));
         expect(warning.mock.calls[0][0]).toMatch('anonymous');
+        // eslint-disable-next-line no-console
         console.error = console_error;
     });
     it('should create a basic dot style', async () => {
@@ -250,7 +253,9 @@ describe('RStyle.getStyle', () => {
         expect(RStyle.getStyleStatic([obj])[0]).toBe(obj);
     });
     it('should throw on dynamic RStyle', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         const ref = createRStyle();
         render(
@@ -264,12 +269,16 @@ describe('RStyle.getStyle', () => {
             />
         );
         expect(() => RStyle.getStyleStatic(ref)).toThrow('dynamic');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should throw on dynamic StyleLike', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         expect(() => RStyle.getStyleStatic(() => new Style({}))).toThrow('dynamic');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });
@@ -380,7 +389,9 @@ describe('<RStyleArray>', () => {
         unmount();
     });
     it('should throw on invalid elements', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         const ref = createRStyle();
         expect(() =>
@@ -401,10 +412,13 @@ describe('<RStyleArray>', () => {
                 </RStyleArray>
             )
         ).toThrow('only RStyle');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
     it('should throw on invalid elements w/render', async () => {
+        // eslint-disable-next-line no-console
         const err = console.error;
+        // eslint-disable-next-line no-console
         console.error = () => undefined;
         const ref = createRStyle();
         render(
@@ -433,6 +447,7 @@ describe('<RStyleArray>', () => {
             name: 'text1'
         });
         expect(() => (RStyle.getStyle(ref) as (Feature) => Style[])(f)).toThrow('only RStyle');
+        // eslint-disable-next-line no-console
         console.error = err;
     });
 });

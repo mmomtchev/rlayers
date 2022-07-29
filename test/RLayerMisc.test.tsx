@@ -86,6 +86,6 @@ describe('<RLayerTileWMS>', () => {
         expect(layer.current?.source.getParams().LAYERS).toBe(
             'ch.swisstopo.pixelkarte-farbe-pk1000.noscale'
         );
-        expect(layer.current?.source.getProjection().getCode()).toBe('EPSG:2056');
+        expect(layer.current?.source.getProjection()?.getCode()).toBe('EPSG:2056');
     });
 });
