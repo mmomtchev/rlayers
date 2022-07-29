@@ -3,7 +3,7 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {RMap, RInteraction, RLayerVector} from 'rlayers';
-import RBaseInteraction from 'rlayers/interaction/RBaseInteraction';
+import {RBaseInteraction} from 'rlayers/interaction';
 import * as common from './common';
 
 describe('<RDragBox>', () => {
