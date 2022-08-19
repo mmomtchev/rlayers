@@ -122,6 +122,34 @@ jobs:
           npm run build
 
 
+  cra_react18_2_js:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - name: Run bundler
+        run: |
+          cd rlayers-npm-tests/cra-react18-2-js
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
+
+
+  cra_react18_2_ts:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - name: Run bundler
+        run: |
+          cd rlayers-npm-tests/cra-react18-2-ts
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
+
+
   nextjs12:
 
     runs-on: ubuntu-latest
