@@ -4,12 +4,14 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {GeoJSON} from 'ol/format';
+import {Feature} from 'ol';
+import {Point} from 'ol/geom';
 import {RLayerCluster, RLayerHeatmap, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/earthquakes.geojson', 'utf-8'));
 const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
-const features = parser.readFeatures(geojsonFeatures);
+const features = parser.readFeatures(geojsonFeatures) as Feature<Point>[];
 
 describe('<RLayerCluster>', () => {
     it('should create a cluster layer', async () => {

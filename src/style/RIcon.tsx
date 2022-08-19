@@ -1,7 +1,5 @@
 import React from 'react';
 import {Icon} from 'ol/style';
-import IconOrigin from 'ol/style/IconOrigin';
-import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import {Size} from 'ol/size';
 import {Color} from 'ol/color';
 

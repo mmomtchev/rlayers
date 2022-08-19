@@ -20,6 +20,10 @@ const backCompat = (html) =>
         .replace(
             '<button title="Toggle full-screen" type="button" class="example-fullscreen-false">',
             '<button type="button" title="Toggle full-screen">'
+        )
+        .replace(
+            '<div style="pointer-events: none;" class="ol-scale-line ol-unselectable">',
+            '<div style="pointer-events: auto;" class="ol-scale-line ol-unselectable">'
         );
 
 describe('<RControl>', () => {

@@ -25,7 +25,7 @@ export interface RTextProps extends RBaseStyleProps {
     /** Rotation */
     rotation?: number;
     /** Text alignment 'left' | 'right' | 'center' | 'start' | 'end' */
-    textAlign?: string;
+    textAlign?: CanvasTextAlign;
     /** Padding in pixels around the text, [ top, right, bottom, left ] */
     padding?: number[];
 }
