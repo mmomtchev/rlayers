@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.2 | Documentation
+        1.4.3 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.2</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.3</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -4236,37 +4236,6 @@ can be used to stop OpenLayers from also panning the map
                 </tr>
                 <tr>
                     <td class="">
-                        <code>autoPanAnimation</code>
-                    </td>
-                    <td class="">
-                        <code>        {         duration:         number
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
- }
-    
-    
-    
-    
-    
-</code>
-                    </td>
-                    <td class="">
-                                            <p>
-                    Pan animation
-        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="">
                         <code>autoPosition</code>
                     </td>
                     <td class="">
@@ -6016,6 +5985,56 @@ won&#x27;t be loaded into the layer
                     <td class="">
                                             <p>
                     Weight function for each RFeature, weight goes from 0 to 1
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>features</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                            <a href="https://openlayers.org/en/latest/apidoc/module-ol_Feature-Feature.html#~Feature">Feature</a>
+    
+    
+    
+    
+    
+        &lt;
+                    <a href="https://openlayers.org/en/latest/apidoc/module-ol_geom_Point-Point.html#~Point">Point</a>
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    OpenLayers features that will be loaded
+        </p>
+                    <p>
+                    this property currently does not support dynamic updates
         </p>
                     </td>
                 </tr>
@@ -10895,7 +10914,7 @@ The provided
                         <code>textAlign</code>
                     </td>
                     <td class="">
-                        <code>        string
+                        <code>        CanvasTextAlign
     
     
     
