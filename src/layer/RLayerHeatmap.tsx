@@ -1,11 +1,10 @@
 import React from 'react';
-import {Map, Feature} from 'ol';
+import {Feature} from 'ol';
 import {Heatmap as LayerHeatmap} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 import BaseObject from 'ol/Object';
 import {Point} from 'ol/geom';
 
-import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 
 /**
@@ -18,6 +17,12 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
     radius?: number;
     /** Weight function for each RFeature, weight goes from 0 to 1 */
     weight?: (f: Feature<Point>) => number;
+    /**
+     * OpenLayers features that will be loaded
+     *
+     * this property currently does not support dynamic updates
+     */
+    features?: Feature<Point>[];
 }
 
 /** A vector layer that renders its RFeatures as a heatmap

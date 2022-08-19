@@ -23,7 +23,7 @@ export interface RMousePositionProps extends RControlProps {
      * Set to false to retain the last position when the mouse leaves the viewport.
      * @default &nbsp;
      */
-    placeholder?: string | false;
+    placeholder?: string;
 }
 
 export default class RMousePosition extends RControlBase<
@@ -42,7 +42,7 @@ export default class RMousePosition extends RControlBase<
             ...super.toOLProps(props),
             coordinateFormat: props.coordinateFormat,
             projection: props.projection,
-            placeholder: props.placeholder
+            placeholder: props.placeholder || '&nbsp'
         };
     }
 }

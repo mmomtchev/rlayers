@@ -15,10 +15,7 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Automatically pan the map when the element is rendered
      * @default false */
     autoPan?: boolean;
-    /** Pan animation */
-    autoPanAnimation?: {
-        duration: number;
-    };
+    // TODO: support the full options in rlayers 1.5.0 / ol 7.0
     /** Automatically position the overlay so that it fits in the viewport
      * @default false */
     autoPosition?: boolean;
@@ -43,8 +40,7 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
-            autoPan: props.autoPan,
-            autoPanAnimation: props.autoPanAnimation
+            autoPan: props.autoPan
         });
         this.containerRef = React.createRef();
     }
