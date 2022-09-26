@@ -84,7 +84,7 @@ import {RMap, ROSM, RLayerVector, RFeature, ROverlay, RStyle} from 'rlayers';
 import locationIcon from './svg/location.svg';
 
 // Create a map, its size is set in the CSS class example-map
-<RMap className='example-map' center={fromLonLat([2.364, 48.82])} zoom={11}>
+<RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
     {/* Use an OpenStreetMap background */}
     <ROSM />
     {/* Create a single layer for holding vector features */}
