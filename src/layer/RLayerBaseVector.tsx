@@ -3,7 +3,6 @@ import {Feature, MapBrowserEvent} from 'ol';
 import {VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
-import LayerRenderer from 'ol/renderer/Layer';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
 import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';

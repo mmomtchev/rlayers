@@ -5,7 +5,7 @@ import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
 
-import {RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 
@@ -53,5 +53,23 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
             this.cluster.setUrl(this.props.url);
             this.cluster.refresh();
         }
+    }
+
+    render(): JSX.Element {
+        return (
+            <RContext.Provider
+                value={
+                    {
+                        ...this.context,
+                        layer: this.ol,
+                        source: this.cluster,
+                        vectorlayer: this.ol,
+                        vectorsource: this.cluster
+                    } as RContextType
+                }
+            >
+                {this.props.children}
+            </RContext.Provider>
+        );
     }
 }

@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [1.4.4] WIP
 
--   Fix #80, error when compiling the layers control with TypeScript 4.8
+-   Fix [#80], error when compiling the layers control with TypeScript 4.8
+-   Fix [#82], direct enumeration of features does not work with clustering
 
 ### [1.4.3] 2022-08-19
 
