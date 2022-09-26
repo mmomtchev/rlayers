@@ -3,6 +3,7 @@ import {Control} from 'ol/control';
 
 import {RContextType} from '../context';
 import RControlBase, {RControlOptions, RControlProps} from './RControlBase';
+import {RLayerProps} from 'rlayers/layer/RLayer';
 
 /**
  * @propsfor RLayer
@@ -108,7 +109,7 @@ export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
                 </div>
                 {React.Children.map(this.props.children, (child, i) => {
                     if (React.isValidElement(child)) {
-                        return React.cloneElement(child, {visible: visible[i]});
+                        return React.cloneElement<RLayerProps>(child, {visible: visible[i]});
                     }
                     return child;
                 })}
