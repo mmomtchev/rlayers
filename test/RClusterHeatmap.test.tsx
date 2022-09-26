@@ -6,7 +6,7 @@ import {fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
 import {Point} from 'ol/geom';
-import {RLayerCluster, RLayerHeatmap, RMap} from 'rlayers';
+import {RFeature, RLayerCluster, RLayerHeatmap, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/earthquakes.geojson', 'utf-8'));
@@ -21,6 +21,20 @@ describe('<RLayerCluster>', () => {
             </RMap>
         );
         expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
+
+    it('should add features to the cluster layer', async () => {
+        const ref = React.createRef<RLayerCluster>();
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerCluster ref={ref}>
+                    <RFeature geometry={new Point(common.coords.ArcDeTriomphe)} />
+                </RLayerCluster>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current?.cluster.getFeatures()).toHaveLength(1);
         unmount();
     });
 
