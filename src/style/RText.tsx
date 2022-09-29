@@ -15,9 +15,9 @@ export interface RTextProps extends RBaseStyleProps {
     /** Font */
     font?: string;
     /** Horizontal offset */
-    offsetx?: number;
+    offsetX?: number;
     /** Vertical offset */
-    offsety?: number;
+    offsetY?: number;
     /** Overflow */
     overflow?: boolean;
     /** Scale */
@@ -38,7 +38,17 @@ export interface RTextProps extends RBaseStyleProps {
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
 export default class RText extends RBaseStyle<RTextProps> {
-    static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
+    static classProps = [
+        'text',
+        'font',
+        'offsetY',
+        'offsetX',
+        'overflow',
+        'scale',
+        'rotation',
+        'textAlign',
+        'padding'
+    ];
     ol: Text;
 
     create(props: RTextProps): Text {
@@ -47,8 +57,7 @@ export default class RText extends RBaseStyle<RTextProps> {
     }
 
     set(ol: Text): void {
-        if (!this.context.style.setStroke)
-            throw new Error('Parent element does not support a text');
+        if (!this.context.style.setText) throw new Error('Parent element does not support a text');
         this.context.style.setText(ol);
     }
 

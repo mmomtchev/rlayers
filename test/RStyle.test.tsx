@@ -137,8 +137,9 @@ describe('<RStyle>', () => {
             <RStyle
                 ref={ref}
                 render={(f, r) => (
-                    <RText text={f.get('name')}>
+                    <RText text={f.get('name')} font='bold 25px sans-serif'>
                         <RStroke color='#000100' width={r} />
+                        <RFill color='#010000' />
                     </RText>
                 )}
             />
@@ -149,7 +150,47 @@ describe('<RStyle>', () => {
         });
         const style = (RStyle.getStyle(ref) as (Feature, number) => Style)(f, 100);
         expect(style.getText().getText()).toBe('text');
+        expect(style.getText().getFont()).toBe('bold 25px sans-serif');
         expect(style.getText().getStroke().getWidth()).toBe(100);
+        expect(style.getText().getFill().getColor()).toBe('#010000');
+    });
+    it('should support updating text properties', async () => {
+        const style = createRStyle();
+        const {rerender} = render(
+            <RStyle ref={style}>
+                <RText text='example' font='italic 5px serif' scale={1.2} padding={[1, 1, 2, 2]}>
+                    <RStroke color='#000100' width={4} />
+                    <RFill color='#010000' />
+                </RText>
+            </RStyle>
+        );
+        if (!(style.current?.ol instanceof Style)) throw new Error('Failed creating a style');
+        expect(style.current.ol.getText().getText()).toBe('example');
+        expect(style.current.ol.getText().getScale()).toBe(1.2);
+        expect(style.current.ol.getText().getPadding()).toMatchObject([1, 1, 2, 2]);
+        expect(style.current.ol.getText().getFont()).toBe('italic 5px serif');
+        expect(style.current.ol.getText().getOffsetX()).toBe(0);
+        expect(style.current.ol.getText().getOffsetY()).toBe(0);
+        expect(style.current.ol.getText().getRotation()).toBeUndefined();
+        expect(style.current.ol.getText().getStroke().getWidth()).toBe(4);
+        expect(style.current.ol.getText().getFill().getColor()).toBe('#010000');
+        rerender(
+            <RStyle ref={style}>
+                <RText text='example2' font='italic 6px serif' offsetX={1} offsetY={2} rotation={3}>
+                    <RStroke color='white' width={2} />
+                    <RFill color='black' />
+                </RText>
+            </RStyle>
+        );
+        expect(style.current.ol.getText().getText()).toBe('example2');
+        expect(style.current.ol.getText().getScale()).toBeUndefined();
+        expect(style.current.ol.getText().getPadding()).toBeUndefined();
+        expect(style.current.ol.getText().getFont()).toBe('italic 6px serif');
+        expect(style.current.ol.getText().getOffsetX()).toBe(1);
+        expect(style.current.ol.getText().getOffsetY()).toBe(2);
+        expect(style.current.ol.getText().getRotation()).toBe(3);
+        expect(style.current.ol.getText().getStroke().getWidth()).toBe(2);
+        expect(style.current.ol.getText().getFill().getColor()).toBe('black');
     });
     it('should support caching styles', async () => {
         const ref = createRStyle();
