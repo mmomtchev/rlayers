@@ -105,9 +105,11 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
     render(): JSX.Element {
         if (this.props.render) return null;
         return (
-            <RContext.Provider value={{...this.context, style: this.ol as Style}}>
-                {this.props.children}
-            </RContext.Provider>
+            <div className='_rlayers_RStyle'>
+                <RContext.Provider value={{...this.context, style: this.ol as Style}}>
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
         );
     }
 

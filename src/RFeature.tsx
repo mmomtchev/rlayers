@@ -217,7 +217,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         const extent = this.ol?.getGeometry()?.getExtent();
         const center = extent && getCenter(extent);
         return (
-            <div>
+            <div className='_rlayers_RFeature'>
                 <RContext.Provider
                     value={
                         {

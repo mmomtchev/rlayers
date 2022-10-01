@@ -61,9 +61,11 @@ export default class RStyleArray extends RStyle {
         });
         if (!this.props.render)
             return (
-                <RContext.Provider value={{...this.context, styleArray: this.ol as Style[]}}>
-                    {this.props.children}
-                </RContext.Provider>
+                <div className='_rlayers_RStyleArray'>
+                    <RContext.Provider value={{...this.context, styleArray: this.ol as Style[]}}>
+                        {this.props.children}
+                    </RContext.Provider>
+                </div>
             );
         return <React.Fragment />;
     }

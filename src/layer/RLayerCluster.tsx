@@ -57,19 +57,21 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
 
     render(): JSX.Element {
         return (
-            <RContext.Provider
-                value={
-                    {
-                        ...this.context,
-                        layer: this.ol,
-                        source: this.cluster,
-                        vectorlayer: this.ol,
-                        vectorsource: this.cluster
-                    } as RContextType
-                }
-            >
-                {this.props.children}
-            </RContext.Provider>
+            <div className='_rlayers_RLayerCluster'>
+                <RContext.Provider
+                    value={
+                        {
+                            ...this.context,
+                            layer: this.ol,
+                            source: this.cluster,
+                            vectorlayer: this.ol,
+                            vectorsource: this.cluster
+                        } as RContextType
+                    }
+                >
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
         );
     }
 }
