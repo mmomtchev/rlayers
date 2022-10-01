@@ -84,17 +84,19 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
 
     render(): JSX.Element {
         return (
-            <RContext.Provider
-                value={
-                    {
-                        ...this.context,
-                        layer: this.ol,
-                        source: this.source
-                    } as RContextType
-                }
-            >
-                {this.props.children}
-            </RContext.Provider>
+            <div className='_rlayers_RLayer'>
+                <RContext.Provider
+                    value={
+                        {
+                            ...this.context,
+                            layer: this.ol,
+                            source: this.source
+                        } as RContextType
+                    }
+                >
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
         );
     }
 }

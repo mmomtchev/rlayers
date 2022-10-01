@@ -160,19 +160,21 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     render(): JSX.Element {
         return (
-            <RContext.Provider
-                value={
-                    {
-                        ...this.context,
-                        layer: this.ol,
-                        source: this.source,
-                        vectorlayer: this.ol,
-                        vectorsource: this.source
-                    } as RContextType
-                }
-            >
-                {this.props.children}
-            </RContext.Provider>
+            <div className='_rlayers_RLayerVector'>
+                <RContext.Provider
+                    value={
+                        {
+                            ...this.context,
+                            layer: this.ol,
+                            source: this.source,
+                            vectorlayer: this.ol,
+                            vectorsource: this.source
+                        } as RContextType
+                    }
+                >
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
         );
     }
 }
