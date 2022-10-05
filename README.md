@@ -121,7 +121,9 @@ import locationIcon from './svg/location.svg';
 </RMap>
 ```
 
-Check [examples/static_pages.html](https://github.com/mmomtchev/rlayers/tree/master/examples/static_page.html) for a fully self-contained static HTML page using _rlayers_
+Check [examples/static_pages.html](https://github.com/mmomtchev/rlayers/tree/master/examples/static_page.html) for a fully self-contained static HTML page using _rlayers_.
+
+You can also check the GPLed [XC-DB](https://github.com/mmomtchev/xc-db.git) for a larger and more complex project entirely implemented using React, Redux and rlayers.
 
 #### Contexts
 
