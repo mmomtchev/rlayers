@@ -12,15 +12,10 @@ import {
     RLayerWMS,
     RLayerTileWMS
 } from 'rlayers';
-import layersIcon from './svg/layers.svg';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
 
-const layersButton = (
-    <button>
-        <img src={layersIcon} alt='layers' />
-    </button>
-);
+const layersButton = <button>&#9776;</button>;
 
 export default function Layers(): JSX.Element {
     return (
