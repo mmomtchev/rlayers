@@ -9,7 +9,9 @@ import {Style} from 'ol/style';
 import {Geometry, Point} from 'ol/geom';
 import RenderFeature from 'ol/render/Feature';
 import {RLayerVectorTile, RMap} from 'rlayers';
+import {RStyle, RCircle, RStroke} from 'rlayers/style';
 import * as common from './common';
+import CircleStyle from 'ol/style/Circle';
 
 const props = {
     url: 'https://rlayers.meteo.guru/tiles/admin/{z}/{x}/{y}',
@@ -154,6 +156,31 @@ describe('<RLayerVectorTiles>', () => {
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();
         expect((ref.current?.source.getUrls() || [])[0]).toEqual('http://url2');
+        unmount();
+    });
+    it('should use inline styles', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const comp = (width: number) => (
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile ref={ref} {...{...props, style: undefined}}>
+                    <RStyle zIndex={2}>
+                        <RCircle radius={3}>
+                            <RStroke color='#000005' width={width} />
+                        </RCircle>
+                    </RStyle>
+                </RLayerVectorTile>
+            </RMap>
+        );
+        const {rerender, container, unmount} = render(comp(1));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+        ).toBe(1);
+        rerender(comp(2));
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+        ).toBe(2);
         unmount();
     });
 });

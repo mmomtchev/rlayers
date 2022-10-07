@@ -4,6 +4,7 @@ import Layer from 'ol/layer/Layer';
 import Source from 'ol/source/Source';
 import BaseVector from 'ol/layer/BaseVector';
 import SourceVector from 'ol/source/Vector';
+import VectorTile from 'ol/layer/VectorTile';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
 import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
@@ -36,6 +37,7 @@ export interface RContextType {
         | WebGLPointsLayerRenderer
     >;
     readonly vectorsource?: SourceVector<Geometry>;
+    readonly vectortilelayer?: VectorTile;
     /** The current RFeature */
     readonly feature?: Feature<Geometry>;
     /** The current location */

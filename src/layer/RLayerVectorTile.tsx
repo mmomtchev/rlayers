@@ -3,7 +3,7 @@ import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
 
-import {RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import RStyle, {RStyleLike} from '../style/RStyle';
@@ -20,7 +20,7 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * You can use a dynamic style, but the property value must stay the same
      * ie switching from a static OpenLayers style to a RefObject is not supported
      */
-    style: RStyleLike;
+    style?: RStyleLike;
     /** Vector tile format */
     format: FeatureFormat;
     /**
@@ -82,5 +82,23 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
             this.source.setUrl(this.props.url);
             this.source.refresh();
         }
+    }
+
+    render(): JSX.Element {
+        return (
+            <div className='_rlayers_RLayerVectorTile'>
+                <RContext.Provider
+                    value={
+                        {
+                            ...this.context,
+                            layer: this.ol,
+                            vectortilelayer: this.ol
+                        } as RContextType
+                    }
+                >
+                    {this.props.children}
+                </RContext.Provider>
+            </div>
+        );
     }
 }

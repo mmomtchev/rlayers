@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [1.4.5] WIP
 
 -   Fix [#85], dynamic properties of `RText` are not updated
+-   Fix [#89], support inline styles in `RLayerVectorTile`
 
 ### [1.4.4] 2022-09-26
 
