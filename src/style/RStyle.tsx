@@ -93,9 +93,13 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
                     throw new Error('An RStyleArray must contain only static RStyles');
                 if (!this.context.styleArray.includes(this.ol as Style))
                     this.context.styleArray.push(this.ol as Style);
-            } else if (this.context?.feature?.setStyle) this.context.feature.setStyle(this.ol);
-            else if (this.context?.vectorlayer?.setStyle)
+            } else if (this.context?.feature?.setStyle) {
+                this.context.feature.setStyle(this.ol);
+            } else if (this.context?.vectorlayer?.setStyle) {
                 this.context.vectorlayer.setStyle(this.ol);
+            } else if (this.context?.vectortilelayer?.setStyle) {
+                this.context.vectortilelayer.setStyle(this.ol);
+            }
             if (this.cache) this.cache.clear();
         }
         if (this.ol instanceof Style && (!prevProps || prevProps.zIndex !== this.props.zIndex))
