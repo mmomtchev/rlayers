@@ -29,7 +29,7 @@ It's design policy is:
 
 **<- Light-Weight --- Feature-Rich ->**
 
-[pigeon-maps](https://pigeon-maps.js.org/) - [react-leaflet](https://react-leaflet.js.org/) - [rlayers](https://https://mmomtchev.github.io/rlayers/)
+[pigeon-maps](https://pigeon-maps.js.org/) - [react-leaflet](https://react-leaflet.js.org/) - [rlayers](https://mmomtchev.github.io/rlayers/)
 
 Among the completely free and open source alternatives for creating maps with _React_, on a scale going from the most light-weight to the most feature-rich solution, _rlayers_ is the right-most one.
 
