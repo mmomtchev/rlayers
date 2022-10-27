@@ -5,10 +5,10 @@ import React from 'react';
 import exampleCss from '!!raw-loader!./example.css';
 
 import packageLock from '../package-lock.json';
-const versionReact = packageLock.packages['node_modules/react'].version;
-const versionOL = packageLock.packages['node_modules/ol'].version;
-const versionBootstrap = packageLock.packages['node_modules/bootstrap'].version;
-const versionProj4 = packageLock.packages['node_modules/proj4'].version;
+const versionReact = packageLock.dependencies['react'].version;
+const versionOL = packageLock.dependencies['ol'].version;
+const versionBootstrap = packageLock.dependencies['bootstrap'].version;
+const versionProj4 = packageLock.dependencies['proj4'].version;
 
 const alias = (t: string): string =>
     t
