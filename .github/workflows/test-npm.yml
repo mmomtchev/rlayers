@@ -162,3 +162,17 @@ jobs:
           npm install
           npm i rlayers@${{ github.event.inputs.version }} ol@latest
           npm run build
+
+
+  nextjs13:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
+      - name: Run bundler
+        run: |
+          cd rlayers-npm-tests/next13
+          npm install
+          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm run build
