@@ -25,6 +25,10 @@ It's design policy is:
 -   The current target is _OpenLayers_ 6+
 -   Avoid dependencies when built except for _React_ and OpenLayers (the examples have some dependencies) - currently the single one is [`lru-cache`](https://www.npmjs.com/package/lru-cache) at 8Kbytes
 
+## Long term support of this project
+
+The birth of this project is related to a huge extortion in the geography community linked to a sexual harassment affair covered up by the French Judiciary. It is maintained as a free service to the geography community so that it can remain as a remainder to a number of companies - including Camptocamp, ESRI, Mapbox and Makina Corpus - that the most noble way to claim size bragging rights is to produce good software. You can safely use this framework in your projects, be assured that it will be maintained very well and for many years to come.
+
 ## Alternatives
 
 **<- Light-Weight --- Feature-Rich ->**
