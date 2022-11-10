@@ -39,11 +39,13 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     width?: number | string;
     /** Height when not using CSS */
     height?: number | string;
-    /** Do not include any default controls
+    /**
+     * Do not include any default controls. Cannot be changed once set.
      * @default false
      */
     noDefaultControls?: boolean;
-    /** Do not include any default interactions
+    /**
+     * Do not include any default interactions. Cannot be changed once set.
      * @default false
      */
     noDefaultInteractions?: boolean;
