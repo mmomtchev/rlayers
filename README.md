@@ -234,7 +234,7 @@ const withTranspile = require('next-transpile-modules')(['ol', 'rlayers']);
 module.exports = withTranspile({experimental: {esmExternals: 'loose'}});
 ```
 
-It is known to work with Next.js 10 to Next.js 12.
+It is known to work with Next.js 10 to Next.js 13. You can check [`rlayers-npm-tests`](https://github.com/mmomtchev/rlayers-npm-tests) repository for examples for working configurations.
 
 ### Server-Side Rendering
 
