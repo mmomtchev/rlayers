@@ -25,7 +25,7 @@ describe('<RMap>', () => {
     });
     it('should display an OSM map w/zoom', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
-        const {container} = render(
+        const {rerender} = render(
             <RMap {...common.mapProps} ref={map} minZoom={10} maxZoom={12}>
                 <ROSM />
             </RMap>
@@ -33,6 +33,14 @@ describe('<RMap>', () => {
         expect(map.current?.ol.getView().getMinZoom()).toBe(10);
         expect(map.current?.ol.getView().getZoom()).toBe(11);
         expect(map.current?.ol.getView().getMaxZoom()).toBe(12);
+        rerender(
+            <RMap {...common.mapProps} ref={map} maxZoom={9}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current?.ol.getView().getMinZoom()).toBe(0);
+        expect(map.current?.ol.getView().getZoom()).toBe(9);
+        expect(map.current?.ol.getView().getMaxZoom()).toBe(9);
     });
     it('should display an OSM map w/resolution', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
