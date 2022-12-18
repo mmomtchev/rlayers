@@ -10,6 +10,7 @@ const examples = {
     controls: {title: 'Custom controls', file: 'Controls'},
     overlays: {title: 'Simple overlay', file: 'Overlays'},
     extent: {title: 'Constrained view', file: 'Extent'},
+    image: {title: 'Static image', file: 'Image'},
     state: {title: 'External state', file: 'ExternalState'},
     animation: {title: 'Animated icon', file: 'AnimatedOverlay'},
     webgl: {title: 'WebGL layers', file: 'WebGL'},

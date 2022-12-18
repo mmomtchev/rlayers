@@ -5,7 +5,7 @@ import {fireEvent, render} from '@testing-library/react';
 import proj4 from 'proj4';
 import {register as proj4register} from 'ol/proj/proj4';
 
-import {RMap, RLayerStamen, RLayerTileJSON, RLayerWMS, RLayerTileWMS} from 'rlayers';
+import {RMap, RLayerStamen, RLayerTileJSON, RLayerWMS, RLayerTileWMS, RLayerImage} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerStamen>', () => {
@@ -38,6 +38,27 @@ describe('<RLayerWMS>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         expect(layer.current?.source.getUrl()).toBe('https://magosm.magellium.com/geoserver/ows');
         expect(layer.current?.source.getParams().LAYERS).toBe('magosm:france_schools_point');
+    });
+});
+
+describe('<RLayerImage>', () => {
+    it('should display an image source layer', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerImage>;
+        const {container} = render(
+            <RMap {...common.mapProps}>
+                <RLayerImage
+                    ref={layer}
+                    url='https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg'
+                    extent={[-180, -90, 180, 90]}
+                    size={[2058, 1036]}
+                />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current?.source.getUrl()).toBe(
+            'https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg'
+        );
+        expect(layer.current?.source.getImageExtent()).toEqual([-180, -90, 180, 90]);
     });
 });
 
