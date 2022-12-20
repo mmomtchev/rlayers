@@ -44,7 +44,7 @@ describe('<RLayerWMS>', () => {
 describe('<RLayerImage>', () => {
     it('should display an image source layer', async () => {
         const layer = React.createRef() as React.RefObject<RLayerImage>;
-        const {container} = render(
+        const {container, rerender} = render(
             <RMap {...common.mapProps}>
                 <RLayerImage
                     ref={layer}
@@ -59,6 +59,19 @@ describe('<RLayerImage>', () => {
             'https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg'
         );
         expect(layer.current?.source.getImageExtent()).toEqual([-180, -90, 180, 90]);
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerImage
+                    ref={layer}
+                    url='https://upload.wikimedia.org/wikipedia/commons/2/23/Blue_Marble_2002.png'
+                    extent={[-180, -90, 180, 90]}
+                />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current?.source.getUrl()).toBe(
+            'https://upload.wikimedia.org/wikipedia/commons/2/23/Blue_Marble_2002.png'
+        );
     });
 });
 

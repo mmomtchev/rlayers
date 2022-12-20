@@ -53,6 +53,10 @@ export default class RLayerImage extends RLayerRaster<RLayerImageProps> {
 
     refresh(prevProps?: RLayerImageProps): void {
         super.refresh(prevProps);
-        this.createSource();
+        if (this.props.url && prevProps?.url !== this.props.url) {
+            this.createSource();
+            this.ol.setSource(this.source);
+            this.eventSources = [this.ol, this.source];
+        }
     }
 }
