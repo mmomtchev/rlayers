@@ -31,6 +31,7 @@ export default class RBackground extends RBaseStyle<RBackgroundProps> {
         this.classProps = RBackground.classProps;
         const parent = this.context.style as unknown as Text;
         if (!parent.setBackgroundFill || !parent.setBackgroundStroke)
+            /* istanbul ignore next */
             throw new Error('Parent element does not support a background');
         return {
             setFill: parent.setBackgroundFill.bind(parent),
