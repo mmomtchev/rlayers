@@ -15,7 +15,8 @@ import {
     RCircle,
     RText,
     RIcon,
-    createRStyle
+    createRStyle,
+    RBackground
 } from 'rlayers/style';
 import {Point} from 'ol/geom';
 import * as common from './common';
@@ -158,9 +159,20 @@ describe('<RStyle>', () => {
         const style = createRStyle();
         const {rerender} = render(
             <RStyle ref={style}>
-                <RText text='example' font='italic 5px serif' scale={1.2} padding={[1, 1, 2, 2]}>
+                <RText
+                    text='example'
+                    font='italic 5px serif'
+                    textBaseline='top'
+                    scale={1.2}
+                    placement='line'
+                    padding={[1, 1, 2, 2]}
+                >
                     <RStroke color='#000100' width={4} />
                     <RFill color='#010000' />
+                    <RBackground>
+                        <RStroke color='#ff0000' width={3} />
+                        <RFill color='#00ff00' />
+                    </RBackground>
                 </RText>
             </RStyle>
         );
@@ -174,6 +186,10 @@ describe('<RStyle>', () => {
         expect(style.current.ol.getText().getRotation()).toBeUndefined();
         expect(style.current.ol.getText().getStroke().getWidth()).toBe(4);
         expect(style.current.ol.getText().getFill().getColor()).toBe('#010000');
+        expect(style.current.ol.getText().getBackgroundStroke().getWidth()).toBe(3);
+        expect(style.current.ol.getText().getBackgroundFill().getColor()).toBe('#00ff00');
+        expect(style.current.ol.getText().getTextBaseline()).toBe('top');
+        expect(style.current.ol.getText().getPlacement()).toBe('line');
         rerender(
             <RStyle ref={style}>
                 <RText text='example2' font='italic 6px serif' offsetX={1} offsetY={2} rotation={3}>
@@ -190,7 +206,11 @@ describe('<RStyle>', () => {
         expect(style.current.ol.getText().getOffsetY()).toBe(2);
         expect(style.current.ol.getText().getRotation()).toBe(3);
         expect(style.current.ol.getText().getStroke().getWidth()).toBe(2);
+        expect(style.current.ol.getText().getBackgroundStroke()).toBeNull();
+        expect(style.current.ol.getText().getBackgroundFill()).toBeNull();
         expect(style.current.ol.getText().getFill().getColor()).toBe('black');
+        expect(style.current.ol.getText().getTextBaseline()).toBeUndefined();
+        expect(style.current.ol.getText().getPlacement()).toBeUndefined();
     });
     it('should support caching styles', async () => {
         const ref = createRStyle();

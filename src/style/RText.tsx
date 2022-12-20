@@ -28,6 +28,16 @@ export interface RTextProps extends RBaseStyleProps {
     textAlign?: CanvasTextAlign;
     /** Padding in pixels around the text, [ top, right, bottom, left ] */
     padding?: number[];
+    /**
+     * Text placement
+     * @default 'point'
+     */
+    placement?: 'line' | 'point';
+    /**
+     * Text baseline
+     * @default 'middle'
+     */
+    textBaseline?: CanvasTextBaseline;
 }
 
 /**
@@ -47,7 +57,9 @@ export default class RText extends RBaseStyle<RTextProps> {
         'scale',
         'rotation',
         'textAlign',
-        'padding'
+        'padding',
+        'placement',
+        'textBaseline'
     ];
     ol: Text;
 
@@ -57,7 +69,9 @@ export default class RText extends RBaseStyle<RTextProps> {
     }
 
     set(ol: Text): void {
-        if (!this.context.style.setText) throw new Error('Parent element does not support a text');
+        if (!this.context.style.setText)
+            /* istanbul ignore next */
+            throw new Error('Parent element does not support a text');
         this.context.style.setText(ol);
     }
 

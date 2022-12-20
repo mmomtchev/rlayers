@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.4.6] WIP
 
 -   Add `RLayerImage` for displaying a static image as a map
+-   Add `RBackground` for setting background properties of `RText`
 
 ### [1.4.5] 2022-10-26
 
