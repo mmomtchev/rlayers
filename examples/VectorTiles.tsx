@@ -30,20 +30,11 @@ const fonts = {
  */
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
-    const styles = {
-        borders: useRStyle(),
-        towns: useRStyle()
-    };
+    const towns = useRStyle();
     return (
         <React.Fragment>
-            <RStyle ref={styles.borders}>
-                {/* This is the borders style */}
-                <RStroke color='#007bff' width={2} />
-                <RFill color='transparent' />
-            </RStyle>
-
             <RStyleArray
-                ref={styles.towns}
+                ref={towns}
                 render={useCallback((feature: Feature<Geometry>) => {
                     /* This is a the towns style
                      *
@@ -95,28 +86,33 @@ export default function VectorTiles(): JSX.Element {
                         [setCountry]
                     )}
                     url='https://react-layers.meteo.guru/tiles/admin/{z}/{x}/{y}'
-                    style={styles.borders}
                     format={new MVT()}
-                />
+                >
+                    <RStyle>
+                        {/* This is the borders style */}
+                        <RStroke color='#007bff' width={2} />
+                        <RFill color='transparent' />
+                    </RStyle>
+                </RLayerVectorTile>
                 {/* These are the cities */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/0/{z}/{x}/{y}'
                     maxResolution={0.01 * degree}
-                    style={styles.towns}
+                    style={towns}
                     format={new MVT()}
                 />
                 {/* The towns visible only when zoomed in */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/1/{z}/{x}/{y}'
                     maxResolution={0.0025 * degree}
-                    style={styles.towns}
+                    style={towns}
                     format={new MVT()}
                 />
                 {/* The small villages at maximum resolution */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/2/{z}/{x}/{y}'
                     maxResolution={0.0005 * degree}
-                    style={styles.towns}
+                    style={towns}
                     format={new MVT()}
                 />
             </RMap>
