@@ -79,14 +79,14 @@ const webpackConfig = (env): webpack.Configuration => {
     if (reactMajorVersion < 18) {
         // This is needed for React 16/17 as otherwise ts-loader
         // will pick `index-react18.tsx` and will fail transpiling it
-        conf.module.rules.unshift({
+        conf.module!.rules!.unshift({
             test: /index-react18\.tsx?$/,
             loader: 'null-loader'
         });
     }
 
     if (!env.development) {
-        conf.plugins.push(
+        conf.plugins!.push(
             new ForkTsCheckerWebpackPlugin({
                 eslint: {
                     files: './{src,examples}/**/*.{ts,tsx,js}'

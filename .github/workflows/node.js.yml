@@ -4,168 +4,162 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ '*' ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    push:
+        branches: ['*']
+    pull_request:
+        branches: [master]
+    workflow_dispatch:
 
 jobs:
-  default:
+    default:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: npm i
+            - run: npm run build --if-present
+            - run: npm test
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: npm i
-    - run: npm run build --if-present
-    - run: npm test
+    ol-versions:
+        runs-on: ubuntu-latest
 
+        strategy:
+            matrix:
+                ol-version:
+                    - '6.10'
+                    - '6.11'
+                    - '6.12'
+                    - '6.13'
+                    - '6.14'
+                    - '6.14.1'
+                    - '6.15'
+                    - '6.15.1'
+                    - '7.0.0'
+                    - '7.1.0'
+                    - '7.2.0'
 
-  ol-versions:
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: npm i
+            - run: npm i ol@${{ matrix.ol-version }}
+            - run: npm run build --if-present
+            - run: npm test
 
-    runs-on: ubuntu-latest
+    react-16-8:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        ol-version: [ '6.10', '6.11', '6.12', '6.13', '6.14', '6.14.1', '6.15', '6.15.1', '7.0.0', '7.1.0' ]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: |
+                  npm i react@16.8 react-dom@16.8 react-test-renderer@16.8 @types/react@16 @types/react-dom@16 @testing-library/react@11
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: npm i
-    - run: npm i ol@${{ matrix.ol-version }}
-    - run: npm run build --if-present
-    - run: npm test
+    react-16-14:
+        runs-on: ubuntu-latest
 
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: |
+                  npm i react@16.14 react-dom@16.14 react-test-renderer@16.14 @types/react@16 @types/react-dom@16 @testing-library/react@11
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-  react-16-8:
+    react-17:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: |
+                  npm i react@17 react-dom@17 react-test-renderer@17 @types/react@17 @types/react-dom@17 @testing-library/react@11
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: |
-        npm i react@16.8 react-dom@16.8 react-test-renderer@16.8 @types/react@16 @types/react-dom@16 @testing-library/react@11
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
+    react-18:
+        runs-on: ubuntu-latest
 
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: |
+                  npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 @testing-library/react@13
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-  react-16-14:
+    react-18-1:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: |
+                  npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 @testing-library/react@13
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: |
-        npm i react@16.14 react-dom@16.14 react-test-renderer@16.14 @types/react@16 @types/react-dom@16 @testing-library/react@11
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
+    react-18-2:
+        runs-on: ubuntu-latest
 
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 16.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16.x
+            - run: |
+                  npm i react@18.2 react-dom@18.2 react-test-renderer@18.2 @types/react@18 @types/react-dom@18 @testing-library/react@13
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
 
-  react-17:
+    codecov:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: |
-        npm i react@17 react-dom@17 react-test-renderer@17 @types/react@17 @types/react-dom@17 @testing-library/react@11
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
-
-
-  react-18:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: |
-        npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 @testing-library/react@13
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
-
-
-  react-18-1:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: |
-        npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 @testing-library/react@13
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
-
-
-  react-18-2:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 16.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 16.x
-    - run: |
-        npm i react@18.2 react-dom@18.2 react-test-renderer@18.2 @types/react@18 @types/react-dom@18 @testing-library/react@13
-    - run: npm i
-    - run: tsc
-    - run: npm test
-    - run: npm run build:examples
-
-
-  codecov:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-    - run: npm i
-    - run: npm run test
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    - run: npm run codecov
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+            - run: npm i
+            - run: npm run test
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+            - run: npm run codecov

@@ -57,6 +57,16 @@ describe('<RLayerVectorTiles>', () => {
             </RMap>
         );
         if (map.current === null || layer.current === null) throw new Error('failed rendering map');
+        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (map.current.ol as any).viewport_ = {
+            getBoundingClientRect: () => ({
+                width: common.mapProps.width,
+                height: common.mapProps.height,
+                left: 0,
+                top: 0
+            })
+        };
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
             if (map.current === null || layer.current === null)
                 throw new Error('failed rendering map');
@@ -79,6 +89,16 @@ describe('<RLayerVectorTiles>', () => {
             </RMap>
         );
         if (map.current === null || layer.current === null) throw new Error('failed rendering map');
+        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (map.current.ol as any).viewport_ = {
+            getBoundingClientRect: () => ({
+                width: common.mapProps.width,
+                height: common.mapProps.height,
+                left: 0,
+                top: 0
+            })
+        };
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
             if (map.current === null || layer.current === null)
                 throw new Error('failed rendering map');
