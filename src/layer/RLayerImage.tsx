@@ -6,12 +6,12 @@ import {Size} from 'ol/size';
 
 import React from 'react';
 import {RContextType} from '../context';
-import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import {default as RLayer, RLayerProps} from './RLayer';
 
 /**
  * @propsfor RLayerImage
  */
-export interface RLayerImageProps extends RLayerRasterProps {
+export interface RLayerImageProps extends RLayerProps {
     /** url of the image */
     url: string;
     /** Extent of the map, cannot be dynamically modified */
@@ -28,7 +28,7 @@ export interface RLayerImageProps extends RLayerRasterProps {
 /**
  * A layer that renders a static image
  */
-export default class RLayerImage extends RLayerRaster<RLayerImageProps> {
+export default class RLayerImage extends RLayer<RLayerImageProps> {
     ol: LayerImage<SourceImage>;
     source: SourceImage;
 

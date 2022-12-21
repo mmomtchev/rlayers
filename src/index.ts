@@ -19,6 +19,7 @@ export {default as ROSM, ROSMProps} from './layer/ROSM';
 export {default as RLayerWMTS, RLayerWMTSProps} from './layer/RLayerWMTS';
 export {default as RLayerWMS, RLayerWMSProps} from './layer/RLayerWMS';
 export {default as RLayerImage, RLayerImageProps} from './layer/RLayerImage';
+export {default as RLayerGraticule, RLayerGraticuleProps} from './layer/RLayerGraticule';
 export {default as RLayerTileJSON, RLayerTileJSONProps} from './layer/RLayerTileJSON';
 export {default as RLayerTileWMS, RLayerTileWMSProps} from './layer/RLayerTileWMS';
 export {default as RLayerStamen, RLayerStamenProps} from './layer/RLayerStamen';
