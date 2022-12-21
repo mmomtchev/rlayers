@@ -5,7 +5,16 @@ import {fireEvent, render} from '@testing-library/react';
 import proj4 from 'proj4';
 import {register as proj4register} from 'ol/proj/proj4';
 
-import {RMap, RLayerStamen, RLayerTileJSON, RLayerWMS, RLayerTileWMS, RLayerImage} from 'rlayers';
+import {
+    RMap,
+    RLayerStamen,
+    RLayerTileJSON,
+    RLayerWMS,
+    RLayerTileWMS,
+    RLayerImage,
+    RLayerGraticule,
+    RStyle
+} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerStamen>', () => {
@@ -72,6 +81,40 @@ describe('<RLayerImage>', () => {
         expect(layer.current?.source.getUrl()).toBe(
             'https://upload.wikimedia.org/wikipedia/commons/2/23/Blue_Marble_2002.png'
         );
+    });
+});
+
+describe('<RLayerGraticule>', () => {
+    it('should display a graticule layer', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerGraticule>;
+        const style = React.createRef() as React.RefObject<RStyle.RStyle>;
+        const {container, rerender} = render(
+            <RMap {...common.mapProps}>
+                <RStyle.RStyle ref={style}>
+                    <RStyle.RStroke color='red' width={4} />
+                    <RStyle.RText text='' scale={2} offsetY={-10} offsetX={-10}>
+                        <RStyle.RStroke color='green' width={2} />
+                        <RStyle.RFill color='black' />
+                    </RStyle.RText>
+                </RStyle.RStyle>
+                <RLayerGraticule
+                    ref={layer}
+                    extent={[-10, 35, 15, 55]}
+                    latLabelStyle={style}
+                    lonLabelStyle={style}
+                    strokeStyle={style}
+                />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current?.ol.getExtent()).toEqual([-10, 35, 15, 55]);
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerGraticule ref={layer} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(layer.current?.ol.getExtent()).toBeUndefined();
     });
 });
 

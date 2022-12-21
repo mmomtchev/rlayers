@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add `RLayerImage` for displaying a static image as a map
 -   Add `RBackground` for setting background properties of `RText`
 -   Support all `Text` parameters in OpenLayers
+-   Add `RGraticule` for displaying a graticule
 
 ### [1.4.5] 2022-10-26
 
