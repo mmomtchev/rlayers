@@ -83,11 +83,12 @@ export type ComponentConstructor = new (
 
 export function handlerCheckContext(
     type: ComponentConstructor,
-    cEl: string[],
+    cEl: (keyof RContextType)[],
     cRef: React.RefObject<RlayersBase<unknown, unknown>>[]
 ) {
     return function (this: React.Component, e: unknown): void {
         expect(this).toBeInstanceOf(type);
-        for (const i in cEl) expect(this.context[cEl[i]]).toBe(cRef[i].current?.ol);
+        for (const i in cEl)
+            expect((this.context as RContextType)[cEl[i]]).toBe(cRef[i].current?.ol);
     };
 }

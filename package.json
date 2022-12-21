@@ -133,6 +133,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-test-renderer": "^18.1.0",
+    "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.74.1",
     "rollup-plugin-terser": "^7.0.2",

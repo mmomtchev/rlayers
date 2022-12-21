@@ -215,6 +215,16 @@ describe('<RFeature>', () => {
         if (map.current === null) throw new Error('map.current is null');
         const dummyLayer = new VectorTile();
         const dummyGeom = new Point([0, 0]);
+        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (map.current.ol as any).viewport_ = {
+            getBoundingClientRect: () => ({
+                width: common.mapProps.width,
+                height: common.mapProps.height,
+                left: 0,
+                top: 0
+            })
+        };
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
             if (ref[0].current === null || ref[1].current === null)
                 throw new Error('Referenced feature not found');
@@ -329,6 +339,16 @@ describe('<RFeature>', () => {
         if (map.current === null) throw new Error('map.current is null');
         const dummyLayer = new VectorTile();
         const dummyGeom = new Point([0, 0]);
+        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (map.current.ol as any).viewport_ = {
+            getBoundingClientRect: () => ({
+                width: common.mapProps.width,
+                height: common.mapProps.height,
+                left: 0,
+                top: 0
+            })
+        };
         map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
             if (ref[0].current === null || ref[1].current === null || ref[2].current === null)
                 throw new Error('Referenced feature not found');
