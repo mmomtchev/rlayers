@@ -48,7 +48,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-js
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -62,7 +62,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-ts
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -76,7 +76,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-js
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -90,7 +90,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-ts
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -104,7 +104,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-1-js
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -118,7 +118,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-1-ts
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -132,7 +132,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-2-js
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -146,7 +146,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/cra-react18-2-ts
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -160,7 +160,7 @@ jobs:
         run: |
           cd rlayers-npm-tests/next12
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
 
 
@@ -174,5 +174,5 @@ jobs:
         run: |
           cd rlayers-npm-tests/next13
           npm install
-          npm i rlayers@${{ github.event.inputs.version }} ol@latest
+          npm i rlayers@${{ github.event.inputs.version }} ol
           npm run build
