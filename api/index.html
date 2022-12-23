@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.5 | Documentation
+        1.4.6 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.5</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.6</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -1813,6 +1813,75 @@
 </ul>
 </div>
         </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayergraticule-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#rlayergraticule">
+        <h3 class="m-0">RLayerGraticule</h3>
+    </a>
+</div>
+<div class="collapse" id="rlayergraticule-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayerimage-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#rlayerimage">
+        <h3 class="m-0">RLayerImage</h3>
+    </a>
+</div>
+<div class="collapse" id="rlayerimage-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rbackground-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#rbackground">
+        <h3 class="m-0">RBackground</h3>
+    </a>
+</div>
+<div class="collapse" id="rbackground-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
 </ul>
         </div>
         <div class="main-section ps-3">
@@ -2063,7 +2132,7 @@
                     </td>
                     <td class="">
                                             <p>
-                    Do not include any default controls
+                    Do not include any default controls. Cannot be changed once set.
         </p>
                                 <em class="me-1">default</em> <code>false</code>
                     </td>
@@ -2083,7 +2152,7 @@
                     </td>
                     <td class="">
                                             <p>
-                    Do not include any default interactions
+                    Do not include any default interactions. Cannot be changed once set.
         </p>
                                 <em class="me-1">default</em> <code>false</code>
                     </td>
@@ -10961,6 +11030,57 @@ The provided
         </p>
                     </td>
                 </tr>
+                <tr>
+                    <td class="">
+                        <code>placement</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'line'
+
+            |     
+    
+    
+    
+    'point'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Text placement
+        </p>
+                                <em class="me-1">default</em> <code>&#x27;point&#x27;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>textBaseline</code>
+                    </td>
+                    <td class="">
+                        <code>        CanvasTextBaseline
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Text baseline
+        </p>
+                                <em class="me-1">default</em> <code>&#x27;middle&#x27;</code>
+                    </td>
+                </tr>
         </tbody>
     </table>
 </section>
@@ -14117,6 +14237,526 @@ if it returns true, a drag sequence is started
 </section>
 <hr>
                                                 </section>
+<hr>
+        <section>
+    <h2 id="rlayergraticule">
+            
+            
+            
+            <em class="me-1">class</em> RLayerGraticule
+        
+    </h2>
+                        <p>
+                    A layer that renders a static image
+        </p>
+        <h7>Parameters</h7>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th class="col-2">Parameter</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class=""><code>props</code></td>
+                    <td class=""><code>                Readonly
+    
+    
+    
+    
+    
+        &lt;
+                    RLayerGraticuleProps
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""><code>context</code></td>
+                    <td class=""><code>                React.Context
+    
+    
+    
+    
+    
+        &lt;
+                    <a href="#rcontexttype">RContextType</a>
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+        </tbody>
+    </table>
+                                                                                                <h7>Properties</h7>
+    <table class="table table-light">
+        <thead>
+                <th class="col-2">Property</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="">
+                        <code>className</code>
+                    </td>
+                    <td class="">
+                        <code>        string
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    CSS class
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>extent</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_interaction_Extent-Extent.html#~Extent">Extent</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Extent of the map, cannot be dynamically modified
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>maxLines</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Maximum number of meridians / parallels
+        </p>
+                                <em class="me-1">default</em> <code>100</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>targetSize</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Target size of the graticule cells
+        </p>
+                                <em class="me-1">default</em> <code>100</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>strokeStyle</code>
+                    </td>
+                    <td class="">
+                        <code>        RStyleLike
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Stroke style for the lines
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>showLabels</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Show labels
+        </p>
+                                <em class="me-1">default</em> <code>false</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>lonLabelFormatter</code>
+                    </td>
+                    <td class="">
+                        <code>        Formatter
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Formatter for the longitude labels
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>latLabelFormatter</code>
+                    </td>
+                    <td class="">
+                        <code>        Formatter
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Formatter for the latitude labels
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>lonLabelStyle</code>
+                    </td>
+                    <td class="">
+                        <code>        RStyleLike
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Longitude labels style
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>latLabelStyle</code>
+                    </td>
+                    <td class="">
+                        <code>        RStyleLike
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Latitude labels style
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>intervals</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                    number
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Intervals (in degrees) for the graticule
+        </p>
+                                <em class="me-1">default</em> <code>[90, 45, 30, 20, 10, 5, 2, 1, 30/60, 20/60, 10/60, 5/60, 2/60, 1/60, 30/3600, 20/3600, 10/3600, 5/3600, 2/3600, 1/3600]</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>wrap</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Wrap around the antimeridian
+        </p>
+                                <em class="me-1">default</em> <code>true</code>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</section>
+<hr>
+        <section>
+    <h2 id="rlayerimage">
+            
+            
+            
+            <em class="me-1">class</em> RLayerImage
+        
+    </h2>
+                        <p>
+                    A layer that renders a static image
+        </p>
+        <h7>Parameters</h7>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th class="col-2">Parameter</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class=""><code>props</code></td>
+                    <td class=""><code>                Readonly
+    
+    
+    
+    
+    
+        &lt;
+                    RLayerImageProps
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""><code>context</code></td>
+                    <td class=""><code>                React.Context
+    
+    
+    
+    
+    
+        &lt;
+                    <a href="#rcontexttype">RContextType</a>
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+        </tbody>
+    </table>
+                                                                                                <h7>Properties</h7>
+    <table class="table table-light">
+        <thead>
+                <th class="col-2">Property</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="">
+                        <code>url</code>
+                    </td>
+                    <td class="">
+                        <code>        string
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    url of the image
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>extent</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_interaction_Extent-Extent.html#~Extent">Extent</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Extent of the map, cannot be dynamically modified
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>projection</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_proj-ProjectionLike.html#~ProjectionLike">ProjectionLike</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Projection for the returned coordinates
+        </p>
+                                <em class="me-1">default</em> <code>viewProjection</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>size</code>
+                    </td>
+                    <td class="">
+                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_size-Size.html#~Size">Size</a>
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    image size if the auto-detection fails
+        </p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</section>
+<hr>
+        <section>
+    <h2 id="rbackground">
+            
+            
+            
+            <em class="me-1">class</em> RBackground
+        
+    </h2>
+                        <p>
+                    Background element of a text
+        </p>
+                    <p>
+                    Requires an 
+                    <code><a href="#rtext">RText</a></code>
+                     context
+        </p>
+                    <p>
+                    Provides an 
+                    <code><a href="#rstyle">RStyle</a></code>
+                     context - for 
+                    <code>Fill</code>
+                     or 
+                    <code>Stroke</code>
+        </p>
+                                                                                            </section>
 <hr>
         </div>
     </div>
