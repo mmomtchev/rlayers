@@ -62,6 +62,10 @@ export default function Cluster(): JSX.Element {
                                 // Render a blob with a number
                                 const radius = extentFeatures(feature.get('features'), resolution);
                                 return (
+                                    // A dynamic style should return a fragment instead of a
+                                    // full-blown RStyle - returning a full RStyle here
+                                    // will simply replace the style used by the vector layer
+                                    // with a fixed one
                                     <React.Fragment>
                                         <RCircle radius={radius}>
                                             <RFill color={colorBlob(size)} />
