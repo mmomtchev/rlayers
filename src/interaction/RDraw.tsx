@@ -1,10 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
-import {default as Draw} from 'ol/interaction/Draw';
+import {default as Draw, DrawEvent} from 'ol/interaction/Draw';
 import {StyleLike} from 'ol/style/Style';
 
 import {default as RPointer} from './RPointer';
-import RStyle from '../style/RStyle';
 import debug from '../debug';
 
 /**
@@ -47,6 +46,13 @@ export interface RDrawProps {
     /** Snap tolerance in pixels
      * @default 12 */
     snapTolerance?: number;
+
+    /** Called on draw start */
+    onDrawStart?: (this: RDraw, e: DrawEvent) => void;
+    /** Called on draw end */
+    onDrawEnd?: (this: RDraw, e: DrawEvent) => void;
+    /** Called on draw cancel */
+    onDrawAbort?: (this: RDraw, e: DrawEvent) => void;
 }
 
 /** Pointer interaction for drawing features */

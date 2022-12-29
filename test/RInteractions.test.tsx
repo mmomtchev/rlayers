@@ -3,12 +3,9 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {Style, Stroke} from 'ol/style';
-import {RMap, RInteraction, RLayerVector, RStyle} from 'rlayers';
+import {RMap, RInteraction, RLayerVector} from 'rlayers';
 import {RBaseInteraction} from 'rlayers/interaction';
 import * as common from './common';
-import {StyleFunction} from 'ol/style/Style';
-import {Feature} from 'ol';
-import {Circle} from 'ol/geom';
 
 describe('<RDragBox>', () => {
     it('should create a DragBox interaction', async () => {
