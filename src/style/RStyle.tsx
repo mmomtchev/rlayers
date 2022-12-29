@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import LRU from 'lru-cache';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
+import Geometry from 'ol/geom/Geometry';
 
 import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
-import Geometry from 'ol/geom/Geometry';
 
 /**
  * @propsfor RStyle
@@ -163,7 +163,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
         // React.RefObjects are just plain JS objects after JS transpilation
         if (Object.keys(style).includes('current')) {
             asRStyle = (style as unknown as RStyleRef).current;
-            if (asRStyle === undefined) return undefined;
+            if (asRStyle === undefined || asRStyle === null) return undefined;
         }
 
         if (asRStyle) {

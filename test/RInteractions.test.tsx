@@ -2,9 +2,13 @@ window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
-import {RMap, RInteraction, RLayerVector} from 'rlayers';
+import {Style, Stroke} from 'ol/style';
+import {RMap, RInteraction, RLayerVector, RStyle} from 'rlayers';
 import {RBaseInteraction} from 'rlayers/interaction';
 import * as common from './common';
+import {StyleFunction} from 'ol/style/Style';
+import {Feature} from 'ol';
+import {Circle} from 'ol/geom';
 
 describe('<RDragBox>', () => {
     it('should create a DragBox interaction', async () => {
@@ -174,6 +178,28 @@ describe('<RDraw>', () => {
         expect(ref.current).toBeInstanceOf(RInteraction.RDraw);
         unmount();
     });
+    it('should support styles', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RDraw>;
+        const style = new Style({
+            stroke: new Stroke({
+                color: 'red',
+                width: 3
+            })
+        });
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RDraw type={'Circle'} ref={ref} style={style} />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RDraw);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const styleResult = (ref.current?.ol as any).overlay_.style_ as Style;
+        expect(styleResult.getStroke().getWidth?.()).toBe(3);
+        unmount();
+    });
     it('should throw without LayerVector', async () => {
         // eslint-disable-next-line no-console
         const err = console.error;
@@ -204,6 +230,28 @@ describe('<RModify>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
         expect(ref.current).toBeInstanceOf(RInteraction.RModify);
+        unmount();
+    });
+    it('should support styles', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RModify>;
+        const style = new Style({
+            stroke: new Stroke({
+                color: 'red',
+                width: 8
+            })
+        });
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RModify ref={ref} style={style} />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RModify);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const styleResult = (ref.current?.ol as any).overlay_.style_ as Style;
+        expect(styleResult.getStroke().getWidth?.()).toBe(8);
         unmount();
     });
     it('should throw without LayerVector', async () => {

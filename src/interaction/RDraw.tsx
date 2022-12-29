@@ -1,9 +1,10 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {default as Draw} from 'ol/interaction/Draw';
+import {StyleLike} from 'ol/style/Style';
 
 import {default as RPointer} from './RPointer';
-import {RStyleLike} from '../style/RStyle';
+import RStyle from '../style/RStyle';
 import debug from '../debug';
 
 /**
@@ -29,8 +30,12 @@ export interface RDrawProps {
     /** An optional OpenLayers condition to activate freehand drawing
      * @default shiftKeyOnly */
     freehandCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
-    /** Style for rendering the features */
-    style?: RStyleLike;
+    /**
+     * Style for rendering while drawing, supports only Openlayers styles.
+     * Once the interaction is finished, the resulting feature will adopt
+     * the style of its layer.
+     */
+    style?: StyleLike;
     /** Do not trigger pointer events while the interaction is active */
     stopClick?: boolean;
     /** Maximum number of points allowed per feature

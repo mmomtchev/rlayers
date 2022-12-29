@@ -1,9 +1,10 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import {default as Modify} from 'ol/interaction/Modify';
+import {StyleLike} from 'ol/style/Style';
 
 import {default as RPointer} from './RPointer';
-import {RStyleLike} from '../style/RStyle';
+import RStyle from '../style/RStyle';
 import debug from '../debug';
 
 /**
@@ -19,8 +20,12 @@ export interface RModifyProps {
     /** An optional OpenLayers condition to allow adding of a vertex
      * @default true */
     insertVertexCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
-    /** Style for rendering the features */
-    style?: RStyleLike;
+    /**
+     * Style for rendering while drawing, supports only Openlayers styles.
+     * Once the interaction is finished, the resulting feature will adopt
+     * the style of its layer.
+     */
+    style?: StyleLike;
     /** Snap tolerance in pixels
      * @default 10 */
     pixelTolerance?: number;

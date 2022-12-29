@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [1.4.8] WIP
 
 -   Support additional `<RMap>` properties, including disabling of the rotation
+-   Fix [#109], interactions do not support JSX styles
 
 ### [1.4.7] 2022-12-23
 
