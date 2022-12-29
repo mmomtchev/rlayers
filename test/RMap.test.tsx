@@ -44,7 +44,7 @@ describe('<RMap>', () => {
     });
     it('should display an OSM map w/resolution', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
-        const {rerender} = render(
+        render(
             <RMap {...common.mapProps} ref={map} minResolution={1250} maxResolution={10000}>
                 <ROSM />
             </RMap>
