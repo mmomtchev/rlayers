@@ -88,10 +88,32 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     minResolution?: number;
     /** Maximum resolution, cannot be dynamically modified */
     maxResolution?: number;
+    /**
+     * If true, the view will always animate to the closest zoom level after an interaction;
+     * false means intermediary zoom levels are allowed.
+     * @default false
+     */
+    constrainResolution?: boolean;
     /** Minimum zoom level */
     minZoom?: number;
     /** Maximum zoom level */
     maxZoom?: number;
+    /**
+     * Allow rotation of the map.
+     * Cannot be updated once the map is created.
+     *
+     * @default true
+     */
+    enableRotation?: boolean;
+    /**
+     * Rotation constraint. false means no constraint. true means no constraint, but snap to zero near zero.
+     * A number constrains the rotation to that number of values.
+     * For example, 4 will constrain the rotation to 0, 90, 180, and 270 degrees.
+     * Cannot be updated once the map is created.
+     *
+     * @default true
+     */
+    constrainRotation?: boolean | number;
 }
 
 /**
@@ -117,8 +139,11 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
                 extent: props.extent,
                 minResolution: props.minResolution,
                 maxResolution: props.maxResolution,
+                constrainResolution: props.constrainResolution,
                 minZoom: props.minZoom,
-                maxZoom: props.maxZoom
+                maxZoom: props.maxZoom,
+                enableRotation: props.enableRotation,
+                constrainRotation: props.constrainRotation
             })
         });
         if (this.props.view) this.ol.on('moveend', this.updateView);
@@ -142,7 +167,7 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
     refresh(prevProps?: RMapProps): void {
         super.refresh(prevProps);
         const view = this.ol.getView();
-        for (const p of ['minZoom', 'maxZoom']) {
+        for (const p of ['minZoom', 'maxZoom', 'constrainResolution']) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);
             if (!prevProps || this.props[p] !== prevProps[p]) view['set' + m](this.props[p]);
         }

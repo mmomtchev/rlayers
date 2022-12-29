@@ -62,6 +62,21 @@ describe('<RMap>', () => {
         expect(map.current?.ol.getView().getResolution()).toBe(2000);
         expect(map.current?.ol.getView().getZoom()).not.toBe(11);
     });
+    it('should support additional View properties', async () => {
+        const map = React.createRef() as React.RefObject<RMap>;
+        const {rerender} = render(
+            <RMap {...common.mapProps} ref={map} constrainResolution={true} enableRotation={false}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current?.ol.getView().getConstrainResolution()).toBeTruthy();
+        rerender(
+            <RMap {...common.mapProps} ref={map} constrainResolution={false}>
+                <ROSM />
+            </RMap>
+        );
+        expect(map.current?.ol.getView().getConstrainResolution()).toBeFalsy();
+    });
     it('should handle Map events w/update', async () => {
         const mapEvents = [
             'Click',
