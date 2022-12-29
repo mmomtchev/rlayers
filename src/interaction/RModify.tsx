@@ -1,10 +1,9 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
-import {default as Modify} from 'ol/interaction/Modify';
+import {default as Modify, ModifyEvent} from 'ol/interaction/Modify';
 import {StyleLike} from 'ol/style/Style';
 
 import {default as RPointer} from './RPointer';
-import RStyle from '../style/RStyle';
 import debug from '../debug';
 
 /**
@@ -32,6 +31,10 @@ export interface RModifyProps {
     /** True hit detection based on feature shape
      * @default false */
     hitDetection?: number;
+    /** Called on modify start */
+    onDrawStart?: (this: RModify, e: ModifyEvent) => void;
+    /** Called on modify end */
+    onDrawEnd?: (this: RModify, e: ModifyEvent) => void;
 }
 
 /** Pointer interaction for modifying existing features */
