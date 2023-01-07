@@ -72,11 +72,17 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
         this.setPosition();
     }
 
+    /**
+     * Toggle the state
+     */
     toggle = (): void => {
         this.visible = !this.visible;
         this.setPosition();
     };
 
+    /**
+     * Show the popup
+     */
     show = (): void => {
         if (this.showing) return;
         if (this.hiding) window.clearTimeout(this.hiding);
@@ -87,6 +93,9 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
         }, this.props.delay?.show ?? 250);
     };
 
+    /**
+     * Hide the popup
+     */
     hide = (): void => {
         if (this.hiding) return;
         if (this.showing) window.clearTimeout(this.showing);
