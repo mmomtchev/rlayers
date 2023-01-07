@@ -20,56 +20,68 @@ const coords: Record<string, Coordinate> = {
 };
 
 export default function Popups(): JSX.Element {
+    const popup = React.useRef<RPopup>();
     return (
-        <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
-            <ROSM />
-            <RLayerVector zIndex={10}>
-                <RFeature geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
-                    <RStyle>
-                        <RIcon src={locationIcon} anchor={[0.5, 0.8]} />
-                    </RStyle>
-                    <RPopup trigger={'click'} className='example-overlay'>
-                        <div className='card'>
-                            <p className='card-header'>
-                                <strong>Arc de Triomphe</strong>
+        <React.Fragment>
+            <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
+                <ROSM />
+                <RLayerVector zIndex={10}>
+                    <RFeature geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
+                        <RStyle>
+                            <RIcon src={locationIcon} anchor={[0.5, 0.8]} />
+                        </RStyle>
+                        <RPopup ref={popup} trigger={'click'} className='example-overlay'>
+                            <div className='card'>
+                                <p className='card-header'>
+                                    <strong>Arc de Triomphe</strong>
+                                </p>
+                                <p className='card-body text-center'>Popup on click</p>
+                            </div>
+                        </RPopup>
+                    </RFeature>
+                    <RFeature
+                        geometry={
+                            new Polygon([
+                                [
+                                    fromLonLat(coords.PlaceDItalie),
+                                    fromLonLat(coords.Bastille),
+                                    fromLonLat(coords.TourEiffel),
+                                    fromLonLat(coords.PlaceDItalie)
+                                ]
+                            ])
+                        }
+                        onClick={useCallback(
+                            (e) =>
+                                e.map.getView().fit(e.target.getGeometry().getExtent(), {
+                                    duration: 250
+                                }),
+                            []
+                        )}
+                    >
+                        <RStyle>
+                            <RStroke color='yellow' width={4} />
+                            <RFill color='transparent' />
+                        </RStyle>
+                        <RPopup trigger={'hover'} className='example-overlay'>
+                            <p>
+                                <strong>Les catacombes</strong>
                             </p>
-                            <p className='card-body text-center'>Popup on click</p>
-                        </div>
-                    </RPopup>
-                </RFeature>
-                <RFeature
-                    geometry={
-                        new Polygon([
-                            [
-                                fromLonLat(coords.PlaceDItalie),
-                                fromLonLat(coords.Bastille),
-                                fromLonLat(coords.TourEiffel),
-                                fromLonLat(coords.PlaceDItalie)
-                            ]
-                        ])
-                    }
-                    onClick={useCallback(
-                        (e) =>
-                            e.map.getView().fit(e.target.getGeometry().getExtent(), {
-                                duration: 250
-                            }),
-                        []
-                    )}
-                >
-                    <RStyle>
-                        <RStroke color='yellow' width={4} />
-                        <RFill color='transparent' />
-                    </RStyle>
-                    <RPopup trigger={'hover'} className='example-overlay'>
-                        <p>
-                            <strong>Les catacombes</strong>
-                        </p>
-                        <p>
-                            <em>Popup on hover, pan on click</em>
-                        </p>
-                    </RPopup>
-                </RFeature>
-            </RLayerVector>
-        </RMap>
+                            <p>
+                                <em>Popup on hover, pan on click</em>
+                            </p>
+                        </RPopup>
+                    </RFeature>
+                </RLayerVector>
+            </RMap>
+            <div>Control programmatically:</div>
+            <div>
+                <button className='btn btn-primary m-1' onClick={() => popup.current.hide()}>
+                    Hide Arc de Triomphe
+                </button>
+                <button className='btn btn-primary m-1' onClick={() => popup.current.show()}>
+                    Show Arc de Triomphe
+                </button>
+            </div>
+        </React.Fragment>
     );
 }
