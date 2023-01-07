@@ -27,6 +27,8 @@ describe('<RLayerVector>', () => {
         expect(refMap.current?.ol.getLayers().getLength()).toBe(1);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((refVector.current?.ol as any).renderBuffer_).toBe(250);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((refVector.current?.source as any).wrapX_).toBeTruthy();
         rerender(<RMap ref={refMap} {...common.mapProps}></RMap>);
         expect(refVector.current).toBeNull();
         expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
@@ -200,6 +202,20 @@ describe('<RLayerVector>', () => {
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();
         expect(handler.mock.calls[0]).toEqual(['http://url2']);
+        unmount();
+    });
+    it('should support disabling of the AM wrapping', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} wrapX={false} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((refVector.current?.source as any).wrapX_).toBeFalsy();
         unmount();
     });
 });

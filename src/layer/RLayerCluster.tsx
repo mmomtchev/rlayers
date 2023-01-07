@@ -35,7 +35,8 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,
-            loader: this.props.loader
+            loader: this.props.loader,
+            wrapX: this.props.wrapX
         });
         this.source = new SourceCluster({source: this.cluster, distance: this.props.distance});
         this.ol = new LayerVector({
