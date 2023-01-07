@@ -47,6 +47,11 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     loader?: FeatureLoader;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
+    /**
+     * Wrap features around the antimeridian. Cannot be dynamically updated once the layer is created.
+     * @default false
+     */
+    wrapX?: boolean;
     /** Default onClick handler for loaded features */
     onClick?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RFeatureUIEvent) => boolean | void;
     /** Called when a feature is added, not called for features
