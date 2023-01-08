@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.7 | Documentation
+        1.4.8 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.7</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.8</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -196,7 +196,7 @@
         </li>
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
-    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rpopup-collapse"
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed"  data-bs-target="#rpopup-collapse"
         data-bs-toggle="collapse">
         <span class="font-monospace if-collapsed">+</span>
         <span class="font-monospace if-not-collapsed">-</span> </button>
@@ -214,6 +214,75 @@
     <ul class="list-group">
 </ul>
     <ul class="list-group">
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#toggle-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#toggle">
+        <h3 class="m-0">toggle</h3>
+    </a>
+</div>
+<div class="collapse" id="toggle-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#show-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#show">
+        <h3 class="m-0">show</h3>
+    </a>
+</div>
+<div class="collapse" id="show-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#hide-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#hide">
+        <h3 class="m-0">hide</h3>
+    </a>
+</div>
+<div class="collapse" id="hide-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
 </ul>
 </div>
         </li>
@@ -3156,6 +3225,27 @@ can be used to stop OpenLayers from also panning the map
                 </tr>
                 <tr>
                     <td class="">
+                        <code>constrainResolution</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    If true, the view will always animate to the closest zoom level after an interaction;
+false means intermediary zoom levels are allowed.
+        </p>
+                                <em class="me-1">default</em> <code>false</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
                         <code>minZoom</code>
                     </td>
                     <td class="">
@@ -3190,6 +3280,63 @@ can be used to stop OpenLayers from also panning the map
                                             <p>
                     Maximum zoom level
         </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>enableRotation</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Allow rotation of the map.
+Cannot be updated once the map is created.
+        </p>
+                                <em class="me-1">default</em> <code>true</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>constrainRotation</code>
+                    </td>
+                    <td class="">
+                        <code>                    boolean
+    
+    
+    
+    
+    
+
+            |         number
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Rotation constraint. false means no constraint. true means no constraint, but snap to zero near zero.
+A number constrains the rotation to that number of values.
+For example, 4 will constrain the rotation to 0, 90, 180, and 270 degrees.
+Cannot be updated once the map is created.
+        </p>
+                                <em class="me-1">default</em> <code>true</code>
                     </td>
                 </tr>
         </tbody>
@@ -4414,7 +4561,74 @@ can be used to stop OpenLayers from also panning the map
                 </tr>
         </tbody>
     </table>
-                                                                                                <h7>Properties</h7>
+                                                                                <h7>Instance members</h7>
+        <section>
+    <h2 id="toggle">
+            
+            toggle
+            
+            
+        
+    </h2>
+                        <p>
+                    Toggle the state
+        </p>
+                Returns
+    <div class="me-1">
+            <code>     void 
+    
+    
+    
+    
+</code>
+                </div>
+                                                                                </section>
+<hr>
+        <section>
+    <h2 id="show">
+            
+            show
+            
+            
+        
+    </h2>
+                        <p>
+                    Show the popup
+        </p>
+                Returns
+    <div class="me-1">
+            <code>     void 
+    
+    
+    
+    
+</code>
+                </div>
+                                                                                </section>
+<hr>
+        <section>
+    <h2 id="hide">
+            
+            hide
+            
+            
+        
+    </h2>
+                        <p>
+                    Hide the popup
+        </p>
+                Returns
+    <div class="me-1">
+            <code>     void 
+    
+    
+    
+    
+</code>
+                </div>
+                                                                                </section>
+<hr>
+                    <h7>Properties</h7>
     <table class="table table-light">
         <thead>
                 <th class="col-2">Property</th>
@@ -5355,6 +5569,26 @@ but are partially inside, can be rendered
                     OpenLayers default style for features without 
                     <code><a href="#style">style</a></code>
         </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>wrapX</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Wrap features around the antimeridian. Cannot be dynamically updated once the layer is created.
+        </p>
+                                <em class="me-1">default</em> <code>false</code>
                     </td>
                 </tr>
                 <tr>
@@ -12406,7 +12640,7 @@ The provided
                         <code>style</code>
                     </td>
                     <td class="">
-                        <code>        RStyleLike
+                        <code>        StyleLike
     
     
     
@@ -12416,7 +12650,9 @@ The provided
                     </td>
                     <td class="">
                                             <p>
-                    Style for rendering the features
+                    Style for rendering while drawing, supports only Openlayers styles.
+Once the interaction is finished, the resulting feature will adopt
+the style of its layer.
         </p>
                     </td>
                 </tr>
@@ -12497,6 +12733,165 @@ The provided
                     Snap tolerance in pixels
         </p>
                                 <em class="me-1">default</em> <code>12</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onDrawStart</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rdraw">RDraw</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         DrawEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called on draw start
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onDrawEnd</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rdraw">RDraw</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         DrawEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called on draw end
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onDrawAbort</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rdraw">RDraw</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         DrawEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called on draw cancel
+        </p>
                     </td>
                 </tr>
         </tbody>
@@ -13032,7 +13427,7 @@ The provided
                         <code>style</code>
                     </td>
                     <td class="">
-                        <code>        RStyleLike
+                        <code>        StyleLike
     
     
     
@@ -13042,7 +13437,9 @@ The provided
                     </td>
                     <td class="">
                                             <p>
-                    Style for rendering the features
+                    Style for rendering while drawing, supports only Openlayers styles.
+Once the interaction is finished, the resulting feature will adopt
+the style of its layer.
         </p>
                     </td>
                 </tr>
@@ -13084,6 +13481,112 @@ The provided
                     True hit detection based on feature shape
         </p>
                                 <em class="me-1">default</em> <code>false</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onDrawStart</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rmodify">RModify</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         ModifyEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called on modify start
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onDrawEnd</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rmodify">RModify</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         ModifyEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called on modify end
+        </p>
                     </td>
                 </tr>
         </tbody>
