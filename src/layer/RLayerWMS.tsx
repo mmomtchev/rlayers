@@ -38,5 +38,7 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     refresh(prevProps?: RLayerWMSProps): void {
         super.refresh(prevProps);
         this.createSource();
+        this.ol.setSource(this.source);
+        this.attachOldEventHandlers(this.source);
     }
 }

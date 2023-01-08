@@ -93,6 +93,7 @@ export default class RLayerGraticule extends RLayer<RLayerGraticuleProps> {
         super.refresh(prevProps);
         const old = this.context.map.removeLayer(this.ol);
         this.createSource();
+        this.attachOldEventHandlers(this.ol);
         if (old) this.context.map.addLayer(this.ol);
     }
 }

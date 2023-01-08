@@ -39,5 +39,7 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     refresh(prevProps?: RLayerTileWMSProps): void {
         super.refresh(prevProps);
         this.createSource();
+        this.ol.setSource(this.source);
+        this.attachOldEventHandlers(this.source);
     }
 }

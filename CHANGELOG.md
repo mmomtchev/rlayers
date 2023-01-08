@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Fix [#109], interactions do not support JSX styles
 -   Add event callbacks to `RDraw` and `RModify`
 -   Allow setting of `wrapX` for vector layers
+-   Fix [#121], reprojected tile layers do not automatically refresh when setting the URL
 
 ### [1.4.7] 2022-12-23
 

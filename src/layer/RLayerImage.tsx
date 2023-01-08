@@ -57,6 +57,7 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
             this.createSource();
             this.ol.setSource(this.source);
             this.eventSources = [this.ol, this.source];
+            this.attachOldEventHandlers(this.source);
         }
     }
 }

@@ -20,19 +20,27 @@ describe('<RLayerTile>', () => {
         );
         expect(container.innerHTML).toMatchSnapshot();
     });
-    it('should update the url', async () => {
+
+    it('should update the url by recreating the source', async () => {
         const ref = React.createRef() as React.RefObject<RLayerTile>;
+        const handler = jest.fn(() => undefined);
         const comp = (url) => (
             <RMap {...common.mapProps}>
-                <RLayerTile ref={ref} url={url} />
+                <RLayerTile ref={ref} url={url} onTileLoadStart={handler} />
             </RMap>
         );
         const {rerender, container, unmount} = render(comp('http://url1'));
         expect(container.innerHTML).toMatchSnapshot();
         expect((ref.current?.source.getUrls() || [])[0]).toEqual('http://url1');
+        expect(ref.current?.source.getListeners('tileloadend')).toBeUndefined();
+        expect(ref.current?.source.getListeners('tileloadstart')).toHaveLength(1);
+        const source = ref.current?.source;
         rerender(comp('http://url2'));
         expect(container.innerHTML).toMatchSnapshot();
         expect((ref.current?.source.getUrls() || [])[0]).toEqual('http://url2');
+        expect(ref.current?.source.getListeners('tileloadend')).toBeUndefined();
+        expect(ref.current?.source.getListeners('tileloadstart')).toHaveLength(1);
+        expect(ref.current?.source).not.toEqual(source);
         unmount();
     });
 

@@ -61,10 +61,10 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
 
     refresh(prevProps?: RLayerTileWebGLProps): void {
         super.refresh(prevProps);
-        if (prevProps?.tileGrid !== this.props.tileGrid) this.createSource();
-        if (this.props.url && prevProps?.url !== this.props.url) {
-            this.source.setUrl(this.props.url);
-            this.source.refresh();
+        if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
+            this.createSource();
+            this.ol.setSource(this.source);
+            this.attachOldEventHandlers(this.source);
         }
     }
 }
