@@ -39,6 +39,8 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
 
     // Used when replacing a source
     attachOldEventHandlers(newSource: BaseObject): void {
+        // No events have been attached yet
+        if (!this.handlers) return;
         const events = Object.keys(this.props).filter((p) => p.startsWith('on'));
         for (const e of events) {
             if (this.props[e]) {
