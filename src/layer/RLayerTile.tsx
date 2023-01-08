@@ -59,6 +59,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
         if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
             this.createSource();
             this.ol.setSource(this.source);
+            this.attachOldEventHandlers(this.source);
         }
     }
 }
