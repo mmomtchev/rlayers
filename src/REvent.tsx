@@ -41,8 +41,10 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     attachOldEventHandlers(newSource: BaseObject): void {
         const events = Object.keys(this.props).filter((p) => p.startsWith('on'));
         for (const e of events) {
-            debug('reinstalling existing handler', this, e, this.props[e]);
-            newSource.on(this.olEventName(e), this.handlers[e]);
+            if (this.props[e]) {
+                debug('reinstalling existing handler', this, e, this.props[e]);
+                newSource.on(this.olEventName(e), this.handlers[e]);
+            }
         }
     }
 
