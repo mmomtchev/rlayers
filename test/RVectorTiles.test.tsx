@@ -31,6 +31,7 @@ describe('<RLayerVectorTiles>', () => {
                 <RLayerVectorTile {...props} ref={ref} renderBuffer={250} />
             </RMap>
         );
+        expect(ref.current?.source.getProjection()?.getCode()).toBe('EPSG:3857');
         expect(container.innerHTML).toMatchSnapshot();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((ref.current?.ol as any).renderBuffer_).toBe(250);
@@ -146,6 +147,17 @@ describe('<RLayerVectorTiles>', () => {
         expect(container.innerHTML).toMatchSnapshot();
         rerender(comp);
         expect(container.innerHTML).toMatchSnapshot();
+        unmount();
+    });
+    it('should support projections', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const comp = (
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile projection='EPSG:4326' ref={layer} {...props} />
+            </RMap>
+        );
+        const {unmount} = render(comp);
+        expect(layer.current?.source.getProjection()?.getCode()).toBe('EPSG:4326');
         unmount();
     });
     it('should update the style', async () => {
