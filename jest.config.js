@@ -2,7 +2,14 @@ module.exports = {
     testEnvironment: 'jsdom',
     roots: ['<rootDir>/test'],
     transform: {
-        '^.+.(t|j)sx?$': 'ts-jest'
+        '^.+.(t|j)sx?$': [
+            'ts-jest',
+            {
+                tsconfig: {
+                    outDir: './.ts-jest'
+                }
+            }
+        ]
     },
     transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru))'],
     moduleNameMapper: {
@@ -10,13 +17,6 @@ module.exports = {
         '^rlayers/(.*)$': '<rootDir>/src/$1',
         '\\.(css|less)$': '<rootDir>/test/css.js',
         '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'
-    },
-    globals: {
-        'ts-jest': {
-            tsconfig: {
-                outDir: './.ts-jest'
-            }
-        }
     },
     setupFiles: ['jest-canvas-mock'],
     setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', './test/setup_mocks.ts'],
