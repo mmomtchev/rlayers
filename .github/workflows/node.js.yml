@@ -139,10 +139,10 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js 16.x
+            - name: Use Node.js 18.x
               uses: actions/setup-node@v1
               with:
-                  node-version: 16.x
+                  node-version: 18.x
             - run: |
                   npm i react@18.2 react-dom@18.2 react-test-renderer@18.2 @types/react@18 @types/react-dom@18 @testing-library/react@13
             - run: npm i
