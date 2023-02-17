@@ -24,8 +24,10 @@ const fonts = {
 
 /*
  * If you know about any open and free to use vector tile services, please let me know
- * This example uses a primitive pbf tile server based on geojson-vt
- * You can use the server set up at https://react-layers.meteo.guru/tiles
+ * This example uses the velivole.fr administrative boundary server which serves EPSG:4326
+ *
+ * You can find a primitive pbf tile server based on geojson-vt
+ * at https://react-layers.meteo.guru/tiles
  * Or clone the full source code from https://github.com/mmomtchev/geojson-vt-server.git
  */
 export default function VectorTiles(): JSX.Element {
@@ -71,10 +73,15 @@ export default function VectorTiles(): JSX.Element {
                     );
                 }, [])}
             />
-            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 8}}>
+            <RMap
+                className='example-map'
+                initial={{center: fromLonLat([2.364, 48.82], 'EPSG:4326'), zoom: 8}}
+                projection='EPSG:4326'
+            >
                 {/* This is the background raster map */}
                 <RLayerTile
                     properties={{label: 'Watercolor'}}
+                    projection='EPSG:3857'
                     url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
                 />
                 {/* These are the administrative borders */}
@@ -86,6 +93,7 @@ export default function VectorTiles(): JSX.Element {
                         [setCountry]
                     )}
                     url='https://react-layers.meteo.guru/tiles/admin/{z}/{x}/{y}'
+                    projection='EPSG:4326'
                     format={new MVT()}
                 >
                     <RStyle>
@@ -97,6 +105,7 @@ export default function VectorTiles(): JSX.Element {
                 {/* These are the cities */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/0/{z}/{x}/{y}'
+                    projection='EPSG:4326'
                     maxResolution={0.01 * degree}
                     style={towns}
                     format={new MVT()}
@@ -104,6 +113,7 @@ export default function VectorTiles(): JSX.Element {
                 {/* The towns visible only when zoomed in */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/1/{z}/{x}/{y}'
+                    projection='EPSG:4326'
                     maxResolution={0.0025 * degree}
                     style={towns}
                     format={new MVT()}
@@ -111,6 +121,7 @@ export default function VectorTiles(): JSX.Element {
                 {/* The small villages at maximum resolution */}
                 <RLayerVectorTile
                     url='https://react-layers.meteo.guru/tiles/place/2/{z}/{x}/{y}'
+                    projection='EPSG:4326'
                     maxResolution={0.0005 * degree}
                     style={towns}
                     format={new MVT()}

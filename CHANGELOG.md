@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [1.4.9]
+
+-   Allow using projections other than Web Mercator with `RVectorTile` (the vector tile projection must still match the view projection)
+
 ### [1.4.8] 2023-01-08
 
 -   Support additional `<RMap>` properties, including disabling of the rotation

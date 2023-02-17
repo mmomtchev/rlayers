@@ -59,7 +59,8 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         super(props, context);
         this.source = new SourceVectorTile({
             url: this.props.url,
-            format: this.props.format
+            format: this.props.format,
+            projection: this.props.projection
         });
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),
