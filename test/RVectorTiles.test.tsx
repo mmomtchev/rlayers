@@ -160,6 +160,33 @@ describe('<RLayerVectorTiles>', () => {
         expect(layer.current?.source.getProjection()?.getCode()).toBe('EPSG:4326');
         unmount();
     });
+    it('should support maxResolution / minResolution', async () => {
+        const layer = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const comp = (
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile
+                    projection='EPSG:4326'
+                    ref={layer}
+                    {...props}
+                    maxResolution={1000}
+                    minResolution={100}
+                />
+            </RMap>
+        );
+        const {unmount, rerender} = render(comp);
+        expect(layer.current?.ol.getMaxResolution()).toBe(1000);
+        expect(layer.current?.ol.getMinResolution()).toBe(100);
+
+        rerender(
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile projection='EPSG:4326' ref={layer} {...props} />
+            </RMap>
+        );
+        expect(layer.current?.ol.getMaxResolution()).toBeUndefined();
+        expect(layer.current?.ol.getMinResolution()).toBeUndefined();
+
+        unmount();
+    });
     it('should update the style', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
         const comp = (style) => (
