@@ -4,11 +4,11 @@ import React from 'react';
 // @ts-ignore
 import exampleCss from '!!raw-loader!./example.css';
 
-import packageLock from '../package-lock.json';
-const versionReact = packageLock.dependencies['react'].version;
-const versionOL = packageLock.dependencies['ol'].version;
-const versionBootstrap = packageLock.dependencies['bootstrap'].version;
-const versionProj4 = packageLock.dependencies['proj4'].version;
+import packageJson from '../package.json';
+const versionReact = packageJson.devDependencies['react'];
+const versionOL = packageJson.devDependencies['ol'];
+const versionBootstrap = packageJson.devDependencies['bootstrap'];
+const versionProj4 = packageJson.devDependencies['proj4'];
 
 const alias = (t: string): string =>
     t
