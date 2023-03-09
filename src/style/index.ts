@@ -1,3 +1,4 @@
+export {default as RBaseStyle, RBaseStyleProps} from './RBaseStyle';
 export {default as RStyle, RStyleRef, RStyleLike, useRStyle, createRStyle} from './RStyle';
 export {default as RStyleArray} from './RStyleArray';
 export {default as RStroke} from './RStroke';
