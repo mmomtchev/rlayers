@@ -26,6 +26,12 @@ export interface RLayerTileProps extends RLayerRasterProps {
      * Setting this value to true will override that.
      */
     noIterpolation?: boolean;
+    /**
+     * The `crossOrigin` attribute for loaded images.  Note that
+     * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
+     * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+     */
+    crossOrigin?: string | null;
 }
 
 /**
@@ -49,7 +55,8 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
             url: this.props.url,
             interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
-            tileGrid: this.props.tileGrid
+            tileGrid: this.props.tileGrid,
+            crossOrigin: this.props.crossOrigin
         });
         this.eventSources = [this.ol, this.source];
     }
