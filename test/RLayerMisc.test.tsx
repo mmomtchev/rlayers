@@ -136,11 +136,6 @@ describe('<RLayerTileJSON>', () => {
     });
 });
 
-proj4.defs(
-    'EPSG:2056',
-    '+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs '
-);
-proj4register(proj4);
 describe('<RLayerTileWMS>', () => {
     it('should display a TileWMS source layer', async () => {
         const layer = React.createRef() as React.RefObject<RLayerTileWMS>;
