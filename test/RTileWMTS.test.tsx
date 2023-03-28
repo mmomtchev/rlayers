@@ -1,4 +1,3 @@
-window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
 import * as path from 'path';
 import React from 'react';

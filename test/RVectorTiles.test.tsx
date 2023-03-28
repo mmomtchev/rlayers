@@ -1,4 +1,3 @@
-window.URL.createObjectURL = jest.fn();
 import * as fs from 'fs';
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';

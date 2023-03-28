@@ -1,4 +1,3 @@
-window.URL.createObjectURL = jest.fn();
 import React from 'react';
 import {fireEvent, getByText, queryByText, render} from '@testing-library/react';
 
