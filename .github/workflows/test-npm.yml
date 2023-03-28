@@ -155,6 +155,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
       - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
       - name: Run bundler
         run: |
