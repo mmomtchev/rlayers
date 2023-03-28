@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Support OpenLayers 7.3.0
 -   Allow using projections other than Web Mercator with `RVectorTile` (the vector tile projection must still match the view projection)
 -   Fix [#133], certain layer properties do not update if they transition from a defined value to `undefined`
+-   Fix [#144](https://github.com/mmomtchev/rlayers/issues/144), update WMTS layers only when the metadata is changed
 
 ### [1.4.8] 2023-01-08
 
