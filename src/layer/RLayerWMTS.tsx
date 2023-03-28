@@ -16,7 +16,7 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     url: string;
     /** Layer name */
     layer: string;
-    /** Called when the WMTS capabilities have been acquired */
+    /** Called each time the component is rerendered if/after the WMTS capabilities have been acquired */
     onSourceReady?: (this: RLayerWMTS, opt: Options) => void;
 }
 
@@ -29,6 +29,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     ol: LayerTile<SourceWMTS>;
     source: SourceWMTS;
     parser: WMTSCapabilities;
+    options: Options;
 
     constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<RContextType>) {
         super(props, context);
@@ -43,32 +44,40 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             .then((r) => r.text())
             .then((text) => {
                 const caps = this.parser.read(text);
-                const options = optionsFromCapabilities(caps, {
+                this.options = optionsFromCapabilities(caps, {
                     layer: this.props.layer
                 });
-                if (this.props.attributions) options.attributions = this.props.attributions;
-                options.crossOrigin = '';
-                if (this.props.projection) options.projection = this.props.projection;
-                options.wrapX = false;
-                this.source = new SourceWMTS(options);
+                if (this.props.attributions) this.options.attributions = this.props.attributions;
+                this.options.crossOrigin = '';
+                if (this.props.projection) this.options.projection = this.props.projection;
+                this.options.wrapX = false;
+                this.source = new SourceWMTS(this.options);
                 this.ol.setSource(this.source);
                 this.eventSources = [this.ol, this.source];
-                if (this.props.onSourceReady) this.props.onSourceReady.call(this, options);
+                if (this.props.onSourceReady) this.props.onSourceReady.call(this, this.options);
                 return this.source;
             })
             .catch((e) => {
                 // eslint-disable-next-line no-console
-                console.error('failed loading WMTS capabilities', e);
+                console.error(
+                    'failed loading WMTS capabilities',
+                    this.props.url,
+                    this.props.layer,
+                    e
+                );
                 this.source = undefined;
                 return null;
             });
     }
 
     refresh(prevProps?: RLayerWMTSProps): void {
-        this.createSource().then(() => {
-            this.createSource();
-            this.ol.setSource(this.source);
-            this.attachOldEventHandlers(this.source);
-        });
+        if (prevProps?.url !== this.props.url || prevProps?.layer !== this.props.layer) {
+            this.createSource().then(() => {
+                this.ol.setSource(this.source);
+                this.attachOldEventHandlers(this.source);
+            });
+        } else {
+            if (this.props.onSourceReady) this.props.onSourceReady.call(this, this.options);
+        }
     }
 }
