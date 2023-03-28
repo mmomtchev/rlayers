@@ -59,12 +59,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             })
             .catch((e) => {
                 // eslint-disable-next-line no-console
-                console.error(
-                    'failed loading WMTS capabilities',
-                    this.props.url,
-                    this.props.layer,
-                    e
-                );
+                console.error('failed loading WMTS', this.props.url, this.props.layer, e);
                 this.source = undefined;
                 return null;
             });
