@@ -29,6 +29,7 @@ const extentFeatures = (features, resolution) => {
 
 export default function Cluster(): JSX.Element {
     const [distance, setDistance] = React.useState(20);
+    const [selected, setSelected] = React.useState<string>('Click a cluster for details');
     const earthquakeLayer = React.useRef();
     return (
         <React.Fragment>
@@ -39,6 +40,13 @@ export default function Cluster(): JSX.Element {
                     distance={distance}
                     format={reader}
                     url={earthquakes}
+                    onClick={React.useCallback((e) => {
+                        const features = e.target.get('features') ?? [];
+                        setSelected(
+                            `${features.length} earthquakes in this location, ` +
+                                `magnitudes are ${features.map((eq) => eq.get('mag')).join(', ')}`
+                        );
+                    }, [])}
                 >
                     <RStyle
                         cacheSize={1024}
@@ -112,6 +120,7 @@ export default function Cluster(): JSX.Element {
                     />
                 </div>
             </div>
+            <div>{selected}</div>
         </React.Fragment>
     );
 }
