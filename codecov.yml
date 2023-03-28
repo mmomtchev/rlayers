@@ -1,0 +1,17 @@
+ignore:
+    - 'test/**/*'
+coverage:
+    range: 90..100
+    round: down
+    precision: 2
+    status:
+        project:
+            default:
+                target: 90%
+                threshold: 2%
+                paths:
+                    - 'src'
+        patch:
+            default:
+                target: 90%
+                threshold: 2%
