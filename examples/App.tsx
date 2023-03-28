@@ -31,7 +31,8 @@ const examples = {
     reproj: {title: 'Reprojection', file: 'Reprojection'},
     routing: {title: 'Navigation', file: 'Routing'},
     igc: {title: 'Performance', file: 'IGC'},
-    addon: {title: 'Extending rlayers', file: 'Addon'}
+    addon: {title: 'Extending rlayers', file: 'Addon'},
+    geotiff: {title: 'GeoTIFF addon', file: 'GeoTIFF'}
 };
 
 // The examples use a code-loading technique that I have described in
