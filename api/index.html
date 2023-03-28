@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.8 | Documentation
+        1.4.9 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.8</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.9</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -6935,6 +6935,47 @@ Setting this value to true will override that.
         </p>
                     </td>
                 </tr>
+                <tr>
+                    <td class="">
+                        <code>crossOrigin</code>
+                    </td>
+                    <td class="">
+                        <code>                    string
+    
+    
+    
+    
+    
+
+            |     
+     null 
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    The 
+                    <code>crossOrigin</code>
+                     attribute for loaded images.  Note that
+you must provide a 
+                    <code>crossOrigin</code>
+                     value if you want to access pixel data with the Canvas renderer.
+See 
+                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image">
+                    https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
+        </a>
+                     for more detail.
+        </p>
+                    </td>
+                </tr>
         </tbody>
     </table>
 </section>
@@ -8003,7 +8044,7 @@ Cannot be modified once set.</code>
                     </td>
                     <td class="">
                                             <p>
-                    Called when the WMTS capabilities have been acquired
+                    Called each time the component is rerendered if/after the WMTS capabilities have been acquired
         </p>
                     </td>
                 </tr>
