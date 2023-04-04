@@ -172,7 +172,7 @@ describe('<RLayerRasterMBTiles>', () => {
                     <RLayerRasterMBTiles
                         ref={layer}
                         url='https://velivole.b-cdn.net/tiles-RGR92UTM40S.mbtiles'
-                        onSourceReady={function (opt) {
+                        onSourceReady={function () {
                             try {
                                 expect(this).toBeInstanceOf(RLayerRasterMBTiles);
                                 expect(container.innerHTML).toMatchSnapshot();
