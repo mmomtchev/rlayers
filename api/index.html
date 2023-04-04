@@ -1930,6 +1930,29 @@
         </li>
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayerrastermbtiles-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#rlayerrastermbtiles">
+        <h3 class="m-0">RLayerRasterMBTiles</h3>
+    </a>
+</div>
+<div class="collapse" id="rlayerrastermbtiles-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
     <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rbackground-collapse"
         data-bs-toggle="collapse">
         <span class="font-monospace if-collapsed">+</span>
@@ -15270,6 +15293,177 @@ if it returns true, a drag sequence is started
                                             <p>
                     image size if the auto-detection fails
         </p>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</section>
+<hr>
+        <section>
+    <h2 id="rlayerrastermbtiles">
+            
+            
+            
+            <em class="me-1">class</em> RLayerRasterMBTiles
+        
+    </h2>
+                        <p>
+                    A layer from a remote MBTiles raster source
+        </p>
+                    <p>
+                    WARNING: Using this module requires manually installing 
+                    <code>ol-mbtiles</code>
+        </p>
+                    <p>
+                    <code>npm install ol-mbtiles</code>
+        </p>
+                    <p>
+                    Be sure to read its own documentation for tips on how to improve
+its performance (COOP/COEP, WASM compression, preloading...)
+        </p>
+                    <p>
+                    Requires an 
+                    <code><a href="#rmap">RMap</a></code>
+                     context
+        </p>
+        <h7>Parameters</h7>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th class="col-2">Parameter</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class=""><code>props</code></td>
+                    <td class=""><code>                Readonly
+    
+    
+    
+    
+    
+        &lt;
+                    RLayerRasterMBTilesProps
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""><code>context</code></td>
+                    <td class=""><code>                React.Context
+    
+    
+    
+    
+    
+        &lt;
+                    <a href="#rcontexttype">RContextType</a>
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+        </tbody>
+    </table>
+                                                                                                <h7>Properties</h7>
+    <table class="table table-light">
+        <thead>
+                <th class="col-2">Property</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="">
+                        <code>url</code>
+                    </td>
+                    <td class="">
+                        <code>        string
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    An URL for a remote MBTiles file
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>workers</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Use multiple SQLite workers, refer to the ol-mbtiles for more information
+        </p>
+                                <em class="me-1">default</em> <code>1</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>backend</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'sync'
+
+            |     
+    
+    
+    
+    'shared'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Use a specific HTTP backend, refer to the ol-mbtiles for more information
+        </p>
+                                <em class="me-1">default</em> <code>&#x27;sync&#x27;</code>
                     </td>
                 </tr>
         </tbody>
