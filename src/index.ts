@@ -27,6 +27,10 @@ export {default as RLayerHeatmap, RLayerHeatmapProps} from './layer/RLayerHeatma
 export {default as RLayerCluster, RLayerClusterProps} from './layer/RLayerCluster';
 export {default as RLayerVectorTile, RLayerVectorTileProps} from './layer/RLayerVectorTile';
 export {default as RLayerTileWebGL, RLayerTileWebGLProps} from './layer/RLayerTileWebGL';
+export {
+    default as RLayerRasterMBTiles,
+    RLayerRasterMBTilesProps
+} from './layer/RLayerRasterMBTiles';
 export {default as ROSMWebGL, ROSMWebGLProps} from './layer/ROSMWebGL';
 
 export * as RControl from './control';

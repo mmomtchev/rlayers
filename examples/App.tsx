@@ -23,6 +23,7 @@ const examples = {
     pindrop: {title: 'Drop a pin', file: 'PinDrop'},
     spinner: {title: 'Spinner', file: 'Spinner'},
     geodata: {title: 'Infographics', file: 'GeoData'},
+    mbtiles: {title: 'Remote MBTiles', file: 'RasterMBTiles'},
     interactions: {title: 'Move & Select', file: 'Interactions'},
     add_delete: {title: 'Add & Delete', file: 'Add-Delete'},
     draw: {title: 'Draw & Modify', file: 'Draw'},
