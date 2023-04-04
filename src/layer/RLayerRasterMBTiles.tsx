@@ -55,7 +55,8 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
         this.metadata = this.addon.then((mod) =>
             mod.importMBTiles({
                 url: this.props.url,
-                sqlWorkers: this.props.workers ?? 1
+                sqlWorkers: this.props.workers ?? 1,
+                backendType: this.props.backend ?? 'sync'
             })
         );
         this.ready = Promise.all([this.addon, this.metadata]).then(([addon, md]) => {
