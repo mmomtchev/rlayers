@@ -185,5 +185,5 @@ describe('<RLayerRasterMBTiles>', () => {
                 </RMap>
             );
         });
-    }, 30000);
+    });
 });
