@@ -22,6 +22,11 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
      */
     backend?: 'sync' | 'shared';
     /** Called after each metadata change to signal that the metadata has been loaded */
+    onMetadataReady?: (
+        this: RLayerRasterMBTiles,
+        md: import('ol-mbtiles').MBTilesRasterOptions & import('ol-mbtiles').SQLOptions
+    ) => void;
+    /** Called by OpenLayers when the layer is ready to start rendering */
     onSourceReady?: (this: RLayerRasterMBTiles, e: BaseEvent) => void;
 }
 
@@ -64,6 +69,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
             this.eventSources = [this.ol, this.source];
             this.ol.setSource(this.source);
             this.attachOldEventHandlers(this.source);
+            if (this.props.onMetadataReady) this.props.onMetadataReady.call(this, md);
         });
     }
 

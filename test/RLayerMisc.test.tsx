@@ -172,10 +172,13 @@ describe('<RLayerRasterMBTiles>', () => {
                     <RLayerRasterMBTiles
                         ref={layer}
                         url='https://velivole.b-cdn.net/tiles-RGR92UTM40S.mbtiles'
-                        onSourceReady={function () {
+                        onMetadataReady={function (md) {
                             try {
                                 expect(this).toBeInstanceOf(RLayerRasterMBTiles);
                                 expect(container.innerHTML).toMatchSnapshot();
+                                expect(md.minZoom).toStrictEqual(12);
+                                expect(md.sqlWorkers).toStrictEqual(1);
+                                expect(md.backendType).toStrictEqual('sync');
                                 res();
                             } catch (e) {
                                 rej(e);

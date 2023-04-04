@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [1.4.10]
 
 -   Add remote `.mbtiles` support with [`ol-mbtiles`](https://github.com/mmomtchev/ol-mbtiles)
+-   Add new _rlayers_-specific events to `RLayerWMTS` and `RLayerRasterMBTiles` to distinguish them from the OpenLayers `onSourceReady` events
 
 ### [1.4.9] 2023-03-28
 

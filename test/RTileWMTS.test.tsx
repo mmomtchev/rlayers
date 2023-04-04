@@ -105,7 +105,7 @@ describe('<RLayerWMTS>', () => {
                     <RLayerWMTS
                         zIndex={5}
                         ref={layer}
-                        onSourceReady={function (opt) {
+                        onCapabilities={function (opt) {
                             try {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:27700');
                                 expect(this).toBeInstanceOf(RLayerWMTS);
@@ -141,7 +141,7 @@ describe('<RLayerWMTS>', () => {
                     <RLayerWMTS
                         zIndex={5}
                         ref={layer}
-                        onSourceReady={function (opt) {
+                        onCapabilities={function (opt) {
                             try {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:27700');
                                 expect(this).toBeInstanceOf(RLayerWMTS);
@@ -166,7 +166,7 @@ describe('<RLayerWMTS>', () => {
                     <RLayerWMTS
                         zIndex={5}
                         ref={layer}
-                        onSourceReady={function (opt) {
+                        onCapabilities={function (opt) {
                             try {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:27700');
                                 expect(this).toBeInstanceOf(RLayerWMTS);
@@ -195,7 +195,7 @@ describe('<RLayerWMTS>', () => {
                     <RLayerWMTS
                         zIndex={5}
                         ref={layer}
-                        onSourceReady={function (opt) {
+                        onCapabilities={function (opt) {
                             try {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:2056');
                                 expect(this).toBeInstanceOf(RLayerWMTS);

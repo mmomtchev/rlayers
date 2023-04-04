@@ -3,6 +3,7 @@ import {Map} from 'ol';
 import {Tile as LayerTile} from 'ol/layer';
 import {default as SourceWMTS, optionsFromCapabilities, Options} from 'ol/source/WMTS';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
+import BaseEvent from 'ol/events/Event';
 
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
@@ -16,8 +17,10 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     url: string;
     /** Layer name */
     layer: string;
+    /** Called by OpenLayers when the layer is ready to start rendering */
+    onSourceReady?: (this: RLayerWMTS, e: BaseEvent) => void;
     /** Called each time the component is rerendered if/after the WMTS capabilities have been acquired */
-    onSourceReady?: (this: RLayerWMTS, opt: Options) => void;
+    onCapabilities?: (this: RLayerWMTS, opt: Options) => void;
 }
 
 /**
@@ -54,7 +57,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 this.source = new SourceWMTS(this.options);
                 this.ol.setSource(this.source);
                 this.eventSources = [this.ol, this.source];
-                if (this.props.onSourceReady) this.props.onSourceReady.call(this, this.options);
+                if (this.props.onCapabilities) this.props.onCapabilities.call(this, this.options);
                 return this.source;
             })
             .catch((e) => {
@@ -72,7 +75,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
                 this.attachOldEventHandlers(this.source);
             });
         } else {
-            if (this.props.onSourceReady) this.props.onSourceReady.call(this, this.options);
+            if (this.props.onCapabilities) this.props.onCapabilities.call(this, this.options);
         }
     }
 }
