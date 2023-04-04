@@ -4,11 +4,11 @@ import React from 'react';
 // @ts-ignore
 import exampleCss from '!!raw-loader!./example.css';
 
-import packageJson from '../package.json';
-const versionReact = packageJson.devDependencies['react'];
-const versionOL = packageJson.devDependencies['ol'];
-const versionBootstrap = packageJson.devDependencies['bootstrap'];
-const versionProj4 = packageJson.devDependencies['proj4'];
+import packageJson from '../package-lock.json';
+const versionReact = packageJson.packages['node_modules/react'].version;
+const versionOL = packageJson.packages['node_modules/ol'].version;
+const versionBootstrap = packageJson.packages['node_modules/bootstrap'].version;
+const versionProj4 = packageJson.packages['node_modules/proj4'].version;
 
 const alias = (t: string): string =>
     t
@@ -82,7 +82,7 @@ const CodePenButton = React.memo(function _CodePenButton(props: {
                         `https://cdnjs.cloudflare.com/ajax/libs/react/${versionReact}/umd/react.development.min.js;` +
                         `https://cdnjs.cloudflare.com/ajax/libs/react-dom/${versionReact}/umd/react-dom.development.min.js;` +
                         `https://cdnjs.cloudflare.com/ajax/libs/proj4js/${versionProj4}/proj4.js;` +
-                        `https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v${versionOL}/build/ol.js;` +
+                        `https://cdn.jsdelivr.net/npm/ol@v${versionOL}/dist/ol.js;` +
                         `https://cdn.jsdelivr.net/npm/rlayers@${VERSION}`,
                     css_external:
                         `https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v${versionOL}/css/ol.css;` +
