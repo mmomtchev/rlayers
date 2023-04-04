@@ -2,7 +2,8 @@ import React from 'react';
 import {fromLonLat} from 'ol/proj';
 import 'ol/ol.css';
 
-import {RMap, RLayerRasterMBTiles} from 'rlayers';
+import {RMap} from 'rlayers';
+import RLayerRasterMBTiles from 'rlayers/layer/RLayerRasterMBTiles';
 
 // This is an example for rendering directly from a remote MBTiles source over HTTP
 // It uses the `ol-mbtiles` plugin which you must install separately:

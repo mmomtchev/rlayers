@@ -1,8 +1,6 @@
 import React from 'react';
-import {Map} from 'ol';
 import {Tile as LayerTile} from 'ol/layer';
-import {XYZ} from 'ol/source';
-import TileGrid from 'ol/tilegrid/TileGrid';
+import BaseEvent from 'ol/events/Event';
 
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
@@ -23,6 +21,8 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
      * @default 'sync'
      */
     backend?: 'sync' | 'shared';
+    /** Called after each metadata change to signal that the metadata has been loaded */
+    onSourceReady?: (this: RLayerRasterMBTiles, e: BaseEvent) => void;
 }
 
 /**
@@ -51,14 +51,14 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
         this.createSource();
     }
 
-    createSource(): Promise<void> {
+    createSource(): void {
         this.metadata = this.addon.then((mod) =>
             mod.importMBTiles({
                 url: this.props.url,
                 sqlWorkers: this.props.workers ?? 1
             })
         );
-        return Promise.all([this.addon, this.metadata]).then(([addon, md]) => {
+        this.ready = Promise.all([this.addon, this.metadata]).then(([addon, md]) => {
             this.source = new addon.MBTilesRasterSource(md);
             this.eventSources = [this.ol, this.source];
             this.ol.setSource(this.source);
