@@ -8039,6 +8039,59 @@ Cannot be modified once set.</code>
     
         
             , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_events_Event-BaseEvent.html#~BaseEvent">BaseEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called by OpenLayers when the layer is ready to start rendering
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onCapabilities</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayerwmts">RLayerWMTS</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
                     opt:         Options
     
     
@@ -15432,7 +15485,7 @@ its performance (COOP/COEP, WASM compression, preloading...)
                                             <p>
                     Use multiple SQLite workers, refer to the ol-mbtiles for more information
         </p>
-                                <em class="me-1">default</em> <code>1</code>
+                                <em class="me-1">default</em> <code>4</code>
                     </td>
                 </tr>
                 <tr>
@@ -15464,6 +15517,151 @@ its performance (COOP/COEP, WASM compression, preloading...)
                     Use a specific HTTP backend, refer to the ol-mbtiles for more information
         </p>
                                 <em class="me-1">default</em> <code>&#x27;sync&#x27;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>sqlCacheSize</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Cache size in KBytes to use for SQLite
+        </p>
+                                <em class="me-1">default</em> <code>4096</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>maxSqlPageSize</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Maximum SQLite page size in bytes, reduce to 1024 if you have optimized your files
+        </p>
+                                <em class="me-1">default</em> <code>1024</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onMetadataReady</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayerrastermbtiles">RLayerRasterMBTiles</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    md:     
+    
+     any 
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called after each metadata change to signal that the metadata has been loaded
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onSourceReady</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayerrastermbtiles">RLayerRasterMBTiles</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_events_Event-BaseEvent.html#~BaseEvent">BaseEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called by OpenLayers when the layer is ready to start rendering
+        </p>
                     </td>
                 </tr>
         </tbody>
