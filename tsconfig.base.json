@@ -9,7 +9,7 @@
         ],
         "declaration": true,
         "declarationMap": true,
-        "removeComments": true,
+        "removeComments": false,
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
