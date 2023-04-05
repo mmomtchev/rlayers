@@ -21,6 +21,16 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
      * @default 'sync'
      */
     backend?: 'sync' | 'shared';
+    /**
+     * Cache size in KBytes to use for SQLite
+     * @default 4096
+     */
+    sqlCacheSize?: number;
+    /**
+     * Maximum SQLite page size in bytes, reduce to 1024 if you have optimized your files
+     * @default 1024
+     */
+    maxSqlPageSize?: number;
     /** Called after each metadata change to signal that the metadata has been loaded */
     onMetadataReady?: (
         this: RLayerRasterMBTiles,
@@ -61,6 +71,8 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
             mod.importMBTiles({
                 url: this.props.url,
                 sqlWorkers: this.props.workers ?? 1,
+                sqlCacheSize: this.props.sqlCacheSize ?? 4096,
+                maxSqlPageSize: this.props.maxSqlPageSize ?? 4096,
                 backendType: this.props.backend ?? 'sync'
             })
         );
