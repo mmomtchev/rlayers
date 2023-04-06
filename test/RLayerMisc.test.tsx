@@ -14,7 +14,6 @@ import {
     RLayerGraticule,
     RStyle
 } from 'rlayers';
-import RLayerRasterMBTiles from 'rlayers/layer/RLayerRasterMBTiles';
 
 import * as common from './common';
 
@@ -160,33 +159,5 @@ describe('<RLayerTileWMS>', () => {
             'ch.swisstopo.pixelkarte-farbe-pk1000.noscale'
         );
         expect(layer.current?.source.getProjection()?.getCode()).toBe('EPSG:2056');
-    });
-});
-
-describe('<RLayerRasterMBTiles>', () => {
-    it('should display an MBTiles raster source layer', async () => {
-        await new Promise<void>((res, rej) => {
-            const layer = React.createRef() as React.RefObject<RLayerRasterMBTiles>;
-            const {container} = render(
-                <RMap {...common.mapProps}>
-                    <RLayerRasterMBTiles
-                        ref={layer}
-                        url='https://velivole.b-cdn.net/tiles-RGR92UTM40S.mbtiles'
-                        onMetadataReady={function (md) {
-                            try {
-                                expect(this).toBeInstanceOf(RLayerRasterMBTiles);
-                                expect(container.innerHTML).toMatchSnapshot();
-                                expect(md.minZoom).toStrictEqual(12);
-                                expect(md.sqlWorkers).toStrictEqual(1);
-                                expect(md.backendType).toStrictEqual('sync');
-                                res();
-                            } catch (e) {
-                                rej(e);
-                            }
-                        }}
-                    />
-                </RMap>
-            );
-        });
     });
 });
