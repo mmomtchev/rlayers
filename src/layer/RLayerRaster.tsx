@@ -19,7 +19,7 @@ export interface RLayerRasterProps extends RLayerProps {
     onTileLoadError?: (this: RLayerRaster<RLayerRasterProps>, e: TileSourceEvent) => void;
 }
 
-/** The common base of all raster layers, not meant to be used directly */
+/** The common base of all tiled layers, not meant to be used directly */
 export default class RLayerRaster<P extends RLayerRasterProps> extends RLayer<P> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: Layer<Source, LayerRenderer<any>>;

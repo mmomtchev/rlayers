@@ -22,7 +22,7 @@ interface MyLayerMapboxProps extends RLayerProps {
 class MyLayerMapbox extends RLayer<MyLayerMapboxProps> {
     ol: VectorMapbox;
 
-    // Raster layers must extend RLayerRaster, non-tiled vector layers must extend RLayerVector
+    // Tiled layers must extend RLayerRaster, non-tiled vector layers must extend RLayerVector
     // This allows you to have the same features as RLayers built-in components
     // Completely custom layers must extend RLayer
     constructor(props: Readonly<MyLayerMapboxProps>, context: React.Context<RContextType>) {
