@@ -4,6 +4,7 @@ import BaseEvent from 'ol/events/Event';
 
 import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import debug from '../debug';
 
 /**
  * @propsfor RLayerRasterMBTiles
@@ -13,7 +14,7 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
     url: string;
     /**
      * Use multiple SQLite workers, refer to the ol-mbtiles for more information
-     * @default 1
+     * @default 4
      */
     workers?: number;
     /**
@@ -28,7 +29,7 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
     sqlCacheSize?: number;
     /**
      * Maximum SQLite page size in bytes, reduce to 1024 if you have optimized your files
-     * @default 1024
+     * @default 4096
      */
     maxSqlPageSize?: number;
     /** Called after each metadata change to signal that the metadata has been loaded */
@@ -57,37 +58,67 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
     metadata: Promise<import('ol-mbtiles').MBTilesRasterOptions & import('ol-mbtiles').SQLOptions>;
     ol: LayerTile<import('ol-mbtiles').MBTilesRasterSource>;
     source: import('ol-mbtiles').MBTilesRasterSource;
-    ready: Promise<void>;
+    private abort: AbortController;
 
     constructor(props: Readonly<RLayerRasterMBTilesProps>, context: React.Context<RContextType>) {
         super(props, context);
         this.addon = import('ol-mbtiles');
         this.ol = new LayerTile();
+        this.source = null;
+        this.abort = null;
         this.createSource();
     }
 
     createSource(): void {
+        debug('createSource start', this);
         this.metadata = this.addon.then((mod) =>
             mod.importMBTiles({
                 url: this.props.url,
-                sqlWorkers: this.props.workers ?? 1,
+                sqlWorkers: this.props.workers ?? 4,
                 sqlCacheSize: this.props.sqlCacheSize ?? 4096,
                 maxSqlPageSize: this.props.maxSqlPageSize ?? 4096,
                 backendType: this.props.backend ?? 'sync'
             })
         );
-        this.ready = Promise.all([this.addon, this.metadata]).then(([addon, md]) => {
+        const abort = new AbortController();
+        this.abort = abort;
+        Promise.all([this.addon, this.metadata]).then(([addon, md]) => {
+            if (abort.signal.aborted) {
+                debug('createSource aborted', this);
+                md.pool.then((p) => p.close());
+                return;
+            }
             this.source = new addon.MBTilesRasterSource(md);
             this.eventSources = [this.ol, this.source];
             this.ol.setSource(this.source);
             this.attachOldEventHandlers(this.source);
             if (this.props.onMetadataReady) this.props.onMetadataReady.call(this, md);
+            return this.source;
         });
+    }
+
+    destroySource(): void {
+        debug('destroySource', this, this.abort);
+        if (this.source) {
+            this.source.dispose();
+            this.source = null;
+            if (this.ol) this.ol.setSource(null);
+        }
+        if (this.abort) {
+            this.abort.abort();
+            this.abort = null;
+        }
+    }
+
+    componentWillUnmount(): void {
+        super.componentWillUnmount();
+        this.destroySource();
     }
 
     refresh(prevProps?: RLayerRasterMBTilesProps): void {
         super.refresh(prevProps);
         if (prevProps?.url !== this.props.url) {
+            this.destroySource();
             this.createSource();
         }
     }

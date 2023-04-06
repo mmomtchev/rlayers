@@ -72,7 +72,11 @@ const webpackConfig = (env): webpack.Configuration => {
             })
         ],
         devServer: {
-            port: 8030
+            port: 8030,
+            headers: {
+                'Cross-Origin-Opener-Policy': 'same-origin',
+                'Cross-Origin-Embedder-Policy': 'require-corp'
+            }
         }
     };
 
