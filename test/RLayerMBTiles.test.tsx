@@ -6,6 +6,9 @@ import RLayerRasterMBTiles from 'rlayers/layer/RLayerRasterMBTiles';
 
 import * as common from './common';
 
+const reactMajorVersion = +React.version.split('.')[0];
+const reactMinorVersion = +React.version.split('.')[1];
+
 describe('<RLayerRasterMBTiles>', () => {
     it('should display an MBTiles raster source layer', async () => {
         let poolClose: (() => Promise<void>) | undefined;
@@ -40,8 +43,13 @@ describe('<RLayerRasterMBTiles>', () => {
         });
 
         // check that the pool has been destroyed
-        await act(async () => result?.rerender(<RMap {...common.mapProps}></RMap>));
-        expect(poolClose).toHaveBeenCalledTimes(1);
+        // (alas, this can be tested only for React >= 16.9 bit it should for all versions)
+        if (reactMajorVersion > 16 || (reactMajorVersion === 16 && reactMinorVersion >= 9)) {
+            await act(async () => {
+                result?.rerender(<RMap {...common.mapProps}></RMap>);
+            });
+            expect(poolClose).toHaveBeenCalledTimes(1);
+        }
     });
 
     it('should support the shared backend', async () => {
@@ -74,7 +82,11 @@ describe('<RLayerRasterMBTiles>', () => {
                 </RMap>
             );
         });
-        await act(async () => result?.rerender(<RMap {...common.mapProps}></RMap>));
-        expect(poolClose).toHaveBeenCalledTimes(1);
+        if (reactMajorVersion > 16 || (reactMajorVersion === 16 && reactMinorVersion >= 9)) {
+            await act(async () => {
+                result?.rerender(<RMap {...common.mapProps}></RMap>);
+            });
+            expect(poolClose).toHaveBeenCalledTimes(1);
+        }
     });
 });

@@ -6,6 +6,8 @@ import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
+import type * as MBTiles from 'ol-mbtiles';
+
 /**
  * @propsfor RLayerRasterMBTiles
  */
@@ -35,7 +37,7 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
     /** Called after each metadata change to signal that the metadata has been loaded */
     onMetadataReady?: (
         this: RLayerRasterMBTiles,
-        md: import('ol-mbtiles').MBTilesRasterOptions & import('ol-mbtiles').SQLOptions
+        md: MBTiles.MBTilesRasterOptions & MBTiles.SQLOptions
     ) => void;
     /** Called by OpenLayers when the layer is ready to start rendering */
     onSourceReady?: (this: RLayerRasterMBTiles, e: BaseEvent) => void;
@@ -54,10 +56,10 @@ export interface RLayerRasterMBTilesProps extends RLayerRasterProps {
  * Requires an `RMap` context
  */
 export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTilesProps> {
-    addon: Promise<typeof import('ol-mbtiles')>;
-    metadata: Promise<import('ol-mbtiles').MBTilesRasterOptions & import('ol-mbtiles').SQLOptions>;
-    ol: LayerTile<import('ol-mbtiles').MBTilesRasterSource>;
-    source: import('ol-mbtiles').MBTilesRasterSource;
+    addon: Promise<typeof MBTiles>;
+    metadata: Promise<MBTiles.MBTilesRasterOptions & MBTiles.SQLOptions>;
+    ol: LayerTile<MBTiles.MBTilesRasterSource>;
+    source: MBTiles.MBTilesRasterSource;
     private abort: AbortController;
 
     constructor(props: Readonly<RLayerRasterMBTilesProps>, context: React.Context<RContextType>) {
