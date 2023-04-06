@@ -14,6 +14,7 @@ import {
     RLayerGraticule,
     RStyle
 } from 'rlayers';
+
 import * as common from './common';
 
 describe('<RLayerStamen>', () => {

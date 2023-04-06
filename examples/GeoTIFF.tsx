@@ -1,6 +1,6 @@
 import React from 'react';
 import {RMap, RContextType} from 'rlayers';
-import {default as RLayerRaster, RLayerRasterProps} from 'rlayers/layer/RLayerRaster';
+import {default as RLayer, RLayerProps} from 'rlayers/layer/RLayer';
 
 import LayerTile from 'ol/layer/WebGLTile.js';
 import {GeoTIFF} from 'ol/source';
@@ -16,7 +16,7 @@ register(proj4);
 /**
  * @propsfor RLayerGeoTIFF
  */
-export interface RLayerGeoTIFFProps extends RLayerRasterProps {
+export interface RLayerGeoTIFFProps extends RLayerProps {
     /** URLs of the GeoTIFFs, there must be at least one */
     urls: string[];
 }
@@ -30,7 +30,7 @@ export interface RLayerGeoTIFFProps extends RLayerRasterProps {
  *
  * Requires an `RMap` context
  */
-class RLayerGeoTIFF extends RLayerRaster<RLayerGeoTIFFProps> {
+class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
     ol: LayerTile;
     source: GeoTIFF;
 

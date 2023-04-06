@@ -51,7 +51,7 @@ jobs:
               with:
                   node-version: 18.x
             - run: npm i
-            - run: npm i ol@${{ matrix.ol-version }}
+            - run: npm i --force ol@${{ matrix.ol-version }}
             - run: npm run build --if-present
             - run: npm test
 

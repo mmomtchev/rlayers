@@ -28,6 +28,8 @@ const examples = {
     draw: {title: 'Draw & Modify', file: 'Draw'},
     geolocation: {title: 'Geolocation', file: 'Geolocation'},
     vectortiles: {title: 'Vector tiles', file: 'VectorTiles'},
+    mbtilesRaster: {title: 'Raster MBTiles', file: 'RasterMBTiles'},
+    mbtilesVector: {title: 'Vector MBTiles', file: 'VectorMBTiles'},
     reproj: {title: 'Reprojection', file: 'Reprojection'},
     routing: {title: 'Navigation', file: 'Routing'},
     igc: {title: 'Performance', file: 'IGC'},
