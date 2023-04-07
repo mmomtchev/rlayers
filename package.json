@@ -45,7 +45,6 @@
     "build:doc": "npx documentation build src/** --parse-extension=ts --parse-extension=tsx --require-extension=ts --require-extension=tsx -c=documentation.yml -f=html -o=docs/api --theme=node_modules/documentation-hipster/index.js",
     "dev": "webpack-cli serve --mode=development --env development --open",
     "prod": "webpack-cli serve --mode=production --env production --open",
-    "doc:watch": "npx styleguidist server",
     "doc:publish": "node scripts/publish-ghpages.js",
     "lint": "eslint './{examples,src}/**/*.{ts,tsx}'",
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
