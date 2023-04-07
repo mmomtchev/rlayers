@@ -13,15 +13,20 @@ const reactMinorVersion = +React.version.split('.')[1];
 describe('<RLayerRasterMBTiles>', () => {
     it('should display an MBTiles raster source layer', async () => {
         let poolClose: (() => Promise<void>) | undefined;
-        let result: RenderResult | undefined;
 
-        // render
+        // first render
+        const result = render(
+            <RMap {...common.mapProps}>
+                <RLayerRasterMBTiles url='http://invalid' />
+            </RMap>
+        );
+        expect(result?.container.innerHTML).toMatchSnapshot();
+
+        // rerender w/o the first source finishing loading
         await new Promise<void>((res, rej) => {
-            const layer = React.createRef() as React.RefObject<RLayerRasterMBTiles>;
-            result = render(
+            result.rerender(
                 <RMap {...common.mapProps}>
                     <RLayerRasterMBTiles
-                        ref={layer}
                         url='https://velivole.b-cdn.net/tiles-RGR92UTM40S.mbtiles'
                         onMetadataReady={function (md) {
                             try {
@@ -47,7 +52,7 @@ describe('<RLayerRasterMBTiles>', () => {
         // (alas, this can be tested only for React >= 16.9 bit it should for all versions)
         if (reactMajorVersion > 16 || (reactMajorVersion === 16 && reactMinorVersion >= 9)) {
             await act(async () => {
-                result?.rerender(<RMap {...common.mapProps}></RMap>);
+                result.rerender(<RMap {...common.mapProps}></RMap>);
             });
             expect(poolClose).toHaveBeenCalledTimes(1);
         }
@@ -57,11 +62,9 @@ describe('<RLayerRasterMBTiles>', () => {
         let poolClose: (() => Promise<void>) | undefined;
         let result: RenderResult | undefined;
         await new Promise<void>((res, rej) => {
-            const layer = React.createRef() as React.RefObject<RLayerRasterMBTiles>;
             result = render(
                 <RMap {...common.mapProps}>
                     <RLayerRasterMBTiles
-                        ref={layer}
                         url='https://velivole.b-cdn.net/tiles-RGR92UTM40S.mbtiles'
                         backend='shared'
                         onMetadataReady={function (md) {
