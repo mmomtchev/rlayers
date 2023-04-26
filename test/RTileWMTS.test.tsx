@@ -212,5 +212,28 @@ describe('<RLayerWMTS>', () => {
                 </RMap>
             );
         });
+        await new Promise((res, rej) => {
+            if (!result) throw new Error('Failed rendering');
+            result.rerender(
+                <RMap {...common.mapProps}>
+                    <RLayerWMTS
+                        zIndex={5}
+                        ref={layer}
+                        visible={false}
+                        onCapabilities={function (opt) {
+                            try {
+                                if (layer.current?.ol.getVisible() === true)
+                                    throw new Error('Expected to hide');
+                                res(undefined);
+                            } catch (e) {
+                                rej(e);
+                            }
+                        }}
+                        url='https://wmts.geo.admin.ch/EPSG/2056/1.0.0/WMTSCapabilities.xml'
+                        layer='ch.are.alpenkonvention'
+                    />
+                </RMap>
+            );
+        });
     });
 });
