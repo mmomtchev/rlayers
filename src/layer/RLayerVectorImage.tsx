@@ -29,7 +29,8 @@ export default class RLayerVectorImage extends RLayerBaseVector<RLayerBaseVector
             url: this.props.url,
             format: this.props.format,
             loader: this.props.loader,
-            wrapX: this.props.wrapX
+            wrapX: this.props.wrapX,
+            strategy: this.props.strategy
         });
         this.ol = new LayerVectorImage({
             ...props,

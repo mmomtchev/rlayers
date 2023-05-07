@@ -43,7 +43,8 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
             url: this.props.url,
             format: this.props.format,
             loader: this.props.loader,
-            wrapX: this.props.wrapX
+            wrapX: this.props.wrapX,
+            strategy: this.props.strategy
         });
         this.ol = new LayerHeatmap({...props, source: this.source});
         return [this.ol, this.source];

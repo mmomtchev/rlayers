@@ -1,6 +1,6 @@
 import React from 'react';
 import {Feature, MapBrowserEvent} from 'ol';
-import {VectorSourceEvent} from 'ol/source/Vector';
+import {LoadingStrategy, VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
@@ -9,7 +9,7 @@ import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer'
 import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
-import {FeatureLoader} from 'ol/featureloader';
+import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
 
@@ -23,8 +23,8 @@ import debug from '../debug';
  * @propsfor RLayerBaseVector
  */
 export interface RLayerBaseVectorProps extends RLayerProps {
-    /** URL for loading features, requires `format` */
-    url?: string;
+    /** URL for loading features can be a function of type `FeatureUrlFunction`, requires `format` */
+    url?: string | FeatureUrlFunction;
     /**
      * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -47,6 +47,8 @@ export interface RLayerBaseVectorProps extends RLayerProps {
     loader?: FeatureLoader;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
+    /**  OpenLayers option to specify LoadingStrategy default is `all` strategy */
+    strategy?: LoadingStrategy;
     /**
      * Wrap features around the antimeridian. Cannot be dynamically updated once the layer is created.
      * @default false

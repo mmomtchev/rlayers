@@ -29,7 +29,8 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
             url: this.props.url,
             format: this.props.format,
             loader: this.props.loader,
-            wrapX: this.props.wrapX
+            wrapX: this.props.wrapX,
+            strategy: this.props.strategy
         });
         this.ol = new LayerVector({
             ...props,
