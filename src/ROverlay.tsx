@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {MouseEvent, PropsWithChildren} from 'react';
 import {Overlay} from 'ol';
 
 import {RContextType} from './context';
@@ -19,6 +19,8 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Automatically position the overlay so that it fits in the viewport
      * @default false */
     autoPosition?: boolean;
+    /** Called immediately on click */
+    onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 /**
@@ -87,7 +89,11 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
     render(): JSX.Element {
         this.setPosition();
         return (
-            <div ref={this.containerRef} className={this.props.className}>
+            <div
+                ref={this.containerRef}
+                className={this.props.className}
+                onClick={this.props.onClick}
+            >
                 {this.props.children}
             </div>
         );
