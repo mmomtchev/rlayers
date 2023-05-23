@@ -18,9 +18,13 @@ export interface RStrokeProps extends RBaseStyleProps {
      */
     lineCap?: CanvasLineCap;
     /** Canvas line join style: 'bevel', 'round' or 'miter
-     * @default 'round
+     * @default 'round'
      */
     lineJoin?: CanvasLineJoin;
+    /** Line dash pattern.
+     * @default null
+     */
+    lineDash?: number[];
 }
 
 /**
@@ -29,7 +33,7 @@ export interface RStrokeProps extends RBaseStyleProps {
  * Requires an `RStyle` context
  */
 export default class RStroke extends RBaseStyle<RStrokeProps> {
-    static classProps = ['color', 'width', 'lineCap', 'lineJoin'];
+    static classProps = ['color', 'width', 'lineCap', 'lineJoin', 'lineDash'];
     ol: Stroke;
 
     create(props: RStrokeProps): Stroke {
