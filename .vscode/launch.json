@@ -7,7 +7,7 @@
         {
             "name": "Launch Examples",
             "request": "launch",
-            "type": "pwa-chrome",
+            "type": "chrome",
             "url": "http://localhost:8030",
             "webRoot": "${workspaceFolder}"
         },
@@ -16,6 +16,9 @@
             "request": "launch",
             "name": "Launch Unit tests",
             "program": "node_modules/jest/bin/jest.js",
+            "args": [
+                "--runInBand"
+            ],
             "skipFiles": [
                 "<node_internals>/**"
             ]
