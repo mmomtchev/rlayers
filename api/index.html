@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        1.4.9 | Documentation
+        1.5.0 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 1.4.9</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 1.5.0</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -1939,6 +1939,29 @@
     </a>
 </div>
 <div class="collapse" id="rlayerrastermbtiles-collapse">
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+    <ul class="list-group">
+</ul>
+</div>
+        </li>
+        <li class="list-group-item border-0">
+            <div class="d-flex flex-row align-items-center">
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayervectormbtiles-collapse"
+        data-bs-toggle="collapse">
+        <span class="font-monospace if-collapsed">+</span>
+        <span class="font-monospace if-not-collapsed">-</span> </button>
+    <a class=text-decoration-none href="#rlayervectormbtiles">
+        <h3 class="m-0">RLayerVectorMBTiles</h3>
+    </a>
+</div>
+<div class="collapse" id="rlayervectormbtiles-collapse">
     <ul class="list-group">
 </ul>
     <ul class="list-group">
@@ -4493,6 +4516,59 @@ can be used to stop OpenLayers from also panning the map
                                 <em class="me-1">default</em> <code>false</code>
                     </td>
                 </tr>
+                <tr>
+                    <td class="">
+                        <code>onClick</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    event:                 MouseEvent
+    
+    
+    
+    
+    
+        &lt;
+                    HTMLDivElement
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called immediately on click
+        </p>
+                    </td>
+                </tr>
         </tbody>
     </table>
 </section>
@@ -5442,7 +5518,20 @@ can be used to stop OpenLayers from also panning the map
                         <code>url</code>
                     </td>
                     <td class="">
-                        <code>        string
+                        <code>                    string
+    
+    
+    
+    
+    
+
+            |         <a href="https://openlayers.org/en/latest/apidoc/module-ol_featureloader-FeatureUrlFunction.html#~FeatureUrlFunction">FeatureUrlFunction</a>
+    
+    
+    
+    
+    
+
     
     
     
@@ -5452,7 +5541,9 @@ can be used to stop OpenLayers from also panning the map
                     </td>
                     <td class="">
                                             <p>
-                    URL for loading features, requires 
+                    URL for loading features can be a function of type 
+                    <code><a href="https://openlayers.org/en/latest/apidoc/module-ol_featureloader-FeatureUrlFunction.html#~FeatureUrlFunction">FeatureUrlFunction</a></code>
+                    , requires 
                     <code>format</code>
         </p>
                     </td>
@@ -5591,6 +5682,27 @@ but are partially inside, can be rendered
                                             <p>
                     OpenLayers default style for features without 
                     <code><a href="#style">style</a></code>
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>strategy</code>
+                    </td>
+                    <td class="">
+                        <code>        LoadingStrategy
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    OpenLayers option to specify LoadingStrategy default is 
+                    <code>all</code>
+                     strategy
         </p>
                     </td>
                 </tr>
@@ -6377,7 +6489,7 @@ won&#x27;t be loaded into the layer
         
     </h2>
                         <p>
-                    The common base of all raster layers, not meant to be used directly
+                    The common base of all tiled layers, not meant to be used directly
         </p>
                                                                                                     <h7>Properties</h7>
     <table class="table table-light">
@@ -7473,8 +7585,133 @@ and it is not compatible with RLayerVector
                     </td>
                     <td class="">
                                             <p>
-                    URL for the tiles, normal {x}{y}{z} convention applies
+                    An URL for a remote MBTiles file
         </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>workers</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Use multiple SQLite workers, refer to the ol-mbtiles for more information
+        </p>
+                                <em class="me-1">default</em> <code>4</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>backend</code>
+                    </td>
+                    <td class="">
+                        <code>                
+    
+    
+    
+    'sync'
+
+            |     
+    
+    
+    
+    'shared'
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Use a specific HTTP backend, refer to the ol-mbtiles for more information
+        </p>
+                                <em class="me-1">default</em> <code>&#x27;sync&#x27;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>sqlCacheSize</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Cache size in KBytes to use for SQLite
+        </p>
+                                <em class="me-1">default</em> <code>4096</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>maxSqlPageSize</code>
+                    </td>
+                    <td class="">
+                        <code>        number
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Maximum SQLite page size in bytes, reduce to 1024 if you have optimized your files
+        </p>
+                                <em class="me-1">default</em> <code>4096</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>layers</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                    string
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Optional list of layers to be retrieved
+        </p>
+                                <em class="me-1">default</em> <code>all</code>
                     </td>
                 </tr>
                 <tr>
@@ -7495,25 +7732,6 @@ and it is not compatible with RLayerVector
                     Style to be used for rendering the features
 You can use a dynamic style, but the property value must stay the same
 ie switching from a static OpenLayers style to a RefObject is not supported
-        </p>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="">
-                        <code>format</code>
-                    </td>
-                    <td class="">
-                        <code>        <a href="https://openlayers.org/en/latest/apidoc/module-ol_format_Feature-FeatureFormat.html#~FeatureFormat">FeatureFormat</a>
-    
-    
-    
-    
-    
-</code>
-                    </td>
-                    <td class="">
-                                            <p>
-                    Vector tile format
         </p>
                     </td>
                 </tr>
@@ -7548,7 +7766,7 @@ but are partially inside, can be rendered
                     <td class="">
                         <code>        (
             
-                    this:         <a href="#rlayervectortile">RLayerVectorTile</a>
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
     
     
     
@@ -7614,7 +7832,7 @@ but are partially inside, can be rendered
                     <td class="">
                         <code>        (
             
-                    this:         <a href="#rlayervectortile">RLayerVectorTile</a>
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
     
     
     
@@ -7680,7 +7898,7 @@ but are partially inside, can be rendered
                     <td class="">
                         <code>        (
             
-                    this:         <a href="#rlayervectortile">RLayerVectorTile</a>
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
     
     
     
@@ -7736,6 +7954,177 @@ but are partially inside, can be rendered
                     <td class="">
                                             <p>
                     onPointerEnter handler for loaded features
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onPointerLeave</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         RFeatureUIEvent
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>                     boolean
+    
+    
+    
+    
+    
+
+            |      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    onPointerLeave handler for loaded features
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onMetadataReady</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    md:     
+    
+     any 
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called after each metadata change to signal that the metadata has been loaded
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onSourceReady</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rlayervectormbtiles">RLayerVectorMBTiles</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_events_Event-BaseEvent.html#~BaseEvent">BaseEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called by OpenLayers when the layer is ready to start rendering
         </p>
                     </td>
                 </tr>
@@ -11144,7 +11533,41 @@ The provided
                                             <p>
                     Canvas line join style: &#x27;bevel&#x27;, &#x27;round&#x27; or &#x27;miter
         </p>
-                                <em class="me-1">default</em> <code>&#x27;round</code>
+                                <em class="me-1">default</em> <code>&#x27;round&#x27;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>lineDash</code>
+                    </td>
+                    <td class="">
+                        <code>                Array
+    
+    
+    
+    
+    
+        &lt;
+                    number
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Line dash pattern.
+        </p>
+                                <em class="me-1">default</em> <code>null</code>
                     </td>
                 </tr>
         </tbody>
@@ -15556,7 +15979,7 @@ its performance (COOP/COEP, WASM compression, preloading...)
                                             <p>
                     Maximum SQLite page size in bytes, reduce to 1024 if you have optimized your files
         </p>
-                                <em class="me-1">default</em> <code>1024</code>
+                                <em class="me-1">default</em> <code>4096</code>
                     </td>
                 </tr>
                 <tr>
@@ -15667,6 +16090,103 @@ its performance (COOP/COEP, WASM compression, preloading...)
         </tbody>
     </table>
 </section>
+<hr>
+        <section>
+    <h2 id="rlayervectormbtiles">
+            
+            
+            
+            <em class="me-1">class</em> RLayerVectorMBTiles
+        
+    </h2>
+                        <p>
+                    A layer from a remote MBTiles vector source
+        </p>
+                    <p>
+                    WARNING: Using this module requires manually installing 
+                    <code>ol-mbtiles</code>
+        </p>
+                    <p>
+                    <code>npm install ol-mbtiles</code>
+        </p>
+                    <p>
+                    Be sure to read its own documentation for tips on how to improve
+its performance (COOP/COEP, WASM compression, preloading...)
+        </p>
+                    <p>
+                    It does not provide a vector layer context for JSX-declared 
+                    <code><a href="#rfeature">RFeature</a></code>
+                    s
+and it is not compatible with RLayerVector
+        </p>
+                    <p>
+                    Requires an 
+                    <code><a href="#rmap">RMap</a></code>
+                     context
+        </p>
+        <h7>Parameters</h7>
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th class="col-2">Parameter</th>
+                <th class="col-4">Type</th>
+                <th class="col-6">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class=""><code>props</code></td>
+                    <td class=""><code>                Readonly
+    
+    
+    
+    
+    
+        &lt;
+                    RLayerVectorMBTilesProps
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+                <tr>
+                    <td class=""><code>context</code></td>
+                    <td class=""><code>                React.Context
+    
+    
+    
+    
+    
+        &lt;
+                    <a href="#rcontexttype">RContextType</a>
+    
+    
+    
+    
+    
+
+        &gt;
+    
+    
+    
+    
+    
+</code></td>
+                    <td class=""></td>
+                </tr>
+        </tbody>
+    </table>
+                                                                                        </section>
 <hr>
         <section>
     <h2 id="rbackground">
