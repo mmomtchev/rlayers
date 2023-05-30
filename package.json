@@ -18,6 +18,14 @@
       "require": "./layer/index.js",
       "import": "./dist/layer/index.js"
     },
+    "./layer/RLayerRasterMBTiles": {
+      "require": "./layer/RLayerRasterMBTiles.js",
+      "import": "./dist/layer/RLayerRasterMBTiles.js"
+    },
+    "./layer/RLayerVectorMBTiles": {
+      "require": "./layer/RLayerVectorMBTiles.js",
+      "import": "./dist/layer/RLayerVectorMBTiles.js"
+    },
     "./control": {
       "require": "./control/index.js",
       "import": "./dist/control/index.js"
