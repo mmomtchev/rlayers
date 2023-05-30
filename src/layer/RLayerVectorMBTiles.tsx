@@ -63,6 +63,8 @@ export interface RLayerVectorMBTilesProps extends RLayerRasterProps {
     onPointerMove?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
     /** onPointerEnter handler for loaded features */
     onPointerEnter?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
+    /** onPointerLeave handler for loaded features */
+    onPointerLeave?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
     /** Called after each metadata change to signal that the metadata has been loaded */
     onMetadataReady?: (
         this: RLayerVectorMBTiles,

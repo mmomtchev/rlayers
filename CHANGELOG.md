@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Add remote `.mbtiles` support with [`ol-mbtiles`](https://github.com/mmomtchev/ol-mbtiles)
 -   Add new _rlayers_-specific events to `RLayerWMTS` and `RLayerRasterMBTiles` to distinguish them from the OpenLayers `onSourceReady` events
 -   Fix [#149](https://github.com/mmomtchev/rlayers/issues/149), `RLayerWMTS` `visible` property does not trigger a refresh
+-   Add `onPointerLeave` handlers for vector tiles
 
 ### [1.4.9] 2023-03-28
 

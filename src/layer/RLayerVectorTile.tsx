@@ -37,6 +37,8 @@ export interface RLayerVectorTileProps extends RLayerProps {
     onPointerMove?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
     /** onPointerEnter handler for loaded features */
     onPointerEnter?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
+    /** onPointerLeave handler for loaded features */
+    onPointerLeave?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
 }
 
 /**
