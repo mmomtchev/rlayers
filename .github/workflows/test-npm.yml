@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        platforms: [ ubuntu-latest, windows-2019, macos-10.15 ]
+        platforms: [ ubuntu-latest, windows-latest, macos-latest ]
 
     steps:
     - name: Use Node.js 16.x
