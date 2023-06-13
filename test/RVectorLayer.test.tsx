@@ -54,6 +54,34 @@ describe('<RLayerVector>', () => {
         expect(ref.current?.source.getFeatures().length).toBe(geojsonFeatures.features.length);
         unmount();
     });
+    it('should call the loading features handlers', (done) => {
+        const map = React.createRef<RMap>();
+        const ref = React.createRef<RLayerVector>();
+        const handlerLoadStart = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
+        const handlerLoadEnd = jest.fn(() => {
+            expect(handlerLoadStart).toHaveBeenCalledTimes(1);
+            common.handlerCheckContext(RLayerVector, ['map'], [map]);
+            done();
+        });
+        const {container, unmount} = render(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerVector
+                    ref={ref}
+                    features={features}
+                    onFeaturesLoadStart={handlerLoadStart}
+                    onFeaturesLoadEnd={handlerLoadEnd}
+                />
+            </RMap>
+        );
+        if (!ref.current) throw new Error('failed rendering');
+        ref.current.source.loadFeatures(
+            ref.current.source.getExtent(),
+            1000,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            ref.current.source.getProjection()!
+        );
+        unmount();
+    });
     it('should attach event handlers to features added after creation', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
         const ref = React.createRef() as React.RefObject<RLayerVector>;

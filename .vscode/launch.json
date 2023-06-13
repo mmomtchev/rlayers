@@ -23,5 +23,21 @@
                 "<node_internals>/**"
             ]
         },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run a single test",
+            "program": "node_modules/jest/bin/jest.js",
+            "args": [
+                "--",
+                "-i",
+                "${relativeFile}",
+                "-t",
+                "${selectedText}"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
     ]
 }

@@ -65,12 +65,28 @@ export interface RLayerBaseVectorProps extends RLayerProps {
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: VectorSourceEvent<Geometry>
     ) => boolean | void;
-    /** Called when the external features have been loaded from `url`
+    /**
+     * Called upon initiating the request for new features
+     */
+    onFeaturesLoadStart?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: VectorSourceEvent<Geometry>
+    ) => boolean | void;
+    /**
+     * Called when the external features have been loaded from `url`
      *
-     * e.features will contain the features which still
-     * won't be loaded into the layer
+     * e.features will contain the new features
+     *
+     * This callback is invoked before the features are loaded
      */
     onFeaturesLoadEnd?: (
+        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        e: VectorSourceEvent<Geometry>
+    ) => boolean | void;
+    /**
+     * Called on failure while loading features
+     */
+    onFeaturesLoadError?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: VectorSourceEvent<Geometry>
     ) => boolean | void;
