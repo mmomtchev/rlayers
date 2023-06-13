@@ -68,6 +68,9 @@ describe('<RLayerVector>', () => {
                 <RLayerVector
                     ref={ref}
                     features={features}
+                    loader={(extent, resolution, projection, ok, error) => {
+                        if (ok) ok(features);
+                    }}
                     onFeaturesLoadStart={handlerLoadStart}
                     onFeaturesLoadEnd={handlerLoadEnd}
                 />
