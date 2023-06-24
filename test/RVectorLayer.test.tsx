@@ -80,12 +80,11 @@ describe('<RLayerVector>', () => {
         ref.current.source.loadFeatures(
             ref.current.source.getExtent(),
             1000,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             ref.current.source.getProjection()!
         );
         unmount();
     });
-    it('should attach event handlers to features added after creation', async () => {
+    it('should call event handlers on features added after creation', async () => {
         const map = React.createRef() as React.RefObject<RMap>;
         const ref = React.createRef() as React.RefObject<RLayerVector>;
         const handler = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
@@ -118,7 +117,7 @@ describe('<RLayerVector>', () => {
         expect(addFeature).toHaveBeenCalledTimes(1);
         unmount();
     });
-    it('should load trigger addFeature/w multiple', async () => {
+    it('should load trigger addFeature/w multiple features', async () => {
         const addFeature = jest.fn();
         const vector = React.createRef() as React.RefObject<RLayerVector>;
         const {container, unmount, rerender} = render(

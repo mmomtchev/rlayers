@@ -1,5 +1,7 @@
 /* istanbul ignore file */
-import {Map} from 'ol';
+import {Feature, Map} from 'ol';
+import {Pixel} from 'ol/pixel';
+import {Layer} from 'ol/layer';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
@@ -7,6 +9,7 @@ import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
 
 import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
 import React from 'react';
+import {SimpleGeometry} from 'ol/geom';
 
 export const mapProps = {
     initial: {center: fromLonLat([2.364, 48.82]), zoom: 11},
@@ -17,10 +20,10 @@ export const mapProps = {
 export function createEvent(
     evname: string,
     map: Map,
-    coords?: number,
+    coords?: Pixel,
     dragging?: boolean
 ): MapBrowserEvent<UIEvent> {
-    const event = {clientX: coords ?? 10, clientY: coords ?? 10} as unknown;
+    const event = {clientX: coords?.[0] ?? 10, clientY: coords?.[1] ?? 10} as unknown;
     return new MapBrowserEvent<UIEvent>(evname.toLowerCase(), map, event as UIEvent, dragging);
 }
 
@@ -91,4 +94,36 @@ export function handlerCheckContext(
         for (const i in cEl)
             expect((this.context as RContextType)[cEl[i]]).toBe(cRef[i].current?.ol);
     };
+}
+
+/**
+ * Install event interceptors on map that is not displayed
+ */
+export function installMapFeaturesInterceptors(
+    map: Map,
+    features: {pixel: Pixel; layer: Layer; feature: Feature}[]
+) {
+    map.getSize = () => [mapProps.width, mapProps.height];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (map as any).viewport_ = {
+        getBoundingClientRect: () => ({
+            width: mapProps.width,
+            height: mapProps.height,
+            left: 0,
+            top: 0
+        })
+    };
+    map.forEachFeatureAtPixel = jest.fn(function (this: Map, pixel: Pixel, cb) {
+        for (const f of features) {
+            if (f.pixel[0] == pixel[0] && f.pixel[1] == pixel[1]) {
+                const stop = cb.call(
+                    this,
+                    f.feature,
+                    f.layer,
+                    f.feature.getGeometry() as SimpleGeometry
+                );
+                if (stop) return stop;
+            }
+        }
+    });
 }

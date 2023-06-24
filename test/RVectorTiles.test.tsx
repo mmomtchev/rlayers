@@ -110,27 +110,27 @@ describe('<RLayerVectorTiles>', () => {
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [10, 10]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(1);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [20, 20]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(1);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [10, 10]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(3);
 

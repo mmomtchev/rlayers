@@ -56,5 +56,15 @@
         "react": {
             "version": "detect"
         }
-    }
+    },
+    "overrides": [
+        {
+            "files": [
+                "test/*.tsx"
+            ],
+            "rules": {
+                "@typescript-eslint/no-non-null-assertion": "off"
+            }
+        }
+    ]
 }
