@@ -126,12 +126,6 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         | WebGLPointsLayerRenderer
     >;
     source: SourceVector<Geometry>;
-    static relayedEvents = {
-        click: 'Click',
-        pointermove: 'PointerMove',
-        pointerenter: 'PointerEnter',
-        pointerleave: 'PointerLeave'
-    };
 
     constructor(props: Readonly<P>, context: React.Context<RContextType>) {
         super(props, context);
@@ -142,23 +136,6 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     createSource(props: Readonly<P>): BaseObject[] {
         throw new Error('RLayerBaseVector is an abstract class');
-    }
-
-    eventRelay = (e: MapBrowserEvent<UIEvent>): boolean => {
-        if (this.props['on' + RLayerBaseVector.relayedEvents[e.type]])
-            return (
-                this.props['on' + RLayerBaseVector.relayedEvents[e.type]].call(this, e) !== false
-            );
-        return true;
-    };
-
-    componentWillUnmount(): void {
-        super.componentWillUnmount();
-        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
-            this.source.forEachFeature((f) => {
-                f.un(ev.toLowerCase() as 'change', this.eventRelay);
-                return false;
-            });
     }
 
     refresh(prevProps?: P): void {
