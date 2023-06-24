@@ -137,24 +137,11 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         super(props, context);
         RFeature.initEventRelay(this.context.map);
         this.eventSources = this.createSource(props);
-        this.source.on('featuresloadend', this.newFeature);
-        this.source.on('addfeature', this.newFeature);
         this.attachEventHandlers();
     }
 
     createSource(props: Readonly<P>): BaseObject[] {
         throw new Error('RLayerBaseVector is an abstract class');
-    }
-
-    newFeature = (e: VectorSourceEvent<Geometry>): void => {
-        if (e.feature) this.attachFeatureHandlers([e.feature]);
-        if (e.features) this.attachFeatureHandlers(e.features);
-    };
-
-    attachFeatureHandlers(features: Feature<Geometry>[], prevProps?: P): void {
-        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
-            if (this.props['on' + ev] !== (prevProps && prevProps['on' + ev]))
-                for (const f of features) f.on(ev.toLowerCase() as 'change', this.eventRelay);
     }
 
     eventRelay = (e: MapBrowserEvent<UIEvent>): boolean => {
@@ -176,7 +163,6 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
 
     refresh(prevProps?: P): void {
         super.refresh(prevProps);
-        this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
     }

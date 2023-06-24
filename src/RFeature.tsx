@@ -9,7 +9,7 @@ import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
 
 import {RContext, RContextType} from './context';
-import {RlayersBase} from './REvent';
+import {RlayersBase, handlersSymbol} from './REvent';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
@@ -115,9 +115,15 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
 
     static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
-        if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
+        if (fr.feature.dispatchEvent) {
+            const stop = fr.feature.dispatchEvent(event);
+            if (stop) return stop;
+        }
         if (!event.target) event.target = fr.feature;
-        if (fr.layer?.get('_on' + event.type)) return fr.layer.get('_on' + event.type)(event);
+        const layerHandler = fr.layer?.get(handlersSymbol)[event.type];
+        if (layerHandler) {
+            return layerHandler.call(null, event);
+        }
         return true;
     }
 
