@@ -7,6 +7,8 @@ import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
 import {Geometry, SimpleGeometry} from 'ol/geom';
+import {Source} from 'ol/source';
+import LayerRenderer from 'ol/renderer/Layer';
 
 import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
 import React from 'react';
@@ -101,7 +103,12 @@ export function handlerCheckContext(
  */
 export function installMapFeaturesInterceptors(
     map: Map,
-    features: {pixel: Pixel; layer: Layer; feature: Feature<Geometry>}[]
+    features: {
+        pixel: Pixel;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        layer: Layer<Source, LayerRenderer<any>>;
+        feature: Feature<Geometry>;
+    }[]
 ) {
     map.getSize = () => [mapProps.width, mapProps.height];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
