@@ -168,11 +168,18 @@ describe('<RLayerVector>', () => {
                 <RLayerVector ref={layer} {...handlers} features={features} />
             </RMap>
         );
-        if (map.current === null) throw new Error('failed rendering map');
+        common.installMapFeaturesInterceptors(
+            map.current!.ol,
+            layer
+                .current!.ol.getSource()!
+                .getFeatures()
+                .map((f) => ({pixel: [10, 10], layer: layer.current!.ol, feature: f}))
+        );
         expect(render1.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource()?.getFeatures() || [])
-                f.dispatchEvent(common.createEvent(evname, map.current.ol));
+            for (const f in layer.current?.ol.getSource()?.getFeatures() || []) {
+                map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol, [+f, +f]));
+            }
         render1.unmount();
         // unmount -> remount -> should render the same
         const comp = (
@@ -182,19 +189,28 @@ describe('<RLayerVector>', () => {
         );
         const render2 = render(comp);
         expect(render2.container.innerHTML).toMatchSnapshot();
+        common.installMapFeaturesInterceptors(
+            map.current!.ol,
+            layer
+                .current!.ol.getSource()!
+                .getFeatures()
+                .map((f, i) => ({pixel: [i, i], layer: layer.current!.ol, feature: f}))
+        );
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource()?.getFeatures() || []) {
+            for (const i in layer.current?.ol.getSource()?.getFeatures() || []) {
+                const f = (layer.current?.ol.getSource()?.getFeatures() || [])[i];
                 // do not lose handlers
-                f.dispatchEvent(common.createEvent(evname, map.current.ol));
+                map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol, [+i, +i]));
                 // do not leak handlers
                 expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
         // rerender -> should render the same
         render2.rerender(comp);
         for (const evname of mapEvents)
-            for (const f of layer.current?.ol.getSource()?.getFeatures() || []) {
+            for (const i in layer.current?.ol.getSource()?.getFeatures() || []) {
+                const f = (layer.current?.ol.getSource()?.getFeatures() || [])[i];
                 // do not lose handlers
-                f.dispatchEvent(common.createEvent(evname, map.current.ol));
+                map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol, [+i, +i]));
                 // do not leak handlers
                 expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
