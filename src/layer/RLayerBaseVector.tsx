@@ -95,17 +95,17 @@ export interface RLayerBaseVectorProps extends RLayerProps {
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: VectorSourceEvent<Geometry>
     ) => boolean | void;
-    /** Default onPointerMove handler for loaded features */
+    /** onPointerMove handler for all loaded features */
     onPointerMove?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
     ) => boolean | void;
-    /** Default onPointerEnter handler for loaded features */
+    /** onPointerEnter handler for all loaded features */
     onPointerEnter?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
     ) => boolean | void;
-    /** Default onPointerLeave handler for loaded features */
+    /** onPointerLeave handler for all loaded features */
     onPointerLeave?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
