@@ -113,8 +113,11 @@ export function installMapFeaturesInterceptors(
             top: 0
         })
     };
-    map.forEachFeatureAtPixel = jest.fn(function (this: Map, pixel: Pixel, cb) {
+    map.forEachFeatureAtPixel = function (this: Map, pixel: Pixel, cb, options) {
         for (const f of features) {
+            if (options?.layerFilter) {
+                if (!options.layerFilter(f.layer)) continue;
+            }
             if (f.pixel[0] == pixel[0] && f.pixel[1] == pixel[1]) {
                 const stop = cb.call(
                     this,
@@ -125,5 +128,5 @@ export function installMapFeaturesInterceptors(
                 if (stop) return stop;
             }
         }
-    });
+    };
 }

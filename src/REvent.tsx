@@ -4,27 +4,27 @@ import {RContext, RContextType} from './context';
 import debug from './debug';
 
 export const handlersSymbol = '_rlayers_handlers';
+export type OLEvent = 'change';
 export type Handler = (e: unknown) => boolean | void;
-export type Handlers = Record<string, Handler>;
+export type Handlers = Record<OLEvent, Handler>;
 
 export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     static contextType = RContext;
     context: RContextType;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ol: any;
+    ol: BaseObject;
     eventSources: BaseObject[];
 
-    getHandlers() {
-        // Some OpenLayers objects cannot have handlers (styles are an example)
-        if (typeof this.ol.get !== 'function') {
-            return {} as Handlers;
-        }
-        let handlers = this.ol.get(handlersSymbol);
+    static getOLObject<T>(prop: string, ol: BaseObject) {
+        let handlers = ol.get(prop);
         if (handlers === undefined) {
             handlers = {};
-            this.ol.set(handlersSymbol, handlers);
+            ol.set(prop, handlers);
         }
-        return handlers as Handlers;
+        return handlers as T;
+    }
+
+    getHandlers() {
+        return RlayersBase.getOLObject<Handlers>(handlersSymbol, this.ol);
     }
 
     /**
@@ -40,8 +40,15 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     /**
      * Get the uppercase name of this event
      */
-    getHandlerProp(event: string): string | void {
+    getHandlerProp(event: OLEvent): string | void {
         for (const p of Object.keys(this.props)) if (p.toLowerCase() === 'on' + event) return p;
+    }
+
+    incrementHandlers(ev: OLEvent): void {
+        return;
+    }
+    decrementHandlers(ev: OLEvent): void {
+        return;
     }
 
     attachEventHandlers(): void {
@@ -52,19 +59,21 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         const newEventsList = Object.keys(newEvents);
         const eventsToCheck = newEventsList.concat(
             handlersList.filter((ev) => !newEventsList.includes(ev))
-        );
+        ) as OLEvent[];
         for (const p of eventsToCheck) {
             if (handlers[p] !== undefined && newEvents[p] === undefined) {
                 debug('removing previously installed handler', this, p, handlers[p]);
                 for (const source of eventSources) source.un(p, handlers[p]);
                 handlers[p] = undefined;
+                this.decrementHandlers(p);
             }
             if (handlers[p] === undefined && newEvents[p] !== undefined) {
                 debug('installing handler', this, p, newEvents[p]);
                 const prop = this.getHandlerProp(p);
                 if (!prop) throw new Error('Internal error');
                 handlers[p] = (e: unknown) => this.props[prop].call(this, e);
-                for (const source of eventSources) source.on(p, handlers[p]);
+                for (const source of eventSources) source.on(p as OLEvent, handlers[p]);
+                this.incrementHandlers(p);
             }
         }
     }
@@ -76,7 +85,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         for (const e of Object.keys(events)) {
             if (events[e]) {
                 debug('reinstalling existing handler', this, e, events[e]);
-                newSource.on(e as 'change', handlers[e]);
+                newSource.on(e as OLEvent, handlers[e]);
             }
         }
     }
@@ -118,11 +127,12 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         const handlers = this.getHandlers();
         debug('willUnmount', this, handlers);
         const eventSources = this.eventSources ?? [this.ol];
-        for (const h of Object.keys(handlers ?? {})) {
+        for (const h of Object.keys(handlers ?? {}) as OLEvent[]) {
             debug('cleaning up handler', this, h, handlers[h]);
             if (handlers[h]) {
                 for (const source of eventSources) source.un(h, handlers[h]);
                 handlers[h] = undefined;
+                this.decrementHandlers(h);
             }
         }
     }

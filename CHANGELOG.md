@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [2.0.0]
 
+-   Vastly improved event handling performance avoiding expensive `forEachFeatureAtPixel` on layers that do not have event handlers
 -   Fix `onClick` handlers on `RLayerVectorTiles` layers
 
 ### [1.5.3]

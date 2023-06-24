@@ -7,9 +7,11 @@ import SourceVector from 'ol/source/Vector';
 import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
+import {Layer} from 'ol/layer';
 
 import {RContext, RContextType} from './context';
-import {RlayersBase, handlersSymbol} from './REvent';
+import {OLEvent, RlayersBase, handlersSymbol} from './REvent';
+import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
@@ -113,6 +115,21 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
+    incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.context.vectorlayer
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.context.vectorlayer
+        );
+        featureHandlers[ev]--;
+    }
+
     static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) {
@@ -136,7 +153,22 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 l: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>
             ) => triggered.push({feature: f, layer: l}) && false,
             {
-                hitTolerance: RFeature.hitTolerance
+                hitTolerance: RFeature.hitTolerance,
+                layerFilter: (layer) => {
+                    const handlers = RlayersBase.getOLObject<FeatureHandlers>(
+                        featureHandlersSymbol,
+                        layer
+                    );
+                    switch (e.type) {
+                        case 'click':
+                            return handlers['click'] > 0;
+                        case 'dblclick':
+                            return handlers['dblclick'] > 0;
+                        case 'singleclick':
+                            return handlers['singleclick'] > 0;
+                    }
+                    return Object.keys(handlers).reduce((a, x) => a + handlers[x], 0) > 0;
+                }
             }
         );
 

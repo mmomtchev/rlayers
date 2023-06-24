@@ -17,8 +17,13 @@ import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
+import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
+
+export const featureHandlersSymbol = '_rlayers_feature_handlers';
+export type FeatureHandlers = Record<OLEvent, number>;
+
 /**
  * @propsfor RLayerBaseVector
  */
@@ -142,6 +147,21 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         super.refresh(prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
+    }
+
+    incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev]--;
     }
 
     render(): JSX.Element {

@@ -6,6 +6,8 @@ import FeatureFormat from 'ol/format/Feature';
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
+import {OLEvent, RlayersBase} from '../REvent';
+import {FeatureHandlers, featureHandlersSymbol} from './RLayerBaseVector';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
@@ -71,6 +73,21 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         });
         this.eventSources = [this.ol, this.source];
         RFeature.initEventRelay(this.context.map);
+    }
+
+    incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev]--;
     }
 
     refresh(prevProps?: RLayerVectorTileProps): void {
