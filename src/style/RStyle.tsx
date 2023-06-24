@@ -48,7 +48,9 @@ export const createRStyle = (): RStyleRef => React.createRef();
  *
  * It provides the special `RStyle` context
  */
-export default class RStyle extends RlayersBase<RStyleProps, Record<string, never>> {
+export default class RStyle extends React.PureComponent<RStyleProps, Record<string, never>> {
+    static contextType = RContext;
+    context: RContextType;
     ol: StyleLike;
     childRefs: RStyleRef[];
     cache: LRU<string, Style>;
@@ -81,12 +83,21 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
     };
 
     componentDidMount(): void {
-        super.componentDidMount();
         this.refresh();
     }
 
+    componentDidUpdate(
+        prevProps: Readonly<RStyleProps>,
+        prev: Readonly<unknown>,
+        snap: unknown
+    ): void {
+        if (this.props !== prevProps) {
+            debug('willRefresh', this, prevProps, this.props);
+            this.refresh(prevProps);
+        }
+    }
+
     refresh(prevProps?: RStyleProps): void {
-        super.refresh(prevProps);
         if (!prevProps || prevProps?.render !== this.props.render) {
             if (this.context?.styleArray) {
                 if (this.ol === this.style)
