@@ -85,18 +85,22 @@ describe('<RLayerVector>', () => {
         unmount();
     });
     it('should call event handlers on features added after creation', async () => {
-        const map = React.createRef() as React.RefObject<RMap>;
-        const ref = React.createRef() as React.RefObject<RLayerVector>;
+        const map = React.createRef<RMap>();
+        const ref = React.createRef<RLayerVector>();
         const handler = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
-        const {container, unmount} = render(
+        const {unmount} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector ref={ref} zIndex={10} onClick={handler} />
             </RMap>
         );
-        if (map.current === null) throw new Error('failed rendering map');
+
         const f = new Feature(new Point([0, 0]));
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: ref.current!.ol, feature: f}
+        ]);
         ref.current?.source.addFeature(f);
-        f.dispatchEvent(common.createEvent('click', map.current.ol));
+
+        map.current?.ol.dispatchEvent(common.createEvent('click', map.current.ol, [10, 10]));
         expect(handler).toHaveBeenCalledTimes(1);
         unmount();
     });
