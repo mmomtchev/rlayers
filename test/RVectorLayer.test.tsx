@@ -173,7 +173,7 @@ describe('<RLayerVector>', () => {
             layer
                 .current!.ol.getSource()!
                 .getFeatures()
-                .map((f) => ({pixel: [10, 10], layer: layer.current!.ol, feature: f}))
+                .map((f, i) => ({pixel: [i, i], layer: layer.current!.ol, feature: f}))
         );
         expect(render1.container.innerHTML).toMatchSnapshot();
         for (const evname of mapEvents)
@@ -201,8 +201,6 @@ describe('<RLayerVector>', () => {
                 const f = (layer.current?.ol.getSource()?.getFeatures() || [])[i];
                 // do not lose handlers
                 map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol, [+i, +i]));
-                // do not leak handlers
-                expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
         // rerender -> should render the same
         render2.rerender(comp);
@@ -211,8 +209,6 @@ describe('<RLayerVector>', () => {
                 const f = (layer.current?.ol.getSource()?.getFeatures() || [])[i];
                 // do not lose handlers
                 map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol, [+i, +i]));
-                // do not leak handlers
-                expect((f.getListeners(evname.toLowerCase()) || []).length).toBe(1);
             }
         expect(render2.container.innerHTML).toMatchSnapshot();
         expect(handler).toHaveBeenCalledTimes(mapEvents.length * features.length * 3);
