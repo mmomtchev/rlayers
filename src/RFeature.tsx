@@ -166,6 +166,15 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                             return handlers['dblclick'] > 0;
                         case 'singleclick':
                             return handlers['singleclick'] > 0;
+                        case 'pointermove':
+                            return (
+                                (handlers['pointermove'] ?? 0) +
+                                    (handlers['pointerenter'] ?? 0) +
+                                    (handlers['pointerleave'] ?? 0) +
+                                    (handlers['pointerdrag'] ?? 0) +
+                                    (handlers['pointerdragend'] ?? 0) >
+                                0
+                            );
                     }
                     return Object.keys(handlers).reduce((a, x) => a + handlers[x], 0) > 0;
                 }
