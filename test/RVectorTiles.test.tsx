@@ -3,11 +3,8 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {MVT} from 'ol/format';
-import {Pixel} from 'ol/pixel';
 import {Style} from 'ol/style';
-import {Geometry, Point} from 'ol/geom';
 import {Feature} from 'ol';
-import RenderFeature from 'ol/render/Feature';
 import {RLayerVectorTile, RMap} from 'rlayers';
 import {RStyle, RCircle, RStroke} from 'rlayers/style';
 import * as common from './common';
@@ -18,10 +15,6 @@ const props = {
     style: common.styles.yellow,
     format: new MVT()
 };
-
-const dummyGeom = new Point([0, 0]);
-const dummyFeat0 = {id: 0} as unknown as RenderFeature;
-const dummyFeat1 = {id: 1} as unknown as RenderFeature;
 
 describe('<RLayerVectorTiles>', () => {
     it('should create a vector tile layer', async () => {
