@@ -46,8 +46,8 @@ describe('<RLayerVectorTiles>', () => {
         // eslint-disable-next-line no-console
         console.error = err;
     });
-    it('should attach event handlers to features', async () => {
-        const mapEvents = ['Click', 'PointerMove'];
+    it('should relay OpenLayers events to features', async () => {
+        const mapEvents = ['Click', 'PointerMove'] as const;
         const handler = jest.fn();
         const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
         const map = React.createRef<RMap>();
@@ -70,11 +70,14 @@ describe('<RLayerVectorTiles>', () => {
         expect(handler).toHaveBeenCalledTimes(mapEvents.length);
         unmount();
     });
-    it('should generate events to features ', async () => {
-        const mapEvents = ['PointerEnter', 'PointerLeave'];
-        const handlers = {onPointerEnter: jest.fn(), onPointerLeave: jest.fn()};
-        const map = React.createRef() as React.RefObject<RMap>;
-        const layer = React.createRef() as React.RefObject<RLayerVectorTile>;
+    it('should generate enter/leave events to features ', async () => {
+        const mapEvents = ['onPointerEnter', 'onPointerLeave'] as const;
+        const handlers = mapEvents.reduce((ac, a) => ({...ac, [a]: jest.fn()}), {}) as Record<
+            (typeof mapEvents)[number],
+            () => void
+        >;
+        const map = React.createRef<RMap>();
+        const layer = React.createRef<RLayerVectorTile>();
         const {container, unmount} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVectorTile ref={layer} {...props} {...handlers} />
