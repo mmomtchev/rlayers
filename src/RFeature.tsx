@@ -170,9 +170,12 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                             return (
                                 (handlers['pointermove'] ?? 0) +
                                     (handlers['pointerenter'] ?? 0) +
-                                    (handlers['pointerleave'] ?? 0) +
-                                    (handlers['pointerdrag'] ?? 0) +
-                                    (handlers['pointerdragend'] ?? 0) >
+                                    (handlers['pointerleave'] ?? 0) >
+                                0
+                            );
+                        case 'pointerdrag':
+                            return (
+                                (handlers['pointerdrag'] ?? 0) + (handlers['pointerdragend'] ?? 0) >
                                 0
                             );
                     }
