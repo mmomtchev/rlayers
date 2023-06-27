@@ -271,10 +271,9 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 <RContext.Provider
                     value={
                         {
-                            map: this.context.map,
-                            layer: this.context.vectorlayer,
-                            source: this.context.vectorsource,
+                            ...this.context,
                             feature: this.ol,
+                            rFeature: this,
                             location: center
                         } as RContextType
                     }

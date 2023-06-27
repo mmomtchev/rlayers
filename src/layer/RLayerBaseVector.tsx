@@ -174,7 +174,9 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
                             layer: this.ol,
                             source: this.source,
                             vectorlayer: this.ol,
-                            vectorsource: this.source
+                            vectorsource: this.source,
+                            rLayer: this,
+                            rLayerVector: this
                         } as RContextType
                     }
                 >

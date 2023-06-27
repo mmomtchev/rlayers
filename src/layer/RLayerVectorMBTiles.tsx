@@ -175,7 +175,8 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
                         {
                             ...this.context,
                             layer: this.ol,
-                            vectortilelayer: this.ol
+                            vectortilelayer: this.ol,
+                            rLayer: this
                         } as RContextType
                     }
                 >

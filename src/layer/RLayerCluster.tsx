@@ -67,7 +67,9 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
                             layer: this.ol,
                             source: this.cluster,
                             vectorlayer: this.ol,
-                            vectorsource: this.cluster
+                            vectorsource: this.cluster,
+                            rLayer: this,
+                            rLayerVector: this
                         } as RContextType
                     }
                 >

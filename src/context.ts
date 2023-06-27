@@ -15,6 +15,12 @@ import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
 
+import RMap from './RMap';
+import RLayer, {RLayerProps} from './layer/RLayer';
+import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector';
+import RFeature from './RFeature';
+import RLayerVectorTile from './layer/RLayerVectorTile';
+
 export const RContext = React.createContext({} as RContextType);
 
 /**
@@ -46,4 +52,15 @@ export interface RContextType {
     readonly style?: Style;
     /** The current style array */
     readonly styleArray?: Style[];
+
+    /** The current RMap component */
+    readonly rMap?: RMap;
+    /** The current RLayer component */
+    readonly rLayer?: RLayer<RLayerProps>;
+    /** The current RLayerVector component */
+    readonly rLayerVector?: RLayerBaseVector<RLayerBaseVectorProps>;
+    /** The current RLayerVectorTile component */
+    readonly rLayerVectorTile?: RLayerVectorTile;
+    /** The current RFeature component */
+    readonly rFeature?: RFeature;
 }

@@ -189,7 +189,9 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
                 style={{width: this.props.width, height: this.props.height}}
                 ref={this.target}
             >
-                <RContext.Provider value={{map: this.ol}}>{this.props.children}</RContext.Provider>
+                <RContext.Provider value={{map: this.ol, rMap: this}}>
+                    {this.props.children}
+                </RContext.Provider>
             </div>
         );
     }

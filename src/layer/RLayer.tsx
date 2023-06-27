@@ -87,7 +87,8 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
                         {
                             ...this.context,
                             layer: this.ol,
-                            source: this.source
+                            source: this.source,
+                            rLayer: this
                         } as RContextType
                     }
                 >

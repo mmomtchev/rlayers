@@ -112,7 +112,9 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
                         {
                             ...this.context,
                             layer: this.ol,
-                            vectortilelayer: this.ol
+                            vectortilelayer: this.ol,
+                            rLayer: this,
+                            rLayerVectorTile: this
                         } as RContextType
                     }
                 >
