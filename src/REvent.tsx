@@ -95,23 +95,12 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     on(ev: OLEvent, cb: Handler): void {
-        const handlers = this.getHandlers();
-        if (handlers[ev] && handlers[ev] !== cb) {
-            throw new Error(`RLayers component cannot multiple ${ev} handlers`);
-        }
-        if (!handlers[ev]) this.incrementHandlers(ev);
-        handlers[ev] = cb;
         this.ol.on(ev, cb);
+        this.incrementHandlers(ev);
     }
 
     un(ev: OLEvent, cb: Handler): void {
-        const handlers = this.getHandlers();
-        if (!handlers[ev]) throw new Error(`RLayers component does not have ${ev} handler`);
-        if (this.getHandlerProp(ev))
-            throw new Error('Cannot unregister handler hard-coded as a property');
-        if (handlers[ev] !== cb) throw new Error('Passed handler has not been registered');
         this.decrementHandlers(ev);
-        handlers[ev] = undefined;
         this.ol.un(ev, cb);
     }
 
