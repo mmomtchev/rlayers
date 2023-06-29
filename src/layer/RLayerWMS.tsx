@@ -20,7 +20,7 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     ol: ImageLayer<ImageWMS>;
     source: ImageWMS;
 
-    constructor(props: Readonly<RLayerWMSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerWMSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new ImageLayer({source: this.source});

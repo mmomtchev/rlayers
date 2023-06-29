@@ -96,7 +96,7 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
     source: MBTiles.MBTilesVectorSource;
     private abort: AbortController;
 
-    constructor(props: Readonly<RLayerVectorMBTilesProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerVectorMBTilesProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.addon = import('ol-mbtiles');
         this.ol = new LayerVectorTile({

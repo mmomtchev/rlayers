@@ -94,7 +94,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
     ol: Feature<Geometry>;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RFeatureProps>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this?.context?.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');

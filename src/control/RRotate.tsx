@@ -23,7 +23,7 @@ export interface RRotateProps extends RControlProps {
 export default class RRotate extends RControlBase<RRotateProps, Record<string, never>> {
     ol: OLRRotate;
 
-    constructor(props: Readonly<RRotateProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RRotateProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OLRRotate(this.toOLProps(props));
     }

@@ -36,7 +36,7 @@ export interface RGeolocationProps {
 export default class RGeolocation extends RlayersBase<RGeolocationProps, Record<string, never>> {
     ol: Geolocation;
 
-    constructor(props: Readonly<RGeolocationProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RGeolocationProps>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this?.context?.map) throw new Error('A Geolocation must be part of a map');
         const projection = props.projection ?? this.context.map.getView().getProjection();

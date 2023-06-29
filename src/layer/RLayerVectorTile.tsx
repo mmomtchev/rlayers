@@ -59,7 +59,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
     ol: LayerVectorTile;
     source: SourceVectorTile;
 
-    constructor(props: Readonly<RLayerVectorTileProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerVectorTileProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new SourceVectorTile({
             url: this.props.url,
