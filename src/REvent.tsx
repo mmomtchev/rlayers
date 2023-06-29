@@ -94,11 +94,27 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         this.attachEventHandlers();
     }
 
+    /**
+     * Programmatically add an event handler to an RLayers component.
+     *
+     * @param {string} ev OpenLayers event
+     * @param {Handler} cb Callback
+     */
     on(ev: OLEvent, cb: Handler): void {
         this.ol.on(ev, cb);
         this.incrementHandlers(ev);
     }
 
+    /**
+     * Programmatically add an event handler to an RLayers component.
+     *
+     * Although public, use of this method is discouraged as it lacks
+     * any safety against calling un on a method that has not been
+     * registered.
+     *
+     * @param {string} ev OpenLayers event
+     * @param {Handler} cb Callback
+     */
     un(ev: OLEvent, cb: Handler): void {
         this.decrementHandlers(ev);
         this.ol.un(ev, cb);
