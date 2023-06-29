@@ -23,7 +23,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         return handlers as T;
     }
 
-    getHandlers() {
+    get handlers() {
         return RlayersBase.getOLObject<Handlers>(handlersSymbol, this.ol);
     }
 
@@ -52,7 +52,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     attachEventHandlers(): void {
-        const handlers = this.getHandlers();
+        const handlers = this.handlers;
         const handlersList = Object.keys(handlers ?? {});
         const eventSources = this.eventSources ?? [this.ol];
         const newEvents = this.getCurrentEvents();
@@ -80,7 +80,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
 
     // Used when replacing a source
     attachOldEventHandlers(newSource: BaseObject): void {
-        const handlers = this.getHandlers();
+        const handlers = this.handlers;
         const events = this.getCurrentEvents();
         for (const e of Object.keys(events)) {
             if (events[e]) {
@@ -134,7 +134,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     componentWillUnmount(): void {
-        const handlers = this.getHandlers();
+        const handlers = this.handlers;
         debug('willUnmount', this, handlers);
         const eventSources = this.eventSources ?? [this.ol];
         for (const h of Object.keys(handlers ?? {}) as OLEvent[]) {
