@@ -86,10 +86,15 @@ type FeatureRef = {
  *
  */
 export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
-    static pointerEvents: ('click' | 'pointerdrag' | 'pointermove' | 'singleclick' | 'dblclick')[] =
-        ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
-    static lastFeaturesEntered: FeatureRef[] = [];
-    static lastFeaturesDragged: FeatureRef[] = [];
+    private static pointerEvents: (
+        | 'click'
+        | 'pointerdrag'
+        | 'pointermove'
+        | 'singleclick'
+        | 'dblclick'
+    )[] = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
+    private static lastFeaturesEntered: FeatureRef[] = [];
+    private static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 3;
     ol: Feature<Geometry>;
     onchange: () => boolean | void;
@@ -115,14 +120,14 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
-    incrementHandlers(ev: OLEvent): void {
+    protected incrementHandlers(ev: OLEvent): void {
         const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
             featureHandlersSymbol,
             this.context.vectorlayer
         );
         featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
     }
-    decrementHandlers(ev: OLEvent): void {
+    protected decrementHandlers(ev: OLEvent): void {
         const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
             featureHandlersSymbol,
             this.context.vectorlayer
@@ -130,7 +135,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         featureHandlers[ev]--;
     }
 
-    static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
+    protected static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) {
             const stop = fr.feature.dispatchEvent(event);
@@ -144,7 +149,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    static eventRelay(e: RFeatureUIEvent): boolean {
+    private static eventRelay(e: RFeatureUIEvent): boolean {
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
@@ -235,7 +240,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    refresh(prevProps?: RFeatureProps): void {
+    protected refresh(prevProps?: RFeatureProps): void {
         super.refresh(prevProps);
         if (this.props.feature !== undefined && this.props.feature !== this.ol) {
             debug('replacing bound feature', this.ol);

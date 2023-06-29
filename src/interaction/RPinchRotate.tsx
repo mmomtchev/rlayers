@@ -21,7 +21,7 @@ export interface RPinchRotateProps {
 
 /** Rotation by pinching */
 export default class RPinchRotate extends RBaseInteraction<RPinchRotateProps> {
-    static classProps = ['threshold', 'duration'];
+    protected static classProps = ['threshold', 'duration'];
     ol: PinchRotate;
 
     createOL(props: RPinchRotateProps): PinchRotate {

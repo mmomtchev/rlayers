@@ -14,7 +14,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     ol: BaseObject;
     eventSources: BaseObject[];
 
-    static getOLObject<T>(prop: string, ol: BaseObject) {
+    protected static getOLObject<T>(prop: string, ol: BaseObject) {
         let handlers = ol.get(prop);
         if (handlers === undefined) {
             handlers = {};
@@ -23,14 +23,14 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         return handlers as T;
     }
 
-    get handlers() {
+    protected get handlers() {
         return RlayersBase.getOLObject<Handlers>(handlersSymbol, this.ol);
     }
 
     /**
      * Get the lowercase names of the currently installed handlers
      */
-    getCurrentEvents() {
+    protected getCurrentEvents() {
         return Object.keys(this.props)
             .filter((p) => p.startsWith('on'))
             .map((ev) => ({event: ev.toLowerCase().slice(2), prop: ev}))
@@ -40,18 +40,18 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     /**
      * Get the uppercase name of this event
      */
-    getHandlerProp(event: OLEvent): string | void {
+    protected getHandlerProp(event: OLEvent): string | void {
         for (const p of Object.keys(this.props)) if (p.toLowerCase() === 'on' + event) return p;
     }
 
-    incrementHandlers(ev: OLEvent): void {
+    protected incrementHandlers(ev: OLEvent): void {
         return;
     }
-    decrementHandlers(ev: OLEvent): void {
+    protected decrementHandlers(ev: OLEvent): void {
         return;
     }
 
-    attachEventHandlers(): void {
+    private attachEventHandlers(): void {
         const handlers = this.handlers;
         const handlersList = Object.keys(handlers ?? {});
         const eventSources = this.eventSources ?? [this.ol];
@@ -79,7 +79,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     // Used when replacing a source
-    attachOldEventHandlers(newSource: BaseObject): void {
+    protected attachOldEventHandlers(newSource: BaseObject): void {
         const handlers = this.handlers;
         const events = this.getCurrentEvents();
         for (const e of Object.keys(events)) {
@@ -90,7 +90,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         }
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         this.attachEventHandlers();
     }
 

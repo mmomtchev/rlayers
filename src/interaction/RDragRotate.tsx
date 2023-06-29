@@ -21,7 +21,7 @@ export interface RDragRotateProps {
 
 /** Rotation by clicking and dragging */
 export default class RDragRotate extends RBaseInteraction<RDragRotateProps> {
-    static classProps = ['condition', 'duration'];
+    protected static classProps = ['condition', 'duration'];
     ol: DragRotate;
 
     createOL(props: RDragRotateProps): DragRotate {

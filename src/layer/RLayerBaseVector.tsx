@@ -136,14 +136,14 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         super(props, context);
         RFeature.initEventRelay(this.context.map);
         this.eventSources = this.createSource(props);
-        this.attachEventHandlers();
+        super.refresh();
     }
 
-    createSource(props: Readonly<P>): BaseObject[] {
+    protected createSource(props: Readonly<P>): BaseObject[] {
         throw new Error('RLayerBaseVector is an abstract class');
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));

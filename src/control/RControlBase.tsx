@@ -43,7 +43,7 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
         };
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         this.ol.setProperties(this.toOLProps(this.props));
     }

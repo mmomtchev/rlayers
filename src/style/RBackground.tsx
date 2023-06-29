@@ -24,10 +24,10 @@ type Background = {
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
 export default class RBackground extends RBaseStyle<RBackgroundProps> {
-    static classProps = [];
+    protected static classProps = [];
     ol: Background;
 
-    create(props: RBackgroundProps): Background {
+    protected create(props: RBackgroundProps): Background {
         this.classProps = RBackground.classProps;
         const parent = this.context.style as unknown as Text;
         if (!parent.setBackgroundFill || !parent.setBackgroundStroke)

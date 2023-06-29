@@ -50,7 +50,7 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
         if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         for (const p of [
             'visible',

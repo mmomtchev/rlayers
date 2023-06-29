@@ -34,7 +34,7 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerTileJSONProps): void {
+    protected refresh(prevProps?: RLayerTileJSONProps): void {
         super.refresh(prevProps);
         if (this.props.url && prevProps?.url !== this.props.url) {
             this.source.setUrl(this.props.url);

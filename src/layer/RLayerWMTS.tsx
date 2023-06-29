@@ -41,7 +41,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
         this.createSource();
     }
 
-    createSource(): Promise<SourceWMTS> {
+    protected createSource(): Promise<SourceWMTS> {
         debug('createSource', this);
         return fetch(this.props.url)
             .then((r) => r.text())
@@ -68,7 +68,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             });
     }
 
-    refresh(prevProps?: RLayerWMTSProps): void {
+    protected refresh(prevProps?: RLayerWMTSProps): void {
         super.refresh();
         if (prevProps?.url !== this.props.url || prevProps?.layer !== this.props.layer) {
             this.createSource().then(() => {

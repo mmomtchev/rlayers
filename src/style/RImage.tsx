@@ -25,15 +25,21 @@ export interface RImageProps extends RBaseStyleProps {
  * An abstract class serving as base for all styles that render an image
  */
 export default class RImage<P extends RImageProps> extends RBaseStyle<P> {
-    static classProps = ['opacity', 'rotateWithView', 'rotation', 'scale', 'displacement'];
+    protected static classProps = [
+        'opacity',
+        'rotateWithView',
+        'rotation',
+        'scale',
+        'displacement'
+    ];
     ol: Image;
 
     /* istanbul ignore next */
-    create(props: P): Image {
+    protected create(props: P): Image {
         throw new Error('RImage is an abstract class');
     }
 
-    set(ol: Image): void {
+    protected set(ol: Image): void {
         if (!this.context.style.setImage)
             throw new Error('Parent element does not support an image');
         this.context.style.setImage(ol);

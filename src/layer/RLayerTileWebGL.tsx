@@ -48,7 +48,7 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    createSource(): void {
+    protected createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
             interpolate: !this.props.noIterpolation,
@@ -59,7 +59,7 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerTileWebGLProps): void {
+    protected refresh(prevProps?: RLayerTileWebGLProps): void {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
             this.createSource();

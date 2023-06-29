@@ -27,7 +27,7 @@ export default class ROSMWebGL extends RLayerWebGL<ROSMWebGLProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: ROSMWebGLProps): void {
+    protected refresh(prevProps?: ROSMWebGLProps): void {
         super.refresh(prevProps);
         this.ol.setProperties({label: 'OpenStreetMap'});
     }

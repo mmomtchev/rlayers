@@ -2,7 +2,6 @@ import React from 'react';
 
 import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
-import RFeature from './RFeature';
 import {OLEvent} from './REvent';
 
 /**
@@ -48,11 +47,11 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
         this.unregister();
     }
 
-    setPosition(): void {
+    protected setPosition(): void {
         this.ol.setPosition(this.visible ? this.context.location : undefined);
     }
 
-    unregister(prevProps?: RPopupProps): void {
+    private unregister(prevProps?: RPopupProps): void {
         if (!prevProps) return;
         switch (prevProps.trigger) {
             default:
@@ -66,7 +65,7 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
         }
     }
 
-    refresh(prevProps?: RPopupProps): void {
+    protected refresh(prevProps?: RPopupProps): void {
         this.ol.setElement(this.containerRef.current);
         if (prevProps?.trigger !== this.props.trigger) {
             this.unregister(prevProps);

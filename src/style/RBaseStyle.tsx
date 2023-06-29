@@ -17,7 +17,7 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     Record<string, never>
 > {
     static contextType = RContext;
-    static classProps: string[] = [];
+    protected static classProps: string[] = [];
     classProps: string[];
     ol: unknown;
     context: RContextType;
@@ -29,11 +29,11 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     }
 
     /* istanbul ignore next */
-    create(props: P): unknown {
+    protected create(props: P): unknown {
         throw new Error('RBaseStyle is an abstract class');
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         debug('refreshStyle', this);
         if (!prevProps) return;
         for (const p of this.classProps) {
@@ -55,7 +55,7 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     }
 
     /* istanbul ignore next */
-    set(ol: unknown): void {
+    protected set(ol: unknown): void {
         return;
     }
 

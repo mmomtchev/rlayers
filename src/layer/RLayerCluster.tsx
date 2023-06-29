@@ -30,7 +30,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
     source: SourceCluster;
     cluster: SourceVector<Geometry>;
 
-    createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
+    protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
         this.cluster = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -48,7 +48,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
         return [this.ol, this.source, this.cluster];
     }
 
-    refresh(prev?: RLayerClusterProps): void {
+    protected refresh(prev?: RLayerClusterProps): void {
         super.refresh(prev);
         if (prev?.distance !== this.props.distance) this.source.setDistance(this.props.distance);
         if (prev?.url !== this.props.url) {

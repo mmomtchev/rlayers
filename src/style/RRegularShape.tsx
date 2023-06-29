@@ -26,10 +26,15 @@ export interface RRegularShapeProps extends RRegularBaseProps {
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
 export default class RRegularShape extends RRegularBase<RRegularShapeProps> {
-    static classProps = RRegularBase.classProps.concat(['radius1', 'radius2', 'points', 'angle']);
+    protected static classProps = RRegularBase.classProps.concat([
+        'radius1',
+        'radius2',
+        'points',
+        'angle'
+    ]);
     ol: RegularShape;
 
-    create(props: RRegularShapeProps): RegularShape {
+    protected create(props: RRegularShapeProps): RegularShape {
         this.classProps = RRegularShape.classProps;
         return new RegularShape({
             ...props,

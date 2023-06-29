@@ -11,7 +11,7 @@ import debug from '../debug';
  * It is meant to be be extended by more specific interactions
  */
 export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, never>> {
-    static classProps: string[] = [];
+    protected static classProps: string[] = [];
     classProps: string[];
     ol: Interaction;
 
@@ -26,7 +26,7 @@ export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, n
         throw new Error('RBaseInteraction should not be directly instantiated');
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         for (const p of this.classProps)
             if (prevProps && prevProps[p] !== this.props[p]) {
                 debug('Replacing interaction', this, prevProps);

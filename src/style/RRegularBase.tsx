@@ -15,17 +15,17 @@ export interface RRegularBaseProps extends RImageProps {
 
 /** Abstract class */
 export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P> {
-    static classProps = RImage.classProps.concat(['radius']);
+    protected static classProps = RImage.classProps.concat(['radius']);
     ol: Image;
     stroke: Stroke;
     fill: Fill;
 
     /* istanbul ignore next */
-    create(props: P): Image {
+    protected create(props: P): Image {
         throw new Error('RImage is an abstract class');
     }
 
-    setStroke(s: Stroke): void {
+    protected setStroke(s: Stroke): void {
         /* This a sneaky way around OpenLayers not supporting
          * setStroke/setFill on RegulaRBaseStyle-derived classes */
         this.stroke = s;
@@ -33,7 +33,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
         super.set(this.ol);
     }
 
-    setFill(f: Fill): void {
+    protected setFill(f: Fill): void {
         /* This a sneaky way around OpenLayers not supporting
          * setStroke/setFill on RegulaRBaseStyle-derived classes */
         this.fill = f;

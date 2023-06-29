@@ -35,7 +35,7 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record<string, never>> {
     ol: Overlay;
-    containerRef: React.RefObject<HTMLDivElement>;
+    protected containerRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
@@ -47,7 +47,7 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         this.containerRef = React.createRef();
     }
 
-    setPosition(): void {
+    protected setPosition(): void {
         this.ol.setPosition(this.context.location);
         if (this.props.autoPosition && this.containerRef?.current) {
             this.containerRef.current.style.position = 'absolute';
@@ -70,7 +70,7 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         }
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         this.ol.setElement(this.containerRef.current);
         this.setPosition();

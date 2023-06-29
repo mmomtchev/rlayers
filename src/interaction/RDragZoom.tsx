@@ -30,7 +30,7 @@ export interface RDragZoomProps {
 
 /** Zoom by dragging a box, see `RDragBox` for selecting features */
 export default class RDragZoom extends RBaseInteraction<RDragZoomProps> {
-    static classProps = ['className', 'condition', 'duration', 'out', 'minArea'];
+    protected static classProps = ['className', 'condition', 'duration', 'out', 'minArea'];
     ol: DragZoom;
 
     createOL(props: RDragZoomProps): DragZoom {

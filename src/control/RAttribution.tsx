@@ -28,7 +28,7 @@ export default class RAttribution extends RControlBase<RAttributionProps, Record
         this.ol = new Attribution(this.toOLProps(props));
     }
 
-    refresh(prevProps?: RAttributionProps): void {
+    protected refresh(prevProps?: RAttributionProps): void {
         super.refresh(prevProps);
         if (prevProps?.collapsed !== this.props.collapsed)
             this.ol.setCollapsed(this.props.collapsed);

@@ -24,7 +24,7 @@ export interface RKeyboardZoomProps {
 
 /** Zoom with +/- keys on the keyboard */
 export default class RKeyboardZoom extends RBaseInteraction<RKeyboardZoomProps> {
-    static classProps = ['condition', 'duration', 'delta'];
+    protected static classProps = ['condition', 'duration', 'delta'];
     ol: KeyboardZoom;
 
     createOL(props: RKeyboardZoomProps): KeyboardZoom {

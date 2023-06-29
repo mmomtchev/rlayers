@@ -75,14 +75,14 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         RFeature.initEventRelay(this.context.map);
     }
 
-    incrementHandlers(ev: OLEvent): void {
+    protected incrementHandlers(ev: OLEvent): void {
         const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
             featureHandlersSymbol,
             this.ol
         );
         featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
     }
-    decrementHandlers(ev: OLEvent): void {
+    protected decrementHandlers(ev: OLEvent): void {
         const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
             featureHandlersSymbol,
             this.ol
@@ -90,7 +90,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         featureHandlers[ev]--;
     }
 
-    refresh(prevProps?: RLayerVectorTileProps): void {
+    protected refresh(prevProps?: RLayerVectorTileProps): void {
         super.refresh(prevProps);
         const handlers = Object.keys(this.props)
             .filter((ev) => ev.startsWith('on'))

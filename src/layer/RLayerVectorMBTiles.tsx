@@ -107,7 +107,7 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
         RFeature.initEventRelay(this.context.map);
     }
 
-    createSource(): void {
+    protected createSource(): void {
         debug('createSource start', this);
         this.metadata = this.addon.then((mod) =>
             mod.importMBTiles({
@@ -135,7 +135,7 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
         });
     }
 
-    destroySource(): void {
+    protected destroySource(): void {
         debug('destroySource', this, this.abort);
         if (this.source) {
             this.source.dispose();
@@ -153,7 +153,7 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
         this.destroySource();
     }
 
-    refresh(prevProps?: RLayerVectorMBTilesProps): void {
+    protected refresh(prevProps?: RLayerVectorMBTilesProps): void {
         super.refresh(prevProps);
         const handlers = Object.keys(this.props)
             .filter((ev) => ev.startsWith('on'))

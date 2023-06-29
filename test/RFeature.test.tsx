@@ -372,8 +372,10 @@ describe('<RFeature>', () => {
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(2);
 
-        expect(RFeature.lastFeaturesDragged.length).toBe(0);
-        expect(RFeature.lastFeaturesEntered.length).toBe(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesDragged.length).toBe(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesEntered.length).toBe(0);
     });
 
     it('should throw an error without a Layer', () => {

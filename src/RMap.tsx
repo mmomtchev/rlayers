@@ -154,7 +154,7 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
         this.ol.setTarget(this.target.current);
     }
 
-    updateView = (e: MapEvent): void => {
+    private updateView = (e: MapEvent): void => {
         const view = this.ol.getView();
         if (typeof this.props?.view[1] === 'function')
             this.props.view[1]({
@@ -164,7 +164,7 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
             });
     };
 
-    refresh(prevProps?: RMapProps): void {
+    protected refresh(prevProps?: RMapProps): void {
         super.refresh(prevProps);
         const view = this.ol.getView();
         for (const p of ['minZoom', 'maxZoom', 'constrainResolution']) {
