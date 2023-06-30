@@ -65,6 +65,7 @@ class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
 
         this.createSource();
         this.ol.setSource(this.source);
+        // Call this after replacing a source
         this.attachOldEventHandlers(this.source);
     }
 }
