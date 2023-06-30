@@ -10,7 +10,7 @@ import {Geometry, SimpleGeometry} from 'ol/geom';
 import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
 
-import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
+import {MapBrowserEvent, RContextType, RlayersBase, useOL, useRLayersComponent} from 'rlayers';
 import React from 'react';
 
 export const mapProps = {
@@ -136,4 +136,14 @@ export function installMapFeaturesInterceptors(
             }
         }
     };
+}
+
+export function CheckHooks(props: {
+    cb: (ol: ReturnType<typeof useOL>, rcomp: ReturnType<typeof useRLayersComponent>) => void;
+}): JSX.Element {
+    const ol = useOL();
+    const rcomp = useRLayersComponent();
+
+    React.useEffect(() => props.cb(ol, rcomp));
+    return React.createElement('div');
 }

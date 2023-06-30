@@ -64,3 +64,30 @@ export interface RContextType {
     /** The current RFeature component */
     readonly rFeature?: RFeature;
 }
+
+export function useOL() {
+    const context = React.useContext(RContext);
+    return {
+        map: context.map,
+        layer: context.layer,
+        source: context.source,
+        vectorlayer: context.vectorlayer,
+        vectorsource: context.vectorsource,
+        vectortilelayer: context.vectortilelayer,
+        feature: context.feature,
+        location: context.location,
+        style: context.style,
+        styleArray: context.styleArray
+    };
+}
+
+export function useRLayersComponent() {
+    const context = React.useContext(RContext);
+    return {
+        rMap: context.rMap,
+        rLayer: context.rLayer,
+        rLayerVector: context.rLayerVector,
+        rLayerVectorTile: context.rLayerVectorTile,
+        rFeature: context.rFeature
+    };
+}

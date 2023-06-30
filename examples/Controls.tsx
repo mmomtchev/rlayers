@@ -4,7 +4,7 @@ import {fromLonLat, toLonLat} from 'ol/proj';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
 
-import {RMap, RContext, ROSM, RControl} from 'rlayers';
+import {RMap, ROSM, RControl} from 'rlayers';
 import {RView} from 'rlayers/RMap';
 
 const origin = [2.364, 48.82];

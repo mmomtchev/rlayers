@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [2.0.0]
 
 -   Vastly improved event handling performance avoiding expensive `forEachFeatureAtPixel` on layers that do not have event handlers
+-   Add the `useOL()` and `useRLayersComponent()` component hooks allowing to easily access the containing OpenLayers and _rlayers_ components
 -   Layer event handlers are now independent of feature event handlers, if both the feature and its containing layer have declared an event handler, both will be called
 -   Fix `onClick` handlers on `RLayerVectorTiles` layers
 -   Use TypeScript `protected` and `private` to restrict methods that are not expected to be directly used from user code

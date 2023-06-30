@@ -4,31 +4,33 @@ import {Geometry, Point} from 'ol/geom';
 import {Geolocation as OLGeoLoc} from 'ol';
 import 'ol/ol.css';
 
-import {RMap, ROSM, RLayerVector, RFeature, RGeolocation, RStyle} from 'rlayers';
+import {RMap, ROSM, RLayerVector, RFeature, RGeolocation, RStyle, useOL} from 'rlayers';
 import locationIcon from './svg/location.svg';
 
-export default function Geolocation(): JSX.Element {
+function GeolocComp(): JSX.Element {
     const [pos, setPos] = React.useState(new Point(fromLonLat([0, 0])));
     const [accuracy, setAccuracy] = React.useState(undefined as Geometry | undefined);
+    // Low-level access to the OpenLayers API
+    const {map} = useOL();
+
     return (
-        <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 4}}>
-            <ROSM />
+        <>
             <RGeolocation
                 tracking={true}
                 trackingOptions={{enableHighAccuracy: true}}
-                onChange={React.useCallback(function (e) {
-                    // Note the use of function instead of an arrow lambda
-                    // which does not have this
-                    const geoloc = e.target as OLGeoLoc;
-                    setPos(new Point(geoloc.getPosition()));
-                    setAccuracy(geoloc.getAccuracyGeometry());
+                onChange={React.useCallback(
+                    (e) => {
+                        const geoloc = e.target as OLGeoLoc;
+                        setPos(new Point(geoloc.getPosition()));
+                        setAccuracy(geoloc.getAccuracyGeometry());
 
-                    // Low-level access to the OpenLayers API
-                    this.context.map.getView().fit(geoloc.getAccuracyGeometry(), {
-                        duration: 250,
-                        maxZoom: 15
-                    });
-                }, [])}
+                        map.getView().fit(geoloc.getAccuracyGeometry(), {
+                            duration: 250,
+                            maxZoom: 15
+                        });
+                    },
+                    [map]
+                )}
             />
             <RLayerVector zIndex={10}>
                 <RStyle.RStyle>
@@ -38,6 +40,15 @@ export default function Geolocation(): JSX.Element {
                 <RFeature geometry={pos}></RFeature>
                 <RFeature geometry={accuracy}></RFeature>
             </RLayerVector>
+        </>
+    );
+}
+
+export default function Geolocation(): JSX.Element {
+    return (
+        <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 4}}>
+            <ROSM />
+            <GeolocComp />
         </RMap>
     );
 }
