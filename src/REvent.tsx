@@ -51,7 +51,7 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
         return;
     }
 
-    private attachEventHandlers(): void {
+    protected attachEventHandlers(): void {
         const handlers = this.handlers;
         const handlersList = Object.keys(handlers ?? {});
         const eventSources = this.eventSources ?? [this.ol];
