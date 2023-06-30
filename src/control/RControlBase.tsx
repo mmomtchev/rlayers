@@ -31,7 +31,7 @@ export interface RControlOptions extends OLOptions {
 export default class RControlBase<P extends RControlProps, S> extends RlayersBase<P, S> {
     ol: Control;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.map) throw new Error('A control must be part of a map');
     }
@@ -43,7 +43,7 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
         };
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         this.ol.setProperties(this.toOLProps(this.props));
     }

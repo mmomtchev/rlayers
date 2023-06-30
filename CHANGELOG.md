@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [2.0.0]
+
+-   Vastly improved event handling performance avoiding expensive `forEachFeatureAtPixel` on layers that do not have event handlers
+-   Add the `useOL()` and `useRLayersComponent()` component hooks allowing to easily access the containing OpenLayers and _rlayers_ components
+-   Layer event handlers are now independent of feature event handlers, if both the feature and its containing layer have declared an event handler, both will be called
+-   Fix `onClick` handlers on `RLayerVectorTiles` layers
+-   Use TypeScript `protected` and `private` to restrict methods that are not expected to be directly used from user code
+-   Support all positioning options in `ROverlay`
+
 ### [1.5.3]
 
 -   Add `onFeaturesLoadStart` and `onFeaturesLoadError` events to all vector layers
@@ -18,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Declare `RLayerRasterMBTiles` and `RLayerVectorMBTiles` as public exports
 
-### [1.5.0] 2023-05-30
+## [1.5.0] 2023-05-30
 
 -   Add remote `.mbtiles` support with [`ol-mbtiles`](https://github.com/mmomtchev/ol-mbtiles)
 -   Add new _rlayers_-specific events to `RLayerWMTS` and `RLayerRasterMBTiles` to distinguish them from the OpenLayers `onSourceReady` events

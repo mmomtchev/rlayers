@@ -91,16 +91,25 @@ describe('<RMap>', () => {
             'RenderComplete',
             'Change'
         ];
-        const map = React.createRef() as React.RefObject<RMap>;
+        const map = React.createRef<RMap>();
         const handler = jest.fn(common.handlerCheckContext(RMap, [], []));
         const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
+        let testRan = false;
         expect(
             render(
                 <RMap ref={map} {...common.mapProps} {...handlers}>
                     <ROSM />
+                    <common.CheckHooks
+                        cb={(ol, rcomp) => {
+                            expect(ol.map).toBe(map.current?.ol);
+                            expect(rcomp.rMap).toBe(map.current);
+                            testRan = true;
+                        }}
+                    />
                 </RMap>
             ).container.innerHTML
         ).toMatchSnapshot();
+        expect(testRan).toBeTruthy();
         for (const evname of mapEvents)
             map.current?.ol.dispatchEvent(common.createEvent(evname, map.current.ol));
         expect(

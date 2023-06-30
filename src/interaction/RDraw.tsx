@@ -57,7 +57,7 @@ export interface RDrawProps {
 
 /** Pointer interaction for drawing features */
 export default class RDraw extends RPointer<RDrawProps> {
-    static classProps = [
+    protected static classProps = [
         'condition',
         'finishCondition',
         'freehandCondition',

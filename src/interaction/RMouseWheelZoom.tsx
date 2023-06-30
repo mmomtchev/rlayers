@@ -30,7 +30,13 @@ export interface RMouseWheelZoomProps {
 
 /** Mouse wheel zoom */
 export default class RMouseWheelZoom extends RBaseInteraction<RMouseWheelZoomProps> {
-    static classProps = ['condition', 'maxDelta', 'duration', 'useAnchor', 'constrainResolution'];
+    protected static classProps = [
+        'condition',
+        'maxDelta',
+        'duration',
+        'useAnchor',
+        'constrainResolution'
+    ];
     ol: MouseWheelZoom;
 
     createOL(props: RMouseWheelZoomProps): MouseWheelZoom {

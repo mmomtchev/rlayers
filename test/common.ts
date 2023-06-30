@@ -1,11 +1,16 @@
 /* istanbul ignore file */
-import {Map} from 'ol';
+import {Feature, Map} from 'ol';
+import {Pixel} from 'ol/pixel';
+import {Layer} from 'ol/layer';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Style, Stroke, Circle, Fill} from 'ol/style';
 import {Listener, ListenerFunction, ListenerObject} from 'ol/events';
+import {Geometry, SimpleGeometry} from 'ol/geom';
+import {Source} from 'ol/source';
+import LayerRenderer from 'ol/renderer/Layer';
 
-import {MapBrowserEvent, RContextType, RlayersBase} from 'rlayers';
+import {MapBrowserEvent, RContextType, RlayersBase, useOL, useRLayersComponent} from 'rlayers';
 import React from 'react';
 
 export const mapProps = {
@@ -17,10 +22,10 @@ export const mapProps = {
 export function createEvent(
     evname: string,
     map: Map,
-    coords?: number,
+    coords?: Pixel,
     dragging?: boolean
 ): MapBrowserEvent<UIEvent> {
-    const event = {clientX: coords ?? 10, clientY: coords ?? 10} as unknown;
+    const event = {clientX: coords?.[0] ?? 10, clientY: coords?.[1] ?? 10} as unknown;
     return new MapBrowserEvent<UIEvent>(evname.toLowerCase(), map, event as UIEvent, dragging);
 }
 
@@ -91,4 +96,54 @@ export function handlerCheckContext(
         for (const i in cEl)
             expect((this.context as RContextType)[cEl[i]]).toBe(cRef[i].current?.ol);
     };
+}
+
+/**
+ * Install event interceptors on map that is not displayed
+ */
+export function installMapFeaturesInterceptors(
+    map: Map,
+    features: {
+        pixel: Pixel;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        layer: Layer<Source, LayerRenderer<any>>;
+        feature: Feature<Geometry>;
+    }[]
+) {
+    map.getSize = () => [mapProps.width, mapProps.height];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (map as any).viewport_ = {
+        getBoundingClientRect: () => ({
+            width: mapProps.width,
+            height: mapProps.height,
+            left: 0,
+            top: 0
+        })
+    };
+    map.forEachFeatureAtPixel = function (this: Map, pixel: Pixel, cb, options) {
+        for (const f of features) {
+            if (options?.layerFilter) {
+                if (!options.layerFilter(f.layer)) continue;
+            }
+            if (f.pixel[0] == pixel[0] && f.pixel[1] == pixel[1]) {
+                const stop = cb.call(
+                    this,
+                    f.feature,
+                    f.layer,
+                    f.feature.getGeometry() as SimpleGeometry
+                );
+                if (stop) return stop;
+            }
+        }
+    };
+}
+
+export function CheckHooks(props: {
+    cb: (ol: ReturnType<typeof useOL>, rcomp: ReturnType<typeof useRLayersComponent>) => void;
+}): JSX.Element {
+    const ol = useOL();
+    const rcomp = useRLayersComponent();
+
+    React.useEffect(() => props.cb(ol, rcomp));
+    return React.createElement('div');
 }

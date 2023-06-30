@@ -30,7 +30,7 @@ export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<RLayersProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayersProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.targetRef = React.createRef();
         this.state = {collapsed: true, visible: [true]};

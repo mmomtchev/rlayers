@@ -17,8 +17,13 @@ import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
+import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
+
+export const featureHandlersSymbol = '_rlayers_feature_handlers';
+export type FeatureHandlers = Record<OLEvent, number>;
+
 /**
  * @propsfor RLayerBaseVector
  */
@@ -90,17 +95,17 @@ export interface RLayerBaseVectorProps extends RLayerProps {
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: VectorSourceEvent<Geometry>
     ) => boolean | void;
-    /** Default onPointerMove handler for loaded features */
+    /** onPointerMove handler for all loaded features */
     onPointerMove?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
     ) => boolean | void;
-    /** Default onPointerEnter handler for loaded features */
+    /** onPointerEnter handler for all loaded features */
     onPointerEnter?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
     ) => boolean | void;
-    /** Default onPointerLeave handler for loaded features */
+    /** onPointerLeave handler for all loaded features */
     onPointerLeave?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
         e: RFeatureUIEvent
@@ -126,59 +131,37 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         | WebGLPointsLayerRenderer
     >;
     source: SourceVector<Geometry>;
-    static relayedEvents = {
-        click: 'Click',
-        pointermove: 'PointerMove',
-        pointerenter: 'PointerEnter',
-        pointerleave: 'PointerLeave'
-    };
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         RFeature.initEventRelay(this.context.map);
         this.eventSources = this.createSource(props);
-        this.source.on('featuresloadend', this.newFeature);
-        this.source.on('addfeature', this.newFeature);
-        this.attachEventHandlers();
+        super.refresh();
     }
 
-    createSource(props: Readonly<P>): BaseObject[] {
+    protected createSource(props: Readonly<P>): BaseObject[] {
         throw new Error('RLayerBaseVector is an abstract class');
     }
 
-    newFeature = (e: VectorSourceEvent<Geometry>): void => {
-        if (e.feature) this.attachFeatureHandlers([e.feature]);
-        if (e.features) this.attachFeatureHandlers(e.features);
-    };
-
-    attachFeatureHandlers(features: Feature<Geometry>[], prevProps?: P): void {
-        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
-            if (this.props['on' + ev] !== (prevProps && prevProps['on' + ev]))
-                for (const f of features) f.on(ev.toLowerCase() as 'change', this.eventRelay);
-    }
-
-    eventRelay = (e: MapBrowserEvent<UIEvent>): boolean => {
-        if (this.props['on' + RLayerBaseVector.relayedEvents[e.type]])
-            return (
-                this.props['on' + RLayerBaseVector.relayedEvents[e.type]].call(this, e) !== false
-            );
-        return true;
-    };
-
-    componentWillUnmount(): void {
-        super.componentWillUnmount();
-        for (const ev of Object.values(RLayerBaseVector.relayedEvents))
-            this.source.forEachFeature((f) => {
-                f.un(ev.toLowerCase() as 'change', this.eventRelay);
-                return false;
-            });
-    }
-
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
-        this.attachFeatureHandlers(this.source.getFeatures(), prevProps);
         if (prevProps?.style !== this.props.style)
             this.ol.setStyle(RStyle.getStyle(this.props.style));
+    }
+
+    incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev]--;
     }
 
     render(): JSX.Element {
@@ -191,7 +174,9 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
                             layer: this.ol,
                             source: this.source,
                             vectorlayer: this.ol,
-                            vectorsource: this.source
+                            vectorsource: this.source,
+                            rLayer: this,
+                            rLayerVector: this
                         } as RContextType
                     }
                 >

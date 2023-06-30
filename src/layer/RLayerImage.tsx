@@ -32,14 +32,14 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
     ol: LayerImage<SourceImage>;
     source: SourceImage;
 
-    constructor(props: Readonly<RLayerImageProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerImageProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerImage({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 
-    createSource(): void {
+    protected createSource(): void {
         const options = {
             url: this.props.url,
             projection: this.props.projection,
@@ -51,7 +51,7 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerImageProps): void {
+    protected refresh(prevProps?: RLayerImageProps): void {
         super.refresh(prevProps);
         if (this.props.url && prevProps?.url !== this.props.url) {
             this.createSource();

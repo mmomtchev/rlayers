@@ -7,27 +7,46 @@ import * as common from './common';
 
 describe('<ROverlay>', () => {
     it('should support updating the props', async () => {
-        const comp = (trigger, text) => (
+        const ref = React.createRef<ROverlay>();
+        const feature = React.createRef<RFeature>();
+        let testRan = false;
+        const comp = (trigger, text, opts) => (
             <RMap {...common.mapProps}>
                 <ROSM />
                 <RLayerVector>
                     <RFeature
+                        ref={feature}
                         style={common.styles.blueDot}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     >
-                        <ROverlay>
+                        <ROverlay ref={ref} {...opts}>
                             <div id='target'>{text}</div>
+                            <common.CheckHooks
+                                cb={(ol, rcomp) => {
+                                    expect(ol.feature).toBe(feature.current?.ol);
+                                    expect(rcomp.rFeature).toBe(feature.current);
+                                    testRan = true;
+                                }}
+                            />
                         </ROverlay>
                     </RFeature>
                 </RLayerVector>
             </RMap>
         );
-        const {getByText, rerender, container, unmount} = render(comp('click', 'text1'));
+        const {getByText, rerender, container, unmount} = render(comp('click', 'text1', {}));
         expect(getByText('text1')).toBeInstanceOf(HTMLDivElement);
         expect(container.innerHTML).toMatchSnapshot();
-        rerender(comp('trigger', 'text2'));
+        expect(ref.current?.ol.getPositioning()).toBe('top-left');
+        expect(ref.current?.ol.getOffset()).toEqual([0, 0]);
+        expect(testRan).toBeTruthy();
+
+        testRan = false;
+        rerender(comp('trigger', 'text2', {positioning: 'bottom-right', offset: [-5, 5]}));
         expect(getByText('text2')).toBeInstanceOf(HTMLDivElement);
+        expect(ref.current?.ol.getPositioning()).toBe('bottom-right');
+        expect(ref.current?.ol.getOffset()).toEqual([-5, 5]);
         expect(container.innerHTML).toMatchSnapshot();
+        expect(testRan).toBeTruthy();
         unmount();
     });
 
@@ -58,7 +77,7 @@ describe('<ROverlay>', () => {
     });
 
     it('should support autoplacement', async () => {
-        const map = React.createRef() as React.RefObject<RMap>;
+        const map = React.createRef<RMap>();
         const comp = (auto) => (
             <RMap ref={map} {...common.mapProps}>
                 <ROSM />

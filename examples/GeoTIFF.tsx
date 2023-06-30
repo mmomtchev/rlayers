@@ -34,7 +34,7 @@ class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
     ol: LayerTile;
     source: GeoTIFF;
 
-    constructor(props: Readonly<RLayerGeoTIFFProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerGeoTIFFProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTile({source: this.source});
@@ -65,6 +65,7 @@ class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
 
         this.createSource();
         this.ol.setSource(this.source);
+        // Call this after replacing a source
         this.attachOldEventHandlers(this.source);
     }
 }

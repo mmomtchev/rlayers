@@ -45,12 +45,12 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
     ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         for (const p of [
             'visible',
@@ -87,7 +87,8 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
                         {
                             ...this.context,
                             layer: this.ol,
-                            source: this.source
+                            source: this.source,
+                            rLayer: this
                         } as RContextType
                     }
                 >

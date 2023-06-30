@@ -22,7 +22,7 @@ import debug from '../debug';
  * be supported rlayers either
  */
 export default class RStyleArray extends RStyle {
-    constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RStyleProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.childRefs = [];
         if (props.render) this.ol = this.style;

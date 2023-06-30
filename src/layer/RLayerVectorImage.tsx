@@ -23,7 +23,7 @@ export default class RLayerVectorImage extends RLayerBaseVector<RLayerBaseVector
     ol: LayerVectorImage<SourceVector<Geometry>>;
     source: SourceVector<Geometry>;
 
-    createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
+    protected createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -40,7 +40,7 @@ export default class RLayerVectorImage extends RLayerBaseVector<RLayerBaseVector
         return [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerBaseVectorProps): void {
+    protected refresh(prevProps?: RLayerBaseVectorProps): void {
         super.refresh(prevProps);
         if (prevProps?.url !== this.props.url) {
             this.source.setUrl(this.props.url);

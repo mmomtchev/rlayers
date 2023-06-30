@@ -37,7 +37,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
     ol: LayerHeatmap;
     source: SourceVector<Point>;
 
-    createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
+    protected createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -50,7 +50,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> 
         return [this.ol, this.source];
     }
 
-    refresh(prev?: RLayerHeatmapProps): void {
+    protected refresh(prev?: RLayerHeatmapProps): void {
         super.refresh(prev);
         if (prev?.blur !== this.props.blur) this.ol.setBlur(this.props.blur);
         if (prev?.radius !== this.props.radius) this.ol.setRadius(this.props.radius);

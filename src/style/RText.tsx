@@ -48,7 +48,7 @@ export interface RTextProps extends RBaseStyleProps {
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
 export default class RText extends RBaseStyle<RTextProps> {
-    static classProps = [
+    protected static classProps = [
         'text',
         'font',
         'offsetY',
@@ -63,12 +63,12 @@ export default class RText extends RBaseStyle<RTextProps> {
     ];
     ol: Text;
 
-    create(props: RTextProps): Text {
+    protected create(props: RTextProps): Text {
         this.classProps = RText.classProps;
         return new Text(props);
     }
 
-    set(ol: Text): void {
+    protected set(ol: Text): void {
         if (!this.context.style.setText)
             /* istanbul ignore next */
             throw new Error('Parent element does not support a text');

@@ -34,14 +34,14 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     parser: WMTSCapabilities;
     options: Options;
 
-    constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerWMTSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new LayerTile({source: this.source});
         this.parser = new WMTSCapabilities();
         this.createSource();
     }
 
-    createSource(): Promise<SourceWMTS> {
+    protected createSource(): Promise<SourceWMTS> {
         debug('createSource', this);
         return fetch(this.props.url)
             .then((r) => r.text())
@@ -68,7 +68,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             });
     }
 
-    refresh(prevProps?: RLayerWMTSProps): void {
+    protected refresh(prevProps?: RLayerWMTSProps): void {
         super.refresh();
         if (prevProps?.url !== this.props.url || prevProps?.layer !== this.props.layer) {
             this.createSource().then(() => {

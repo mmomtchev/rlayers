@@ -15,6 +15,12 @@ import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
 
+import RMap from './RMap';
+import RLayer, {RLayerProps} from './layer/RLayer';
+import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector';
+import RFeature from './RFeature';
+import RLayerVectorTile from './layer/RLayerVectorTile';
+
 export const RContext = React.createContext({} as RContextType);
 
 /**
@@ -46,4 +52,42 @@ export interface RContextType {
     readonly style?: Style;
     /** The current style array */
     readonly styleArray?: Style[];
+
+    /** The current RMap component */
+    readonly rMap?: RMap;
+    /** The current RLayer component */
+    readonly rLayer?: RLayer<RLayerProps>;
+    /** The current RLayerVector component */
+    readonly rLayerVector?: RLayerBaseVector<RLayerBaseVectorProps>;
+    /** The current RLayerVectorTile component */
+    readonly rLayerVectorTile?: RLayerVectorTile;
+    /** The current RFeature component */
+    readonly rFeature?: RFeature;
+}
+
+export function useOL() {
+    const context = React.useContext(RContext);
+    return {
+        map: context.map,
+        layer: context.layer,
+        source: context.source,
+        vectorlayer: context.vectorlayer,
+        vectorsource: context.vectorsource,
+        vectortilelayer: context.vectortilelayer,
+        feature: context.feature,
+        location: context.location,
+        style: context.style,
+        styleArray: context.styleArray
+    };
+}
+
+export function useRLayersComponent() {
+    const context = React.useContext(RContext);
+    return {
+        rMap: context.rMap,
+        rLayer: context.rLayer,
+        rLayerVector: context.rLayerVector,
+        rLayerVectorTile: context.rLayerVectorTile,
+        rFeature: context.rFeature
+    };
 }

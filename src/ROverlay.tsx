@@ -4,6 +4,19 @@ import {Overlay} from 'ol';
 import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
+// TODO: Use the OpenLayers 7 type after OpenLayers 6 support
+// is dropped
+export type Positioning =
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'center-left'
+    | 'center-center'
+    | 'center-right'
+    | 'top-left'
+    | 'top-center'
+    | 'top-right';
+
 /**
  * @propsfor ROverlay
  */
@@ -15,7 +28,12 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Automatically pan the map when the element is rendered
      * @default false */
     autoPan?: boolean;
-    // TODO: support the full options in rlayers 1.5.0 / ol 7.0
+    /** Offset the overlay on the x and y axes relative to the containing feature
+     * @default [0,0] */
+    offset?: number[];
+    /** Anchor point
+     * @default 'top-left' */
+    positioning?: Positioning;
     /** Automatically position the overlay so that it fits in the viewport
      * @default false */
     autoPosition?: boolean;
@@ -35,19 +53,21 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
  */
 export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record<string, never>> {
     ol: Overlay;
-    containerRef: React.RefObject<HTMLDivElement>;
+    protected containerRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
-            autoPan: props.autoPan
+            autoPan: props.autoPan,
+            offset: props.offset,
+            positioning: props.positioning
         });
         this.containerRef = React.createRef();
     }
 
-    setPosition(): void {
+    protected setPosition(): void {
         this.ol.setPosition(this.context.location);
         if (this.props.autoPosition && this.containerRef?.current) {
             this.containerRef.current.style.position = 'absolute';
@@ -70,10 +90,16 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         }
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
         this.ol.setElement(this.containerRef.current);
         this.setPosition();
+        if (this.props.offset !== prevProps?.offset) {
+            this.ol.setOffset(this.props.offset);
+        }
+        if (this.props.positioning !== prevProps?.positioning) {
+            this.ol.setPositioning(this.props.positioning);
+        }
     }
 
     componentDidMount(): void {

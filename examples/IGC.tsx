@@ -14,6 +14,7 @@ import {fromLonLat} from 'ol/proj';
 import IGC from 'ol/format/IGC';
 import {getVectorContext} from 'ol/render';
 import {Geometry, LineString, Point} from 'ol/geom';
+import {Coordinate} from 'ol/coordinate';
 
 import {
     RMap,
@@ -52,10 +53,10 @@ const origin = fromLonLat([6, 45.7]);
 // This part is re-rendered on every pointermove
 export default function IGCComp(): JSX.Element {
     const [time, setTime] = React.useState('');
-    const [point, setPoint] = React.useState(null as Point);
-    const [line, setLine] = React.useState(null as LineString);
+    const [point, setPoint] = React.useState<Point>(null);
+    const [line, setLine] = React.useState<LineString>(null);
     const [slider, setSlider] = React.useState(0);
-    const [highlights, setHighlights] = React.useState([]);
+    const [highlights, setHighlights] = React.useState<Coordinate[]>([]);
     const [flight, setFlight] = React.useState({
         start: Infinity,
         stop: -Infinity,
@@ -71,12 +72,12 @@ export default function IGCComp(): JSX.Element {
         blueCircle: useRStyle(),
         // This is a technique for an array of React.RefObjects
         // It is ugly but it works
-        flightPath: React.useRef([]) as React.RefObject<RStyle[]>
+        flightPath: React.useRef<RStyle[]>([])
     };
 
     // createRef instead of useRef here will severely impact performance
-    const igcVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
-    const highlightVectorLayer = React.useRef() as React.RefObject<RLayerVector>;
+    const igcVectorLayer = React.useRef<RLayerVector>();
+    const highlightVectorLayer = React.useRef<RLayerVector>();
 
     return (
         <React.Fragment>

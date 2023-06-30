@@ -20,14 +20,14 @@ export interface ROSMWebGLProps extends RLayerWebGLProps {}
 export default class ROSMWebGL extends RLayerWebGL<ROSMWebGLProps> {
     source: OSM;
 
-    constructor(props: Readonly<ROSMWebGLProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<ROSMWebGLProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new OSM();
         this.ol = new LayerTileWebGL({source: this.source, cacheSize: props.cacheSize});
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: ROSMWebGLProps): void {
+    protected refresh(prevProps?: ROSMWebGLProps): void {
         super.refresh(prevProps);
         this.ol.setProperties({label: 'OpenStreetMap'});
     }

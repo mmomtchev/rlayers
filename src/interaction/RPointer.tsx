@@ -30,7 +30,12 @@ export interface RPointerProps {
  * It is meant to be be extended by more specific interactions
  */
 export default class RPointer<P> extends RBaseInteraction<P> {
-    static classProps = ['handleDownEvent', 'handleDragEvent', 'handleMoveEvent', 'handleUpEvent'];
+    protected static classProps = [
+        'handleDownEvent',
+        'handleDragEvent',
+        'handleMoveEvent',
+        'handleUpEvent'
+    ];
     classProps: string[];
     ol: Pointer;
 }

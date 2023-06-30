@@ -20,14 +20,14 @@ export interface ROSMProps extends RLayerRasterProps {}
 export default class ROSM extends LayerRaster<ROSMProps> {
     source: OSM;
 
-    constructor(props: Readonly<ROSMProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<ROSMProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new OSM();
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: ROSMProps): void {
+    protected refresh(prevProps?: ROSMProps): void {
         super.refresh(prevProps);
         this.ol.setProperties({label: 'OpenStreetMap'});
     }

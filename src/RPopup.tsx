@@ -2,6 +2,7 @@ import React from 'react';
 
 import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
+import {OLEvent} from './REvent';
 
 /**
  * @propsfor RPopup
@@ -36,7 +37,7 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
     showing: number | undefined;
     hiding: number | undefined;
 
-    constructor(props: Readonly<RPopupProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RPopupProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.visible = false;
     }
@@ -46,28 +47,45 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
         this.unregister();
     }
 
-    setPosition(): void {
+    protected setPosition(): void {
         this.ol.setPosition(this.visible ? this.context.location : undefined);
     }
 
-    unregister(): void {
-        this.context.feature.un('click' as 'change', this.toggle);
-        this.context.feature.un('pointerenter' as 'change', this.show);
-        this.context.feature.un('pointerleave' as 'change', this.hide);
-    }
-
-    refresh(): void {
-        this.ol.setElement(this.containerRef.current);
-        this.unregister();
-        switch (this.props.trigger) {
+    private unregister(prevProps?: RPopupProps): void {
+        if (!prevProps) return;
+        switch (prevProps.trigger) {
             default:
             case 'click':
-                this.context.feature.on('click' as 'change', this.toggle);
+                this.context.rFeature.un('click' as OLEvent, this.toggle);
                 break;
             case 'hover':
-                this.context.feature.on('pointerenter' as 'change', this.show);
-                this.context.feature.on('pointerleave' as 'change', this.hide);
+                this.context.rFeature.un('pointerenter' as OLEvent, this.show);
+                this.context.rFeature.un('pointerhide' as OLEvent, this.hide);
                 break;
+        }
+    }
+
+    protected refresh(prevProps?: RPopupProps): void {
+        this.ol.setElement(this.containerRef.current);
+        if (prevProps?.trigger !== this.props.trigger) {
+            this.unregister(prevProps);
+            switch (this.props.trigger) {
+                default:
+                case 'click':
+                    if (prevProps?.trigger === 'hover') {
+                        this.context.rFeature.un('pointerenter' as OLEvent, this.show);
+                        this.context.rFeature.un('pointerhide' as OLEvent, this.hide);
+                    }
+                    this.context.rFeature.on('click' as OLEvent, this.toggle);
+                    break;
+                case 'hover':
+                    if (prevProps?.trigger === 'click') {
+                        this.context.rFeature.un('click' as OLEvent, this.toggle);
+                    }
+                    this.context.rFeature.on('pointerenter' as OLEvent, this.show);
+                    this.context.rFeature.on('pointerleave' as OLEvent, this.hide);
+                    break;
+            }
         }
         this.setPosition();
     }

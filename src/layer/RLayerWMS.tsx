@@ -20,14 +20,14 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     ol: ImageLayer<ImageWMS>;
     source: ImageWMS;
 
-    constructor(props: Readonly<RLayerWMSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerWMSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new ImageLayer({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 
-    createSource(): void {
+    protected createSource(): void {
         const {params, url} = this.props;
         const options = {params, url};
 
@@ -35,7 +35,7 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerWMSProps): void {
+    protected refresh(prevProps?: RLayerWMSProps): void {
         super.refresh(prevProps);
         this.createSource();
         this.ol.setSource(this.source);

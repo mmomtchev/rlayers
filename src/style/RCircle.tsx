@@ -20,10 +20,10 @@ export interface RCircleProps extends RRegularBaseProps {
  * Provides an `RStyle` context - for `Fill` or `Stroke`
  */
 export default class RCircle extends RRegularBase<RCircleProps> {
-    static classProps = RRegularBase.classProps.concat(['radius']);
+    protected static classProps = RRegularBase.classProps.concat(['radius']);
     ol: Circle;
 
-    create(props: RCircleProps): Circle {
+    protected create(props: RCircleProps): Circle {
         this.classProps = RCircle.classProps;
         return new Circle({
             ...props,

@@ -3,10 +3,8 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {MVT} from 'ol/format';
-import {Pixel} from 'ol/pixel';
 import {Style} from 'ol/style';
-import {Geometry, Point} from 'ol/geom';
-import RenderFeature from 'ol/render/Feature';
+import {Feature} from 'ol';
 import {RLayerVectorTile, RMap} from 'rlayers';
 import {RStyle, RCircle, RStroke} from 'rlayers/style';
 import * as common from './common';
@@ -17,10 +15,6 @@ const props = {
     style: common.styles.yellow,
     format: new MVT()
 };
-
-const dummyGeom = new Point([0, 0]);
-const dummyFeat0 = {id: 0} as unknown as RenderFeature;
-const dummyFeat1 = {id: 1} as unknown as RenderFeature;
 
 describe('<RLayerVectorTiles>', () => {
     it('should create a vector tile layer', async () => {
@@ -45,92 +39,72 @@ describe('<RLayerVectorTiles>', () => {
         // eslint-disable-next-line no-console
         console.error = err;
     });
-    it('should attach event handlers to features ', async () => {
-        const mapEvents = ['Click', 'PointerMove'];
+    it('should relay OpenLayers events to features', async () => {
+        const mapEvents = ['Click', 'PointerMove'] as const;
         const handler = jest.fn();
         const handlers = mapEvents.reduce((ac, a) => ({...ac, ['on' + a]: handler}), {});
-        const map = React.createRef() as React.RefObject<RMap>;
-        const layer = React.createRef() as React.RefObject<RLayerVectorTile>;
-        const {container, unmount} = render(
+        const map = React.createRef<RMap>();
+        const layer = React.createRef<RLayerVectorTile>();
+        const {unmount} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVectorTile ref={layer} {...props} {...handlers} />
             </RMap>
         );
-        if (map.current === null || layer.current === null) throw new Error('failed rendering map');
-        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (map.current.ol as any).viewport_ = {
-            getBoundingClientRect: () => ({
-                width: common.mapProps.width,
-                height: common.mapProps.height,
-                left: 0,
-                top: 0
-            })
-        };
-        map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (map.current === null || layer.current === null)
-                throw new Error('failed rendering map');
-            if (pixel[0] === 10) return cb.call(this, dummyFeat0, layer.current.ol, dummyGeom);
-            return undefined;
-        });
-        for (const ev of mapEvents)
-            map.current.ol.dispatchEvent(common.createEvent(ev, map.current.ol));
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: new Feature()}
+        ]);
+
+        for (const ev of mapEvents) {
+            // This should trigger a callback
+            map.current!.ol.dispatchEvent(common.createEvent(ev, map.current!.ol, [10, 10]));
+            // This should not
+            map.current!.ol.dispatchEvent(common.createEvent(ev, map.current!.ol, [20, 20]));
+        }
         expect(handler).toHaveBeenCalledTimes(mapEvents.length);
         unmount();
     });
-    it('should generate events to features ', async () => {
-        const mapEvents = ['PointerEnter', 'PointerLeave'];
-        const handlers = {onPointerEnter: jest.fn(), onPointerLeave: jest.fn()};
-        const map = React.createRef() as React.RefObject<RMap>;
-        const layer = React.createRef() as React.RefObject<RLayerVectorTile>;
+    it('should generate enter/leave events to features ', async () => {
+        const mapEvents = ['onPointerEnter', 'onPointerLeave'] as const;
+        const handlers = mapEvents.reduce((ac, a) => ({...ac, [a]: jest.fn()}), {}) as Record<
+            (typeof mapEvents)[number],
+            () => void
+        >;
+        const map = React.createRef<RMap>();
+        const layer = React.createRef<RLayerVectorTile>();
         const {container, unmount} = render(
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVectorTile ref={layer} {...props} {...handlers} />
             </RMap>
         );
-        if (map.current === null || layer.current === null) throw new Error('failed rendering map');
-        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (map.current.ol as any).viewport_ = {
-            getBoundingClientRect: () => ({
-                width: common.mapProps.width,
-                height: common.mapProps.height,
-                left: 0,
-                top: 0
-            })
-        };
-        map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (map.current === null || layer.current === null)
-                throw new Error('failed rendering map');
-            if (pixel[0] === 10) return cb.call(this, dummyFeat0, layer.current.ol, dummyGeom);
-            if (pixel[0] === 20) return cb.call(this, dummyFeat1, layer.current.ol, dummyGeom);
-            return undefined;
-        });
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: new Feature()},
+            {pixel: [20, 20], layer: layer.current!.ol, feature: new Feature()}
+        ]);
 
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(0);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [10, 10]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(1);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(0);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [20, 20]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(1);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(2);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [10, 10]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(2);
 
-        map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+        map.current!.ol.dispatchEvent(common.createEvent('pointermove', map.current!.ol, [0, 0]));
         expect(handlers.onPointerEnter).toHaveBeenCalledTimes(3);
         expect(handlers.onPointerLeave).toHaveBeenCalledTimes(3);
 

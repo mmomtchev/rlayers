@@ -62,7 +62,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
     source: MBTiles.MBTilesRasterSource;
     private abort: AbortController;
 
-    constructor(props: Readonly<RLayerRasterMBTilesProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerRasterMBTilesProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.addon = import('ol-mbtiles');
         this.ol = new LayerTile();
@@ -71,7 +71,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
         this.createSource();
     }
 
-    createSource(): void {
+    protected createSource(): void {
         debug('createSource start', this);
         this.metadata = this.addon.then((mod) =>
             mod.importMBTiles({
@@ -99,7 +99,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
         });
     }
 
-    destroySource(): void {
+    protected destroySource(): void {
         debug('destroySource', this, this.abort);
         if (this.source) {
             this.source.dispose();
@@ -117,7 +117,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
         this.destroySource();
     }
 
-    refresh(prevProps?: RLayerRasterMBTilesProps): void {
+    protected refresh(prevProps?: RLayerRasterMBTilesProps): void {
         super.refresh(prevProps);
         if (prevProps?.url !== this.props.url) {
             this.destroySource();

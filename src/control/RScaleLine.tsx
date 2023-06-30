@@ -28,7 +28,7 @@ export interface RScaleLineProps extends RControlProps {
 export default class RScaleLine extends RControlBase<RScaleLineProps, Record<string, never>> {
     ol: ScaleLine;
 
-    constructor(props: Readonly<RScaleLineProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RScaleLineProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new ScaleLine(this.toOLProps(props));
     }

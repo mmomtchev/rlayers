@@ -7,13 +7,14 @@ import * as common from './common';
 
 describe('<RPopup>', () => {
     it('should show a popup on click', async () => {
-        const map = React.createRef() as React.RefObject<RMap>;
-        const feature = React.createRef() as React.RefObject<RFeature>;
-        const popup = React.createRef() as React.RefObject<RPopup>;
+        const map = React.createRef<RMap>();
+        const feature = React.createRef<RFeature>();
+        const popup = React.createRef<RPopup>();
+        const layer = React.createRef<RLayerVector>();
         const comp = (
             <RMap ref={map} {...common.mapProps}>
                 <ROSM />
-                <RLayerVector>
+                <RLayerVector ref={layer}>
                     <RFeature
                         ref={feature}
                         style={common.styles.blueDot}
@@ -27,14 +28,18 @@ describe('<RPopup>', () => {
             </RMap>
         );
         const {container, rerender} = render(comp);
-        if (map.current === null) throw new Error('failed rendering map');
+
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: feature.current!.ol}
+        ]);
+
         expect(popup.current?.visible).toBeFalsy();
         expect(container.innerHTML).toMatchSnapshot();
-        feature.current?.ol.dispatchEvent(common.createEvent('click', map.current.ol));
+        map.current!.ol.dispatchEvent(common.createEvent('click', map.current!.ol, [10, 10]));
         rerender(comp);
         expect(popup.current?.visible).toBeTruthy();
         expect(container.innerHTML).toMatchSnapshot();
-        feature.current?.ol.dispatchEvent(common.createEvent('click', map.current.ol));
+        map.current!.ol.dispatchEvent(common.createEvent('click', map.current!.ol, [10, 10]));
         rerender(comp);
         expect(popup.current?.visible).toBeFalsy();
         expect(container.innerHTML).toMatchSnapshot();

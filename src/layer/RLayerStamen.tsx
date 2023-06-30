@@ -23,7 +23,7 @@ export default class RLayerStamen extends RLayerRaster<RLayerStamenProps> {
     ol: LayerTile<Stamen>;
     source: Stamen;
 
-    constructor(props: Readonly<RLayerStamenProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerStamenProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new Stamen({layer: this.props.layer});
         this.ol = new LayerTile({source: this.source});

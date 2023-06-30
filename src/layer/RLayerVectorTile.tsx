@@ -6,6 +6,8 @@ import FeatureFormat from 'ol/format/Feature';
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
+import {OLEvent, RlayersBase} from '../REvent';
+import {FeatureHandlers, featureHandlersSymbol} from './RLayerBaseVector';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
@@ -57,7 +59,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
     ol: LayerVectorTile;
     source: SourceVectorTile;
 
-    constructor(props: Readonly<RLayerVectorTileProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerVectorTileProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new SourceVectorTile({
             url: this.props.url,
@@ -73,7 +75,22 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         RFeature.initEventRelay(this.context.map);
     }
 
-    refresh(prevProps?: RLayerVectorTileProps): void {
+    protected incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    protected decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.ol
+        );
+        featureHandlers[ev]--;
+    }
+
+    protected refresh(prevProps?: RLayerVectorTileProps): void {
         super.refresh(prevProps);
         const handlers = Object.keys(this.props)
             .filter((ev) => ev.startsWith('on'))
@@ -95,7 +112,9 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
                         {
                             ...this.context,
                             layer: this.ol,
-                            vectortilelayer: this.ol
+                            vectortilelayer: this.ol,
+                            rLayer: this,
+                            rLayerVectorTile: this
                         } as RContextType
                     }
                 >

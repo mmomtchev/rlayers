@@ -134,20 +134,25 @@ You can also check the GPLed [XC-DB](https://github.com/mmomtchev/xc-db.git) for
 
 Composition works by using _React_ Contexts. Every nested element uses the context of its nearest parent.
 
-Currently a context has an `RContextType` and can contain the following elements:
+The underlying OpenLayers objects can be accessed using the `useOL()` hook - check the [`Geolocation`](https://mmomtchev.github.io/rlayers/#/geolocation) example to see how.
 
--   `RContext.map` provided by a map, every other element, except an `RStyle` must have a map parent
--   `RContext.layer` and `RContext.source` provided by all layers - not required for anything at the moment, but can be used to access the underlying _OpenLayers_ objects
--   `RContext.vectorlayer` and `RContext.vectorsource` provided by vector layers only - required for `<RFeature>`
--   `RContext.location` and `RContext.feature` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
--   `RContext.style` provided by a style definition - the only one which can be outside of a map
+Currently `useOL()` has an `RContextType` and can contain the following elements:
+
+-   `map` provided by a map, every other element, except an `RStyle` must have a map parent
+-   `layer` and `source` provided by all layers - not required for anything at the moment, but can be used to access the underlying _OpenLayers_ objects
+-   `vectorlayer` and `vectorsource` provided by vector layers only - required for `<RFeature>`
+-   `vectortilelayer` provided by vector tile layers only
+-   `location` and `feature` provided by a map feature - required for `<ROverlay>` and `<RPopup>`
+-   `style` provided by a style definition - the only one which can be outside of a map
+
+Additionally, `useRLayersComponent()` allows retrieving the containing _rlayers_ component.
 
 #### Accessing the underlying _OpenLayers_ objects and API
 
 The underlying _OpenLayers_ objects can be accessed in a number of different ways:
 
--   Through the context objects by using `React.Context.Consumer` - [the custom controls example](https://mmomtchev.github.io/rlayers/#/controls) contains an example for using the _OpenLayers_ `map` from `RContext`
--   In an event handler, when it is a normal function and not an arrow lambda, `this` will contain the _rlayers_ component and `this.context` will contain the context - [the geolocation example](https://mmomtchev.github.io/rlayers/#/geolocation) accesses `this.context.map` to adjust the view
+-   Through the context objects by using `React.Context.Consumer`
+-   In an event handler that is a normal function and not an arrow lambda, `this` will contain the _rlayers_ component and `this.context` will contain the context - this is an alternative to using `useOL()`
 -   In all event handlers, _OpenLayers_ will pass the target object in `event.target` and the map in `event.map` - [the popups example](https://mmomtchev.github.io/rlayers/#/popups) uses this method
 -   And finally, accessing arbitrary elements, even outside their contexts, is possible by using React references - `React.RefObject`s. [The high performance example](https://mmomtchev.github.io/rlayers/#/igc) contains an example of this. The underlying _OpenLayers_ objects can be accessed through the `ol` property of every component. Additionaly, for `layer` objects, the underlying _OpenLayers_ source can be accessed through `source`:
     ```ts

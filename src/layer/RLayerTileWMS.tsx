@@ -21,14 +21,14 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     ol: TileLayer<TileWMS>;
     source: TileWMS;
 
-    constructor(props: Readonly<RLayerTileWMSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileWMSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new TileLayer({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 
-    createSource(): void {
+    protected createSource(): void {
         const {params, url, projection} = this.props;
         const options = {params, url, projection};
 
@@ -36,7 +36,7 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerTileWMSProps): void {
+    protected refresh(prevProps?: RLayerTileWMSProps): void {
         super.refresh(prevProps);
         this.createSource();
         this.ol.setSource(this.source);

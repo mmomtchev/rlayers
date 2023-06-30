@@ -7,9 +7,11 @@ import SourceVector from 'ol/source/Vector';
 import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
+import {Layer} from 'ol/layer';
 
 import {RContext, RContextType} from './context';
-import {RlayersBase} from './REvent';
+import {OLEvent, RlayersBase, handlersSymbol} from './REvent';
+import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
@@ -84,15 +86,20 @@ type FeatureRef = {
  *
  */
 export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
-    static pointerEvents: ('click' | 'pointerdrag' | 'pointermove' | 'singleclick' | 'dblclick')[] =
-        ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
-    static lastFeaturesEntered: FeatureRef[] = [];
-    static lastFeaturesDragged: FeatureRef[] = [];
+    private static pointerEvents: (
+        | 'click'
+        | 'pointerdrag'
+        | 'pointermove'
+        | 'singleclick'
+        | 'dblclick'
+    )[] = ['click', 'pointerdrag', 'pointermove', 'singleclick', 'dblclick'];
+    private static lastFeaturesEntered: FeatureRef[] = [];
+    private static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 3;
     ol: Feature<Geometry>;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RFeatureProps>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this?.context?.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');
@@ -113,15 +120,36 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         for (const ev of RFeature.pointerEvents) map.on(ev, RFeature.eventRelay);
     }
 
-    static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
+    protected incrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.context.vectorlayer
+        );
+        featureHandlers[ev] = (featureHandlers[ev] ?? 0) + 1;
+    }
+    protected decrementHandlers(ev: OLEvent): void {
+        const featureHandlers = RlayersBase.getOLObject<FeatureHandlers>(
+            featureHandlersSymbol,
+            this.context.vectorlayer
+        );
+        featureHandlers[ev]--;
+    }
+
+    protected static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
-        if (fr.feature.dispatchEvent) return fr.feature.dispatchEvent(event);
+        if (fr.feature.dispatchEvent) {
+            const stop = fr.feature.dispatchEvent(event);
+            if (stop) return stop;
+        }
         if (!event.target) event.target = fr.feature;
-        if (fr.layer?.get('_on' + event.type)) return fr.layer.get('_on' + event.type)(event);
+        const layerHandler = fr.layer?.get(handlersSymbol)[event.type];
+        if (layerHandler) {
+            return layerHandler.call(null, event);
+        }
         return true;
     }
 
-    static eventRelay(e: RFeatureUIEvent): boolean {
+    private static eventRelay(e: RFeatureUIEvent): boolean {
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
@@ -130,7 +158,34 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 l: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>
             ) => triggered.push({feature: f, layer: l}) && false,
             {
-                hitTolerance: RFeature.hitTolerance
+                hitTolerance: RFeature.hitTolerance,
+                layerFilter: (layer) => {
+                    const handlers = RlayersBase.getOLObject<FeatureHandlers>(
+                        featureHandlersSymbol,
+                        layer
+                    );
+                    switch (e.type) {
+                        case 'click':
+                            return handlers['click'] > 0;
+                        case 'dblclick':
+                            return handlers['dblclick'] > 0;
+                        case 'singleclick':
+                            return handlers['singleclick'] > 0;
+                        case 'pointermove':
+                            return (
+                                (handlers['pointermove'] ?? 0) +
+                                    (handlers['pointerenter'] ?? 0) +
+                                    (handlers['pointerleave'] ?? 0) >
+                                0
+                            );
+                        case 'pointerdrag':
+                            return (
+                                (handlers['pointerdrag'] ?? 0) + (handlers['pointerdragend'] ?? 0) >
+                                0
+                            );
+                    }
+                    return Object.keys(handlers).reduce((a, x) => a + handlers[x], 0) > 0;
+                }
             }
         );
 
@@ -185,7 +240,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    refresh(prevProps?: RFeatureProps): void {
+    protected refresh(prevProps?: RFeatureProps): void {
         super.refresh(prevProps);
         if (this.props.feature !== undefined && this.props.feature !== this.ol) {
             debug('replacing bound feature', this.ol);
@@ -221,10 +276,9 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
                 <RContext.Provider
                     value={
                         {
-                            map: this.context.map,
-                            layer: this.context.vectorlayer,
-                            source: this.context.vectorsource,
+                            ...this.context,
                             feature: this.ol,
+                            rFeature: this,
                             location: center
                         } as RContextType
                     }

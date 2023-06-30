@@ -43,14 +43,14 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: LayerTile<XYZ>;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
     }
 
-    createSource(): void {
+    protected createSource(): void {
         this.source = new XYZ({
             url: this.props.url,
             interpolate: !this.props.noIterpolation,
@@ -61,7 +61,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
         this.eventSources = [this.ol, this.source];
     }
 
-    refresh(prevProps?: RLayerTileProps): void {
+    protected refresh(prevProps?: RLayerTileProps): void {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
             this.createSource();

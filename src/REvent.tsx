@@ -3,55 +3,121 @@ import React from 'react';
 import {RContext, RContextType} from './context';
 import debug from './debug';
 
+export const handlersSymbol = '_rlayers_handlers';
+export type OLEvent = 'change';
+export type Handler = (e: unknown) => boolean | void;
+export type Handlers = Record<OLEvent, Handler>;
+
 export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     static contextType = RContext;
     context: RContextType;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ol: any;
+    ol: BaseObject;
     eventSources: BaseObject[];
-    handlers: Record<string, (e: unknown) => boolean | void>;
 
-    // 'change' is available on all objects
-    olEventName(ev: string): 'change' {
-        return ev.substring(2).toLowerCase() as 'change';
+    protected static getOLObject<T>(prop: string, ol: BaseObject) {
+        let handlers = ol.get(prop);
+        if (handlers === undefined) {
+            handlers = {};
+            ol.set(prop, handlers);
+        }
+        return handlers as T;
     }
 
-    attachEventHandlers(): void {
+    protected get handlers() {
+        return RlayersBase.getOLObject<Handlers>(handlersSymbol, this.ol);
+    }
+
+    /**
+     * Get the lowercase names of the currently installed handlers
+     */
+    protected getCurrentEvents() {
+        return Object.keys(this.props)
+            .filter((p) => p.startsWith('on'))
+            .map((ev) => ({event: ev.toLowerCase().slice(2), prop: ev}))
+            .reduce((a, x) => ({...a, [x.event]: this.props[x.prop]}), {}) as Handlers;
+    }
+
+    /**
+     * Get the uppercase name of this event
+     */
+    protected getHandlerProp(event: OLEvent): string | void {
+        for (const p of Object.keys(this.props)) if (p.toLowerCase() === 'on' + event) return p;
+    }
+
+    protected incrementHandlers(ev: OLEvent): void {
+        return;
+    }
+    protected decrementHandlers(ev: OLEvent): void {
+        return;
+    }
+
+    protected attachEventHandlers(): void {
+        const handlers = this.handlers;
+        const handlersList = Object.keys(handlers ?? {});
         const eventSources = this.eventSources ?? [this.ol];
-        const newEvents = Object.keys(this.props).filter((p) => p.startsWith('on'));
-        const eventsToCheck = newEvents.concat(
-            Object.keys(this.handlers ?? {}).filter((ev) => !newEvents.includes(ev))
-        );
+        const newEvents = this.getCurrentEvents();
+        const newEventsList = Object.keys(newEvents);
+        const eventsToCheck = newEventsList.concat(
+            handlersList.filter((ev) => !newEventsList.includes(ev))
+        ) as OLEvent[];
         for (const p of eventsToCheck) {
-            if (this.handlers === undefined) this.handlers = {};
-            if (this.handlers[p] !== undefined && this.props[p] === undefined) {
-                debug('removing previously installed handler', this, p, this.handlers[p]);
-                for (const source of eventSources) source.un(this.olEventName(p), this.handlers[p]);
-                this.handlers[p] = undefined;
+            if (handlers[p] !== undefined && newEvents[p] === undefined) {
+                debug('removing previously installed handler', this, p, handlers[p]);
+                for (const source of eventSources) source.un(p, handlers[p]);
+                handlers[p] = undefined;
+                this.decrementHandlers(p);
             }
-            if (this.handlers[p] === undefined && this.props[p] !== undefined) {
-                debug('installing handler', this, p, this.props[p]);
-                this.handlers[p] = (e: unknown) => this.props[p].call(this, e);
-                for (const source of eventSources) source.on(this.olEventName(p), this.handlers[p]);
+            if (handlers[p] === undefined && newEvents[p] !== undefined) {
+                debug('installing handler', this, p, newEvents[p]);
+                const prop = this.getHandlerProp(p);
+                if (!prop) throw new Error('Internal error');
+                handlers[p] = (e: unknown) => this.props[prop].call(this, e);
+                for (const source of eventSources) source.on(p as OLEvent, handlers[p]);
+                this.incrementHandlers(p);
             }
         }
     }
 
     // Used when replacing a source
-    attachOldEventHandlers(newSource: BaseObject): void {
-        // No events have been attached yet
-        if (!this.handlers) return;
-        const events = Object.keys(this.props).filter((p) => p.startsWith('on'));
-        for (const e of events) {
-            if (this.props[e]) {
-                debug('reinstalling existing handler', this, e, this.props[e]);
-                newSource.on(this.olEventName(e), this.handlers[e]);
+    protected attachOldEventHandlers(newSource: BaseObject): void {
+        const handlers = this.handlers;
+        const events = this.getCurrentEvents();
+        for (const e of Object.keys(events)) {
+            if (events[e]) {
+                debug('reinstalling existing handler', this, e, events[e]);
+                newSource.on(e as OLEvent, handlers[e]);
             }
         }
     }
 
-    refresh(prevProps?: P): void {
+    protected refresh(prevProps?: P): void {
         this.attachEventHandlers();
+    }
+
+    /**
+     * Programmatically add an event handler to an RLayers component.
+     *
+     * @param {string} ev OpenLayers event
+     * @param {Handler} cb Callback
+     */
+    on(ev: OLEvent, cb: Handler): void {
+        this.ol.on(ev, cb);
+        this.incrementHandlers(ev);
+    }
+
+    /**
+     * Programmatically add an event handler to an RLayers component.
+     *
+     * Although public, use of this method is discouraged as it lacks
+     * any safety against calling un on a method that has not been
+     * registered.
+     *
+     * @param {string} ev OpenLayers event
+     * @param {Handler} cb Callback
+     */
+    un(ev: OLEvent, cb: Handler): void {
+        this.decrementHandlers(ev);
+        this.ol.un(ev, cb);
     }
 
     componentDidMount(): void {
@@ -84,13 +150,15 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
     }
 
     componentWillUnmount(): void {
-        debug('willUnmount', this, this.handlers);
+        const handlers = this.handlers;
+        debug('willUnmount', this, handlers);
         const eventSources = this.eventSources ?? [this.ol];
-        for (const h of Object.keys(this.handlers ?? {})) {
-            debug('cleaning up handler', this, h, this.handlers[h]);
-            if (this.handlers[h]) {
-                for (const source of eventSources) source.un(this.olEventName(h), this.handlers[h]);
-                this.handlers[h] = undefined;
+        for (const h of Object.keys(handlers ?? {}) as OLEvent[]) {
+            debug('cleaning up handler', this, h, handlers[h]);
+            if (handlers[h]) {
+                for (const source of eventSources) source.un(h, handlers[h]);
+                handlers[h] = undefined;
+                this.decrementHandlers(h);
             }
         }
     }

@@ -36,7 +36,7 @@ export interface RTranslateProps {
  * A feature translation interaction
  */
 export default class RTranslate extends RPointer<RTranslateProps> {
-    static classProps = ['features', 'layers', 'filter', 'hitTolerance'];
+    protected static classProps = ['features', 'layers', 'filter', 'hitTolerance'];
     ol: Translate;
 
     createOL(props: RTranslateProps): Translate {

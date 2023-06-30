@@ -70,12 +70,12 @@ export interface RLayerGraticuleProps extends RLayerProps {
 export default class RLayerGraticule extends RLayer<RLayerGraticuleProps> {
     ol: LayerGraticule;
 
-    constructor(props: Readonly<RLayerGraticuleProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerGraticuleProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
     }
 
-    createSource(): void {
+    protected createSource(): void {
         const stroke = RStyle.getStyleStatic(this.props.strokeStyle)?.getStroke?.();
         const lonText = RStyle.getStyleStatic(this.props.lonLabelStyle)?.getText?.();
         const latText = RStyle.getStyleStatic(this.props.latLabelStyle)?.getText?.();
@@ -89,7 +89,7 @@ export default class RLayerGraticule extends RLayer<RLayerGraticuleProps> {
         return;
     }
 
-    refresh(prevProps?: RLayerGraticuleProps): void {
+    protected refresh(prevProps?: RLayerGraticuleProps): void {
         super.refresh(prevProps);
         const old = this.context.map.removeLayer(this.ol);
         this.createSource();

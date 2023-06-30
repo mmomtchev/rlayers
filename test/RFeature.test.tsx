@@ -3,8 +3,6 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
-import {Pixel} from 'ol/pixel';
-import {VectorTile} from 'ol/layer';
 import {Feature} from 'ol';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
@@ -174,11 +172,9 @@ describe('<RFeature>', () => {
     });
 
     it('should relay map events to features', () => {
-        const map = React.createRef() as React.RefObject<RMap>;
-        const ref = [
-            React.createRef() as React.RefObject<RFeature>,
-            React.createRef() as React.RefObject<RFeature>
-        ];
+        const map = React.createRef<RMap>();
+        const features = [React.createRef<RFeature>(), React.createRef<RFeature>()];
+        const layer = React.createRef<RLayerVector>();
         const mapEvents = ['Click', 'SingleClick', 'DblClick', 'PointerDrag', 'PointerMove'];
         const handlers = [
             jest.fn(common.handlerCheckContext(RFeature, ['map'], [map])),
@@ -194,15 +190,15 @@ describe('<RFeature>', () => {
         // First pass, test installing new handlers
         const {rerender} = render(
             <RMap ref={map} {...common.mapProps}>
-                <RLayerVector>
+                <RLayerVector ref={layer}>
                     <RFeature
-                        ref={ref[0]}
+                        ref={features[0]}
                         properties={{name: 'Arc de Triomphe'}}
                         {...handlerProps[0]}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     />
                     <RFeature
-                        ref={ref[1]}
+                        ref={features[1]}
                         properties={{name: "Place d'Italie"}}
                         {...handlerProps[1]}
                         geometry={new Point(common.coords.PlaceDItalie)}
@@ -211,31 +207,15 @@ describe('<RFeature>', () => {
             </RMap>
         );
 
-        if (map.current === null) throw new Error('map.current is null');
-        const dummyLayer = new VectorTile();
-        const dummyGeom = new Point([0, 0]);
-        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (map.current.ol as any).viewport_ = {
-            getBoundingClientRect: () => ({
-                width: common.mapProps.width,
-                height: common.mapProps.height,
-                left: 0,
-                top: 0
-            })
-        };
-        map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (ref[0].current === null || ref[1].current === null)
-                throw new Error('Referenced feature not found');
-            if (pixel[0] === 10) return cb.call(this, ref[0].current.ol, dummyLayer, dummyGeom);
-            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, dummyLayer, dummyGeom);
-            throw new Error('unexpected');
-        });
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: features[0].current!.ol},
+            {pixel: [20, 20], layer: layer.current!.ol, feature: features[1].current!.ol}
+        ]);
 
         act(() => {
             for (const ev of mapEvents) {
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [10, 10]));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [20, 20]));
             }
         });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
@@ -247,13 +227,13 @@ describe('<RFeature>', () => {
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector>
                     <RFeature
-                        ref={ref[0]}
+                        ref={features[0]}
                         properties={{name: 'Arc de Triomphe'}}
                         {...handlerProps[2]}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     />
                     <RFeature
-                        ref={ref[1]}
+                        ref={features[1]}
                         properties={{name: "Place d'Italie"}}
                         {...handlerProps[2]}
                         geometry={new Point(common.coords.PlaceDItalie)}
@@ -264,8 +244,8 @@ describe('<RFeature>', () => {
 
         act(() => {
             for (const ev of mapEvents) {
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [10, 10]));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [20, 20]));
             }
         });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
@@ -277,12 +257,12 @@ describe('<RFeature>', () => {
             <RMap ref={map} {...common.mapProps}>
                 <RLayerVector>
                     <RFeature
-                        ref={ref[0]}
+                        ref={features[0]}
                         properties={{name: 'Arc de Triomphe'}}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     />
                     <RFeature
-                        ref={ref[1]}
+                        ref={features[1]}
                         properties={{name: "Place d'Italie"}}
                         geometry={new Point(common.coords.PlaceDItalie)}
                     />
@@ -292,8 +272,8 @@ describe('<RFeature>', () => {
 
         act(() => {
             for (const ev of mapEvents) {
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 10));
-                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, 20));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [10, 10]));
+                map.current?.ol.dispatchEvent(common.createEvent(ev, map.current.ol, [20, 20]));
             }
         });
         expect(handlers[0]).toHaveBeenCalledTimes(mapEvents.length);
@@ -302,8 +282,9 @@ describe('<RFeature>', () => {
     });
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
-        const map = React.createRef() as React.RefObject<RMap>;
-        const ref = [0, 1, 2].map(() => React.createRef() as React.RefObject<RFeature>);
+        const map = React.createRef<RMap>();
+        const ref = [0, 1, 2].map(() => React.createRef<RFeature>());
+        const layer = React.createRef<RLayerVector>();
         const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];
         const handlerProps = mapEvents.reduce(
             (ac, a) => ({
@@ -314,7 +295,7 @@ describe('<RFeature>', () => {
         );
         const {container} = render(
             <RMap ref={map} {...common.mapProps}>
-                <RLayerVector>
+                <RLayerVector ref={layer}>
                     <RFeature
                         ref={ref[0]}
                         properties={{name: 'Arc de Triomphe'}}
@@ -335,72 +316,66 @@ describe('<RFeature>', () => {
                 </RLayerVector>
             </RMap>
         );
-        if (map.current === null) throw new Error('map.current is null');
-        const dummyLayer = new VectorTile();
-        const dummyGeom = new Point([0, 0]);
-        map.current.ol.getSize = () => [common.mapProps.width, common.mapProps.height];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (map.current.ol as any).viewport_ = {
-            getBoundingClientRect: () => ({
-                width: common.mapProps.width,
-                height: common.mapProps.height,
-                left: 0,
-                top: 0
-            })
-        };
-        map.current.ol.forEachFeatureAtPixel = jest.fn((pixel: Pixel, cb) => {
-            if (ref[0].current === null || ref[1].current === null || ref[2].current === null)
-                throw new Error('Referenced feature not found');
-            if (pixel[0] === 10) {
-                if (cb.call(this, ref[0].current.ol, dummyLayer, dummyGeom)) return;
-                return cb.call(this, ref[2].current.ol, dummyLayer, dummyGeom);
-            }
-            if (pixel[0] === 20) return cb.call(this, ref[1].current.ol, dummyLayer, dummyGeom);
-            return undefined;
-        });
+
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: ref[0].current!.ol},
+            {pixel: [20, 20], layer: layer.current!.ol, feature: ref[1].current!.ol},
+            {pixel: [10, 10], layer: layer.current!.ol, feature: ref[2].current!.ol}
+        ]);
 
         act(() => {
-            if (map.current === null) throw new Error('map.current is null');
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
         });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(0);
 
         act(() => {
-            if (map.current === null) throw new Error('map.current is null');
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [10, 10])
+            );
         });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(0);
 
         act(() => {
-            if (map.current === null) throw new Error('map.current is null');
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 20));
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [20, 20])
+            );
         });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
 
         act(() => {
-            if (map.current === null) throw new Error('map.current is null');
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 10));
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [10, 10])
+            );
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
         });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
 
         act(() => {
-            if (map.current === null) throw new Error('map.current is null');
-            map.current.ol.dispatchEvent(
-                common.createEvent('pointerdrag', map.current.ol, 10, true)
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointerdrag', map.current!.ol, [10, 10], true)
             );
-            map.current.ol.dispatchEvent(common.createEvent('pointermove', map.current.ol, 0));
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
         });
         expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(4);
         expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(2);
 
-        expect(RFeature.lastFeaturesDragged.length).toBe(0);
-        expect(RFeature.lastFeaturesEntered.length).toBe(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesDragged.length).toBe(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesEntered.length).toBe(0);
     });
 
     it('should throw an error without a Layer', () => {

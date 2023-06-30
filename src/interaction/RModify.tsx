@@ -39,7 +39,7 @@ export interface RModifyProps {
 
 /** Pointer interaction for modifying existing features */
 export default class RModify extends RPointer<RModifyProps> {
-    static classProps = [
+    protected static classProps = [
         'condition',
         'deleteCondition',
         'insertVertexCondition',

@@ -32,7 +32,7 @@ export default class RMousePosition extends RControlBase<
 > {
     ol: OLMousePosition;
 
-    constructor(props: Readonly<RMousePositionProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RMousePositionProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OLMousePosition(this.toOLProps(props));
     }

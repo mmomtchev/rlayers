@@ -21,7 +21,7 @@ export interface RDoubleClickZoomProps {
 
 /** Zooming by double click */
 export default class RDoubleClickZoom extends RBaseInteraction<RDoubleClickZoomProps> {
-    static classProps = ['duration', 'delta'];
+    protected static classProps = ['duration', 'delta'];
     ol: DoubleClickZoom;
 
     createOL(props: RDoubleClickZoomProps): DoubleClickZoom {
