@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [1.5.3]
 
 -   Add `onFeaturesLoadStart` and `onFeaturesLoadError` events to all vector layers
+-   Fix [#163](https://github.com/mmomtchev/rlayers/issues/163), DOMException when removing an `ROverlay`
 
 ### [1.5.2] 2023-06-11
 

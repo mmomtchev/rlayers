@@ -89,12 +89,14 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
     render(): JSX.Element {
         this.setPosition();
         return (
-            <div
-                ref={this.containerRef}
-                className={this.props.className}
-                onClick={this.props.onClick}
-            >
-                {this.props.children}
+            <div className='_rlayers_ROverlay'>
+                <div
+                    ref={this.containerRef}
+                    className={this.props.className}
+                    onClick={this.props.onClick}
+                >
+                    {this.props.children}
+                </div>
             </div>
         );
     }
