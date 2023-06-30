@@ -1,9 +1,21 @@
 import React, {MouseEvent, PropsWithChildren} from 'react';
 import {Overlay} from 'ol';
-import {Positioning} from 'ol/Overlay';
 
 import {RContextType} from './context';
 import {RlayersBase} from './REvent';
+
+// TODO: Use the OpenLayers 7 type after OpenLayers 6 support
+// is dropped
+export type Positioning =
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'center-left'
+    | 'center-center'
+    | 'center-right'
+    | 'top-left'
+    | 'top-center'
+    | 'top-right';
 
 /**
  * @propsfor ROverlay
