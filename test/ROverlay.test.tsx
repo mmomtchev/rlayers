@@ -7,7 +7,8 @@ import * as common from './common';
 
 describe('<ROverlay>', () => {
     it('should support updating the props', async () => {
-        const comp = (trigger, text) => (
+        const ref = React.createRef<ROverlay>();
+        const comp = (trigger, text, opts) => (
             <RMap {...common.mapProps}>
                 <ROSM />
                 <RLayerVector>
@@ -15,18 +16,23 @@ describe('<ROverlay>', () => {
                         style={common.styles.blueDot}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     >
-                        <ROverlay>
+                        <ROverlay ref={ref} {...opts}>
                             <div id='target'>{text}</div>
                         </ROverlay>
                     </RFeature>
                 </RLayerVector>
             </RMap>
         );
-        const {getByText, rerender, container, unmount} = render(comp('click', 'text1'));
+        const {getByText, rerender, container, unmount} = render(comp('click', 'text1', {}));
         expect(getByText('text1')).toBeInstanceOf(HTMLDivElement);
         expect(container.innerHTML).toMatchSnapshot();
-        rerender(comp('trigger', 'text2'));
+        expect(ref.current?.ol.getPositioning()).toBe('top-left');
+        expect(ref.current?.ol.getOffset()).toEqual([0, 0]);
+
+        rerender(comp('trigger', 'text2', {positioning: 'bottom-right', offset: [-5, 5]}));
         expect(getByText('text2')).toBeInstanceOf(HTMLDivElement);
+        expect(ref.current?.ol.getPositioning()).toBe('bottom-right');
+        expect(ref.current?.ol.getOffset()).toEqual([-5, 5]);
         expect(container.innerHTML).toMatchSnapshot();
         unmount();
     });

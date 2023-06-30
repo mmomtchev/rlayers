@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Layer event handlers are now independent of feature event handlers, if both the feature and its containing layer have declared an event handler, both will be called
 -   Fix `onClick` handlers on `RLayerVectorTiles` layers
 -   Use TypeScript `protected` and `private` to restrict methods that are not expected to be directly used from user code
+-   Support all positioning options in `ROverlay`
 
 ### [1.5.3]
 

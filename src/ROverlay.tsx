@@ -1,5 +1,6 @@
 import React, {MouseEvent, PropsWithChildren} from 'react';
 import {Overlay} from 'ol';
+import {Positioning} from 'ol/Overlay';
 
 import {RContextType} from './context';
 import {RlayersBase} from './REvent';
@@ -15,7 +16,12 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
     /** Automatically pan the map when the element is rendered
      * @default false */
     autoPan?: boolean;
-    // TODO: support the full options in rlayers 1.5.0 / ol 7.0
+    /** Offset the overlay on the x and y axes relative to the containing feature
+     * @default [0,0] */
+    offset?: number[];
+    /** Anchor point
+     * @default 'top-left' */
+    positioning?: Positioning;
     /** Automatically position the overlay so that it fits in the viewport
      * @default false */
     autoPosition?: boolean;
@@ -42,7 +48,9 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
-            autoPan: props.autoPan
+            autoPan: props.autoPan,
+            offset: props.offset,
+            positioning: props.positioning
         });
         this.containerRef = React.createRef();
     }
@@ -74,6 +82,12 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         super.refresh(prevProps);
         this.ol.setElement(this.containerRef.current);
         this.setPosition();
+        if (this.props.offset !== prevProps?.offset) {
+            this.ol.setOffset(this.props.offset);
+        }
+        if (this.props.positioning !== prevProps?.positioning) {
+            this.ol.setPositioning(this.props.positioning);
+        }
     }
 
     componentDidMount(): void {
