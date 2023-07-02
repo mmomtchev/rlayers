@@ -59,7 +59,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "codecov": "curl -s https://codecov.io/bash | bash",
-    "prepare": "npm run build",
+    "prepare": "npm run build:lib",
     "preversion": "npm run test",
     "version": "npm run clean && npm run build && git add package.json",
     "postversion": "git push && git push --tags && npm run doc:publish",
