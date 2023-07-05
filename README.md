@@ -221,6 +221,8 @@ These 3 examples run code on various high-frequency events, take a look at them:
 -   [Geo data](https://mmomtchev.github.io/rlayers/#/geodata) updates components at every `pointerenter`/`pointerleave`
 -   [The high performance example](https://mmomtchev.github.io/rlayers/#/igc) is a complex example that runs lots of code and updates components at every `pointermove`
 
+Also, when searching for features listening on `pointermove`/`pointerenter`/`pointerleave` events, _rlayers_ 2.0.0 and later, is able to eliminate very early feature layers that do not contain features listenening for those events. If your map contains a large number of features, and only a handful of these use `pointermove` events - try to group them in a separate layer.
+
 ## Examples
 
 The examples can be found here:
