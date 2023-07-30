@@ -14,8 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Use TypeScript `protected` and `private` to restrict methods that are not expected to be directly used from user code
 -   Support all positioning options in `ROverlay`
 
-### [1.5.3]
+### [1.5.3] 2023-07-30
 
+-   Fix [#169](https://github.com/mmomtchev/rlayers/issues/169), support TypeScript 5.x
 -   Add `onFeaturesLoadStart` and `onFeaturesLoadError` events to all vector layers
 -   Fix [#163](https://github.com/mmomtchev/rlayers/issues/163), DOMException when removing an `ROverlay`
 
