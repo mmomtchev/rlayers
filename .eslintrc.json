@@ -42,6 +42,7 @@
         "react/prop-types": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
+        "react/no-deprecated": "off",
         "quotes": [
             2,
             "single",
