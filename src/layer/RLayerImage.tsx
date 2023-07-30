@@ -32,7 +32,7 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
     ol: LayerImage<SourceImage>;
     source: SourceImage;
 
-    constructor(props: Readonly<RLayerImageProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerImageProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerImage({source: this.source});

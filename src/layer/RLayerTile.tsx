@@ -43,7 +43,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: LayerTile<XYZ>;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTile({source: this.source});

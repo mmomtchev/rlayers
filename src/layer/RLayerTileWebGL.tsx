@@ -37,7 +37,7 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
     ol: LayerTileWebGL;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileWebGLProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileWebGLProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTileWebGL({

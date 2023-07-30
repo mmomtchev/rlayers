@@ -50,6 +50,7 @@
             }
         ],
         "react/jsx-key": "off",
+        "react/no-deprecated": "off",
         "no-console": "warn"
     },
     "settings": {

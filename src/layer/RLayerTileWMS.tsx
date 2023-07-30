@@ -21,7 +21,7 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     ol: TileLayer<TileWMS>;
     source: TileWMS;
 
-    constructor(props: Readonly<RLayerTileWMSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileWMSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new TileLayer({source: this.source});

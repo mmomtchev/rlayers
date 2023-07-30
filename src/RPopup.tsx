@@ -36,7 +36,7 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
     showing: number | undefined;
     hiding: number | undefined;
 
-    constructor(props: Readonly<RPopupProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RPopupProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.visible = false;
     }

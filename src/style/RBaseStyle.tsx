@@ -22,7 +22,7 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     ol: unknown;
     context: RContextType;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context) throw new Error('A style property must be part of a style');
         this.ol = this.create(props);

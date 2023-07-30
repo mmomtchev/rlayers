@@ -32,7 +32,7 @@ export interface RZoomProps extends RControlProps {
 export default class RZoom extends RControlBase<RZoomProps, Record<string, never>> {
     ol: Zoom;
 
-    constructor(props: Readonly<RZoomProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RZoomProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new Zoom(this.toOLProps(props));
     }

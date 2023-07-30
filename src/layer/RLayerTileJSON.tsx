@@ -25,7 +25,7 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
     ol: LayerTile<TileJSON>;
     source: TileJSON;
 
-    constructor(props: Readonly<RLayerTileJSONProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerTileJSONProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new TileJSON({
             url: this.props.url

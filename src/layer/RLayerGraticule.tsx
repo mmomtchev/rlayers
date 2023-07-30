@@ -70,7 +70,7 @@ export interface RLayerGraticuleProps extends RLayerProps {
 export default class RLayerGraticule extends RLayer<RLayerGraticuleProps> {
     ol: LayerGraticule;
 
-    constructor(props: Readonly<RLayerGraticuleProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerGraticuleProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
     }

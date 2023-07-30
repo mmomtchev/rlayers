@@ -78,7 +78,7 @@ export function expectToCall(fn: (unknown) => unknown, mock: (unknown) => unknow
 export type ComponentConstructor = new (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     props: Readonly<any>,
-    context: React.Context<RContextType>
+    context?: React.Context<RContextType>
 ) => React.Component;
 
 export function handlerCheckContext(

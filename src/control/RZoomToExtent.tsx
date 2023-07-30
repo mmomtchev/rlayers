@@ -13,7 +13,7 @@ export interface RZoomToExtentProps extends RControlProps {
 export default class RZoomToExtent extends RControlBase<RZoomToExtentProps, Record<string, never>> {
     ol: OLZoomToExtent;
 
-    constructor(props: Readonly<RZoomToExtentProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RZoomToExtentProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OLZoomToExtent(this.toOLProps(props));
     }
