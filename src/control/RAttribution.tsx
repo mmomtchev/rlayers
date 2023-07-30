@@ -23,7 +23,7 @@ export interface RAttributionProps extends RControlProps {
 export default class RAttribution extends RControlBase<RAttributionProps, Record<string, never>> {
     ol: Attribution;
 
-    constructor(props: Readonly<RAttributionProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RAttributionProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new Attribution(this.toOLProps(props));
     }

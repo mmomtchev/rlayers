@@ -33,7 +33,7 @@ export interface ROverviewProps extends RControlProps {
 export default class ROverviewMap extends RControlBase<ROverviewProps, Record<string, never>> {
     ol: OverviewMap;
 
-    constructor(props: Readonly<ROverviewProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<ROverviewProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new OverviewMap(this.toOLProps(props));
     }

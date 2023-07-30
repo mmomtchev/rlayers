@@ -34,7 +34,7 @@ class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
     ol: LayerTile;
     source: GeoTIFF;
 
-    constructor(props: Readonly<RLayerGeoTIFFProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerGeoTIFFProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTile({source: this.source});

@@ -45,7 +45,7 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
     ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }

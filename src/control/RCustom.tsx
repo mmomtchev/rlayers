@@ -16,7 +16,7 @@ export default class RCustom extends RControlBase<RControlProps, Record<string, 
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<RControlProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RControlProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.targetRef = React.createRef();
     }

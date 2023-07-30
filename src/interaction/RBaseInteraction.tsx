@@ -15,7 +15,7 @@ export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, n
     classProps: string[];
     ol: Interaction;
 
-    constructor(props: P, context: React.Context<RContextType>) {
+    constructor(props: P, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.map?.addInteraction)
             throw new Error('An interaction must be part of a map');

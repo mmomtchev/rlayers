@@ -34,7 +34,7 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     parser: WMTSCapabilities;
     options: Options;
 
-    constructor(props: Readonly<RLayerWMTSProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerWMTSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new LayerTile({source: this.source});
         this.parser = new WMTSCapabilities();

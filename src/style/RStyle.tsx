@@ -53,7 +53,7 @@ export default class RStyle extends RlayersBase<RStyleProps, Record<string, neve
     childRefs: RStyleRef[];
     cache: LRU<string, Style>;
 
-    constructor(props: Readonly<RStyleProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RStyleProps>, context?: React.Context<RContextType>) {
         super(props, context);
         if (props.render) this.ol = this.style;
         else this.ol = new Style({zIndex: props.zIndex});

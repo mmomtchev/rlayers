@@ -133,7 +133,7 @@ export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends R
         pointerleave: 'PointerLeave'
     };
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         RFeature.initEventRelay(this.context.map);
         this.eventSources = this.createSource(props);

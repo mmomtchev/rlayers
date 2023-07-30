@@ -37,7 +37,7 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
     ol: Overlay;
     containerRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<P>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');

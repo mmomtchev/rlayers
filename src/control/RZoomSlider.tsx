@@ -23,7 +23,7 @@ export interface RZoomSliderProps extends RControlProps {
 export default class RZoomSlider extends RControlBase<RZoomSliderProps, Record<string, never>> {
     ol: ZoomSlider;
 
-    constructor(props: Readonly<RZoomSliderProps>, context: React.Context<RContextType>) {
+    constructor(props: Readonly<RZoomSliderProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.ol = new ZoomSlider(this.toOLProps(props));
     }
