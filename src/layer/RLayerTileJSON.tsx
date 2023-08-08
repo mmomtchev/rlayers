@@ -2,6 +2,7 @@ import React from 'react';
 import {Map} from 'ol';
 import {Tile as LayerTile} from 'ol/layer';
 import {TileJSON} from 'ol/source';
+import type {Options} from 'ol/source/TileJSON';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {RContextType} from '../context';
@@ -14,6 +15,8 @@ export interface RLayerTileJSONProps extends RLayerRasterProps {
     /** An URL for loading the tiles with the usual {x}{y}{z} semantics */
     url?: string;
     projection?: never;
+    // other, less frequently used options
+    tileSize?: Options['tileSize'];
 }
 
 /**
@@ -28,7 +31,8 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
     constructor(props: Readonly<RLayerTileJSONProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.source = new TileJSON({
-            url: this.props.url
+            url: this.props.url,
+            tileSize: this.props.tileSize
         });
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];
