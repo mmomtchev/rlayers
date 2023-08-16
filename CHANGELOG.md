@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Fix `onClick` handlers on `RLayerVectorTiles` layers
 -   Use TypeScript `protected` and `private` to restrict methods that are not expected to be directly used from user code
 -   Support all positioning options in `ROverlay`
+-   Support OpenLayers 7.5.1
 
 ### [1.5.3] 2023-07-30
 
