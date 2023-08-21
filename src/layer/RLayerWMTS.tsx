@@ -17,6 +17,8 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     url: string;
     /** Layer name */
     layer: string;
+    /** Format */
+    format: string;
     /** Called by OpenLayers when the layer is ready to start rendering */
     onSourceReady?: (this: RLayerWMTS, e: BaseEvent) => void;
     /** Called each time the component is rerendered if/after the WMTS capabilities have been acquired */
@@ -47,9 +49,11 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             .then((r) => r.text())
             .then((text) => {
                 const caps = this.parser.read(text);
-                this.options = optionsFromCapabilities(caps, {
+                const optionsCapabilities = {
                     layer: this.props.layer
-                });
+                };
+                if (this.props.format) optionsCapabilities['format'] = this.props.format;
+                this.options = optionsFromCapabilities(caps, optionsCapabilities);
                 if (this.props.attributions) this.options.attributions = this.props.attributions;
                 this.options.crossOrigin = '';
                 if (this.props.projection) this.options.projection = this.props.projection;
