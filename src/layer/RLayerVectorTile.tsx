@@ -1,6 +1,7 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
+import type {Options} from 'ol/source/VectorTile';
 import FeatureFormat from 'ol/format/Feature';
 
 import {RContext, RContextType} from '../context';
@@ -33,6 +34,17 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
+    /* vector tile specific source options */
+    extent?: Options['extent'];
+    overlaps?: Options['overlaps'];
+    state?: Options['state'];
+    tileClass?: Options['tileClass'];
+    tileSize?: Options['tileSize'];
+    tileGrid?: Options['tileGrid'];
+    tileLoadFunction?: Options['tileLoadFunction'];
+    tileUrlFunction?: Options['tileUrlFunction'];
+    transition?: Options['transition'];
+    zDirection?: Options['zDirection'];
     /** onClick handler for loaded features */
     onClick?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */
@@ -64,7 +76,19 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         this.source = new SourceVectorTile({
             url: this.props.url,
             format: this.props.format,
-            projection: this.props.projection
+            projection: this.props.projection,
+            cacheSize: this.props.cacheSize,
+            extent: this.props.extent,
+            overlaps: this.props.overlaps,
+            state: this.props.state,
+            tileClass: this.props.tileClass,
+            tileSize: this.props.tileSize,
+            tileGrid: this.props.tileGrid,
+            tileLoadFunction: this.props.tileLoadFunction,
+            tileUrlFunction: this.props.tileUrlFunction,
+            transition: this.props.transition,
+            wrapX: this.props.wrapX,
+            zDirection: this.props.zDirection
         });
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),

@@ -29,6 +29,10 @@ export interface RLayerProps extends PropsWithChildren<unknown> {
     maxZoom?: number;
     /** Custom attributions string */
     attributions?: string;
+    /** Initial tile cache size */
+    cacheSize?: number | undefined;
+    /** Wrap features around the antimeridian */
+    wrapX?: boolean | undefined;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** The layer will be reprojected if its projection is different than the map */
