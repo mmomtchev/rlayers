@@ -17,3 +17,4 @@ declare module '*.geojson' {
 
 declare const VERSION: string;
 declare const MAPBOX_TOKEN: string;
+declare const STADIA_MAPS_API_KEY: string;

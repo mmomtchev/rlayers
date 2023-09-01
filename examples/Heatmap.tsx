@@ -5,7 +5,7 @@ import {Feature} from 'ol';
 import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, RLayerStamen, RLayerHeatmap} from 'rlayers';
+import {RMap, RLayerStadia, RLayerHeatmap} from 'rlayers';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 // (this won't work in CodePen)
@@ -19,7 +19,7 @@ export default function Heatmap(): JSX.Element {
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>
-                <RLayerStamen layer='toner' />
+                <RLayerStadia layer='toner' />
                 <RLayerHeatmap
                     blur={blur}
                     radius={radius}

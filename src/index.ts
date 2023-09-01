@@ -22,7 +22,7 @@ export {default as RLayerImage, RLayerImageProps} from './layer/RLayerImage';
 export {default as RLayerGraticule, RLayerGraticuleProps} from './layer/RLayerGraticule';
 export {default as RLayerTileJSON, RLayerTileJSONProps} from './layer/RLayerTileJSON';
 export {default as RLayerTileWMS, RLayerTileWMSProps} from './layer/RLayerTileWMS';
-export {default as RLayerStamen, RLayerStamenProps} from './layer/RLayerStamen';
+export {default as RLayerStadia, RLayerStadiaProps} from './layer/RLayerStadia';
 export {default as RLayerHeatmap, RLayerHeatmapProps} from './layer/RLayerHeatmap';
 export {default as RLayerCluster, RLayerClusterProps} from './layer/RLayerCluster';
 export {default as RLayerVectorTile, RLayerVectorTileProps} from './layer/RLayerVectorTile';

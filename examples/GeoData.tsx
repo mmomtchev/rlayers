@@ -5,7 +5,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, RLayerVector, RStyle, RFeature, ROverlay, RLayerStamen} from 'rlayers';
+import {RMap, RLayerVector, RStyle, RFeature, ROverlay, RLayerStadia} from 'rlayers';
 
 // These are the French internal administrative borders in GeoJSON format
 const departements =
@@ -37,7 +37,7 @@ export default function GeoData(): JSX.Element {
                 noDefaultControls={true}
                 noDefaultInteractions={true}
             >
-                <RLayerStamen layer='toner' />
+                <RLayerStadia layer='stamen_toner' />
 
                 {/* This the internal borders layer, initialized with the GeoJSON
                  * useCallback is a performance optimization, it allows to always have

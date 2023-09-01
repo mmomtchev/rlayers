@@ -3,7 +3,7 @@ import {fireEvent, render} from '@testing-library/react';
 
 import {Map} from 'ol';
 
-import {RMap, RContext, RControl, ROSM, RLayerStamen} from 'rlayers';
+import {RMap, RContext, RControl, ROSM, RLayerStadia} from 'rlayers';
 import * as common from './common';
 
 const RControlButton = <button>X</button>;
@@ -31,7 +31,11 @@ describe('<RControl>', () => {
             <RMap {...common.mapProps} noDefaultControls={true}>
                 <RControl.RLayers>
                     <ROSM />
-                    <RLayerStamen layer='toner' properties={{label: 'toner'}} />
+                    <RLayerStadia
+                        layer='stamen_toner'
+                        apiKey={process.env.STADIA_MAPS_API_KEY!}
+                        properties={{label: 'toner'}}
+                    />
                 </RControl.RLayers>
                 <RControl.RScaleLine />
                 <RControl.RAttribution collapsed={collapsed} />

@@ -45,6 +45,7 @@ jobs:
                     - '7.3.0'
                     - '7.4.0'
                     - '7.5.1'
+                    - '8.0.0'
 
         steps:
             - uses: actions/checkout@v3
