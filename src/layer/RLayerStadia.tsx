@@ -1,6 +1,7 @@
 import React from 'react';
-import {Map as Map} from 'ol';
 import {Tile as LayerTile} from 'ol/layer';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import {StadiaMaps} from 'ol/source';
 
 import {RContextType} from '../context';
