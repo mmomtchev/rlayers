@@ -22,6 +22,11 @@ export interface RLayerStadiaProps extends RLayerRasterProps {
 /**
  * A ready to use interface for Stadia Maps's map service
  *
+ * Requires OpenLayers 8.0 and must be imported separately
+ *
+ * `import RLayerStadia from 'rlayers/layer/RLayerStadia';`
+ *
+ *
  * Requires an `RMap` context
  */
 export default class RLayerStadia extends RLayerRaster<RLayerStadiaProps> {
