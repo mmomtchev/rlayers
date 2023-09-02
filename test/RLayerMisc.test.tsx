@@ -1,12 +1,10 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react';
-
-import proj4 from 'proj4';
-import {register as proj4register} from 'ol/proj/proj4';
+import {render} from '@testing-library/react';
+import * as semver from 'semver';
+import {VERSION} from 'ol';
 
 import {
     RMap,
-    RLayerStamen,
     RLayerTileJSON,
     RLayerWMS,
     RLayerTileWMS,
@@ -14,23 +12,30 @@ import {
     RLayerGraticule,
     RStyle
 } from 'rlayers';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 import * as common from './common';
 
-describe('<RLayerStamen>', () => {
-    it('should display a tiled Stamen layer', async () => {
-        const layer = React.createRef() as React.RefObject<RLayerStamen>;
-        const {container} = render(
-            <RMap {...common.mapProps}>
-                <RLayerStamen ref={layer} layer='toner' />
-            </RMap>
-        );
-        expect(container.innerHTML).toMatchSnapshot();
-        expect((layer.current?.source.getUrls() || [])[0]).toBe(
-            'https://stamen-tiles-a.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
-        );
+if (semver.gte(VERSION, '8.0.0')) {
+    describe('<RLayerStadia>', () => {
+        it('should display a tiled Stadia layer', () => {
+            const layer = React.createRef() as React.RefObject<RLayerStadia>;
+            const {container} = render(
+                <RMap {...common.mapProps}>
+                    <RLayerStadia
+                        ref={layer}
+                        apiKey={process.env.STADIA_MAPS_API_KEY!}
+                        layer='stamen_toner'
+                    />
+                </RMap>
+            );
+            expect((layer.current?.source.getUrls() || [])[0]).toBe(
+                `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process
+                    .env.STADIA_MAPS_API_KEY!}`
+            );
+        });
     });
-});
+}
 
 describe('<RLayerWMS>', () => {
     it('should display a WMS source layer', async () => {

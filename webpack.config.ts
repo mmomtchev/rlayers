@@ -68,7 +68,8 @@ const webpackConfig = (env): webpack.Configuration => {
                     }
                 },
                 VERSION: JSON.stringify(require('./package.json').version),
-                MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN)
+                MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
+                STADIA_MAPS_API_KEY: JSON.stringify(process.env.STADIA_MAPS_API_KEY)
             })
         ],
         devServer: {

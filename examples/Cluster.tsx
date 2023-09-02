@@ -6,8 +6,9 @@ import 'ol/ol.css';
 
 // This example illustrates the versatility of a dynamic RStyle
 // It also makes use of its caching abilities
-import {RMap, RLayerStamen, RLayerCluster} from 'rlayers';
+import {RMap, RLayerCluster} from 'rlayers';
 import {RStyle, RFill, RStroke, RRegularShape, RCircle, RText} from 'rlayers/style';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 // (this won't work in CodePen)
@@ -34,7 +35,7 @@ export default function Cluster(): JSX.Element {
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>
-                <RLayerStamen layer='toner' />
+                <RLayerStadia layer='toner' />
                 <RLayerCluster
                     ref={earthquakeLayer}
                     distance={distance}

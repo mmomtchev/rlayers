@@ -12,6 +12,7 @@ import {
     RLayerWMS,
     RLayerTileWMS
 } from 'rlayers';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
 
@@ -33,9 +34,9 @@ export default function Layers(): JSX.Element {
                         properties={{label: 'Transport'}}
                         url='http://tile.thunderforest.com/transport/{z}/{x}/{y}.png'
                     />
-                    <RLayerTile
-                        properties={{label: 'Watercolor'}}
-                        url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
+                    <RLayerStadia
+                        properties={{label: 'Stadia Terrain Background'}}
+                        layer='stamen_terrain_background'
                     />
                     <RLayerTileJSON
                         properties={{label: 'Mapbox TileJSON'}}

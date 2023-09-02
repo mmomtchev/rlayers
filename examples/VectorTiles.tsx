@@ -10,9 +10,10 @@ import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
-import {RMap, RLayerTile, RLayerVectorTile} from 'rlayers';
+import {RMap, RLayerVectorTile} from 'rlayers';
 import {useRStyle, RStyle, RStyleArray, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 import {Geometry} from 'ol/geom';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 const degree = 111319.49079327358;
 const fonts = {
@@ -78,11 +79,7 @@ export default function VectorTiles(): JSX.Element {
                 projection='EPSG:4326'
             >
                 {/* This is the background raster map */}
-                <RLayerTile
-                    properties={{label: 'Watercolor'}}
-                    projection='EPSG:3857'
-                    url='https://stamen-tiles.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.jpg'
-                />
+                <RLayerStadia layer='stamen_watercolor' />
                 {/* These are the administrative borders */}
                 <RLayerVectorTile
                     onPointerEnter={React.useCallback(
