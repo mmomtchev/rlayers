@@ -5,7 +5,8 @@ import {Feature} from 'ol';
 import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, RLayerStadia, RLayerHeatmap} from 'rlayers';
+import {RMap, RLayerHeatmap} from 'rlayers';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 // (this won't work in CodePen)

@@ -10,9 +10,10 @@ import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
 import 'ol/ol.css';
 
-import {RMap, RLayerVectorTile, RLayerStadia} from 'rlayers';
+import {RMap, RLayerVectorTile} from 'rlayers';
 import {useRStyle, RStyle, RStyleArray, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 import {Geometry} from 'ol/geom';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 const degree = 111319.49079327358;
 const fonts = {

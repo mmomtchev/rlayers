@@ -10,9 +10,9 @@ import {
     RStyle,
     RLayerTileJSON,
     RLayerWMS,
-    RLayerTileWMS,
-    RLayerStadia
+    RLayerTileWMS
 } from 'rlayers';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
 

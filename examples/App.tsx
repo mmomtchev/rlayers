@@ -4,6 +4,8 @@ import './example.css';
 import './ghp.css';
 import React from 'react';
 import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import {VERSION as OL_VERSION} from 'ol';
+import semver from 'semver';
 
 const examples = {
     simple: {title: 'Simple map', file: 'Simple'},
@@ -17,17 +19,17 @@ const examples = {
     overview: {title: 'Overview', file: 'Overview'},
     popups: {title: 'Popups', file: 'Popups'},
     features: {title: 'GeoJSON', file: 'Features'},
-    cluster: {title: 'Clustering', file: 'Cluster'},
-    heatmap: {title: 'Heatmap', file: 'Heatmap'},
-    layers: {title: 'Multiple layers', file: 'Layers'},
+    cluster: {title: 'Clustering', file: 'Cluster', ol8: true},
+    heatmap: {title: 'Heatmap', file: 'Heatmap', ol8: true},
+    layers: {title: 'Multiple layers', file: 'Layers', ol8: true},
     pindrop: {title: 'Drop a pin', file: 'PinDrop'},
     spinner: {title: 'Spinner', file: 'Spinner'},
-    geodata: {title: 'Infographics', file: 'GeoData'},
+    geodata: {title: 'Infographics', file: 'GeoData', ol8: true},
     interactions: {title: 'Move & Select', file: 'Interactions'},
     add_delete: {title: 'Add & Delete', file: 'Add-Delete'},
     draw: {title: 'Draw & Modify', file: 'Draw'},
     geolocation: {title: 'Geolocation', file: 'Geolocation'},
-    vectortiles: {title: 'Vector tiles', file: 'VectorTiles'},
+    vectortiles: {title: 'Vector tiles', file: 'VectorTiles', ol8: true},
     mbtilesRaster: {title: 'Raster MBTiles', file: 'RasterMBTiles'},
     mbtilesVector: {title: 'Vector MBTiles', file: 'VectorMBTiles'},
     reproj: {title: 'Reprojection', file: 'Reprojection'},
@@ -44,6 +46,8 @@ const ReadmeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './Readm
 const CodeBlock = React.lazy(() => import(/* webpackPrefetch: true */ './CodeBlock'));
 
 for (const ex of Object.keys(examples)) {
+    if (semver.lt(OL_VERSION, '8.0.0') && examples[ex].ol8) continue;
+
     examples[ex].comp = React.lazy(
         () => import(/* webpackPrefetch: true */ `./${examples[ex].file}.tsx`)
     );
@@ -71,9 +75,11 @@ const App = (): JSX.Element => {
             <div className='d-flex flex-row p-3'>
                 <div className='d-flex flex-column left-menu me-2'>
                     <LeftMenuItem id={''} title={'Home'} />
-                    {Object.keys(examples).map((e) => (
-                        <LeftMenuItem key={e} id={e} title={examples[e].title} />
-                    ))}
+                    {Object.keys(examples)
+                        .filter((ex) => semver.gte(OL_VERSION, '8.0.0') || !examples[ex].ol8)
+                        .map((e) => (
+                            <LeftMenuItem key={e} id={e} title={examples[e].title} />
+                        ))}
                 </div>
                 <div className='d-flex flex-column w-100 overflow-hidden'>
                     <div className='fluid-container'>

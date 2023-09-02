@@ -5,7 +5,8 @@ import GeoJSON from 'ol/format/GeoJSON';
 import {Geometry} from 'ol/geom';
 import 'ol/ol.css';
 
-import {RMap, RLayerVector, RStyle, RFeature, ROverlay, RLayerStadia} from 'rlayers';
+import {RMap, RLayerVector, RStyle, RFeature, ROverlay} from 'rlayers';
+import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 // These are the French internal administrative borders in GeoJSON format
 const departements =

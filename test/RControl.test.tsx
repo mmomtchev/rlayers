@@ -1,9 +1,8 @@
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
-
 import {Map} from 'ol';
 
-import {RMap, RContext, RControl, ROSM, RLayerStadia} from 'rlayers';
+import {RMap, RContext, RControl, ROSM} from 'rlayers';
 import * as common from './common';
 
 const RControlButton = <button>X</button>;
@@ -30,12 +29,8 @@ describe('<RControl>', () => {
         const comp = (collapsed) => (
             <RMap {...common.mapProps} noDefaultControls={true}>
                 <RControl.RLayers>
-                    <ROSM />
-                    <RLayerStadia
-                        layer='stamen_toner'
-                        apiKey={process.env.STADIA_MAPS_API_KEY!}
-                        properties={{label: 'toner'}}
-                    />
+                    <ROSM properties={{label: 'layer1'}} />
+                    <ROSM properties={{label: 'layer2'}} />
                 </RControl.RLayers>
                 <RControl.RScaleLine />
                 <RControl.RAttribution collapsed={collapsed} />
@@ -75,7 +70,7 @@ describe('<RControl>', () => {
         fireEvent.click(button);
         rerender(comp(true));
 
-        const radio = getByLabelText('toner') as HTMLInputElement;
+        const radio = getByLabelText('layer2') as HTMLInputElement;
         fireEvent.click(radio);
         expect(backCompat(container.innerHTML)).toMatchSnapshot();
         unmount();
