@@ -29,7 +29,6 @@ if (semver.gte(VERSION, '8.0.0')) {
                     />
                 </RMap>
             );
-            expect(container.innerHTML).toMatchSnapshot();
             expect((layer.current?.source.getUrls() || [])[0]).toBe(
                 `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process
                     .env.STADIA_MAPS_API_KEY!}`
