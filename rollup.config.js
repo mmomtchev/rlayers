@@ -7,6 +7,7 @@ export default {
     output: {
         file: 'dist/cdn-bundle.js',
         format: 'iife',
+        inlineDynamicImports: true,
         sourcemap: true,
         name: 'rlayers',
         compact: true,
