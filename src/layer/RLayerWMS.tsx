@@ -11,6 +11,12 @@ import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 export interface RLayerWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;
     url: string;
+    /**
+     * The `crossOrigin` attribute for loaded images.  Note that
+     * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
+     * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
+     */
+    crossOrigin?: string | null;
 }
 
 /**
@@ -28,8 +34,8 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     }
 
     protected createSource(): void {
-        const {params, url} = this.props;
-        const options = {params, url};
+        const {params, url, crossOrigin} = this.props;
+        const options = {params, url, crossOrigin};
 
         this.source = new ImageWMS(options);
         this.eventSources = [this.ol, this.source];
