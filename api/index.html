@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        2.0.0 | Documentation
+        2.1.0 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 2.0.0</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 2.1.0</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -725,15 +725,15 @@
         </li>
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
-    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayerstamen-collapse"
+    <button class="btn btn-collapse m-0 me-2 p-0 align-items-center collapsed" style="visibility: hidden"  data-bs-target="#rlayerstadia-collapse"
         data-bs-toggle="collapse">
         <span class="font-monospace if-collapsed">+</span>
         <span class="font-monospace if-not-collapsed">-</span> </button>
-    <a class=text-decoration-none href="#rlayerstamen">
-        <h3 class="m-0">RLayerStamen</h3>
+    <a class=text-decoration-none href="#rlayerstadia">
+        <h3 class="m-0">RLayerStadia</h3>
     </a>
 </div>
-<div class="collapse" id="rlayerstamen-collapse">
+<div class="collapse" id="rlayerstadia-collapse">
     <ul class="list-group">
 </ul>
     <ul class="list-group">
@@ -7303,15 +7303,21 @@ already present at creation, ie loaded via
 </section>
 <hr>
         <section>
-    <h2 id="rlayerstamen">
+    <h2 id="rlayerstadia">
             
             
             
-            <em class="me-1">class</em> RLayerStamen
+            <em class="me-1">class</em> RLayerStadia
         
     </h2>
                         <p>
-                    A ready to use interface for Stamen&#x27;s map service
+                    A ready to use interface for Stadia Maps&#x27;s map service
+        </p>
+                    <p>
+                    Requires OpenLayers 8.0 and must be imported separately
+        </p>
+                    <p>
+                    <code>import RLayerStadia from 'rlayers/layer/RLayerStadia';</code>
         </p>
                     <p>
                     Requires an 
@@ -7337,7 +7343,7 @@ already present at creation, ie loaded via
     
     
         &lt;
-                    RLayerStamenProps
+                    RLayerStadiaProps
     
     
     
@@ -7409,7 +7415,45 @@ already present at creation, ie loaded via
                     </td>
                     <td class="">
                                             <p>
-                    Stamen layer name
+                    Stadia Maps layer name
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>apiKey</code>
+                    </td>
+                    <td class="">
+                        <code>        string
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    API key
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>retina</code>
+                    </td>
+                    <td class="">
+                        <code>        boolean
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Retina screen mode, @default false
         </p>
                     </td>
                 </tr>
