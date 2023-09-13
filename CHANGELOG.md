@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #
 
--   Support OpenLayers 8.0.0
+-   Support OpenLayers 8.0.0 and 8.1.0
 -   Replace `RLayerStamen` with `RLayerStadia` which requires OpenLayers 8.0.0
 
 # [2.0.0] 2023-08-16
