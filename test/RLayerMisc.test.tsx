@@ -16,7 +16,7 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 import * as common from './common';
 
-if (semver.gte(VERSION, '8.0.0') && process.env.STADIA_MAPS_API_KEY !== 'no-key') {
+if (semver.gte(VERSION, '8.0.0') && process.env.STADIA_MAPS_API_KEY !== '') {
     describe('<RLayerStadia>', () => {
         it('should display a tiled Stadia layer', () => {
             const layer = React.createRef() as React.RefObject<RLayerStadia>;
