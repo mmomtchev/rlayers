@@ -11,7 +11,7 @@ on:
     workflow_dispatch:
 
 env:
-    STADIA_MAPS_API_KEY: ${{ secrets.STADIA_MAPS_API_KEY }}
+    STADIA_MAPS_API_KEY: ${{ secrets.STADIA_MAPS_API_KEY || 'no-key' }}
 
 jobs:
     default:
