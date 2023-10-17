@@ -31,7 +31,7 @@ export default function PinDrop(): JSX.Element {
                             const coords = e.map.getCoordinateFromPixel(e.pixel);
                             e.target.setGeometry(new Point(coords));
                             // this stops OpenLayers from interpreting the event to pan the map
-                            e.preventDefault();
+                            e.disablePropagation();
                             return false;
                         }, [])}
                         onPointerDragEnd={useCallback((e) => {
