@@ -20,7 +20,7 @@ export default function Heatmap(): JSX.Element {
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>
-                <RLayerStadia layer='toner' />
+                <RLayerStadia layer='stamen_toner' />
                 <RLayerHeatmap
                     blur={blur}
                     radius={radius}
