@@ -114,6 +114,15 @@ export interface RMapProps extends PropsWithChildren<unknown> {
      * @default true
      */
     constrainRotation?: boolean | number;
+    /**
+     * Padding (in css pixels).
+     * If the map viewport is partially covered with other content (overlays) along its edges, this setting allows to shift the center of the viewport away from that content.
+     * The order of the values is top, right, bottom, left.
+     *
+     * @default [0, 0, 0, 0]
+     */
+    padding: [number, number, number, number];
+
 }
 
 /**
@@ -143,7 +152,8 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
                 minZoom: props.minZoom,
                 maxZoom: props.maxZoom,
                 enableRotation: props.enableRotation,
-                constrainRotation: props.constrainRotation
+                constrainRotation: props.constrainRotation,
+                padding: props.padding
             })
         });
         if (this.props.view) this.ol.on('moveend', this.updateView);
