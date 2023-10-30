@@ -29,6 +29,7 @@ const examples = {
     add_delete: {title: 'Add & Delete', file: 'Add-Delete'},
     draw: {title: 'Draw & Modify', file: 'Draw'},
     geolocation: {title: 'Geolocation', file: 'Geolocation'},
+    wmts: {title: 'WMTS', file: 'WMTS'},
     vectortiles: {title: 'Vector tiles', file: 'VectorTiles', ol8: true},
     mbtilesRaster: {title: 'Raster MBTiles', file: 'RasterMBTiles'},
     mbtilesVector: {title: 'Vector MBTiles', file: 'VectorMBTiles'},

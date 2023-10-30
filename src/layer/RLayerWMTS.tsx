@@ -31,6 +31,7 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
 export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     ol: LayerTile<SourceWMTS>;
     source: SourceWMTS;
+    loading: Promise<SourceWMTS> | null;
     parser: WMTSCapabilities;
     options: Options;
 
@@ -38,7 +39,6 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
         super(props, context);
         this.ol = new LayerTile({source: this.source});
         this.parser = new WMTSCapabilities();
-        this.createSource();
     }
 
     protected createSource(): Promise<SourceWMTS> {
