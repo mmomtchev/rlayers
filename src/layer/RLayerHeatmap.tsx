@@ -6,6 +6,7 @@ import BaseObject from 'ol/Object';
 import {Point} from 'ol/geom';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
+import {OLFeatureClass} from 'rlayers/context';
 
 /**
  * @propsfor RLayerHeatmap
@@ -35,7 +36,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: LayerHeatmap;
-    source: SourceVector<Feature<Point>>;
+    source: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({

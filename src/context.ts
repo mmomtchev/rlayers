@@ -20,6 +20,8 @@ import RLayer, {RLayerProps} from './layer/RLayer';
 import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector';
 import RFeature from './RFeature';
 import RLayerVectorTile from './layer/RLayerVectorTile';
+import {transformGeometryWithOptions} from 'ol/format/Feature';
+import {Point} from 'ol/geom';
 
 export const RContext = React.createContext({} as RContextType);
 
@@ -36,13 +38,13 @@ export interface RContextType {
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly vectorlayer?: BaseVector<
-        SourceVector<Feature<Geometry>>,
+        SourceVector<OLFeatureClass>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    readonly vectorsource?: SourceVector<Feature<Geometry>>;
+    readonly vectorsource?: SourceVector<OLFeatureClass>;
     readonly vectortilelayer?: VectorTile;
     /** The current RFeature */
     readonly feature?: Feature<Geometry>;
@@ -91,3 +93,8 @@ export function useRLayersComponent() {
         rFeature: context.rFeature
     };
 }
+
+// Detect the new OpenLayers 8.2.0 FeatureClass
+export type OLFeatureClass = ReturnType<typeof transformGeometryWithOptions<Point>> extends Point
+    ? Feature<Geometry>
+    : Geometry;

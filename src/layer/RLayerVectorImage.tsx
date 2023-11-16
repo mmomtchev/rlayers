@@ -4,7 +4,7 @@ import {VectorImage as LayerVectorImage} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
 
-import {RContextType} from '../context';
+import {OLFeatureClass, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 import BaseObject from 'ol/Object';
@@ -20,11 +20,11 @@ import debug from '../debug';
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
 export default class RLayerVectorImage extends RLayerBaseVector<RLayerBaseVectorProps> {
-    ol: LayerVectorImage<SourceVector<Feature<Geometry>>>;
-    source: SourceVector<Feature<Geometry>>;
+    ol: LayerVectorImage<SourceVector<OLFeatureClass>>;
+    source: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
-        this.source = new SourceVector<Feature<Geometry>>({
+        this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,
