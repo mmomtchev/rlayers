@@ -11,7 +11,7 @@ module.exports = {
             }
         ]
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru|color-))'],
     moduleNameMapper: {
         '^rlayers$': '<rootDir>/src',
         '^rlayers/(.*)$': '<rootDir>/src/$1',

@@ -11,7 +11,7 @@ module.exports = {
             }
         ]
     },
-    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru))'],
+    transformIgnorePatterns: ['/node_modules/(?!(ol|txml|geotiff|quick-lru|color-))'],
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/test/css.js',
         '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'

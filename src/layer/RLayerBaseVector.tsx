@@ -9,6 +9,7 @@ import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer'
 import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
+import {FeatureLike} from 'ol/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
@@ -68,14 +69,14 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      */
     onAddFeature?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
-        e: VectorSourceEvent<Geometry>
+        e: VectorSourceEvent<FeatureLike>
     ) => boolean | void;
     /**
      * Called upon initiating the request for new features
      */
     onFeaturesLoadStart?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
-        e: VectorSourceEvent<Geometry>
+        e: VectorSourceEvent<FeatureLike>
     ) => boolean | void;
     /**
      * Called when the external features have been loaded from `url`
@@ -86,14 +87,14 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      */
     onFeaturesLoadEnd?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
-        e: VectorSourceEvent<Geometry>
+        e: VectorSourceEvent<FeatureLike>
     ) => boolean | void;
     /**
      * Called on failure while loading features
      */
     onFeaturesLoadError?: (
         this: RLayerBaseVector<RLayerBaseVectorProps>,
-        e: VectorSourceEvent<Geometry>
+        e: VectorSourceEvent<FeatureLike>
     ) => boolean | void;
     /** onPointerMove handler for all loaded features */
     onPointerMove?: (
@@ -124,13 +125,13 @@ export interface RLayerBaseVectorProps extends RLayerProps {
  */
 export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
     ol: BaseVector<
-        SourceVector<Geometry>,
+        SourceVector<Feature<Geometry>>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    source: SourceVector<Geometry>;
+    source: SourceVector<FeatureLike>;
 
     constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);

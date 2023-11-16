@@ -36,13 +36,13 @@ export interface RContextType {
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly vectorlayer?: BaseVector<
-        SourceVector<Geometry>,
+        SourceVector<Feature<Geometry>>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    readonly vectorsource?: SourceVector<Geometry>;
+    readonly vectorsource?: SourceVector<Feature<Geometry>>;
     readonly vectortilelayer?: VectorTile;
     /** The current RFeature */
     readonly feature?: Feature<Geometry>;

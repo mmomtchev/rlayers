@@ -65,7 +65,7 @@ export interface RFeatureProps extends PropsWithChildren<unknown> {
 
 type FeatureRef = {
     feature: Feature<Geometry>;
-    layer: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>;
+    layer: BaseVectorLayer<SourceVector<Feature<Geometry>>, CanvasVectorLayerRenderer>;
 };
 
 /**
@@ -155,7 +155,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             e.pixel,
             (
                 f: Feature<Geometry>,
-                l: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>
+                l: BaseVectorLayer<SourceVector<Feature<Geometry>>, CanvasVectorLayerRenderer>
             ) => triggered.push({feature: f, layer: l}) && false,
             {
                 hitTolerance: RFeature.hitTolerance,

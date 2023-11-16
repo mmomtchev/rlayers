@@ -35,7 +35,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: LayerHeatmap;
-    source: SourceVector<Point>;
+    source: SourceVector<Feature<Point>>;
 
     protected createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({

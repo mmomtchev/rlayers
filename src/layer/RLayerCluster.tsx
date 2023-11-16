@@ -28,7 +28,7 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
 export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
     ol: LayerVector<SourceCluster>;
     source: SourceCluster;
-    cluster: SourceVector<Geometry>;
+    cluster: SourceVector<Feature<Geometry>>;
 
     protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
         this.cluster = new SourceVector({

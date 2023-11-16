@@ -51,6 +51,7 @@ jobs:
                     - '7.5.1'
                     - '8.0.0'
                     - '8.1.0'
+                    - '8.2.0'
 
         steps:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"

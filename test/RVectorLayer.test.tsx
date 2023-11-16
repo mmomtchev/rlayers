@@ -4,13 +4,13 @@ import {fireEvent, render} from '@testing-library/react';
 
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
-import {Point} from 'ol/geom';
+import {Geometry, Point} from 'ol/geom';
 import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
 
 const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
-const features = parser.readFeatures(geojsonFeatures);
+const features = parser.readFeatures(geojsonFeatures) as Feature<Geometry>[];
 
 describe('<RLayerVector>', () => {
     it('should create and remove a vector layer', async () => {
