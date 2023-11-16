@@ -6,7 +6,13 @@ import BaseObject from 'ol/Object';
 import {Point} from 'ol/geom';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import {OLFeatureClass} from 'rlayers/context';
+import RenderFeature from 'ol/render/Feature';
+import JSONFeature from 'ol/format/JSONFeature';
+
+// Detect the new OpenLayers 8.2.0 FeatureClass
+type OLFeaturePoint = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+    ? Feature<Point>
+    : Point;
 
 /**
  * @propsfor RLayerHeatmap
@@ -36,7 +42,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  */
 export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
     ol: LayerHeatmap;
-    source: SourceVector<OLFeatureClass>;
+    source: SourceVector<OLFeaturePoint>;
 
     protected createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({
