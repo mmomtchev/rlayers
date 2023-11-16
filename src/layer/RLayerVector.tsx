@@ -1,10 +1,10 @@
 import React from 'react';
-import {Map as Map} from 'ol';
+import {Feature, Map as Map} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
 
-import {RContextType} from '../context';
+import {OLFeatureClass, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 import BaseObject from 'ol/Object';
@@ -20,8 +20,8 @@ import debug from '../debug';
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
 export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
-    ol: LayerVector<SourceVector<Geometry>>;
-    source: SourceVector<Geometry>;
+    ol: LayerVector<SourceVector<OLFeatureClass>>;
+    source: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
         this.source = new SourceVector({

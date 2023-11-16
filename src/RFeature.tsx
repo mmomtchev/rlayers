@@ -9,7 +9,7 @@ import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
 import {Layer} from 'ol/layer';
 
-import {RContext, RContextType} from './context';
+import {OLFeatureClass, RContext, RContextType} from './context';
 import {OLEvent, RlayersBase, handlersSymbol} from './REvent';
 import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
@@ -65,7 +65,7 @@ export interface RFeatureProps extends PropsWithChildren<unknown> {
 
 type FeatureRef = {
     feature: Feature<Geometry>;
-    layer: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>;
+    layer: BaseVectorLayer<SourceVector<OLFeatureClass>, CanvasVectorLayerRenderer>;
 };
 
 /**
@@ -155,7 +155,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             e.pixel,
             (
                 f: Feature<Geometry>,
-                l: BaseVectorLayer<SourceVector<Geometry>, CanvasVectorLayerRenderer>
+                l: BaseVectorLayer<SourceVector<OLFeatureClass>, CanvasVectorLayerRenderer>
             ) => triggered.push({feature: f, layer: l}) && false,
             {
                 hitTolerance: RFeature.hitTolerance,

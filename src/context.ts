@@ -14,14 +14,21 @@ import {Coordinate} from 'ol/coordinate';
 import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
+import JSONFeature from 'ol/format/JSONFeature';
 
 import RMap from './RMap';
 import RLayer, {RLayerProps} from './layer/RLayer';
 import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector';
 import RFeature from './RFeature';
 import RLayerVectorTile from './layer/RLayerVectorTile';
+import RenderFeature from 'ol/render/Feature';
 
 export const RContext = React.createContext({} as RContextType);
+
+// Detect the new OpenLayers 8.2.0 FeatureClass
+export type OLFeatureClass = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+    ? Feature<Geometry>
+    : Geometry;
 
 /**
  * Context type
@@ -36,13 +43,13 @@ export interface RContextType {
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly vectorlayer?: BaseVector<
-        SourceVector<Geometry>,
+        SourceVector<OLFeatureClass>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    readonly vectorsource?: SourceVector<Geometry>;
+    readonly vectorsource?: SourceVector<OLFeatureClass>;
     readonly vectortilelayer?: VectorTile;
     /** The current RFeature */
     readonly feature?: Feature<Geometry>;

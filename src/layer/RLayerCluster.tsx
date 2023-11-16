@@ -5,7 +5,7 @@ import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
 
-import {RContext, RContextType} from '../context';
+import {OLFeatureClass, RContext, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 
@@ -28,7 +28,7 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
 export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
     ol: LayerVector<SourceCluster>;
     source: SourceCluster;
-    cluster: SourceVector<Geometry>;
+    cluster: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
         this.cluster = new SourceVector({
