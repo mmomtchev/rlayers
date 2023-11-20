@@ -1,10 +1,17 @@
 import React, {useCallback} from 'react';
+import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
+import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, ROSM, RLayerVector, RStyle} from 'rlayers';
 
+/**
+ * Including data from a static file included at bundling time
+ * webpack will do everything necessary
+ * (this won't work in CodePen)
+ */
 import geojsonFeatures from './data/geo.json';
 
 export default function Features(): JSX.Element {
@@ -13,13 +20,16 @@ export default function Features(): JSX.Element {
         <div className='d-flex flex-row'>
             <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>
                 <ROSM />
-                {/* From a static file included at bundling time */}
-                {/* (this won't work in CodePen) */}
-                <RLayerVector
+                {/* When using TypeScript you can (optionally) specify the type of the features */}
+                <RLayerVector<Feature<Point>>
                     zIndex={10}
-                    features={new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(
-                        geojsonFeatures
-                    )}
+                    /* Input data will have to be typed too */
+                    features={
+                        new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(
+                            geojsonFeatures
+                        ) as Feature<Point>[]
+                    }
+                    /* The type will be propagated to all callbacks */
                     onClick={useCallback(
                         (e) => {
                             setFlow([...flow, e.target.get('en')].slice(-16));
@@ -33,9 +43,10 @@ export default function Features(): JSX.Element {
                         </RStyle.RCircle>
                     </RStyle.RStyle>
                 </RLayerVector>
-                {/* From an URL */}
+                {/* Without any type, the features will be assumed to be a of a generic Geometry type */}
                 <RLayerVector
                     zIndex={5}
+                    /* This layer will be getting its data from an URL */
                     format={new GeoJSON({featureProjection: 'EPSG:3857'})}
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                     onPointerEnter={useCallback(

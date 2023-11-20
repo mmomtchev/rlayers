@@ -1,5 +1,5 @@
 import React from 'react';
-import {Feature, MapBrowserEvent} from 'ol';
+import {Feature} from 'ol';
 import {LoadingStrategy, VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
@@ -9,7 +9,6 @@ import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer'
 import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat from 'ol/format/Feature';
-import {FeatureLike} from 'ol/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
@@ -21,14 +20,28 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
+import RenderFeature from 'ol/render/Feature';
+import JSONFeature from 'ol/format/JSONFeature';
 
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;
 
+// This is very hackish, maybe it is time to drop older OpenLayers versions
+type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
+    JSONFeature['readFeatures']
+>[0]
+    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      F
+    : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      Feature<F>;
+
 /**
  * @propsfor RLayerBaseVector
  */
-export interface RLayerBaseVectorProps extends RLayerProps {
+export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass>
+    extends RLayerProps {
     /** URL for loading features can be a function of type `FeatureUrlFunction`, requires `format` */
     url?: string | FeatureUrlFunction;
     /**
@@ -43,7 +56,7 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      *
      * this property currently does not support dynamic updates
      */
-    features?: Feature<Geometry>[];
+    features?: OLFeatureType<F>[];
     /** Format of the features when `url` is used
      *
      * this property currently does not support dynamic updates
@@ -61,21 +74,24 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      */
     wrapX?: boolean;
     /** Default onClick handler for loaded features */
-    onClick?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
+        e: RFeatureUIEvent
+    ) => boolean | void;
     /** Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
      * use onFeaturesLoadEnd for features loaded via `url`
      */
     onAddFeature?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
      * Called upon initiating the request for new features
      */
     onFeaturesLoadStart?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
@@ -86,36 +102,39 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      * This callback is invoked before the features are loaded
      */
     onFeaturesLoadEnd?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
      * Called on failure while loading features
      */
     onFeaturesLoadError?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /** onPointerMove handler for all loaded features */
     onPointerMove?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     /** onPointerEnter handler for all loaded features */
     onPointerEnter?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     /** onPointerLeave handler for all loaded features */
     onPointerLeave?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     onPostRender?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RenderEvent
     ) => boolean | void;
-    onPreRender?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RenderEvent) => boolean | void;
+    onPreRender?: (
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
+        e: RenderEvent
+    ) => boolean | void;
 }
 
 /**
@@ -123,7 +142,10 @@ export interface RLayerBaseVectorProps extends RLayerProps {
  *
  * Meant to be extended
  */
-export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
+export default class RLayerBaseVector<
+    F extends OLFeatureClass,
+    P extends RLayerBaseVectorProps<F>
+> extends RLayer<P> {
     ol: BaseVector<
         SourceVector<OLFeatureClass>,
         | CanvasVectorLayerRenderer

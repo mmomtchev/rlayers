@@ -65,7 +65,7 @@ export interface RContextType {
     /** The current RLayer component */
     readonly rLayer?: RLayer<RLayerProps>;
     /** The current RLayerVector component */
-    readonly rLayerVector?: RLayerBaseVector<RLayerBaseVectorProps>;
+    readonly rLayerVector?: RLayerBaseVector<OLFeatureClass, RLayerBaseVectorProps>;
     /** The current RLayerVectorTile component */
     readonly rLayerVectorTile?: RLayerVectorTile;
     /** The current RFeature component */

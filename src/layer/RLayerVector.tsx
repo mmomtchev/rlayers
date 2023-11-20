@@ -2,7 +2,6 @@ import React from 'react';
 import {Feature, Map as Map} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
-import Geometry from 'ol/geom/Geometry';
 
 import {OLFeatureClass, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
@@ -19,11 +18,13 @@ import debug from '../debug';
  *
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
-export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps> {
-    ol: LayerVector<SourceVector<OLFeatureClass>>;
-    source: SourceVector<OLFeatureClass>;
+export default class RLayerVector<
+    F extends OLFeatureClass = OLFeatureClass
+> extends RLayerBaseVector<F, RLayerBaseVectorProps<F>> {
+    ol: LayerVector<SourceVector<F>>;
+    source: SourceVector<F>;
 
-    protected createSource(props: Readonly<RLayerBaseVectorProps>): BaseObject[] {
+    protected createSource(props: Readonly<RLayerBaseVectorProps<F>>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -40,7 +41,7 @@ export default class RLayerVector extends RLayerBaseVector<RLayerBaseVectorProps
         return [this.ol, this.source];
     }
 
-    protected refresh(prevProps?: RLayerBaseVectorProps): void {
+    protected refresh(prevProps?: RLayerBaseVectorProps<F>): void {
         super.refresh(prevProps);
         if (prevProps?.url !== this.props.url) {
             this.source.setUrl(this.props.url);

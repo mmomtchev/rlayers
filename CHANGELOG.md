@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #
 
 -   Support OpenLayers 8.2.0
+-   Support using TypeScript generics to specify the feature geometry type for vector layers
 
 # [2.1.0] 2023-09-13
 
