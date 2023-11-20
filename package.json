@@ -26,6 +26,10 @@
       "require": "./layer/RLayerVectorMBTiles.js",
       "import": "./dist/layer/RLayerVectorMBTiles.js"
     },
+    "./layer/RLayerStadia": {
+      "require": "./layer/RLayerStadia.js",
+      "import": "./dist/layer/RLayerStadia.js"
+    },
     "./control": {
       "require": "./control/index.js",
       "import": "./dist/control/index.js"
