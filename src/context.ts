@@ -22,6 +22,7 @@ import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector'
 import RFeature from './RFeature';
 import RLayerVectorTile from './layer/RLayerVectorTile';
 import RenderFeature from 'ol/render/Feature';
+import {FeatureLike} from 'ol/Feature';
 
 export const RContext = React.createContext({} as RContextType);
 
@@ -29,6 +30,9 @@ export const RContext = React.createContext({} as RContextType);
 export type OLFeatureClass = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
     ? Feature<Geometry>
     : Geometry;
+export type OLFeatureLike = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+    ? FeatureLike
+    : Feature<Geometry>;
 
 /**
  * Context type
@@ -65,7 +69,7 @@ export interface RContextType {
     /** The current RLayer component */
     readonly rLayer?: RLayer<RLayerProps>;
     /** The current RLayerVector component */
-    readonly rLayerVector?: RLayerBaseVector<RLayerBaseVectorProps>;
+    readonly rLayerVector?: RLayerBaseVector<OLFeatureClass, RLayerBaseVectorProps>;
     /** The current RLayerVectorTile component */
     readonly rLayerVectorTile?: RLayerVectorTile;
     /** The current RFeature component */

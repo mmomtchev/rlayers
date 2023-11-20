@@ -12,12 +12,14 @@ import {default as RStyle} from '../style/RStyle';
 /**
  * @propsfor RLayerCluster
  */
-export interface RLayerClusterProps extends RLayerBaseVectorProps {
+export interface RLayerClusterProps<F extends OLFeatureClass = OLFeatureClass>
+    extends RLayerBaseVectorProps<F> {
     /** Clustering distance */
     distance?: number;
 }
 
-/** A vector layer that clusters its RFeatures
+/**
+ * A vector layer that clusters its RFeatures
  *
  * Compatible with RLayerVector
  *
@@ -25,7 +27,9 @@ export interface RLayerClusterProps extends RLayerBaseVectorProps {
  *
  * Not compatible with a vector layer context for JSX-declared RFeatures
  */
-export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> {
+export default class RLayerCluster<
+    F extends OLFeatureClass = OLFeatureClass
+> extends RLayerBaseVector<F, RLayerClusterProps<F>> {
     ol: LayerVector<SourceCluster>;
     source: SourceCluster;
     cluster: SourceVector<OLFeatureClass>;
@@ -48,7 +52,7 @@ export default class RLayerCluster extends RLayerBaseVector<RLayerClusterProps> 
         return [this.ol, this.source, this.cluster];
     }
 
-    protected refresh(prev?: RLayerClusterProps): void {
+    protected refresh(prev?: RLayerClusterProps<F>): void {
         super.refresh(prev);
         if (prev?.distance !== this.props.distance) this.source.setDistance(this.props.distance);
         if (prev?.url !== this.props.url) {

@@ -17,7 +17,7 @@ type OLFeaturePoint = RenderFeature extends ReturnType<JSONFeature['readFeatures
 /**
  * @propsfor RLayerHeatmap
  */
-export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
+export interface RLayerHeatmapProps extends RLayerBaseVectorProps<OLFeaturePoint> {
     /** Blurring */
     blur?: number;
     /** Radius */
@@ -40,7 +40,7 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps {
  *
  * Provides a vector layer for JSX-declared RFeatures
  */
-export default class RLayerHeatmap extends RLayerBaseVector<RLayerHeatmapProps> {
+export default class RLayerHeatmap extends RLayerBaseVector<OLFeaturePoint, RLayerHeatmapProps> {
     ol: LayerHeatmap;
     source: SourceVector<OLFeaturePoint>;
 

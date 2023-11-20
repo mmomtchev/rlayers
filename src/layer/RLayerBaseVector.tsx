@@ -14,7 +14,7 @@ import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
 
-import {OLFeatureClass, RContext, RContextType} from '../context';
+import {OLFeatureClass, OLFeatureLike, RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
@@ -28,7 +28,8 @@ export type FeatureHandlers = Record<OLEvent, number>;
 /**
  * @propsfor RLayerBaseVector
  */
-export interface RLayerBaseVectorProps extends RLayerProps {
+export interface RLayerBaseVectorProps<F extends OLFeatureLike = OLFeatureClass>
+    extends RLayerProps {
     /** URL for loading features can be a function of type `FeatureUrlFunction`, requires `format` */
     url?: string | FeatureUrlFunction;
     /**
@@ -43,7 +44,7 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      *
      * this property currently does not support dynamic updates
      */
-    features?: Feature<Geometry>[];
+    features?: F[];
     /** Format of the features when `url` is used
      *
      * this property currently does not support dynamic updates
@@ -61,21 +62,24 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      */
     wrapX?: boolean;
     /** Default onClick handler for loaded features */
-    onClick?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
+        e: RFeatureUIEvent
+    ) => boolean | void;
     /** Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
      * use onFeaturesLoadEnd for features loaded via `url`
      */
     onAddFeature?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
      * Called upon initiating the request for new features
      */
     onFeaturesLoadStart?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
@@ -86,36 +90,39 @@ export interface RLayerBaseVectorProps extends RLayerProps {
      * This callback is invoked before the features are loaded
      */
     onFeaturesLoadEnd?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /**
      * Called on failure while loading features
      */
     onFeaturesLoadError?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: VectorSourceEvent<OLFeatureClass>
     ) => boolean | void;
     /** onPointerMove handler for all loaded features */
     onPointerMove?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     /** onPointerEnter handler for all loaded features */
     onPointerEnter?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     /** onPointerLeave handler for all loaded features */
     onPointerLeave?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
     onPostRender?: (
-        this: RLayerBaseVector<RLayerBaseVectorProps>,
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RenderEvent
     ) => boolean | void;
-    onPreRender?: (this: RLayerBaseVector<RLayerBaseVectorProps>, e: RenderEvent) => boolean | void;
+    onPreRender?: (
+        this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
+        e: RenderEvent
+    ) => boolean | void;
 }
 
 /**
@@ -123,7 +130,10 @@ export interface RLayerBaseVectorProps extends RLayerProps {
  *
  * Meant to be extended
  */
-export default class RLayerBaseVector<P extends RLayerBaseVectorProps> extends RLayer<P> {
+export default class RLayerBaseVector<
+    F extends FeatureLike,
+    P extends RLayerBaseVectorProps<F>
+> extends RLayer<P> {
     ol: BaseVector<
         SourceVector<OLFeatureClass>,
         | CanvasVectorLayerRenderer

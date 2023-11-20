@@ -5,6 +5,10 @@ import {fireEvent, render} from '@testing-library/react';
 import {GeoJSON} from 'ol/format';
 import {Feature} from 'ol';
 import {Geometry, Point} from 'ol/geom';
+import RenderFeature from 'ol/render/Feature';
+import JSONFeature from 'ol/format/JSONFeature';
+import SourceVector from 'ol/source/Vector';
+
 import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
 
@@ -32,6 +36,22 @@ describe('<RLayerVector>', () => {
         expect(refVector.current).toBeNull();
         expect(refMap.current?.ol.getLayers().getLength()).toBe(0);
         expect(refMap.current?.ol);
+        unmount();
+    });
+    it('should support feature typing through generics', async () => {
+        type OLFeaturePoint = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+            ? Feature<Point>
+            : Point;
+
+        const ref = React.createRef<RLayerVector<OLFeaturePoint>>();
+
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector<OLFeaturePoint> ref={ref} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current?.source).toBeInstanceOf(SourceVector<OLFeaturePoint>);
         unmount();
     });
     it('should throw an error without a Map', () => {
