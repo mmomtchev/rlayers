@@ -93,13 +93,7 @@ const webpackConfig = (env): webpack.Configuration => {
     }
 
     if (!env.development) {
-        conf.plugins!.push(
-            new ForkTsCheckerWebpackPlugin({
-                eslint: {
-                    files: './{src,examples}/**/*.{ts,tsx,js}'
-                }
-            })
-        );
+        conf.plugins!.push(new ForkTsCheckerWebpackPlugin());
     }
 
     return conf;
