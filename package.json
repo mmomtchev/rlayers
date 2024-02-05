@@ -125,7 +125,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^7.0.0",
-    "gh-pages": "^5.0.0",
+    "gh-pages": "^6.1.1",
     "glob": "^9.0.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.0.0",
