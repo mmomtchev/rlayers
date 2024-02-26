@@ -19,7 +19,7 @@ module.exports = {
         '^txml/txml$': '<rootDir>/node_modules/txml/dist/txml'
     },
     setupFiles: ['jest-canvas-mock'],
-    setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', './test/setup_mocks.ts'],
+    setupFilesAfterEnv: ['@testing-library/jest-dom', './test/setup_mocks.ts'],
     testRegex: '/test/.*\\.test\\.tsx?$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     collectCoverage: true,
