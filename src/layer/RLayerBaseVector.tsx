@@ -28,7 +28,6 @@ import JSONFeature from 'ol/format/JSONFeature';
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;
 
-type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
 // This is very hackish, maybe it is time to drop older OpenLayers versions
 type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
     JSONFeature['readFeatures']
@@ -38,7 +37,7 @@ type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
       F
     : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      IfAny<OLVectorTileOptions<FeatureLike>, Geometry, F<Geometry>>;
+      F<Geometry>;
 
 /**
  * @propsfor RLayerBaseVector
