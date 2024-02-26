@@ -38,7 +38,7 @@ describe('<RStyle>', () => {
             </RStyle>
         );
         const {rerender} = render(comp('#000001'));
-        expect((RStyle.getStyle(ref) as () => Style)().getImage().getSize()).toEqual([16, 16]);
+        expect((RStyle.getStyle(ref) as () => Style)().getImage()?.getSize()).toEqual([16, 16]);
         // eslint-disable-next-line no-console
         const console_error = console.error;
         const warning = jest.fn();
@@ -55,15 +55,15 @@ describe('<RStyle>', () => {
             <RStyle ref={ref}>
                 <RStroke color='#007bff' width={3} />
                 <RFill color='#000001' />
-                <RRegularShape points={5} radius1={10} radius2={5}>
+                <RRegularShape points={5} radius={10} radius2={5}>
                     <RFill color='#000003' />
                 </RRegularShape>
             </RStyle>
         );
-        expect(RStyle.getStyleStatic(ref).getStroke().getColor()).toBe('#007bff');
-        expect(RStyle.getStyleStatic(ref).getStroke().getWidth()).toBe(3);
-        expect(RStyle.getStyleStatic(ref).getFill().getColor()).toBe('#000001');
-        expect((RStyle.getStyleStatic(ref).getImage() as RegularShape).getFill().getColor()).toBe(
+        expect(RStyle.getStyleStatic(ref).getStroke()?.getColor()).toBe('#007bff');
+        expect(RStyle.getStyleStatic(ref).getStroke()?.getWidth()).toBe(3);
+        expect(RStyle.getStyleStatic(ref).getFill()?.getColor()).toBe('#000001');
+        expect((RStyle.getStyleStatic(ref).getImage() as RegularShape).getFill()?.getColor()).toBe(
             '#000003'
         );
     });
@@ -77,7 +77,7 @@ describe('<RStyle>', () => {
             </RStyle>
         );
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(5);
-        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
+        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill()?.getColor()).toBe(
             '#000002'
         );
     });
@@ -91,7 +91,7 @@ describe('<RStyle>', () => {
             </RStyle>
         );
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(5);
-        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
+        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill()?.getColor()).toBe(
             '#000002'
         );
     });
@@ -106,7 +106,7 @@ describe('<RStyle>', () => {
         );
         expect(RStyle.getStyleStatic(ref).getZIndex()).toBe(1);
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(5);
-        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
+        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill()?.getColor()).toBe(
             '#000002'
         );
         rerender(
@@ -118,7 +118,7 @@ describe('<RStyle>', () => {
         );
         expect(RStyle.getStyleStatic(ref).getZIndex()).toBeUndefined();
         expect((RStyle.getStyleStatic(ref).getImage() as Circle).getRadius()).toBe(3);
-        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill().getColor()).toBe(
+        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getFill()?.getColor()).toBe(
             '#000005'
         );
         rerender(
@@ -129,7 +129,7 @@ describe('<RStyle>', () => {
             </RStyle>
         );
         expect(RStyle.getStyleStatic(ref).getZIndex()).toBe(2);
-        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getStroke().getWidth()).toBe(1);
+        expect((RStyle.getStyleStatic(ref).getImage() as Circle).getStroke()?.getWidth()).toBe(1);
     });
     it('should support dynamic styles', async () => {
         const ref = createRStyle();
@@ -149,10 +149,10 @@ describe('<RStyle>', () => {
             name: 'text'
         });
         const style = (RStyle.getStyle(ref) as (Feature, number) => Style)(f, 100);
-        expect(style.getText().getText()).toBe('text');
-        expect(style.getText().getFont()).toBe('bold 25px sans-serif');
-        expect(style.getText().getStroke().getWidth()).toBe(100);
-        expect(style.getText().getFill().getColor()).toBe('#010000');
+        expect(style.getText()?.getText()).toBe('text');
+        expect(style.getText()?.getFont()).toBe('bold 25px sans-serif');
+        expect(style.getText()?.getStroke()?.getWidth()).toBe(100);
+        expect(style.getText()?.getFill()?.getColor()).toBe('#010000');
     });
     it('should support updating text properties', async () => {
         const style = createRStyle();
@@ -176,19 +176,19 @@ describe('<RStyle>', () => {
             </RStyle>
         );
         if (!(style.current?.ol instanceof Style)) throw new Error('Failed creating a style');
-        expect(style.current.ol.getText().getText()).toBe('example');
-        expect(style.current.ol.getText().getScale()).toBe(1.2);
-        expect(style.current.ol.getText().getPadding()).toMatchObject([1, 1, 2, 2]);
-        expect(style.current.ol.getText().getFont()).toBe('italic 5px serif');
-        expect(style.current.ol.getText().getOffsetX()).toBe(0);
-        expect(style.current.ol.getText().getOffsetY()).toBe(0);
-        expect(style.current.ol.getText().getRotation()).toBeUndefined();
-        expect(style.current.ol.getText().getStroke().getWidth()).toBe(4);
-        expect(style.current.ol.getText().getFill().getColor()).toBe('#010000');
-        expect(style.current.ol.getText().getBackgroundStroke().getWidth()).toBe(3);
-        expect(style.current.ol.getText().getBackgroundFill().getColor()).toBe('#00ff00');
-        expect(style.current.ol.getText().getTextBaseline()).toBe('top');
-        expect(style.current.ol.getText().getPlacement()).toBe('line');
+        expect(style.current.ol.getText()?.getText()).toBe('example');
+        expect(style.current.ol.getText()?.getScale()).toBe(1.2);
+        expect(style.current.ol.getText()?.getPadding()).toMatchObject([1, 1, 2, 2]);
+        expect(style.current.ol.getText()?.getFont()).toBe('italic 5px serif');
+        expect(style.current.ol.getText()?.getOffsetX()).toBe(0);
+        expect(style.current.ol.getText()?.getOffsetY()).toBe(0);
+        expect(style.current.ol.getText()?.getRotation()).toBeUndefined();
+        expect(style.current.ol.getText()?.getStroke()?.getWidth()).toBe(4);
+        expect(style.current.ol.getText()?.getFill()?.getColor()).toBe('#010000');
+        expect(style.current.ol.getText()?.getBackgroundStroke()?.getWidth()).toBe(3);
+        expect(style.current.ol.getText()?.getBackgroundFill()?.getColor()).toBe('#00ff00');
+        expect(style.current.ol.getText()?.getTextBaseline()).toBe('top');
+        expect(style.current.ol.getText()?.getPlacement()).toBe('line');
         rerender(
             <RStyle ref={style}>
                 <RText text='example2' font='italic 6px serif' offsetX={1} offsetY={2} rotation={3}>
@@ -197,19 +197,19 @@ describe('<RStyle>', () => {
                 </RText>
             </RStyle>
         );
-        expect(style.current.ol.getText().getText()).toBe('example2');
-        expect(style.current.ol.getText().getScale()).toBeUndefined();
-        expect(style.current.ol.getText().getPadding()).toBeUndefined();
-        expect(style.current.ol.getText().getFont()).toBe('italic 6px serif');
-        expect(style.current.ol.getText().getOffsetX()).toBe(1);
-        expect(style.current.ol.getText().getOffsetY()).toBe(2);
-        expect(style.current.ol.getText().getRotation()).toBe(3);
-        expect(style.current.ol.getText().getStroke().getWidth()).toBe(2);
-        expect(style.current.ol.getText().getBackgroundStroke()).toBeNull();
-        expect(style.current.ol.getText().getBackgroundFill()).toBeNull();
-        expect(style.current.ol.getText().getFill().getColor()).toBe('black');
-        expect(style.current.ol.getText().getTextBaseline()).toBeUndefined();
-        expect(style.current.ol.getText().getPlacement()).toBeUndefined();
+        expect(style.current.ol.getText()?.getText()).toBe('example2');
+        expect(style.current.ol.getText()?.getScale()).toBeUndefined();
+        expect(style.current.ol.getText()?.getPadding()).toBeUndefined();
+        expect(style.current.ol.getText()?.getFont()).toBe('italic 6px serif');
+        expect(style.current.ol.getText()?.getOffsetX()).toBe(1);
+        expect(style.current.ol.getText()?.getOffsetY()).toBe(2);
+        expect(style.current.ol.getText()?.getRotation()).toBe(3);
+        expect(style.current.ol.getText()?.getStroke()?.getWidth()).toBe(2);
+        expect(style.current.ol.getText()?.getBackgroundStroke()).toBeNull();
+        expect(style.current.ol.getText()?.getBackgroundFill()).toBeNull();
+        expect(style.current.ol.getText()?.getFill()?.getColor()).toBe('black');
+        expect(style.current.ol.getText()?.getTextBaseline()).toBeUndefined();
+        expect(style.current.ol.getText()?.getPlacement()).toBeUndefined();
     });
     it('should support caching styles', async () => {
         const ref = createRStyle();
@@ -230,8 +230,8 @@ describe('<RStyle>', () => {
             name: 'text14'
         });
         const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
-        expect(style.getText().getText()).toBe('text14');
-        expect(style.getText().getStroke().getWidth()).toBe(14);
+        expect(style.getText()?.getText()).toBe('text14');
+        expect(style.getText()?.getStroke()?.getWidth()).toBe(14);
         expect(ref.current?.cache.get(f.get('name'))).toBe(style);
     });
     it('should apply to vector layers', async () => {
@@ -246,7 +246,7 @@ describe('<RStyle>', () => {
             </RMap>
         );
         const style = ref.current?.ol.getStyle() as Style;
-        expect(style.getStroke().getWidth()).toBe(7);
+        expect(style.getStroke()?.getWidth()).toBe(7);
     });
     it('should apply to vector layers w/dynamic', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVector>;
@@ -268,8 +268,8 @@ describe('<RStyle>', () => {
             name: 'text9'
         });
         const style = (ref.current?.ol.getStyle() as (Feature) => Style)(f);
-        expect(style.getText().getText()).toBe('text9');
-        expect(style.getText().getStroke().getWidth()).toBe(9);
+        expect(style.getText()?.getText()).toBe('text9');
+        expect(style.getText()?.getStroke()?.getWidth()).toBe(9);
     });
     it('should apply to features', async () => {
         const refVector = React.createRef() as React.RefObject<RLayerVector>;
@@ -287,7 +287,7 @@ describe('<RStyle>', () => {
         );
         const styleF = refFeature.current?.ol.getStyle() as Style;
         const styleV = refVector.current?.ol.getStyle();
-        expect(styleF.getStroke().getWidth()).toBe(13);
+        expect(styleF.getStroke()?.getWidth()).toBe(13);
         expect(typeof styleV).toBe('function');
     });
 });
@@ -359,7 +359,7 @@ describe('<RStyleArray>', () => {
         );
         const style = (RStyle.getStyle(ref) as () => Style[])();
         expect(style[0].getImage()).toBeInstanceOf(Image);
-        expect(style[1].getStroke().getWidth()).toBe(3);
+        expect(style[1].getStroke()?.getWidth()).toBe(3);
         expect(RStyle.getStyleStatic(ref)[0]).toBe(style[0]);
     });
     it('should update a style array', async () => {
@@ -377,7 +377,7 @@ describe('<RStyleArray>', () => {
         );
         let style = (RStyle.getStyle(ref) as () => Style[])();
         expect(style[0].getImage()).toBeInstanceOf(Image);
-        expect(style[1].getStroke().getWidth()).toBe(3);
+        expect(style[1].getStroke()?.getWidth()).toBe(3);
         rerender(
             <RStyleArray ref={ref}>
                 <RStyle>
@@ -394,9 +394,9 @@ describe('<RStyleArray>', () => {
             </RStyleArray>
         );
         style = (RStyle.getStyle(ref) as () => Style[])();
-        expect(style[0].getStroke().getWidth()).toBe(1);
+        expect(style[0].getStroke()?.getWidth()).toBe(1);
         expect(style[1].getImage()).toBeInstanceOf(Image);
-        expect(style[2].getStroke().getWidth()).toBe(3);
+        expect(style[2].getStroke()?.getWidth()).toBe(3);
     });
     it('should create a dynamic style array', async () => {
         const ref = createRStyle();
@@ -422,11 +422,11 @@ describe('<RStyleArray>', () => {
         });
         expect(((ref.current as RStyleArray).style(f, 0) as Style[]).length).toBe(2);
         let style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
-        expect(style[0].getText().getText()).toBe('text1');
-        expect(style[1].getStroke().getWidth()).toBe(3);
+        expect(style[0].getText()?.getText()).toBe('text1');
+        expect(style[1].getStroke()?.getWidth()).toBe(3);
         f.set('name', 'text2');
         style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
-        expect(style[0].getText().getText()).toBe('text2');
+        expect(style[0].getText()?.getText()).toBe('text2');
         rerender(
             <RStyleArray
                 ref={ref}
@@ -445,7 +445,7 @@ describe('<RStyleArray>', () => {
         );
         f.set('name', 'text3');
         style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
-        expect(style[1].getText().getText()).toBe('text3');
+        expect(style[1].getText()?.getText()).toBe('text3');
         unmount();
     });
     it('should throw on invalid elements', async () => {

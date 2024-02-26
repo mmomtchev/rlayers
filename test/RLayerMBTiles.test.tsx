@@ -115,6 +115,7 @@ describe('<RLayerVectorMBTiles>', () => {
                                 });
                                 expect(this).toBeInstanceOf(RLayerVectorMBTiles);
                                 expect(result?.container.innerHTML).toMatchSnapshot();
+                                // @ts-expect-error this was missing from the current version of ol-mbtiles
                                 expect(md.minZoom).toStrictEqual(12);
                                 expect(md.sqlWorkers).toStrictEqual(4);
                                 expect(md.backendType).toStrictEqual('sync');
