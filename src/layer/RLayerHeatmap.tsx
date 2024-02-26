@@ -15,7 +15,9 @@ type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
 // Detect the new OpenLayers 8.2.0 FeatureClass
 type OLFeaturePoint = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
     ? Feature<Point>
-    : IfAny<OLVectorTileOptions<FeatureLike>, Point, Feature<Point>>;
+    : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      IfAny<OLVectorTileOptions<FeatureLike>, Point, Feature<Point>>;
 
 /**
  * @propsfor RLayerHeatmap
