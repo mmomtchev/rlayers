@@ -16,6 +16,8 @@ import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
 import JSONFeature from 'ol/format/JSONFeature';
 import RenderFeature from 'ol/render/Feature';
+import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
+import {FeatureLike} from 'ol/Feature';
 
 import RMap from './RMap';
 import RLayer, {RLayerProps} from './layer/RLayer';
@@ -25,14 +27,19 @@ import RLayerVectorTile from './layer/RLayerVectorTile';
 
 export const RContext = React.createContext({} as RContextType);
 
+// Check if the type is any
+// https://stackoverflow.com/questions/55541275/typescript-check-for-the-any-type
+type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
+
 export type OLFeatureClass =
     // Detect the new OpenLayers 8.2.0 FeatureClass
     RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
         ? Feature<Geometry>
-        : // Detect OpenLayers 9.0.0
-        null extends ReturnType<Map['getOverlayById']>
-        ? Feature<Geometry>
-        : Geometry;
+        : // Detect if VectorTileOptions is a generic type
+          // (works because with @ts-ignore invalid types resolve to any)
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          IfAny<OLVectorTileOptions<FeatureLike>, Geometry, Feature<Geometry>>;
 
 /**
  * Context type
