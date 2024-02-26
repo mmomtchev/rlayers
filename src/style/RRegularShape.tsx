@@ -9,7 +9,7 @@ import debug from '../debug';
  */
 export interface RRegularShapeProps extends RRegularBaseProps {
     /** Outer radius */
-    radius1?: number;
+    radius: number;
     /** Inner radius */
     radius2?: number;
     /** Number of points/edges */

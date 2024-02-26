@@ -6,7 +6,6 @@ import Style, {StyleLike} from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 
 import {RContext, RContextType} from '../context';
-import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
 /**

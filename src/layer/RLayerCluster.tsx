@@ -1,8 +1,6 @@
 import React from 'react';
-import {Map, Feature} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
-import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
 
 import {OLFeatureClass, RContext, RContextType} from '../context';
@@ -35,7 +33,7 @@ export default class RLayerCluster<
     cluster: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
-        this.cluster = new SourceVector({
+        this.cluster = new SourceVector<OLFeatureClass>({
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,

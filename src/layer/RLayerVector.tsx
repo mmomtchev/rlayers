@@ -25,7 +25,7 @@ export default class RLayerVector<
     source: SourceVector<F>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps<F>>): BaseObject[] {
-        this.source = new SourceVector({
+        this.source = new SourceVector<F>({
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,

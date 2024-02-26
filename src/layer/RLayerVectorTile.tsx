@@ -1,16 +1,21 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
-import type {Options} from 'ol/source/VectorTile';
+import type {Options as OLOptions} from 'ol/source/VectorTile';
 import FeatureFormat from 'ol/format/Feature';
 
-import {RContext, RContextType} from '../context';
+import {OLFeatureClass, RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {OLEvent, RlayersBase} from '../REvent';
 import {FeatureHandlers, featureHandlersSymbol} from './RLayerBaseVector';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
+
+type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+type Options = IfAny<OLOptions<OLFeatureClass>, OLOptions, OLOptions<OLFeatureClass>>;
 
 /**
  * @propsfor RLayerVectorTile
@@ -34,7 +39,7 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
-    /* vector tile specific source options */
+    /* vector tile specific source Options */
     extent?: Options['extent'];
     overlaps?: Options['overlaps'];
     state?: Options['state'];
