@@ -26,11 +26,11 @@ import RLayerVectorTile from './layer/RLayerVectorTile';
 export const RContext = React.createContext({} as RContextType);
 
 export type OLFeatureClass =
-    // Detect the OpenLayers 9.0.0
-    null extends ReturnType<Map['getOverlayById']>
+    // Detect the new OpenLayers 8.2.0 FeatureClass
+    RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
         ? Feature<Geometry>
-        : // Detect the new OpenLayers 8.2.0 FeatureClass
-        RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+        : // Detect OpenLayers 9.0.0
+        null extends ReturnType<Map['getOverlayById']>
         ? Feature<Geometry>
         : Geometry;
 
