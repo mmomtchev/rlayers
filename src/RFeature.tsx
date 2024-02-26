@@ -7,7 +7,6 @@ import SourceVector from 'ol/source/Vector';
 import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
-import {Layer} from 'ol/layer';
 
 import {OLFeatureClass, RContext, RContextType} from './context';
 import {OLEvent, RlayersBase, handlersSymbol} from './REvent';

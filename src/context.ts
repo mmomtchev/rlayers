@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map as Map} from 'ol';
+import {Map} from 'ol';
 import Layer from 'ol/layer/Layer';
 import Source from 'ol/source/Source';
 import BaseVector from 'ol/layer/BaseVector';
@@ -15,20 +15,24 @@ import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
 import JSONFeature from 'ol/format/JSONFeature';
+import RenderFeature from 'ol/render/Feature';
 
 import RMap from './RMap';
 import RLayer, {RLayerProps} from './layer/RLayer';
 import RLayerBaseVector, {RLayerBaseVectorProps} from './layer/RLayerBaseVector';
 import RFeature from './RFeature';
 import RLayerVectorTile from './layer/RLayerVectorTile';
-import RenderFeature from 'ol/render/Feature';
 
 export const RContext = React.createContext({} as RContextType);
 
-// Detect the new OpenLayers 8.2.0 FeatureClass
-export type OLFeatureClass = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
-    ? Feature<Geometry>
-    : Geometry;
+export type OLFeatureClass =
+    // Detect the OpenLayers 9.0.0
+    null extends ReturnType<Map['getOverlayById']>
+        ? Feature<Geometry>
+        : // Detect the new OpenLayers 8.2.0 FeatureClass
+        RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
+        ? Feature<Geometry>
+        : Geometry;
 
 /**
  * Context type
