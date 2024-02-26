@@ -1,7 +1,7 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
-import type {Options} from 'ol/source/VectorTile';
+import type {Options as OLOptions} from 'ol/source/VectorTile';
 import FeatureFormat from 'ol/format/Feature';
 
 import {OLFeatureClass, RContext, RContextType} from '../context';
@@ -11,6 +11,11 @@ import {OLEvent, RlayersBase} from '../REvent';
 import {FeatureHandlers, featureHandlersSymbol} from './RLayerBaseVector';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
+
+type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+type Options = IfAny<OLOptions<OLFeatureClass>, OLOptions, OLOptions<OLFeatureClass>>;
 
 /**
  * @propsfor RLayerVectorTile
@@ -34,17 +39,17 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
-    /* vector tile specific source Options<OLFeatureClass> */
-    extent?: Options<OLFeatureClass>['extent'];
-    overlaps?: Options<OLFeatureClass>['overlaps'];
-    state?: Options<OLFeatureClass>['state'];
-    tileClass?: Options<OLFeatureClass>['tileClass'];
-    tileSize?: Options<OLFeatureClass>['tileSize'];
-    tileGrid?: Options<OLFeatureClass>['tileGrid'];
-    tileLoadFunction?: Options<OLFeatureClass>['tileLoadFunction'];
-    tileUrlFunction?: Options<OLFeatureClass>['tileUrlFunction'];
-    transition?: Options<OLFeatureClass>['transition'];
-    zDirection?: Options<OLFeatureClass>['zDirection'];
+    /* vector tile specific source Options */
+    extent?: Options['extent'];
+    overlaps?: Options['overlaps'];
+    state?: Options['state'];
+    tileClass?: Options['tileClass'];
+    tileSize?: Options['tileSize'];
+    tileGrid?: Options['tileGrid'];
+    tileLoadFunction?: Options['tileLoadFunction'];
+    tileUrlFunction?: Options['tileUrlFunction'];
+    transition?: Options['transition'];
+    zDirection?: Options['zDirection'];
     /** onClick handler for loaded features */
     onClick?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */
