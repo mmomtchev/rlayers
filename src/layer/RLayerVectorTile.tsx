@@ -4,7 +4,7 @@ import {VectorTile as SourceVectorTile} from 'ol/source';
 import type {Options} from 'ol/source/VectorTile';
 import FeatureFormat from 'ol/format/Feature';
 
-import {RContext, RContextType} from '../context';
+import {OLFeatureClass, RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {OLEvent, RlayersBase} from '../REvent';
@@ -34,17 +34,17 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
-    /* vector tile specific source options */
-    extent?: Options['extent'];
-    overlaps?: Options['overlaps'];
-    state?: Options['state'];
-    tileClass?: Options['tileClass'];
-    tileSize?: Options['tileSize'];
-    tileGrid?: Options['tileGrid'];
-    tileLoadFunction?: Options['tileLoadFunction'];
-    tileUrlFunction?: Options['tileUrlFunction'];
-    transition?: Options['transition'];
-    zDirection?: Options['zDirection'];
+    /* vector tile specific source Options<OLFeatureClass> */
+    extent?: Options<OLFeatureClass>['extent'];
+    overlaps?: Options<OLFeatureClass>['overlaps'];
+    state?: Options<OLFeatureClass>['state'];
+    tileClass?: Options<OLFeatureClass>['tileClass'];
+    tileSize?: Options<OLFeatureClass>['tileSize'];
+    tileGrid?: Options<OLFeatureClass>['tileGrid'];
+    tileLoadFunction?: Options<OLFeatureClass>['tileLoadFunction'];
+    tileUrlFunction?: Options<OLFeatureClass>['tileUrlFunction'];
+    transition?: Options<OLFeatureClass>['transition'];
+    zDirection?: Options<OLFeatureClass>['zDirection'];
     /** onClick handler for loaded features */
     onClick?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */

@@ -12,6 +12,8 @@ import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
+import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
+import {FeatureLike} from 'ol/Feature';
 
 import {OLFeatureClass, RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -26,6 +28,7 @@ import JSONFeature from 'ol/format/JSONFeature';
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;
 
+type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
 // This is very hackish, maybe it is time to drop older OpenLayers versions
 type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
     JSONFeature['readFeatures']
@@ -35,7 +38,7 @@ type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
       F
     : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      Feature<F>;
+      IfAny<OLVectorTileOptions<FeatureLike>, Geometry, F<Geometry>>;
 
 /**
  * @propsfor RLayerBaseVector
@@ -52,7 +55,8 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
-    /** OpenLayers features that will be loaded
+    /**
+     * OpenLayers features that will be loaded
      *
      * this property currently does not support dynamic updates
      */
@@ -66,7 +70,7 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
     loader?: FeatureLoader;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
-    /**  OpenLayers option to specify LoadingStrategy default is `all` strategy */
+    /** OpenLayers option to specify LoadingStrategy default is `all` strategy */
     strategy?: LoadingStrategy;
     /**
      * Wrap features around the antimeridian. Cannot be dynamically updated once the layer is created.
@@ -78,7 +82,8 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
         e: RFeatureUIEvent
     ) => boolean | void;
-    /** Called when a feature is added, not called for features
+    /**
+     * Called when a feature is added, not called for features
      * already present at creation, ie loaded via `features` or `url`
      *
      * use onFeaturesLoadEnd for features loaded via `url`

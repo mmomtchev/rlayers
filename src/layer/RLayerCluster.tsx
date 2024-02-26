@@ -35,7 +35,7 @@ export default class RLayerCluster<
     cluster: SourceVector<OLFeatureClass>;
 
     protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
-        this.cluster = new SourceVector({
+        this.cluster = new SourceVector<OLFeatureClass>({
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,
