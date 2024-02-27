@@ -9,6 +9,7 @@ updates:
           eslint:
               patterns:
                   - '*eslint*'
+                  - '*prettier*'
           jest:
               patterns:
                   - '*jest*'
