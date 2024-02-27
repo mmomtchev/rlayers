@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkrlayers=self.webpackChunkrlayers||[]).push([[1037],{1037:(e,r,t)=>{t.r(r),t.d(r,{default:()=>n});const n="import React from 'react';\nimport ReactDOM from 'react-dom';\n\nimport debug from 'rlayers/debug';\n\nimport App from './App';\n\ndebug('React 16/17 mode');\nReactDOM.render(<App />, document.getElementById('root'));\n"}}]);
