@@ -193,7 +193,7 @@ describe('<RDraw>', () => {
         expect(ref.current).toBeInstanceOf(RInteraction.RDraw);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const styleResult = (ref.current?.ol as any).overlay_.style_ as Style;
-        expect(styleResult.getStroke().getWidth?.()).toBe(3);
+        expect(styleResult.getStroke()?.getWidth?.()).toBe(3);
         unmount();
     });
     it('should throw without LayerVector', async () => {
@@ -207,7 +207,7 @@ describe('<RDraw>', () => {
                     <RInteraction.RDraw type={'Circle'} />
                 </RMap>
             )
-        ).toThrowError('part of');
+        ).toThrow('part of');
         // eslint-disable-next-line no-console
         console.error = err;
     });
@@ -247,7 +247,7 @@ describe('<RModify>', () => {
         expect(ref.current).toBeInstanceOf(RInteraction.RModify);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const styleResult = (ref.current?.ol as any).overlay_.style_ as Style;
-        expect(styleResult.getStroke().getWidth?.()).toBe(8);
+        expect(styleResult.getStroke()?.getWidth?.()).toBe(8);
         unmount();
     });
     it('should throw without LayerVector', async () => {
@@ -261,7 +261,7 @@ describe('<RModify>', () => {
                     <RInteraction.RModify />
                 </RMap>
             )
-        ).toThrowError('part of');
+        ).toThrow('part of');
         // eslint-disable-next-line no-console
         console.error = err;
     });
@@ -279,7 +279,7 @@ describe('<RBaseInteraction>', () => {
                     <RBaseInteraction />
                 </RMap>
             )
-        ).toThrowError('RBaseInteraction should not be directly instantiated');
+        ).toThrow('RBaseInteraction should not be directly instantiated');
         // eslint-disable-next-line no-console
         console.error = err;
     });
