@@ -9,6 +9,10 @@ updates:
           eslint:
               patterns:
                   - '*eslint*'
+              exclude-patterns:
+                  - '*prettier*'
+          prettier:
+              patterns:
                   - '*prettier*'
           jest:
               patterns:
