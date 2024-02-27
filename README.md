@@ -265,6 +265,10 @@ The code can be found in the `ssr` branch of this project. The `next.js` project
 
 As of March 2022, SSR support is stale and I am not working on it anymore.
 
+### Google Maps API Support
+
+The Google Maps API is not open and although it is now supported out-of-the-box by OpenLayers starting from version 9.0, it requires a paid subscription (with an eventual trial period). Adding Google Maps support is not possible unless someone is willing to sponsor it.
+
 ## API
 
 You can browse the full documentation at <https://mmomtchev.github.io/rlayers/api>.
