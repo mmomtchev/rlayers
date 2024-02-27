@@ -21,7 +21,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: npm i
@@ -59,7 +59,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: npm i
@@ -74,7 +74,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -91,7 +91,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -108,7 +108,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -125,7 +125,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -142,7 +142,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -159,7 +159,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: |
@@ -176,7 +176,7 @@ jobs:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - uses: actions/checkout@v3
             - name: Use Node.js 18.x
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                   node-version: 18.x
             - run: npm i
