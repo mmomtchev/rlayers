@@ -32,9 +32,9 @@ export interface RModifyProps {
      * @default false */
     hitDetection?: number;
     /** Called on modify start */
-    onDrawStart?: (this: RModify, e: ModifyEvent) => void;
+    onModifyStart?: (this: RModify, e: ModifyEvent) => void;
     /** Called on modify end */
-    onDrawEnd?: (this: RModify, e: ModifyEvent) => void;
+    onModifyEnd?: (this: RModify, e: ModifyEvent) => void;
 }
 
 /** Pointer interaction for modifying existing features */
