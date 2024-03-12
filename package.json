@@ -50,7 +50,7 @@
     "build:lib": "npm run build:lib:cjs && npm run build:lib:es6 && npm run build:lib:cdn",
     "build:lib:cjs": "tsc && npm run build:css",
     "build:lib:es6": "tsc -p tsconfig.es6.json && npm run build:css:es6",
-    "build:lib:cdn": "rollup -c rollup.config.js",
+    "build:lib:cdn": "rollup -c rollup.config.mjs",
     "build:css": "copyfiles -f src/control/layers.css control",
     "build:css:es6": "copyfiles -f src/control/layers.css dist/control",
     "build:examples": "webpack --mode=production --env production",
