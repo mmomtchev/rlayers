@@ -90,7 +90,7 @@
     "url": "https://github.com/mmomtchev/rlayers/issues"
   },
   "dependencies": {
-    "lru-cache": "^7.10.0"
+    "lru-cache": "^10.2.0"
   },
   "peerDependencies": {
     "ol": ">=6.10.0 <9.1.0",
