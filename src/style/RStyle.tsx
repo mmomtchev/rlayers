@@ -1,6 +1,6 @@
 import React, {PropsWithChildren} from 'react';
 import ReactDOM from 'react-dom';
-import LRU from 'lru-cache';
+import {LRUCache} from 'lru-cache';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
@@ -52,14 +52,14 @@ export default class RStyle extends React.PureComponent<RStyleProps, Record<stri
     context: RContextType;
     ol: StyleLike;
     childRefs: RStyleRef[];
-    cache: LRU<string, Style>;
+    cache: LRUCache<string, Style>;
 
     constructor(props: Readonly<RStyleProps>, context?: React.Context<RContextType>) {
         super(props, context);
         if (props.render) this.ol = this.style;
         else this.ol = new Style({zIndex: props.zIndex});
         if (props.render && props.cacheSize && props.cacheId)
-            this.cache = new LRU({max: props.cacheSize});
+            this.cache = new LRUCache({max: props.cacheSize});
     }
 
     style = (f: Feature<Geometry>, r: number): Style | Style[] => {
