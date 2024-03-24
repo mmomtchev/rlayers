@@ -5,8 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [2.3.1]
+### [2.3.1]
 
+-   Support OpenLayers 9.1.0
 -   Fix [#220](https://github.com/mmomtchev/rlayers/issues/220), use correct event names for `RModify` in TypeScript
 
 ## [2.3.0] 2024-02-27
