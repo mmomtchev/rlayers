@@ -151,7 +151,7 @@
     "rimraf": "^5.0.5",
     "rollup": "^4.12.1",
     "sqlite-wasm-http": "^1.1.1",
-    "style-loader": "^3.3.1",
+    "style-loader": "^4.0.0",
     "svg-url-loader": "^8.0.0",
     "ts-jest": "^29.0.5",
     "ts-loader": "^9.3.0",
