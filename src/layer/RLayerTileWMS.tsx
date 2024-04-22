@@ -12,6 +12,7 @@ import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 export interface RLayerTileWMSProps extends RLayerRasterProps {
     params?: Record<string, unknown>;
     url: string;
+    crossOrigin?: string;
 }
 
 /**
@@ -29,8 +30,8 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     }
 
     protected createSource(): void {
-        const {params, url, projection} = this.props;
-        const options = {params, url, projection};
+        const {params, url, crossOrigin, projection} = this.props;
+        const options = {params, url, crossOrigin, projection};
 
         this.source = new TileWMS(options);
         this.eventSources = [this.ol, this.source];
