@@ -42,4 +42,17 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
         this.ol.setSource(this.source);
         this.attachOldEventHandlers(this.source);
     }
+
+    componentDidUpdate(
+        prevProps: Readonly<RLayerTileWMSProps>,
+        prev: Readonly<unknown>,
+        snap: unknown
+    ): void {
+        for (const prop of ['params', 'url', 'projection']) {
+            if (this.props[prop] !== prevProps[prop]) {
+                super.componentDidUpdate(prevProps, prev, snap);
+                return;
+            }
+        }
+    }
 }
