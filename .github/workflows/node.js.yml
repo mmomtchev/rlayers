@@ -185,3 +185,5 @@ jobs:
               env:
                   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
             - run: npm run codecov
+              env:
+                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
