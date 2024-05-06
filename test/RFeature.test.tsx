@@ -378,6 +378,103 @@ describe('<RFeature>', () => {
         expect((RFeature as any).lastFeaturesEntered.length).toBe(0);
     });
 
+    it('should stop propagation', () => {
+        const map = React.createRef<RMap>();
+        const ref = [0, 1, 2].map(() => React.createRef<RFeature>());
+        const layer = React.createRef<RLayerVector>();
+        const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];
+        const handlerProps = mapEvents.reduce(
+            (ac, a) => ({
+                ...ac,
+                ['on' + a]: jest.fn(() => false)
+            }),
+            {}
+        );
+        const {container} = render(
+            <RMap ref={map} {...common.mapProps}>
+                <RLayerVector ref={layer}>
+                    <RFeature
+                        ref={ref[0]}
+                        properties={{name: 'Arc de Triomphe'}}
+                        {...handlerProps}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    />
+                    <RFeature
+                        ref={ref[1]}
+                        properties={{name: "Place d'Italie"}}
+                        geometry={new Point(common.coords.PlaceDItalie)}
+                    />
+                    <RFeature
+                        ref={ref[2]}
+                        properties={{name: "Arc de Triomphe' shadow"}}
+                        {...handlerProps}
+                        geometry={new Point(common.coords.ArcDeTriomphe)}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+
+        common.installMapFeaturesInterceptors(map.current!.ol, [
+            {pixel: [10, 10], layer: layer.current!.ol, feature: ref[0].current!.ol},
+            {pixel: [20, 20], layer: layer.current!.ol, feature: ref[1].current!.ol},
+            {pixel: [10, 10], layer: layer.current!.ol, feature: ref[2].current!.ol}
+        ]);
+
+        act(() => {
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
+        });
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(0);
+
+        act(() => {
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [10, 10])
+            );
+        });
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(1);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(0);
+
+        act(() => {
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [20, 20])
+            );
+        });
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(1);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(1);
+
+        act(() => {
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [10, 10])
+            );
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
+        });
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
+
+        act(() => {
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointerdrag', map.current!.ol, [10, 10], true)
+            );
+            map.current!.ol.dispatchEvent(
+                common.createEvent('pointermove', map.current!.ol, [0, 0])
+            );
+        });
+        expect(handlerProps['onPointerEnter']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerLeave']).toHaveBeenCalledTimes(2);
+        expect(handlerProps['onPointerDragEnd']).toHaveBeenCalledTimes(1);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesDragged.length).toBe(0);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((RFeature as any).lastFeaturesEntered.length).toBe(0);
+    });
+
     it('should throw an error without a Layer', () => {
         /* eslint-disable no-console */
         const err = console.error;

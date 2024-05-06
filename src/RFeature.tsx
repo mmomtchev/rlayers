@@ -137,8 +137,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
     protected static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) {
-            const stop = fr.feature.dispatchEvent(event);
-            if (stop) return stop;
+            const propagate = fr.feature.dispatchEvent(event);
+            if (propagate === false) return false;
         }
         if (!event.target) event.target = fr.feature;
         const layerHandler = fr.layer?.get(handlersSymbol)[event.type];
@@ -193,11 +193,16 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             for (const fr of RFeature.lastFeaturesDragged)
                 if (!triggered.find((f) => f.feature === fr.feature)) triggered.push(fr);
         } else {
-            for (const fr of RFeature.lastFeaturesDragged)
-                RFeature.dispatchEvent(
+            for (const fr of RFeature.lastFeaturesDragged) {
+                const propagation = RFeature.dispatchEvent(
                     fr,
                     new RFeatureUIEvent('pointerdragend', e.map, e.originalEvent)
                 );
+                if (propagation === false) {
+                    RFeature.lastFeaturesDragged = [];
+                    return false;
+                }
+            }
             RFeature.lastFeaturesDragged = [];
         }
 
@@ -206,24 +211,31 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             // Send pointerleave and then remove those that are not under the pointer anymore
             for (const fr of RFeature.lastFeaturesEntered)
                 if (!triggered.find((f) => f.feature === fr.feature)) {
-                    RFeature.dispatchEvent(
+                    const propagation = RFeature.dispatchEvent(
                         fr,
                         new RFeatureUIEvent('pointerleave', e.map, e.originalEvent)
                     );
                     fr.feature = null;
                     fr.layer = null;
+                    if (propagation === false) {
+                        RFeature.lastFeaturesEntered = RFeature.lastFeaturesEntered.filter(
+                            (fr) => fr.feature
+                        );
+                        return false;
+                    }
                 }
             RFeature.lastFeaturesEntered = RFeature.lastFeaturesEntered.filter((fr) => fr.feature);
 
-            // For all features triggered on this cycle, check if they were previous entered
-            // Send pointerenter and then register all the new feature
+            // For all features triggered on this cycle, check if they were previously entered
+            // Send pointerenter and then register all the new features
             for (const fr of triggered) {
                 if (!RFeature.lastFeaturesEntered.find((f) => f.feature === fr.feature)) {
-                    RFeature.dispatchEvent(
+                    const propagation = RFeature.dispatchEvent(
                         fr,
                         new RFeatureUIEvent('pointerenter', e.map, e.originalEvent)
                     );
                     RFeature.lastFeaturesEntered.push(fr);
+                    if (propagation === false) return false;
                 }
             }
         }
