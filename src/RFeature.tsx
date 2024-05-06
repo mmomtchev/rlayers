@@ -137,8 +137,8 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
     protected static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) {
-            const stop = fr.feature.dispatchEvent(event);
-            if (stop) return stop;
+            const propagate = fr.feature.dispatchEvent(event);
+            if (propagate === false) return false;
         }
         if (!event.target) event.target = fr.feature;
         const layerHandler = fr.layer?.get(handlersSymbol)[event.type];
