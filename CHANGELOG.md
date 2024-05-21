@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### [2.3.2] 2024-05-22
 
+-   Support OpenLayers 9.2
 -   Fix [#252](https://github.com/mmomtchev/rlayers/issues/252), stop event propagation when the event handler returns `false`
 -   Add React 18.3 as a test target
 
