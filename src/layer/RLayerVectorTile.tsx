@@ -1,10 +1,13 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
-import type {Options as OLOptions} from 'ol/source/VectorTile';
-import FeatureFormat from 'ol/format/Feature';
+import type {Options} from 'ol/source/VectorTile';
+import FeatureFormat, {FeatureToFeatureClass} from 'ol/format/Feature';
+import {FeatureLike} from 'ol/Feature';
+import {Feature} from 'ol';
+import {Geometry} from 'ol/geom';
 
-import {OLFeatureClass, RContext, RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {OLEvent, RlayersBase} from '../REvent';
@@ -12,15 +15,11 @@ import {FeatureHandlers, featureHandlersSymbol} from './RLayerBaseVector';
 import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
-type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-type Options = IfAny<OLOptions<OLFeatureClass>, OLOptions, OLOptions<OLFeatureClass>>;
-
 /**
  * @propsfor RLayerVectorTile
  */
-export interface RLayerVectorTileProps extends RLayerProps {
+export interface RLayerVectorTileProps<F extends FeatureLike = Feature<Geometry>>
+    extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */
     url: string;
     /**
@@ -30,7 +29,7 @@ export interface RLayerVectorTileProps extends RLayerProps {
      */
     style?: RStyleLike;
     /** Vector tile format */
-    format: FeatureFormat;
+    format: FeatureFormat<FeatureToFeatureClass<F>>;
     /**
      * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -39,25 +38,25 @@ export interface RLayerVectorTileProps extends RLayerProps {
      * this property currently does not support dynamic updates
      */
     renderBuffer?: number;
-    /* vector tile specific source Options */
-    extent?: Options['extent'];
-    overlaps?: Options['overlaps'];
-    state?: Options['state'];
-    tileClass?: Options['tileClass'];
-    tileSize?: Options['tileSize'];
-    tileGrid?: Options['tileGrid'];
-    tileLoadFunction?: Options['tileLoadFunction'];
-    tileUrlFunction?: Options['tileUrlFunction'];
-    transition?: Options['transition'];
-    zDirection?: Options['zDirection'];
+    /* vector tile specific source Options<F> */
+    extent?: Options<F>['extent'];
+    overlaps?: Options<F>['overlaps'];
+    state?: Options<F>['state'];
+    tileClass?: Options<F>['tileClass'];
+    tileSize?: Options<F>['tileSize'];
+    tileGrid?: Options<F>['tileGrid'];
+    tileLoadFunction?: Options<F>['tileLoadFunction'];
+    tileUrlFunction?: Options<F>['tileUrlFunction'];
+    transition?: Options<F>['transition'];
+    zDirection?: Options<F>['zDirection'];
     /** onClick handler for loaded features */
-    onClick?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
     /** onPointerMove handler for loaded features */
-    onPointerMove?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
     /** onPointerEnter handler for loaded features */
-    onPointerEnter?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
     /** onPointerLeave handler for loaded features */
-    onPointerLeave?: (this: RLayerVectorTile, e: RFeatureUIEvent) => boolean | void;
+    onPointerLeave?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
 }
 
 /**
@@ -72,13 +71,15 @@ export interface RLayerVectorTileProps extends RLayerProps {
  * It does not provide a vector layer context for JSX-declared `RFeature`s
  * and it is not compatible with RLayerVector
  */
-export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
-    ol: LayerVectorTile;
-    source: SourceVectorTile;
+export default class RLayerVectorTile<F extends FeatureLike = Feature<Geometry>> extends RLayer<
+    RLayerVectorTileProps<F>
+> {
+    ol: LayerVectorTile<F>;
+    source: SourceVectorTile<F>;
 
-    constructor(props: Readonly<RLayerVectorTileProps>, context?: React.Context<RContextType>) {
+    constructor(props: Readonly<RLayerVectorTileProps<F>>, context?: React.Context<RContextType>) {
         super(props, context);
-        this.source = new SourceVectorTile({
+        this.source = new SourceVectorTile<F>({
             url: this.props.url,
             format: this.props.format,
             projection: this.props.projection,
@@ -119,7 +120,7 @@ export default class RLayerVectorTile extends RLayer<RLayerVectorTileProps> {
         featureHandlers[ev]--;
     }
 
-    protected refresh(prevProps?: RLayerVectorTileProps): void {
+    protected refresh(prevProps?: RLayerVectorTileProps<F>): void {
         super.refresh(prevProps);
         const handlers = Object.keys(this.props)
             .filter((ev) => ev.startsWith('on'))

@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### [2.3.2] 2024-05-22
+# [3.0.0]
 
--   Support OpenLayers 9.2
+-   Do not support multiple OpenLayers versions, link each `rlayers` to one OpenLayers minor version
+-   Support light-weight `RenderFeature`s
+-   Use the same level of typing as OpenLayers
+-   For OpenLayers 9.2.2
+
+### [2.3.2]
+
 -   Fix [#252](https://github.com/mmomtchev/rlayers/issues/252), stop event propagation when the event handler returns `false`
 -   Add React 18.3 as a test target
 

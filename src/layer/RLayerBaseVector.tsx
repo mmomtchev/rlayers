@@ -8,42 +8,28 @@ import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
 import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
 import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
-import FeatureFormat from 'ol/format/Feature';
+import FeatureFormat, {FeatureToFeatureClass} from 'ol/format/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
-import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
-import {FeatureLike} from 'ol/Feature';
+import {Options} from 'ol/source/VectorTile.js';
+import {FeatureClass, FeatureLike} from 'ol/Feature';
 
-import {OLFeatureClass, RContext, RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
 import {default as RStyle, RStyleLike} from '../style/RStyle';
 import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
-import RenderFeature from 'ol/render/Feature';
-import JSONFeature from 'ol/format/JSONFeature';
 
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;
 
-// This is very hackish, maybe it is time to drop older OpenLayers versions
-type OLFeatureType<F extends OLFeatureClass> = RenderFeature extends ReturnType<
-    JSONFeature['readFeatures']
->[0]
-    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      F
-    : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      F<Geometry>;
-
 /**
  * @propsfor RLayerBaseVector
  */
-export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass>
-    extends RLayerProps {
+export interface RLayerBaseVectorProps<F extends FeatureLike> extends RLayerProps {
     /** URL for loading features can be a function of type `FeatureUrlFunction`, requires `format` */
     url?: string | FeatureUrlFunction;
     /**
@@ -57,16 +43,18 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
     /**
      * OpenLayers features that will be loaded
      *
-     * this property currently does not support dynamic updates
+     * This property currently does not support dynamic updates.
+     *
+     * Prefer nesting JSX <RFeature> components inside the layer in this case.
      */
-    features?: OLFeatureType<F>[];
+    features?: F[];
     /** Format of the features when `url` is used
      *
      * this property currently does not support dynamic updates
      */
-    format?: FeatureFormat;
+    format?: FeatureFormat<FeatureToFeatureClass<F>>;
     /** Use a custom loader instead of XHR */
-    loader?: FeatureLoader;
+    loader?: FeatureLoader<F>;
     /** OpenLayers default style for features without `style` */
     style?: RStyleLike;
     /** OpenLayers option to specify LoadingStrategy default is `all` strategy */
@@ -89,14 +77,14 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
      */
     onAddFeature?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: VectorSourceEvent<OLFeatureClass>
+        e: VectorSourceEvent<F>
     ) => boolean | void;
     /**
      * Called upon initiating the request for new features
      */
     onFeaturesLoadStart?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: VectorSourceEvent<OLFeatureClass>
+        e: VectorSourceEvent<F>
     ) => boolean | void;
     /**
      * Called when the external features have been loaded from `url`
@@ -107,14 +95,14 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
      */
     onFeaturesLoadEnd?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: VectorSourceEvent<OLFeatureClass>
+        e: VectorSourceEvent<F>
     ) => boolean | void;
     /**
      * Called on failure while loading features
      */
     onFeaturesLoadError?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: VectorSourceEvent<OLFeatureClass>
+        e: VectorSourceEvent<F>
     ) => boolean | void;
     /** onPointerMove handler for all loaded features */
     onPointerMove?: (
@@ -147,17 +135,17 @@ export interface RLayerBaseVectorProps<F extends OLFeatureClass = OLFeatureClass
  * Meant to be extended
  */
 export default class RLayerBaseVector<
-    F extends OLFeatureClass,
+    F extends FeatureLike,
     P extends RLayerBaseVectorProps<F>
 > extends RLayer<P> {
     ol: BaseVector<
-        SourceVector<OLFeatureClass>,
+        SourceVector<F>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    source: SourceVector<OLFeatureClass>;
+    source: SourceVector<F>;
 
     constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
         super(props, context);

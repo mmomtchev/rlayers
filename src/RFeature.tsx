@@ -1,6 +1,7 @@
 import React, {PropsWithChildren} from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
+import {FeatureLike} from 'ol/Feature';
 import BaseVectorLayer from 'ol/layer/BaseVector';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import SourceVector from 'ol/source/Vector';
@@ -8,7 +9,7 @@ import Geometry from 'ol/geom/Geometry';
 import BaseEvent from 'ol/events/Event';
 import {getCenter} from 'ol/extent';
 
-import {OLFeatureClass, RContext, RContextType} from './context';
+import {RContext, RContextType} from './context';
 import {OLEvent, RlayersBase, handlersSymbol} from './REvent';
 import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
@@ -64,7 +65,7 @@ export interface RFeatureProps extends PropsWithChildren<unknown> {
 
 type FeatureRef = {
     feature: Feature<Geometry>;
-    layer: BaseVectorLayer<SourceVector<OLFeatureClass>, CanvasVectorLayerRenderer>;
+    layer: BaseVectorLayer<SourceVector<FeatureLike>, CanvasVectorLayerRenderer>;
 };
 
 /**
@@ -154,7 +155,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
             e.pixel,
             (
                 f: Feature<Geometry>,
-                l: BaseVectorLayer<SourceVector<OLFeatureClass>, CanvasVectorLayerRenderer>
+                l: BaseVectorLayer<SourceVector<FeatureLike>, CanvasVectorLayerRenderer>
             ) => triggered.push({feature: f, layer: l}) && false,
             {
                 hitTolerance: RFeature.hitTolerance,

@@ -49,7 +49,7 @@ describe('<RLayerVector>', () => {
               // @ts-ignore
               IfAny<OLVectorTileOptions<FeatureLike>, Point, Feature<Point>>;
 
-        const ref = React.createRef<RLayerVector<OLFeaturePoint>>();
+        const ref = React.createRef<RLayerVector<Feature<Point>>>();
 
         const {container, unmount} = render(
             <RMap {...common.mapProps}>

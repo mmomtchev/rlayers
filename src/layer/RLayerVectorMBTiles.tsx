@@ -11,6 +11,8 @@ import debug from '../debug';
 
 import type * as MBTiles from 'ol-mbtiles';
 import BaseEvent from 'ol/events/Event';
+import {Feature} from 'ol';
+import {Geometry} from 'ol/geom';
 
 /**
  * @propsfor RLayerVectorTile
@@ -92,7 +94,7 @@ export interface RLayerVectorMBTilesProps extends RLayerRasterProps {
 export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTilesProps> {
     addon: Promise<typeof MBTiles>;
     metadata: Promise<MBTiles.MBTilesVectorOptions & MBTiles.SQLOptions>;
-    ol: LayerVectorTile;
+    ol: LayerVectorTile<Feature<Geometry>>;
     source: MBTiles.MBTilesVectorSource;
     private abort: AbortController;
 

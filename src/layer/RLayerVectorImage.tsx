@@ -5,7 +5,7 @@ import {Vector as SourceVector} from 'ol/source';
 import Geometry from 'ol/geom/Geometry';
 import {FeatureLike} from 'ol/Feature';
 
-import {OLFeatureClass, RContextType} from '../context';
+import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 import BaseObject from 'ol/Object';
@@ -20,13 +20,14 @@ import debug from '../debug';
  *
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
-export default class RLayerVectorImage<
-    F extends OLFeatureClass = OLFeatureClass
-> extends RLayerBaseVector<F, RLayerBaseVectorProps<F>> {
-    ol: LayerVectorImage<SourceVector<OLFeatureClass>>;
-    source: SourceVector<OLFeatureClass>;
+export default class RLayerVectorImage extends RLayerBaseVector<
+    Feature,
+    RLayerBaseVectorProps<Feature>
+> {
+    ol: LayerVectorImage<Feature>;
+    source: SourceVector<Feature>;
 
-    protected createSource(props: Readonly<RLayerBaseVectorProps<F>>): BaseObject[] {
+    protected createSource(props: Readonly<RLayerBaseVectorProps<Feature>>): BaseObject[] {
         this.source = new SourceVector({
             features: this.props.features,
             url: this.props.url,
@@ -43,7 +44,7 @@ export default class RLayerVectorImage<
         return [this.ol, this.source];
     }
 
-    protected refresh(prevProps?: RLayerBaseVectorProps<F>): void {
+    protected refresh(prevProps?: RLayerBaseVectorProps<Feature>): void {
         super.refresh(prevProps);
         if (prevProps?.url !== this.props.url) {
             this.source.setUrl(this.props.url);

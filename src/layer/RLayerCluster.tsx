@@ -2,16 +2,18 @@ import React from 'react';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 import BaseObject from 'ol/Object';
+import {Feature} from 'ol';
+import {Geometry} from 'ol/geom';
+import {FeatureLike} from 'ol/Feature';
 
-import {OLFeatureClass, RContext, RContextType} from '../context';
+import {RContext, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 
 /**
  * @propsfor RLayerCluster
  */
-export interface RLayerClusterProps<F extends OLFeatureClass = OLFeatureClass>
-    extends RLayerBaseVectorProps<F> {
+export interface RLayerClusterProps extends RLayerBaseVectorProps<Feature<Geometry>> {
     /** Clustering distance */
     distance?: number;
 }
@@ -25,15 +27,13 @@ export interface RLayerClusterProps<F extends OLFeatureClass = OLFeatureClass>
  *
  * Not compatible with a vector layer context for JSX-declared RFeatures
  */
-export default class RLayerCluster<
-    F extends OLFeatureClass = OLFeatureClass
-> extends RLayerBaseVector<F, RLayerClusterProps<F>> {
-    ol: LayerVector<SourceCluster>;
-    source: SourceCluster;
-    cluster: SourceVector<OLFeatureClass>;
+export default class RLayerCluster extends RLayerBaseVector<Feature<Geometry>, RLayerClusterProps> {
+    ol: LayerVector<Feature<Geometry>>;
+    source: SourceCluster<Feature<Geometry>>;
+    cluster: SourceVector<Feature<Geometry>>;
 
     protected createSource(props: Readonly<RLayerClusterProps>): BaseObject[] {
-        this.cluster = new SourceVector<OLFeatureClass>({
+        this.cluster = new SourceVector<Feature<Geometry>>({
             features: this.props.features,
             url: this.props.url,
             format: this.props.format,
@@ -41,8 +41,11 @@ export default class RLayerCluster<
             wrapX: this.props.wrapX,
             strategy: this.props.strategy
         });
-        this.source = new SourceCluster({source: this.cluster, distance: this.props.distance});
-        this.ol = new LayerVector({
+        this.source = new SourceCluster<Feature<Geometry>>({
+            source: this.cluster,
+            distance: this.props.distance
+        });
+        this.ol = new LayerVector<Feature<Geometry>>({
             ...props,
             source: this.source,
             style: RStyle.getStyle(props.style)
@@ -50,7 +53,7 @@ export default class RLayerCluster<
         return [this.ol, this.source, this.cluster];
     }
 
-    protected refresh(prev?: RLayerClusterProps<F>): void {
+    protected refresh(prev?: RLayerClusterProps): void {
         super.refresh(prev);
         if (prev?.distance !== this.props.distance) this.source.setDistance(this.props.distance);
         if (prev?.url !== this.props.url) {

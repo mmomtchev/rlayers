@@ -13,7 +13,7 @@ import CircleStyle from 'ol/style/Circle';
 const props = {
     url: 'https://rlayers.meteo.guru/tiles/admin/{z}/{x}/{y}',
     style: common.styles.yellow,
-    format: new MVT()
+    format: new MVT<typeof Feature>()
 };
 
 describe('<RLayerVectorTiles>', () => {
@@ -169,10 +169,10 @@ describe('<RLayerVectorTiles>', () => {
         );
         const {rerender, container, unmount} = render(comp(common.styles.yellow));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(4);
+        expect((ref.current?.ol.getStyle() as Style)?.getStroke()?.getWidth()).toBe(4);
         rerender(comp(common.styles.blueDot));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
+        expect((ref.current?.ol.getStyle() as Style)?.getStroke()?.getWidth()).toBe(2);
         unmount();
     });
     it('should update the url', async () => {
@@ -206,12 +206,16 @@ describe('<RLayerVectorTiles>', () => {
         const {rerender, container, unmount} = render(comp(1));
         expect(container.innerHTML).toMatchSnapshot();
         expect(
-            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle)
+                ?.getStroke()
+                ?.getWidth()
         ).toBe(1);
         rerender(comp(2));
         expect(container.innerHTML).toMatchSnapshot();
         expect(
-            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle)
+                ?.getStroke()
+                ?.getWidth()
         ).toBe(2);
         unmount();
     });

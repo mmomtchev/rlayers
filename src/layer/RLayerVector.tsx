@@ -2,12 +2,14 @@ import React from 'react';
 import {Feature, Map as Map} from 'ol';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
+import {FeatureLike} from 'ol/Feature';
 
-import {OLFeatureClass, RContextType} from '../context';
+import {RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
 import {default as RStyle} from '../style/RStyle';
 import BaseObject from 'ol/Object';
 import debug from '../debug';
+import {Geometry} from 'ol/geom';
 
 /**
  * A vector layer
@@ -19,9 +21,9 @@ import debug from '../debug';
  * Provides a vector layer context for JSX-declared `RFeature`s
  */
 export default class RLayerVector<
-    F extends OLFeatureClass = OLFeatureClass
+    F extends FeatureLike = Feature<Geometry>
 > extends RLayerBaseVector<F, RLayerBaseVectorProps<F>> {
-    ol: LayerVector<SourceVector<F>>;
+    ol: LayerVector<F>;
     source: SourceVector<F>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps<F>>): BaseObject[] {
@@ -33,7 +35,7 @@ export default class RLayerVector<
             wrapX: this.props.wrapX,
             strategy: this.props.strategy
         });
-        this.ol = new LayerVector({
+        this.ol = new LayerVector<F>({
             ...props,
             style: RStyle.getStyle(this.props.style),
             source: this.source
