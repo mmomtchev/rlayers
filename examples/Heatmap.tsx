@@ -12,7 +12,7 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 // (this won't work in CodePen)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
-const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
+const reader = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 
 export default function Heatmap(): JSX.Element {
     const [blur, setBlur] = React.useState(15);

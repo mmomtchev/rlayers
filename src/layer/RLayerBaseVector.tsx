@@ -1,5 +1,4 @@
 import React from 'react';
-import {Feature} from 'ol';
 import {LoadingStrategy, VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
@@ -10,9 +9,7 @@ import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
 import {Vector as SourceVector} from 'ol/source';
 import FeatureFormat, {FeatureToFeatureClass} from 'ol/format/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
-import Geometry from 'ol/geom/Geometry';
 import BaseObject from 'ol/Object';
-import {Options} from 'ol/source/VectorTile.js';
 import {FeatureClass, FeatureLike} from 'ol/Feature';
 
 import {RContext, RContextType} from '../context';

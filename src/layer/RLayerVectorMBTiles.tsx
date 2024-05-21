@@ -1,7 +1,6 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
-import FeatureFormat from 'ol/format/Feature';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';

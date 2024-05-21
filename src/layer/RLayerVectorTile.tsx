@@ -28,8 +28,18 @@ export interface RLayerVectorTileProps<F extends FeatureLike = Feature<Geometry>
      * ie switching from a static OpenLayers style to a RefObject is not supported
      */
     style?: RStyleLike;
-    /** Vector tile format */
+    /**
+     * Vector tile format
+     *
+     * this property currently does not support dynamic updates
+     */
     format: FeatureFormat<FeatureToFeatureClass<F>>;
+    /**
+     * Feature class
+     *
+     * this property currently does not support dynamic updates
+     */
+    //featureClass: FeatureToFeatureClass<F>;
     /**
      * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -88,6 +98,7 @@ export default class RLayerVectorTile<F extends FeatureLike = Feature<Geometry>>
             overlaps: this.props.overlaps,
             state: this.props.state,
             tileClass: this.props.tileClass,
+            //featureClass: this.props.featureClass,
             tileSize: this.props.tileSize,
             tileGrid: this.props.tileGrid,
             tileLoadFunction: this.props.tileLoadFunction,

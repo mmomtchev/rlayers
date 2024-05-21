@@ -90,7 +90,7 @@ export default function VectorTiles(): JSX.Element {
                     )}
                     url='https://velivole.b-cdn.net/tiles/admin/{z}/{x}/{y}.pbf'
                     projection='EPSG:4326'
-                    format={new MVT()}
+                    format={new MVT({featureClass: Feature})}
                 >
                     <RStyle>
                         {/* This is the borders style */}
@@ -104,7 +104,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.01}
                     style={towns}
-                    format={new MVT()}
+                    format={new MVT({featureClass: Feature})}
                 />
                 {/* The towns visible only when zoomed in */}
                 <RLayerVectorTile
@@ -112,7 +112,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.0025}
                     style={towns}
-                    format={new MVT()}
+                    format={new MVT({featureClass: Feature})}
                 />
                 {/* The small villages at maximum resolution */}
                 <RLayerVectorTile
@@ -120,7 +120,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.0005}
                     style={towns}
-                    format={new MVT()}
+                    format={new MVT({featureClass: Feature})}
                 />
             </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow shadow'>

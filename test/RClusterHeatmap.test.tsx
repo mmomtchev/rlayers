@@ -9,7 +9,7 @@ import {RFeature, RLayerCluster, RLayerHeatmap, RMap} from 'rlayers';
 import * as common from './common';
 
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/earthquakes.geojson', 'utf-8'));
-const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
+const parser = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 const features = parser.readFeatures(geojsonFeatures) as Feature<Point>[];
 
 describe('<RLayerCluster>', () => {

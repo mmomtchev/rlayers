@@ -14,7 +14,7 @@ import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
 import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
 
-const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
+const parser = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
 const features = parser.readFeatures(geojsonFeatures) as Feature<Geometry>[];
 

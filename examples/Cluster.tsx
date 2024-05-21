@@ -13,8 +13,9 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 // Earthquakes of magnitude of at least 3.0 in 2020 (courtesy of USGS)
 // (this won't work in CodePen)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
+import {Feature} from 'ol';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
-const reader = new GeoJSON({featureProjection: 'EPSG:3857'});
+const reader = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 
 const colorBlob = (size) =>
     'rgba(' + [255, 153, 0, Math.min(0.8, 0.4 + Math.log(size / 10) / 20)].join() + ')';
@@ -91,7 +92,7 @@ export default function Cluster(): JSX.Element {
                             // Render a star
                             return (
                                 <RRegularShape
-                                    radius1={radiusStar(unclusteredFeature)}
+                                    radius={radiusStar(unclusteredFeature)}
                                     radius2={3}
                                     points={5}
                                     angle={Math.PI}
