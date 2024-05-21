@@ -35,7 +35,6 @@ jobs:
             fail-fast: false
             matrix:
                 ol-version:
-                    - '9.2.0'
                     - '9.2.2'
 
         steps:
