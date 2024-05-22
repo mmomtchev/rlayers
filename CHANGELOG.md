@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### [2.3.2] 2024-05-22
 
 -   Fix [#252](https://github.com/mmomtchev/rlayers/issues/252), stop event propagation when the event handler returns `false`
+-   Add React 18.3 as a test target
 
 ### [2.3.1] 2024-03-24
 
