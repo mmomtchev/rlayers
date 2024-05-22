@@ -17,7 +17,7 @@ export default function AnimatedOverlay(): JSX.Element {
         <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
             <ROSM />
             <RLayerVector zIndex={10}>
-                <RFeature geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
+                <RFeature<Point> geometry={new Point(fromLonLat(coords.ArcDeTriomphe))}>
                     <ROverlay className='no-interaction'>
                         <img
                             src={pacman}

@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # [3.0.0]
 
 -   Do not support multiple OpenLayers versions, link each `rlayers` to one OpenLayers minor version
--   Support light-weight `RenderFeature`s
+-   Support light-weight `RenderFeature`s, these are opt-out for vector tile layers and opt-in for vector layers
 -   Use the same level of typing as OpenLayers
 -   For OpenLayers 9.2.2
 

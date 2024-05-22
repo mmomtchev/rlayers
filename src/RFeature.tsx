@@ -15,20 +15,20 @@ import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
-export class RFeatureUIEvent extends MapBrowserEvent<UIEvent> {
-    target: Feature<Geometry>;
+export class RFeatureUIEvent<F extends FeatureLike> extends MapBrowserEvent<UIEvent> {
+    target: F;
 }
 
-export class RFeatureBaseEvent extends BaseEvent {
-    target: Feature<Geometry>;
+export class RFeatureBaseEvent<F extends FeatureLike> extends BaseEvent {
+    target: F;
 }
 
 /**
  * @propsfor RFeature
  */
-export interface RFeatureProps extends PropsWithChildren<unknown> {
+export interface RFeatureProps<G extends Geometry = Geometry> extends PropsWithChildren<unknown> {
     /** OpenLayers geometry, mutually exclusive with feature */
-    geometry?: Geometry;
+    geometry?: G;
     /** OpenLayers style */
     style?: RStyleLike;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
@@ -41,30 +41,30 @@ export interface RFeatureProps extends PropsWithChildren<unknown> {
      *
      * geometry is usually a better choice for a dynamic feature
      */
-    feature?: Feature<Geometry>;
+    feature?: Feature<G>;
     /** Called immediately on click */
-    onClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onSingleClick?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called on double click */
-    onDblClick?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onDblClick?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onPointerDrag?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called when the object is released */
-    onPointerDragEnd?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onPointerDragEnd?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called on every pointer movement over the RFeature, use sparingly */
-    onPointerMove?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called once when the pointer moves over the RFeature */
-    onPointerEnter?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called once when the pointer moves out of the RFeature */
-    onPointerLeave?: (this: RFeature, e: RFeatureUIEvent) => boolean | void;
+    onPointerLeave?: (this: RFeature<G>, e: RFeatureUIEvent<Feature<G>>) => boolean | void;
     /** Called on every change */
-    onChange?: (this: RFeature, e: RFeatureBaseEvent) => void;
+    onChange?: (this: RFeature<G>, e: RFeatureBaseEvent<Feature<G>>) => void;
 }
 
-type FeatureRef = {
-    feature: Feature<Geometry>;
+type FeatureRef<G extends Geometry = Geometry> = {
+    feature: Feature<G>;
     layer: BaseVectorLayer<SourceVector<FeatureLike>, CanvasVectorLayerRenderer>;
 };
 
@@ -85,7 +85,10 @@ type FeatureRef = {
  * [Example for implicit RFeatures](https://mmomtchev.github.io/rlayers/#/RFeatures)
  *
  */
-export default class RFeature extends RlayersBase<RFeatureProps, Record<string, never>> {
+export default class RFeature<G extends Geometry = Geometry> extends RlayersBase<
+    RFeatureProps<G>,
+    Record<string, never>
+> {
     private static pointerEvents: (
         | 'click'
         | 'pointerdrag'
@@ -96,16 +99,16 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
     private static lastFeaturesEntered: FeatureRef[] = [];
     private static lastFeaturesDragged: FeatureRef[] = [];
     static hitTolerance = 3;
-    ol: Feature<Geometry>;
+    ol: Feature<G>;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps>, context?: React.Context<RContextType>) {
+    constructor(props: Readonly<RFeatureProps<G>>, context?: React.Context<RContextType>) {
         super(props, context);
         if (!this?.context?.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');
         if (props.feature) this.ol = props.feature;
         else
-            this.ol = new Feature({
+            this.ol = new Feature<G>({
                 ...(props.properties ?? {}),
                 geometry: props.geometry,
                 style: RStyle.getStyle(props.style)
@@ -135,7 +138,10 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         featureHandlers[ev]--;
     }
 
-    protected static dispatchEvent(fr: FeatureRef, event: RFeatureUIEvent): boolean {
+    protected static dispatchEvent(
+        fr: FeatureRef,
+        event: RFeatureUIEvent<Feature<Geometry>>
+    ): boolean {
         if (!fr.feature) return true;
         if (fr.feature.dispatchEvent) {
             const propagate = fr.feature.dispatchEvent(event);
@@ -149,7 +155,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    private static eventRelay(e: RFeatureUIEvent): boolean {
+    private static eventRelay(e: RFeatureUIEvent<Feature<Geometry>>): boolean {
         const triggered: FeatureRef[] = [];
         e.map.forEachFeatureAtPixel(
             e.pixel,
@@ -252,7 +258,7 @@ export default class RFeature extends RlayersBase<RFeatureProps, Record<string, 
         return true;
     }
 
-    protected refresh(prevProps?: RFeatureProps): void {
+    protected refresh(prevProps?: RFeatureProps<G>): void {
         super.refresh(prevProps);
         if (this.props.feature !== undefined && this.props.feature !== this.ol) {
             debug('replacing bound feature', this.ol);

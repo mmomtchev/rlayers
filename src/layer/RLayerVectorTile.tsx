@@ -4,8 +4,7 @@ import {VectorTile as SourceVectorTile} from 'ol/source';
 import type {Options} from 'ol/source/VectorTile';
 import FeatureFormat, {FeatureToFeatureClass} from 'ol/format/Feature';
 import {FeatureLike} from 'ol/Feature';
-import {Feature} from 'ol';
-import {Geometry} from 'ol/geom';
+import RenderFeature from 'ol/render/Feature';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -18,8 +17,7 @@ import debug from '../debug';
 /**
  * @propsfor RLayerVectorTile
  */
-export interface RLayerVectorTileProps<F extends FeatureLike = Feature<Geometry>>
-    extends RLayerProps {
+export interface RLayerVectorTileProps<F extends FeatureLike = RenderFeature> extends RLayerProps {
     /** URL for the tiles, normal {x}{y}{z} convention applies */
     url: string;
     /**
@@ -34,12 +32,6 @@ export interface RLayerVectorTileProps<F extends FeatureLike = Feature<Geometry>
      * this property currently does not support dynamic updates
      */
     format: FeatureFormat<FeatureToFeatureClass<F>>;
-    /**
-     * Feature class
-     *
-     * this property currently does not support dynamic updates
-     */
-    //featureClass: FeatureToFeatureClass<F>;
     /**
      * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -60,28 +52,40 @@ export interface RLayerVectorTileProps<F extends FeatureLike = Feature<Geometry>
     transition?: Options<F>['transition'];
     zDirection?: Options<F>['zDirection'];
     /** onClick handler for loaded features */
-    onClick?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerMove handler for loaded features */
-    onPointerMove?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerEnter handler for loaded features */
-    onPointerEnter?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerLeave handler for loaded features */
-    onPointerLeave?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent) => boolean | void;
+    onPointerLeave?: (this: RLayerVectorTile<F>, e: RFeatureUIEvent<F>) => boolean | void;
 }
 
 /**
  * A vector tile layer
  *
- * Supports loading of features from vector tile servers
+ * Supports loading of features from vector tile servers.
  *
- * Only the handlers can be dynamically modified
+ * Only the handlers can be dynamically modified.
  *
- * Requires an `RMap` context
+ * Requires an `RMap` context.
  *
  * It does not provide a vector layer context for JSX-declared `RFeature`s
- * and it is not compatible with RLayerVector
+ * and it is not compatible with RLayerVector.
+ *
+ * Since 3.0, RLayerVectorTile uses OpenLayers light-weight RenderFeatures by default.
+ *
+ * @example
+ * <RLayerVectorTile url={url} format={new MVT()} />
+ *
+ * If you need advanced feature functions, you can switch to using full blown OpenLayers features
+ * by using a `format` parser that returns Features and, if using TSX, specifying the right
+ * generic argument.
+ *
+ * @example
+ * <RLayerVectorTile<Feature> url={url} format={new MVT({featureClass: Feature})} />
  */
-export default class RLayerVectorTile<F extends FeatureLike = Feature<Geometry>> extends RLayer<
+export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> extends RLayer<
     RLayerVectorTileProps<F>
 > {
     ol: LayerVectorTile<F>;
@@ -98,7 +102,6 @@ export default class RLayerVectorTile<F extends FeatureLike = Feature<Geometry>>
             overlaps: this.props.overlaps,
             state: this.props.state,
             tileClass: this.props.tileClass,
-            //featureClass: this.props.featureClass,
             tileSize: this.props.tileSize,
             tileGrid: this.props.tileGrid,
             tileLoadFunction: this.props.tileLoadFunction,

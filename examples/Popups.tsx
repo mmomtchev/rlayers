@@ -8,7 +8,6 @@ import {RMap, ROSM, RLayerVector, RFeature, RPopup} from 'rlayers';
 import {RStyle, RIcon, RFill, RStroke} from 'rlayers/style';
 
 import locationIcon from './svg/location.svg';
-import {Feature} from 'ol';
 
 const coords: Record<string, Coordinate> = {
     origin: [2.364, 48.82],

@@ -1,6 +1,9 @@
 import React from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
+import BaseEvent from 'ol/events/Event';
+import RenderFeature from 'ol/render/Feature';
+import {FeatureLike} from 'ol/Feature';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
@@ -9,14 +12,12 @@ import RStyle, {RStyleLike} from '../style/RStyle';
 import debug from '../debug';
 
 import type * as MBTiles from 'ol-mbtiles';
-import BaseEvent from 'ol/events/Event';
-import {Feature} from 'ol';
-import {Geometry} from 'ol/geom';
 
 /**
  * @propsfor RLayerVectorTile
  */
-export interface RLayerVectorMBTilesProps extends RLayerRasterProps {
+export interface RLayerVectorMBTilesProps<F extends FeatureLike = RenderFeature>
+    extends RLayerRasterProps {
     /** An URL for a remote MBTiles file */
     url: string;
     /**
@@ -59,13 +60,13 @@ export interface RLayerVectorMBTilesProps extends RLayerRasterProps {
      */
     renderBuffer?: number;
     /** onClick handler for loaded features */
-    onClick?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
+    onClick?: (this: RLayerVectorMBTiles<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerMove handler for loaded features */
-    onPointerMove?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
+    onPointerMove?: (this: RLayerVectorMBTiles<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerEnter handler for loaded features */
-    onPointerEnter?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
+    onPointerEnter?: (this: RLayerVectorMBTiles<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** onPointerLeave handler for loaded features */
-    onPointerLeave?: (this: RLayerVectorMBTiles, e: RFeatureUIEvent) => boolean | void;
+    onPointerLeave?: (this: RLayerVectorMBTiles<F>, e: RFeatureUIEvent<F>) => boolean | void;
     /** Called after each metadata change to signal that the metadata has been loaded */
     onMetadataReady?: (
         this: RLayerVectorMBTiles,
@@ -90,10 +91,12 @@ export interface RLayerVectorMBTilesProps extends RLayerRasterProps {
  *
  * Requires an `RMap` context
  */
-export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTilesProps> {
+export default class RLayerVectorMBTiles<
+    F extends FeatureLike = RenderFeature
+> extends RLayerRaster<RLayerVectorMBTilesProps> {
     addon: Promise<typeof MBTiles>;
     metadata: Promise<MBTiles.MBTilesVectorOptions & MBTiles.SQLOptions>;
-    ol: LayerVectorTile<Feature<Geometry>>;
+    ol: LayerVectorTile<F>;
     source: MBTiles.MBTilesVectorSource;
     private abort: AbortController;
 
@@ -129,7 +132,7 @@ export default class RLayerVectorMBTiles extends RLayerRaster<RLayerVectorMBTile
             }
             this.source = new addon.MBTilesVectorSource(md);
             this.eventSources = [this.ol, this.source];
-            this.ol.setSource(this.source);
+            this.ol.setSource(this.source as unknown as SourceVectorTile<F>);
             this.attachOldEventHandlers(this.source);
             if (this.props.onMetadataReady) this.props.onMetadataReady.call(this, md);
             return this.source;

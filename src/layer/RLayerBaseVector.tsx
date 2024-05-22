@@ -64,7 +64,7 @@ export interface RLayerBaseVectorProps<F extends FeatureLike> extends RLayerProp
     /** Default onClick handler for loaded features */
     onClick?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: RFeatureUIEvent
+        e: RFeatureUIEvent<F>
     ) => boolean | void;
     /**
      * Called when a feature is added, not called for features
@@ -104,17 +104,17 @@ export interface RLayerBaseVectorProps<F extends FeatureLike> extends RLayerProp
     /** onPointerMove handler for all loaded features */
     onPointerMove?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: RFeatureUIEvent
+        e: RFeatureUIEvent<F>
     ) => boolean | void;
     /** onPointerEnter handler for all loaded features */
     onPointerEnter?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: RFeatureUIEvent
+        e: RFeatureUIEvent<F>
     ) => boolean | void;
     /** onPointerLeave handler for all loaded features */
     onPointerLeave?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
-        e: RFeatureUIEvent
+        e: RFeatureUIEvent<F>
     ) => boolean | void;
     onPostRender?: (
         this: RLayerBaseVector<F, RLayerBaseVectorProps<F>>,
