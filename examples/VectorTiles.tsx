@@ -4,7 +4,7 @@
  * layers that appear only when zoomed in
  */
 
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';
@@ -14,6 +14,7 @@ import {RMap, RLayerVectorTile} from 'rlayers';
 import {useRStyle, RStyle, RStyleArray, RStroke, RFill, RCircle, RText} from 'rlayers/style';
 import {Geometry} from 'ol/geom';
 import RLayerStadia from 'rlayers/layer/RLayerStadia';
+import RenderFeature from 'ol/render/Feature';
 
 const degree = 111319.49079327358;
 const fonts = {
@@ -33,6 +34,7 @@ const fonts = {
 export default function VectorTiles(): JSX.Element {
     const [country, setCountry] = React.useState('');
     const towns = useRStyle();
+    const parser = useMemo(() => new MVT(), []);
     return (
         <React.Fragment>
             <RStyleArray
@@ -90,7 +92,7 @@ export default function VectorTiles(): JSX.Element {
                     )}
                     url='https://velivole.b-cdn.net/tiles/admin/{z}/{x}/{y}.pbf'
                     projection='EPSG:4326'
-                    format={new MVT()}
+                    format={parser}
                 >
                     <RStyle>
                         {/* This is the borders style */}
@@ -104,7 +106,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.01}
                     style={towns}
-                    format={new MVT()}
+                    format={parser}
                 />
                 {/* The towns visible only when zoomed in */}
                 <RLayerVectorTile
@@ -112,7 +114,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.0025}
                     style={towns}
-                    format={new MVT()}
+                    format={parser}
                 />
                 {/* The small villages at maximum resolution */}
                 <RLayerVectorTile
@@ -120,7 +122,7 @@ export default function VectorTiles(): JSX.Element {
                     projection='EPSG:4326'
                     maxResolution={0.0005}
                     style={towns}
-                    format={new MVT()}
+                    format={parser}
                 />
             </RMap>
             <div className='mx-0 mt-0 mb-3 p-1 w-100 jumbotron shadow shadow'>

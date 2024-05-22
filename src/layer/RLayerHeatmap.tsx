@@ -3,26 +3,14 @@ import {Feature} from 'ol';
 import {Heatmap as LayerHeatmap} from 'ol/layer';
 import {Vector as SourceVector} from 'ol/source';
 import BaseObject from 'ol/Object';
-import {Point} from 'ol/geom';
-import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
-import {FeatureLike} from 'ol/Feature';
+import {Geometry, Point} from 'ol/geom';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import RenderFeature from 'ol/render/Feature';
-import JSONFeature from 'ol/format/JSONFeature';
-
-type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
-// Detect the new OpenLayers 8.2.0 FeatureClass
-type OLFeaturePoint = RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
-    ? Feature<Point>
-    : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      IfAny<OLVectorTileOptions<FeatureLike>, Point, Feature<Point>>;
 
 /**
  * @propsfor RLayerHeatmap
  */
-export interface RLayerHeatmapProps extends RLayerBaseVectorProps<OLFeaturePoint> {
+export interface RLayerHeatmapProps extends RLayerBaseVectorProps<Feature<Point>> {
     /** Blurring */
     blur?: number;
     /** Radius */
@@ -32,7 +20,9 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps<OLFeaturePoint
     /**
      * OpenLayers features that will be loaded
      *
-     * this property currently does not support dynamic updates
+     * This property currently does not support dynamic updates.
+     *
+     * Prefer using nested JSX <RFeature> components in this case.
      */
     features?: Feature<Point>[];
 }
@@ -45,9 +35,9 @@ export interface RLayerHeatmapProps extends RLayerBaseVectorProps<OLFeaturePoint
  *
  * Provides a vector layer for JSX-declared RFeatures
  */
-export default class RLayerHeatmap extends RLayerBaseVector<OLFeaturePoint, RLayerHeatmapProps> {
-    ol: LayerHeatmap;
-    source: SourceVector<OLFeaturePoint>;
+export default class RLayerHeatmap extends RLayerBaseVector<Feature<Point>, RLayerHeatmapProps> {
+    ol: LayerHeatmap<Feature<Point>>;
+    source: SourceVector<Feature<Point>>;
 
     protected createSource(props: Readonly<RLayerHeatmapProps>): BaseObject[] {
         this.source = new SourceVector({
@@ -58,7 +48,7 @@ export default class RLayerHeatmap extends RLayerBaseVector<OLFeaturePoint, RLay
             wrapX: this.props.wrapX,
             strategy: this.props.strategy
         });
-        this.ol = new LayerHeatmap({...props, source: this.source});
+        this.ol = new LayerHeatmap<Feature<Point>>({...props, source: this.source});
         return [this.ol, this.source];
     }
 

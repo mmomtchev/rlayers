@@ -25,9 +25,10 @@ export default function Features(): JSX.Element {
                     zIndex={10}
                     /* Input data will have to be typed too */
                     features={
-                        new GeoJSON({featureProjection: 'EPSG:3857'}).readFeatures(
-                            geojsonFeatures
-                        ) as Feature<Point>[]
+                        new GeoJSON({
+                            featureProjection: 'EPSG:3857',
+                            featureClass: Feature
+                        }).readFeatures(geojsonFeatures) as Feature<Point>[]
                     }
                     /* The type will be propagated to all callbacks */
                     onClick={useCallback(
@@ -46,8 +47,12 @@ export default function Features(): JSX.Element {
                 {/* Without any type, the features will be assumed to be a of a generic Geometry type */}
                 <RLayerVector
                     zIndex={5}
-                    /* This layer will be getting its data from an URL */
-                    format={new GeoJSON({featureProjection: 'EPSG:3857'})}
+                    /**
+                     * This layer will be getting its data from an URL, do not forget that in
+                     * OpenLayers 9.2 the format parsers now return RenderFeature by default unless
+                     * featureClass is explicitly specified
+                     */
+                    format={new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature})}
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                     onPointerEnter={useCallback(
                         (e) => {

@@ -11,7 +11,7 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 // These are the French internal administrative borders in GeoJSON format
 const departements =
     'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson';
-const parser = new GeoJSON({featureProjection: 'EPSG:3857'});
+const parser = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 // Population by French administrative division
 // https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/
 // Published under Etalab Open License https://www.etalab.gouv.fr/wp-content/uploads/2018/11/open-licence.pdf

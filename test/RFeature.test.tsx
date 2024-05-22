@@ -283,8 +283,8 @@ describe('<RFeature>', () => {
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
         const map = React.createRef<RMap>();
-        const ref = [0, 1, 2].map(() => React.createRef<RFeature>());
-        const layer = React.createRef<RLayerVector>();
+        const ref = [0, 1, 2].map(() => React.createRef<RFeature<Point>>());
+        const layer = React.createRef<RLayerVector<Feature<Point>>>();
         const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];
         const handlerProps = mapEvents.reduce(
             (ac, a) => ({
@@ -295,19 +295,19 @@ describe('<RFeature>', () => {
         );
         const {container} = render(
             <RMap ref={map} {...common.mapProps}>
-                <RLayerVector ref={layer}>
-                    <RFeature
+                <RLayerVector<Feature<Point>> ref={layer}>
+                    <RFeature<Point>
                         ref={ref[0]}
                         properties={{name: 'Arc de Triomphe'}}
                         {...handlerProps}
                         geometry={new Point(common.coords.ArcDeTriomphe)}
                     />
-                    <RFeature
+                    <RFeature<Point>
                         ref={ref[1]}
                         properties={{name: "Place d'Italie"}}
                         geometry={new Point(common.coords.PlaceDItalie)}
                     />
-                    <RFeature
+                    <RFeature<Point>
                         ref={ref[2]}
                         properties={{name: "Arc de Triomphe' shadow"}}
                         {...handlerProps}

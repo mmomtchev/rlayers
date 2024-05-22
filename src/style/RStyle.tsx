@@ -103,8 +103,8 @@ export default class RStyle extends React.PureComponent<RStyleProps, Record<stri
                     throw new Error('An RStyleArray must contain only static RStyles');
                 if (!this.context.styleArray.includes(this.ol as Style))
                     this.context.styleArray.push(this.ol as Style);
-            } else if (this.context?.feature?.setStyle) {
-                this.context.feature.setStyle(this.ol);
+            } else if ((this.context?.feature as Feature<Geometry>)?.setStyle) {
+                (this.context.feature as Feature<Geometry>).setStyle(this.ol);
             } else if (this.context?.vectorlayer?.setStyle) {
                 this.context.vectorlayer.setStyle(this.ol);
             } else if (this.context?.vectortilelayer?.setStyle) {

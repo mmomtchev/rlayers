@@ -93,7 +93,7 @@
     "lru-cache": "^10.2.0"
   },
   "peerDependencies": {
-    "ol": ">=6.10.0 <9.2.0",
+    "ol": "9.2.2",
     "react": ">=16.8",
     "react-dom": ">=16.8"
   },
@@ -134,8 +134,8 @@
     "jest-environment-jsdom": "^29.4.3",
     "markdown-loader": "^8.0.0",
     "null-loader": "^4.0.1",
-    "ol": "^9.1.0",
-    "ol-mbtiles": "2.3.0",
+    "ol": "^9.2.2",
+    "ol-mbtiles": "^2.4.0",
     "prettier": "2.8.8",
     "prism-themes": "^1.6.0",
     "prismjs": "^1.28.0",

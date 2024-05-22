@@ -14,7 +14,7 @@ import 'ol/ol.css';
 import monument from './svg/eiffel.svg';
 import {RMap, ROSM, RInteraction, RLayerVector, RStyle, RFeature} from 'rlayers';
 import VectorSource from 'ol/source/Vector';
-import {OLFeatureClass} from 'rlayers/context';
+import {Feature} from 'ol';
 
 const TourEiffel = fromLonLat([2.294, 48.858]);
 const TourEiffelPoint = new Point(TourEiffel);
@@ -36,7 +36,7 @@ export default function Interactions(): JSX.Element {
                 <RLayerVector
                     onChange={React.useCallback((e) => {
                         // On every change, check if there is a feature covering the Eiffel Tower
-                        const source = e.target as VectorSource<OLFeatureClass>;
+                        const source = e.target as VectorSource<Feature>;
                         if (source?.forEachFeatureAtCoordinateDirect)
                             setSelected(
                                 source.forEachFeatureAtCoordinateDirect(TourEiffel, () => true)

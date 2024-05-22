@@ -14,9 +14,6 @@ import {Coordinate} from 'ol/coordinate';
 import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
 import LayerRenderer from 'ol/renderer/Layer';
-import JSONFeature from 'ol/format/JSONFeature';
-import RenderFeature from 'ol/render/Feature';
-import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
 import {FeatureLike} from 'ol/Feature';
 
 import RMap from './RMap';
@@ -26,20 +23,6 @@ import RFeature from './RFeature';
 import RLayerVectorTile from './layer/RLayerVectorTile';
 
 export const RContext = React.createContext({} as RContextType);
-
-// Check if the type is any
-// https://stackoverflow.com/questions/55541275/typescript-check-for-the-any-type
-type IfAny<T, Y, N> = 0 extends 1 & T ? Y : N;
-
-export type OLFeatureClass =
-    // Detect the new OpenLayers 8.2.0 FeatureClass
-    RenderFeature extends ReturnType<JSONFeature['readFeatures']>[0]
-        ? Feature<Geometry>
-        : // Detect if VectorTileOptions is a generic type
-          // (works because with @ts-ignore invalid types resolve to any)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          IfAny<OLVectorTileOptions<FeatureLike>, Geometry, Feature<Geometry>>;
 
 /**
  * Context type
@@ -54,16 +37,16 @@ export interface RContextType {
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly vectorlayer?: BaseVector<
-        SourceVector<OLFeatureClass>,
+        SourceVector<FeatureLike>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
     >;
-    readonly vectorsource?: SourceVector<OLFeatureClass>;
-    readonly vectortilelayer?: VectorTile;
+    readonly vectorsource?: SourceVector;
+    readonly vectortilelayer?: VectorTile<FeatureLike>;
     /** The current RFeature */
-    readonly feature?: Feature<Geometry>;
+    readonly feature?: FeatureLike;
     /** The current location */
     readonly location?: Coordinate;
     /** The current style */
@@ -76,9 +59,9 @@ export interface RContextType {
     /** The current RLayer component */
     readonly rLayer?: RLayer<RLayerProps>;
     /** The current RLayerVector component */
-    readonly rLayerVector?: RLayerBaseVector<OLFeatureClass, RLayerBaseVectorProps>;
+    readonly rLayerVector?: RLayerBaseVector<FeatureLike, RLayerBaseVectorProps<FeatureLike>>;
     /** The current RLayerVectorTile component */
-    readonly rLayerVectorTile?: RLayerVectorTile;
+    readonly rLayerVectorTile?: RLayerVectorTile<FeatureLike>;
     /** The current RFeature component */
     readonly rFeature?: RFeature;
 }

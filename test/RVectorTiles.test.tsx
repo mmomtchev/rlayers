@@ -16,12 +16,30 @@ const props = {
     format: new MVT()
 };
 
+const propsFeature = {
+    ...props,
+    format: new MVT({featureClass: Feature})
+};
+
 describe('<RLayerVectorTiles>', () => {
     it('should create a vector tile layer', async () => {
         const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
         const {container, unmount} = render(
             <RMap {...common.mapProps}>
                 <RLayerVectorTile {...props} ref={ref} renderBuffer={250} />
+            </RMap>
+        );
+        expect(ref.current?.source.getProjection()?.getCode()).toBe('EPSG:3857');
+        expect(container.innerHTML).toMatchSnapshot();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((ref.current?.ol as any).renderBuffer_).toBe(250);
+        unmount();
+    });
+    it('should create a vector tile layer w/ RenderFeatures', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile<Feature>>;
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile {...propsFeature} ref={ref} renderBuffer={250} />
             </RMap>
         );
         expect(ref.current?.source.getProjection()?.getCode()).toBe('EPSG:3857');
@@ -169,10 +187,10 @@ describe('<RLayerVectorTiles>', () => {
         );
         const {rerender, container, unmount} = render(comp(common.styles.yellow));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(4);
+        expect((ref.current?.ol.getStyle() as Style)?.getStroke()?.getWidth()).toBe(4);
         rerender(comp(common.styles.blueDot));
         expect(container.innerHTML).toMatchSnapshot();
-        expect((ref.current?.ol.getStyle() as Style).getStroke().getWidth()).toBe(2);
+        expect((ref.current?.ol.getStyle() as Style)?.getStroke()?.getWidth()).toBe(2);
         unmount();
     });
     it('should update the url', async () => {
@@ -206,12 +224,16 @@ describe('<RLayerVectorTiles>', () => {
         const {rerender, container, unmount} = render(comp(1));
         expect(container.innerHTML).toMatchSnapshot();
         expect(
-            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle)
+                ?.getStroke()
+                ?.getWidth()
         ).toBe(1);
         rerender(comp(2));
         expect(container.innerHTML).toMatchSnapshot();
         expect(
-            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle).getStroke().getWidth()
+            ((ref.current?.ol.getStyle() as Style).getImage() as CircleStyle)
+                ?.getStroke()
+                ?.getWidth()
         ).toBe(2);
         unmount();
     });

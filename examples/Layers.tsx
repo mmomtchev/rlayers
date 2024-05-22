@@ -15,6 +15,7 @@ import {
 import RLayerStadia from 'rlayers/layer/RLayerStadia';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';
+import {Feature} from 'ol';
 
 const layersButton = <button>&#9776;</button>;
 
@@ -60,7 +61,7 @@ export default function Layers(): JSX.Element {
                 {/* This one is always visible */}
                 <RLayerVector
                     zIndex={5}
-                    format={new GeoJSON({featureProjection: 'EPSG:3857'})}
+                    format={new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature})}
                     url='https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson'
                 >
                     <RStyle.RStyle>

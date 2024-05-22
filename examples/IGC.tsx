@@ -34,7 +34,6 @@ import DamienDeBaenst from '!!file-loader!./data/igc/Damien-de-Baenst.igc';
 import SylvainDhonneur from '!!file-loader!./data/igc/Sylvain-Dhonneur.igc';
 import TomPayne from '!!file-loader!./data/igc/Tom-Payne.igc';
 import UlrichPrinz from '!!file-loader!./data/igc/Ulrich-Prinz.igc';
-import {OLFeatureClass} from 'rlayers/context';
 
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
 
@@ -146,7 +145,7 @@ export default function IGCComp(): JSX.Element {
                     onAddFeature={useCallback(
                         // This useCallback transforms this function to a constant value
                         // None of its dependencies change after initialization
-                        (e: VectorSourceEvent<OLFeatureClass>) => {
+                        (e) => {
                             const geometry = e.feature.getGeometry() as LineString;
                             flight.start = Math.min(flight.start, geometry.getFirstCoordinate()[2]);
                             flight.stop = Math.max(flight.stop, geometry.getLastCoordinate()[2]);

@@ -1,7 +1,5 @@
 import React from 'react';
 import {render} from '@testing-library/react';
-import * as semver from 'semver';
-import {VERSION} from 'ol';
 
 import {
     RMap,
@@ -16,25 +14,23 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 
 import * as common from './common';
 
-if (semver.gte(VERSION, '8.0.0') && process.env.STADIA_MAPS_API_KEY) {
-    describe('<RLayerStadia>', () => {
-        it('should display a tiled Stadia layer', () => {
-            const layer = React.createRef() as React.RefObject<RLayerStadia>;
-            const {container} = render(
-                <RMap {...common.mapProps}>
-                    <RLayerStadia
-                        ref={layer}
-                        apiKey={process.env.STADIA_MAPS_API_KEY!}
-                        layer='stamen_toner'
-                    />
-                </RMap>
-            );
-            expect((layer.current?.source.getUrls() || [])[0]).toBe(
-                `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process.env.STADIA_MAPS_API_KEY}`
-            );
-        });
+describe('<RLayerStadia>', () => {
+    it('should display a tiled Stadia layer', () => {
+        const layer = React.createRef() as React.RefObject<RLayerStadia>;
+        const {container} = render(
+            <RMap {...common.mapProps}>
+                <RLayerStadia
+                    ref={layer}
+                    apiKey={process.env.STADIA_MAPS_API_KEY!}
+                    layer='stamen_toner'
+                />
+            </RMap>
+        );
+        expect((layer.current?.source.getUrls() || [])[0]).toBe(
+            `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process.env.STADIA_MAPS_API_KEY}`
+        );
     });
-}
+});
 
 describe('<RLayerWMS>', () => {
     it('should display a WMS source layer', async () => {
