@@ -9,17 +9,16 @@ import {RLayerVectorTile, RMap} from 'rlayers';
 import {RStyle, RCircle, RStroke} from 'rlayers/style';
 import * as common from './common';
 import CircleStyle from 'ol/style/Circle';
-import RenderFeature from 'ol/render/Feature';
 
 const props = {
     url: 'https://rlayers.meteo.guru/tiles/admin/{z}/{x}/{y}',
     style: common.styles.yellow,
-    format: new MVT({featureClass: Feature})
+    format: new MVT()
 };
 
-const propsRenderFeature = {
+const propsFeature = {
     ...props,
-    format: new MVT()
+    format: new MVT({featureClass: Feature})
 };
 
 describe('<RLayerVectorTiles>', () => {
@@ -37,10 +36,10 @@ describe('<RLayerVectorTiles>', () => {
         unmount();
     });
     it('should create a vector tile layer w/ RenderFeatures', async () => {
-        const ref = React.createRef() as React.RefObject<RLayerVectorTile<RenderFeature>>;
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile<Feature>>;
         const {container, unmount} = render(
             <RMap {...common.mapProps}>
-                <RLayerVectorTile {...propsRenderFeature} ref={ref} renderBuffer={250} />
+                <RLayerVectorTile {...propsFeature} ref={ref} renderBuffer={250} />
             </RMap>
         );
         expect(ref.current?.source.getProjection()?.getCode()).toBe('EPSG:3857');
