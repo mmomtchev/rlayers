@@ -170,6 +170,23 @@ jobs:
             - run: npm test
             - run: npm run build:examples
 
+    react-18-3:
+        runs-on: ubuntu-latest
+
+        steps:
+            - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
+            - uses: actions/checkout@v4
+            - name: Use Node.js 18.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 18.x
+            - run: |
+                  npm i react@18.3.2 react-dom@18.3.1 react-test-renderer@18.3.1 @types/react@18.3.2 @types/react-dom@18.0.5 @testing-library/react@15.0.7
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
+
     codecov:
         runs-on: ubuntu-latest
 
