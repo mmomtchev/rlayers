@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Use the same level of typing as OpenLayers
 -   For OpenLayers 9.2.2
 
-### [2.3.2]
+### [2.3.2] 2024-05-22
 
 -   Fix [#252](https://github.com/mmomtchev/rlayers/issues/252), stop event propagation when the event handler returns `false`
 -   Add React 18.3 as a test target
