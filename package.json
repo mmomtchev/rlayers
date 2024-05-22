@@ -135,7 +135,7 @@
     "markdown-loader": "^8.0.0",
     "null-loader": "^4.0.1",
     "ol": "^9.1.0",
-    "ol-mbtiles": "^2.3.0",
+    "ol-mbtiles": "2.3.0",
     "prettier": "2.8.8",
     "prism-themes": "^1.6.0",
     "prismjs": "^1.28.0",
