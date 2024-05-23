@@ -8,7 +8,9 @@ import {Feature} from 'ol';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
 
-const act = semver.gte(React.version, '18.3.0') ? act_React19 : act_React_18;
+const act: <T>(callback: () => T | Promise<T>) => Promise<T> = semver.gte(React.version, '18.3.0')
+    ? act_React19
+    : act_React_18;
 
 describe('<RFeature>', () => {
     it('should create features', async () => {

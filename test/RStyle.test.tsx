@@ -22,7 +22,9 @@ import {
 import {Point} from 'ol/geom';
 import * as common from './common';
 
-const act = semver.gte(React.version, '18.3.0') ? act_React19 : act_React_18;
+const act: <T>(callback: () => T | Promise<T>) => Promise<T> = semver.gte(React.version, '18.3.0')
+    ? act_React19
+    : act_React_18;
 
 describe('<RStyle>', () => {
     it('should create a basic icon style', async () => {
