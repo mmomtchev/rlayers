@@ -1,5 +1,7 @@
-import React, {act} from 'react';
+import React, {act as act_React19} from 'react';
 import {fireEvent, render} from '@testing-library/react';
+import {act as act_React_18} from 'react-dom/test-utils';
+import semver from 'semver';
 
 import {Feature} from 'ol';
 import {Style, Circle, Image, RegularShape} from 'ol/style';
@@ -19,6 +21,8 @@ import {
 } from 'rlayers/style';
 import {Point} from 'ol/geom';
 import * as common from './common';
+
+const act = semver.gte(React.version, '18.3.0') ? act_React19 : act_React_18;
 
 describe('<RStyle>', () => {
     it('should create a basic icon style', async () => {
