@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {act as act_React19} from 'react';
 import {fireEvent, render} from '@testing-library/react';
+import {act as act_React_18} from 'react-dom/test-utils';
+import semver from 'semver';
 
 import {Feature} from 'ol';
 import {Style, Circle, Image, RegularShape} from 'ol/style';
@@ -19,6 +21,10 @@ import {
 } from 'rlayers/style';
 import {Point} from 'ol/geom';
 import * as common from './common';
+
+const act: <T>(callback: () => T | Promise<T>) => Promise<T> = semver.gte(React.version, '18.3.0')
+    ? act_React19
+    : act_React_18;
 
 describe('<RStyle>', () => {
     it('should create a basic icon style', async () => {
@@ -148,7 +154,9 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text'
         });
-        const style = (RStyle.getStyle(ref) as (Feature, number) => Style)(f, 100);
+        const style = await act(() => {
+            return (RStyle.getStyle(ref) as (Feature, number) => Style)(f, 100);
+        });
         expect(style.getText()?.getText()).toBe('text');
         expect(style.getText()?.getFont()).toBe('bold 25px sans-serif');
         expect(style.getText()?.getStroke()?.getWidth()).toBe(100);
@@ -229,7 +237,9 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text14'
         });
-        const style = (RStyle.getStyle(ref) as (Feature) => Style)(f);
+        const style = await act(() => {
+            return (RStyle.getStyle(ref) as (Feature) => Style)(f);
+        });
         expect(style.getText()?.getText()).toBe('text14');
         expect(style.getText()?.getStroke()?.getWidth()).toBe(14);
         expect(ref.current?.cache.get(f.get('name'))).toBe(style);
@@ -267,7 +277,9 @@ describe('<RStyle>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text9'
         });
-        const style = (ref.current?.ol.getStyle() as (Feature) => Style)(f);
+        const style = await act(() => {
+            return (ref.current?.ol.getStyle() as (Feature) => Style)(f);
+        });
         expect(style.getText()?.getText()).toBe('text9');
         expect(style.getText()?.getStroke()?.getWidth()).toBe(9);
     });
@@ -420,12 +432,19 @@ describe('<RStyleArray>', () => {
             geometry: new Point(common.coords.ArcDeTriomphe),
             name: 'text1'
         });
-        expect(((ref.current as RStyleArray).style(f, 0) as Style[]).length).toBe(2);
-        let style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        const styleArray = await act(() => {
+            return (ref.current as RStyleArray).style(f, 0) as Style[];
+        });
+        expect(styleArray.length).toBe(2);
+        let style = await act(() => {
+            return (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        });
         expect(style[0].getText()?.getText()).toBe('text1');
         expect(style[1].getStroke()?.getWidth()).toBe(3);
         f.set('name', 'text2');
-        style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        style = await act(() => {
+            return (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        });
         expect(style[0].getText()?.getText()).toBe('text2');
         rerender(
             <RStyleArray
@@ -444,7 +463,9 @@ describe('<RStyleArray>', () => {
             />
         );
         f.set('name', 'text3');
-        style = (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        style = await act(() => {
+            return (RStyle.getStyle(ref) as (Feature) => Style[])(f);
+        });
         expect(style[1].getText()?.getText()).toBe('text3');
         unmount();
     });

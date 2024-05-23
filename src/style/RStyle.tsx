@@ -1,5 +1,5 @@
 import React, {PropsWithChildren} from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {LRUCache} from 'lru-cache';
 import {Map, Feature} from 'ol';
 import Style, {StyleLike} from 'ol/style/Style';
@@ -71,12 +71,12 @@ export default class RStyle extends React.PureComponent<RStyleProps, Record<stri
             if (style) return style;
         }
         const style = new Style({zIndex: this.props.zIndex});
-        const render = (
+        const reactElement = (
             <RContext.Provider value={{...this.context, style}}>
                 {this.props.render(f, r)}
             </RContext.Provider>
         );
-        ReactDOM.render(render, document.createElement('div'));
+        createRoot(document.createElement('div')).render(reactElement);
         if (this.cache) this.cache.set(hash, style);
         return style;
     };

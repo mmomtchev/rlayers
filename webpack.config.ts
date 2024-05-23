@@ -5,18 +5,10 @@ import 'webpack-dev-server';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import {TsconfigPathsPlugin} from 'tsconfig-paths-webpack-plugin';
-import React from 'react';
 
 const webpackConfig = (env): webpack.Configuration => {
-    let reactMajorVersion = +React.version.split('.')[0];
-    if (reactMajorVersion >= 18) {
-        console.log('React 18 detected');
-    } else {
-        console.log('React 16/17 detected');
-    }
-
     const conf: webpack.Configuration = {
-        entry: reactMajorVersion >= 18 ? './examples/index-react18.tsx' : './examples/index.tsx',
+        entry: './examples/index.tsx',
         ...(env.production || !env.development ? {} : {devtool: 'eval-source-map'}),
         resolve: {
             alias: {
@@ -82,15 +74,6 @@ const webpackConfig = (env): webpack.Configuration => {
                 : undefined
         }
     };
-
-    if (reactMajorVersion < 18) {
-        // This is needed for React 16/17 as otherwise ts-loader
-        // will pick `index-react18.tsx` and will fail transpiling it
-        conf.module!.rules!.unshift({
-            test: /index-react18\.tsx?$/,
-            loader: 'null-loader'
-        });
-    }
 
     if (!env.development) {
         conf.plugins!.push(new ForkTsCheckerWebpackPlugin());
