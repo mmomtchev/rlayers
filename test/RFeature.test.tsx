@@ -1,12 +1,11 @@
 import * as fs from 'fs';
-import React from 'react';
+import React, {act} from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {Polygon, Point} from 'ol/geom';
 import {Feature} from 'ol';
 import {RFeature, RLayerVector, RMap, RContext, ROverlay} from 'rlayers';
 import * as common from './common';
-import {act} from 'react-dom/test-utils';
 
 describe('<RFeature>', () => {
     it('should create features', async () => {

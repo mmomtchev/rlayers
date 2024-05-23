@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import {Feature} from 'ol';
 import Style from 'ol/style/Style';
 import Geometry from 'ol/geom/Geometry';
@@ -38,12 +38,12 @@ export default class RStyleArray extends RStyle {
                     throw new TypeError('An RStyleArray should contain only RStyle elements');
             });
             const styleArray = [];
-            const render = (
+            const reactElement = (
                 <RContext.Provider value={{...this.context, styleArray}}>
                     {element.props.children}
                 </RContext.Provider>
             );
-            ReactDOM.render(render, document.createElement('div'));
+            createRoot(document.createElement('div')).render(reactElement);
             return styleArray as Style[];
         }
         return this.ol as Style[];
