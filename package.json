@@ -102,7 +102,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.0",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.7",
+    "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
     "@types/prismjs": "^1.16.3",
