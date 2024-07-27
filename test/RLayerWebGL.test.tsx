@@ -34,7 +34,7 @@ describe('<RLayerTileWebGL>', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((layer.current?.ol as any).cacheSize_).toBe(1024);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect((layer.current?.source as any).crossOrigin).toBe('anonymous');
+        expect((layer.current?.source as any).crossOrigin).toBeUndefined();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((layer.current?.source as any).interpolate_).toBeTruthy();
     });

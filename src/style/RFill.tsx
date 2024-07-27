@@ -28,6 +28,7 @@ export default class RFill extends RBaseStyle<RFillProps> {
     }
 
     protected set(ol: Fill): void {
+        console.log('set', this.ol);
         if (this.context.style.setFill) return this.context.style.setFill(ol);
         /* istanbul ignore next */
         throw new Error('Parent element does not support a fill');

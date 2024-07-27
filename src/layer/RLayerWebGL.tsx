@@ -1,7 +1,7 @@
 import React from 'react';
-import {Map} from 'ol';
+import {Map, Tile} from 'ol';
 import {WebGLTile as LayerTileWebGL} from 'ol/layer';
-import {TileImage as SourceTile} from 'ol/source';
+import {DataTile as SourceDataTile} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {RContextType} from '../context';
@@ -25,7 +25,10 @@ export interface RLayerWebGLProps extends RLayerRasterProps {
  *
  * Requires an `RMap` context
  */
-export default class RLayerWebGL<P extends RLayerWebGLProps> extends RLayerRaster<P> {
+export default class RLayerWebGL<
+    P extends RLayerWebGLProps,
+    S extends Tile
+> extends RLayerRaster<P> {
     ol: LayerTileWebGL;
-    source: SourceTile;
+    source: SourceDataTile<S>;
 }

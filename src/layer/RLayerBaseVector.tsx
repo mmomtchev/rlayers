@@ -49,7 +49,7 @@ export interface RLayerBaseVectorProps<F extends FeatureLike> extends RLayerProp
      *
      * this property currently does not support dynamic updates
      */
-    format?: FeatureFormat<FeatureToFeatureClass<F>>;
+    format?: FeatureFormat<F>;
     /** Use a custom loader instead of XHR */
     loader?: FeatureLoader<F>;
     /** OpenLayers default style for features without `style` */
@@ -136,6 +136,7 @@ export default class RLayerBaseVector<
     P extends RLayerBaseVectorProps<F>
 > extends RLayer<P> {
     ol: BaseVector<
+        F,
         SourceVector<F>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer

@@ -46,10 +46,11 @@ import {Geometry} from 'ol/geom';
 export default class RLayerVector<
     F extends FeatureLike = Feature<Geometry>
 > extends RLayerBaseVector<F, RLayerBaseVectorProps<F>> {
-    ol: LayerVector<F>;
+    ol: LayerVector<SourceVector<F>, F>;
     source: SourceVector<F>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps<F>>): BaseObject[] {
+        console.log(props);
         this.source = new SourceVector<F>({
             features: this.props.features,
             url: this.props.url,
@@ -58,7 +59,7 @@ export default class RLayerVector<
             wrapX: this.props.wrapX,
             strategy: this.props.strategy
         });
-        this.ol = new LayerVector<F>({
+        this.ol = new LayerVector<SourceVector<F>, F>({
             ...props,
             style: RStyle.getStyle(this.props.style),
             source: this.source

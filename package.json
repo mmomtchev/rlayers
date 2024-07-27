@@ -61,7 +61,6 @@
     "lint": "eslint './{examples,src}/**/*.{ts,tsx}'",
     "lint:fix": "eslint './{examples,src}/**/*.{ts,tsx}' --fix",
     "test": "jest",
-    "test:watch": "jest --watch",
     "codecov": "curl -s https://codecov.io/bash | bash",
     "prepare": "npm run build:lib",
     "preversion": "npm run test",
@@ -93,7 +92,7 @@
     "lru-cache": "^11.0.0"
   },
   "peerDependencies": {
-    "ol": "9.2.3",
+    "ol": "^10.0.0",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -135,7 +134,7 @@
     "jest-environment-jsdom": "^29.4.3",
     "markdown-loader": "^8.0.0",
     "null-loader": "^4.0.1",
-    "ol": "^9.2.3",
+    "ol": "^10.0.0",
     "ol-mbtiles": "^2.4.0",
     "prettier": "2.8.8",
     "prism-themes": "^1.6.0",

@@ -7,11 +7,17 @@ import 'ol/ol.css';
 
 import {RMap, RLayerVector, RStyle, RFeature, ROverlay} from 'rlayers';
 import RLayerStadia from 'rlayers/layer/RLayerStadia';
+import RenderFeature from 'ol/render/Feature';
 
 // These are the French internal administrative borders in GeoJSON format
+console.log('start');
 const departements =
     'https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/departements.geojson';
-const parser = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
+const parser = new GeoJSON<Feature>({
+    featureProjection: 'EPSG:3857',
+    dataProjection: 'EPSG:4326',
+    featureClass: Feature
+});
 // Population by French administrative division
 // https://public.opendatasoft.com/explore/dataset/population-francaise-par-departement-2018/
 // Published under Etalab Open License https://www.etalab.gouv.fr/wp-content/uploads/2018/11/open-licence.pdf
@@ -35,11 +41,7 @@ export default function GeoData(): JSX.Element {
             <RMap
                 className='example-map'
                 initial={useMemo(() => ({center: fromLonLat([2, 46.5]), zoom: 5.75}), [])}
-                noDefaultControls={true}
-                noDefaultInteractions={true}
             >
-                <RLayerStadia layer='stamen_toner' />
-
                 {/* This the internal borders layer, initialized with the GeoJSON
                  * useCallback is a performance optimization, it allows to always have
                  * the same function object unless 'current' changes
@@ -60,13 +62,10 @@ export default function GeoData(): JSX.Element {
                      * be re-evaluated at every frame */}
                     <RStyle.RStyle
                         render={useCallback(
-                            (f) => (
-                                <RStyle.RFill
-                                    color={`rgba(0, 0, ${
-                                        getData(data, f.get('code')) / 5000
-                                    }, 0.75)`}
-                                />
-                            ),
+                            (f) => {
+                                console.log('style for feature', f.get('nom'), f.get('code'));
+                                return <RStyle.RFill color={'red'} />;
+                            },
                             [data]
                         )}
                     />

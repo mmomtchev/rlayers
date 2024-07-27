@@ -1,7 +1,8 @@
 import React from 'react';
-import {Map} from 'ol';
+import {ImageTile, Map} from 'ol';
+import DataTile from 'ol/DataTile';
 import {WebGLTile as LayerTileWebGL} from 'ol/layer';
-import {XYZ} from 'ol/source';
+import {DataTile as SourceDataTile, ImageTile as SourceImageTile} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {RContextType} from '../context';
@@ -33,23 +34,23 @@ export interface RLayerTileWebGLProps extends RLayerWebGLProps {
  *
  * Requires an `RMap` context
  */
-export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
+export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps, ImageTile> {
     ol: LayerTileWebGL;
-    source: XYZ;
+    source: SourceImageTile;
 
     constructor(props: Readonly<RLayerTileWebGLProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
         this.ol = new LayerTileWebGL({
             opacity: 0.9,
-            source: this.source,
+            source: this.source as unknown as SourceDataTile<DataTile>,
             cacheSize: props.cacheSize
         });
         this.eventSources = [this.ol, this.source];
     }
 
     protected createSource(): void {
-        this.source = new XYZ({
+        this.source = new SourceImageTile({
             url: this.props.url,
             interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
@@ -63,7 +64,7 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps> {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
             this.createSource();
-            this.ol.setSource(this.source);
+            this.ol.setSource(this.source as unknown as SourceDataTile<DataTile>);
             this.attachOldEventHandlers(this.source);
         }
     }
