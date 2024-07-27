@@ -4,7 +4,8 @@ import Layer from 'ol/layer/Layer';
 import Source from 'ol/source/Source';
 import BaseVector from 'ol/layer/BaseVector';
 import SourceVector from 'ol/source/Vector';
-import VectorTile from 'ol/layer/VectorTile';
+import LayerVectorTile from 'ol/layer/VectorTile';
+import SourceVectorTile from 'ol/source/VectorTile';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
 import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
@@ -37,6 +38,7 @@ export interface RContextType {
     /** The current vector layer */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly vectorlayer?: BaseVector<
+        FeatureLike,
         SourceVector<FeatureLike>,
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
@@ -44,7 +46,7 @@ export interface RContextType {
         | WebGLPointsLayerRenderer
     >;
     readonly vectorsource?: SourceVector;
-    readonly vectortilelayer?: VectorTile<FeatureLike>;
+    readonly vectortilelayer?: LayerVectorTile<SourceVectorTile<FeatureLike>, FeatureLike>;
     /** The current RFeature */
     readonly feature?: FeatureLike;
     /** The current location */

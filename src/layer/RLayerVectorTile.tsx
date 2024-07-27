@@ -31,7 +31,7 @@ export interface RLayerVectorTileProps<F extends FeatureLike = RenderFeature> ex
      *
      * this property currently does not support dynamic updates
      */
-    format: FeatureFormat<FeatureToFeatureClass<F>>;
+    format: FeatureFormat<F>;
     /**
      * Width of the frame around the viewport that shall be rendered too
      * so that the symbols, whose center is outside of the viewport,
@@ -88,7 +88,7 @@ export interface RLayerVectorTileProps<F extends FeatureLike = RenderFeature> ex
 export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> extends RLayer<
     RLayerVectorTileProps<F>
 > {
-    ol: LayerVectorTile<F>;
+    ol: LayerVectorTile<SourceVectorTile<F>, F>;
     source: SourceVectorTile<F>;
 
     constructor(props: Readonly<RLayerVectorTileProps<F>>, context?: React.Context<RContextType>) {
