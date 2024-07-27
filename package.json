@@ -66,7 +66,7 @@
     "preversion": "npm run test",
     "version": "npm run clean && npm run build && git add package.json",
     "postversion": "git push && git push --tags && npm run doc:publish",
-    "postpublish": "gh workflow run test-npm.yml -F version=$npm_package_version"
+    "postpublish": "gh workflow run test-npm.yml -F rlayers=$npm_package_version -F ol=`node -p 'require(\"./package.json\").peerDependencies.ol'`"
   },
   "repository": {
     "type": "git",
