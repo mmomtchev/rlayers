@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.1.0] 2024-07-27
 
 -   OpenLayers 10 support
+-   Fix [#270](https://github.com/mmomtchev/rlayers/issues/270), dynamic `<RStyle>` elements with a `render` property do not always update properly
 
 ### [3.0.1] 2024-05-23
 
