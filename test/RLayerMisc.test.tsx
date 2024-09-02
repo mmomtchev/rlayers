@@ -15,21 +15,24 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 import * as common from './common';
 
 describe('<RLayerStadia>', () => {
-    it('should display a tiled Stadia layer', () => {
-        const layer = React.createRef() as React.RefObject<RLayerStadia>;
-        const {container} = render(
-            <RMap {...common.mapProps}>
-                <RLayerStadia
-                    ref={layer}
-                    apiKey={process.env.STADIA_MAPS_API_KEY!}
-                    layer='stamen_toner'
-                />
-            </RMap>
-        );
-        expect((layer.current?.source.getUrls() || [])[0]).toBe(
-            `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process.env.STADIA_MAPS_API_KEY}`
-        );
-    });
+    (process.env.STADIA_MAPS_API_KEY ? it : it.skip)(
+        'should display a tiled Stadia layer',
+        function () {
+            const layer = React.createRef() as React.RefObject<RLayerStadia>;
+            const {container} = render(
+                <RMap {...common.mapProps}>
+                    <RLayerStadia
+                        ref={layer}
+                        apiKey={process.env.STADIA_MAPS_API_KEY!}
+                        layer='stamen_toner'
+                    />
+                </RMap>
+            );
+            expect((layer.current?.source.getUrls() || [])[0]).toBe(
+                `https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}.png?api_key=${process.env.STADIA_MAPS_API_KEY}`
+            );
+        }
+    );
 });
 
 describe('<RLayerWMS>', () => {
