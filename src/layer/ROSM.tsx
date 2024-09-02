@@ -9,7 +9,7 @@ import {default as LayerRaster, RLayerRasterProps} from './RLayerRaster';
 /**
  * @propsfor ROSM
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ROSMProps extends RLayerRasterProps {}
 
 /**

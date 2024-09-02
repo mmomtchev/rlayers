@@ -33,7 +33,7 @@ export default class RStyleArray extends RStyle {
         if (this.props.render) {
             const element = this.props.render(f, r);
             React.Children.map(element.props.children, (child) => {
-                // eslint-disable-next-line @typescript-eslint/ban-types
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                 if (React.isValidElement(child) && (child.type as Function) !== RStyle)
                     throw new TypeError('An RStyleArray should contain only RStyle elements');
             });
@@ -55,7 +55,7 @@ export default class RStyleArray extends RStyle {
 
     render(): JSX.Element {
         React.Children.map(this.props.children, (child) => {
-            // eslint-disable-next-line @typescript-eslint/ban-types
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
             if (React.isValidElement(child) && (child.type as Function) !== RStyle)
                 throw new TypeError('An RStyleArray should contain only RStyle elements');
         });
