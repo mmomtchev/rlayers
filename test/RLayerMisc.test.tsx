@@ -15,7 +15,7 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 import * as common from './common';
 
 describe('<RLayerStadia>', () => {
-    it('should display a tiled Stadia layer', () => {
+    (process.env.STADIA_MAPS_API_KEY ? it : it.skip)('should display a tiled Stadia layer', () => {
         const layer = React.createRef() as React.RefObject<RLayerStadia>;
         const {container} = render(
             <RMap {...common.mapProps}>
