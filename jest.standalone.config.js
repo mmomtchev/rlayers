@@ -12,7 +12,7 @@ module.exports = {
         ]
     },
     transformIgnorePatterns: [
-        '/node_modules/(?!(ol|txml|geotiff|quick-lru|color-|rbush|earcut|pbf))'
+        '/node_modules/(?!(ol|txml|geotiff|quick-lru|color-|rbush|earcut|pbf|quickselect))'
     ],
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/test/css.js',
