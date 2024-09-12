@@ -4,6 +4,7 @@ import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
 import BaseEvent from 'ol/events/Event';
 import {ProjectionLike} from 'ol/proj';
+import {AttributionLike} from 'ol/source/Source';
 
 import {RContext, RContextType} from '../context';
 import {RlayersBase} from '../REvent';
@@ -28,7 +29,7 @@ export interface RLayerProps extends PropsWithChildren<unknown> {
     /** Maximum zoom level which the layer is not rendered */
     maxZoom?: number;
     /** Custom attributions string */
-    attributions?: string;
+    attributions?: AttributionLike;
     /** Initial tile cache size */
     cacheSize?: number | undefined;
     /** Wrap features around the antimeridian */
