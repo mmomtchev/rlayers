@@ -2,12 +2,19 @@ module.exports = {
     testEnvironment: 'jsdom',
     roots: ['<rootDir>/test'],
     transform: {
-        '^.+.(t|j)sx?$': [
+        '\\.tsx?$': [
             'ts-jest',
             {
                 tsconfig: {
                     outDir: './.ts-jest'
                 }
+            }
+        ],
+        '\\.jsx?$': [
+            'babel-jest',
+            {
+                presets: ['@babel/preset-env'],
+                plugins: ['@babel/plugin-transform-modules-commonjs']
             }
         ]
     },
