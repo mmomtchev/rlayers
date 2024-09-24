@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Fixed `package-lock.json`
 -   OpenLayers 10.2.0 support
+-   Fix [#276](https://github.com/mmomtchev/rlayers/issues/276), extending `rlayers` example needs `ol-mapbox-style`
 
 ## [3.1.0] 2024-07-27
 
