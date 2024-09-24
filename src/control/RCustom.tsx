@@ -35,9 +35,15 @@ export default class RCustom extends RControlBase<RControlProps, Record<string, 
 
     render(): JSX.Element {
         return (
-            <div className={['ol-control', this.props.className].join(' ')} ref={this.targetRef}>
-                {this.props.children}
-            </div>
+            <>
+                <div className='_rlayers_RCustomControl'></div>
+                <div
+                    className={['ol-control', this.props.className].join(' ')}
+                    ref={this.targetRef}
+                >
+                    {this.props.children}
+                </div>
+            </>
         );
     }
 }
