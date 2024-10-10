@@ -98,6 +98,8 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     minZoom?: number;
     /** Maximum zoom level */
     maxZoom?: number;
+    /** Sets the tabIndex of the map, if set the map will need to be focused for mouse zoom to work  */
+    tabIndex?: number;
     /**
      * Allow rotation of the map.
      * Cannot be updated once the map is created.
@@ -188,6 +190,7 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
                 className={this.props.className}
                 style={{width: this.props.width, height: this.props.height}}
                 ref={this.target}
+                tabIndex={this.props.tabIndex}
             >
                 <RContext.Provider value={{map: this.ol, rMap: this}}>
                     {this.props.children}
