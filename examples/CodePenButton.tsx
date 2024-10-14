@@ -18,7 +18,7 @@ const alias = (t: string): string =>
         .replace(/rlayers\.interaction/g, 'rlayers.RInteraction')
         .replace(/react/g, 'React');
 
-const CodePenButton = React.memo(function _CodePenButton(props: {
+const CodePenButton = React.memo(function CodePenButton(props: {
     text: Promise<string>;
     title: string;
 }) {
