@@ -18,7 +18,7 @@ const props = {
 
 const propsFeature = {
     ...props,
-    format: new MVT({featureClass: Feature})
+    format: new MVT<Feature>({featureClass: Feature})
 };
 
 describe('<RLayerVectorTiles>', () => {

@@ -3,7 +3,7 @@ import CodePenButton from './CodePenButton';
 import 'prism-themes/themes/prism-vsc-dark-plus.css';
 
 // This is expensive to render
-const CodeBlock = React.memo(function _CodeBlock(props: {
+const CodeBlock = React.memo(function CodeBlock(props: {
     title: string;
     code: Promise<string>;
     text: Promise<string>;

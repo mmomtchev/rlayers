@@ -96,8 +96,8 @@ export default class RLayerVectorMBTiles<
 > extends RLayerRaster<RLayerVectorMBTilesProps> {
     addon: Promise<typeof MBTiles>;
     metadata: Promise<MBTiles.MBTilesVectorOptions & MBTiles.SQLOptions>;
-    ol: LayerVectorTile<F>;
-    source: MBTiles.MBTilesVectorSource;
+    ol: LayerVectorTile<MBTiles.MBTilesVectorSource<F>, F>;
+    source: MBTiles.MBTilesVectorSource<F>;
     private abort: AbortController;
 
     constructor(props: Readonly<RLayerVectorMBTilesProps>, context?: React.Context<RContextType>) {
@@ -132,7 +132,7 @@ export default class RLayerVectorMBTiles<
             }
             this.source = new addon.MBTilesVectorSource(md);
             this.eventSources = [this.ol, this.source];
-            this.ol.setSource(this.source as unknown as SourceVectorTile<F>);
+            this.ol.setSource(this.source);
             this.attachOldEventHandlers(this.source);
             if (this.props.onMetadataReady) this.props.onMetadataReady.call(this, md);
             return this.source;
