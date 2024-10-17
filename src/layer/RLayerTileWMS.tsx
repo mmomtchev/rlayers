@@ -1,5 +1,5 @@
 import TileLayer from 'ol/layer/Tile';
-import TileWMS from 'ol/source/TileWMS';
+import TileWMS, {Options} from 'ol/source/TileWMS';
 
 import React from 'react';
 import {RContextType} from '../context';
@@ -9,10 +9,7 @@ import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 /**
  * @propsfor RLayerTileWMS
  */
-export interface RLayerTileWMSProps extends RLayerRasterProps {
-    params?: Record<string, unknown>;
-    url: string;
-}
+export interface RLayerTileWMSProps extends RLayerRasterProps, Options {}
 
 /**
  * Tiled layer using WMS
@@ -24,13 +21,31 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     constructor(props: Readonly<RLayerTileWMSProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.createSource();
-        this.ol = new TileLayer({source: this.source});
+        this.ol = new TileLayer({source: this.source, cacheSize: this.props.cacheSize});
         this.eventSources = [this.ol, this.source];
     }
 
     protected createSource(): void {
-        const {params, url, projection} = this.props;
-        const options = {params, url, projection};
+        const options = {
+            attributions: this.props.attributions,
+            attributionsCollapsible: this.props.attributionsCollapsible,
+            crossOrigin: this.props.crossOrigin,
+            interpolate: this.props.interpolate,
+            params: this.props.params,
+            gutter: this.props.gutter,
+            hidpi: this.props.hidpi,
+            projection: this.props.projection,
+            reprojectionErrorThreshold: this.props.reprojectionErrorThreshold,
+            tileClass: this.props.tileClass,
+            tileGrid: this.props.tileGrid,
+            serverType: this.props.serverType,
+            tileLoadFunction: this.props.tileLoadFunction,
+            url: this.props.url,
+            urls: this.props.urls,
+            wrapX: this.props.wrapX,
+            transition: this.props.transition,
+            zDirection: this.props.zDirection
+        };
 
         this.source = new TileWMS(options);
         this.eventSources = [this.ol, this.source];
