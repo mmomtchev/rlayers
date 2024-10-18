@@ -211,6 +211,26 @@ describe('<RDraw>', () => {
         // eslint-disable-next-line no-console
         console.error = err;
     });
+    it('should support geometryFunction prop', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RDraw>;
+        const geometryFunction = jest.fn();
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RDraw
+                        type={'Circle'}
+                        ref={ref}
+                        geometryFunction={geometryFunction}
+                    />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RDraw);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((ref.current?.ol as any).geometryFunction_).toBe(geometryFunction);
+        unmount();
+    });
 });
 
 describe('<RModify>', () => {
