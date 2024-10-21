@@ -15,6 +15,8 @@ export type RView = {
     center: Coordinate;
     /** Zoom level, 0 is the whole world, 28 is maximum resolution */
     zoom: number;
+    /** Optional The initial rotation for the view in radians (positive rotation clockwise, 0 means North). */
+    rotation?: number;
     /**
      * Optional resolution in meters per pixel
      *
@@ -135,6 +137,7 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
                 projection: props.projection,
                 center: props.initial.center,
                 zoom: props.initial.resolution === undefined ? props.initial.zoom : undefined,
+                rotation: props.initial.rotation,
                 resolution: props.initial.resolution,
                 extent: props.extent,
                 minResolution: props.minResolution,
