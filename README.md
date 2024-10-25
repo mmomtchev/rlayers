@@ -1,5 +1,7 @@
 # rlayers - React Components for OpenLayers 6+
 
+**Update: since Oct 24 I am homeless and living in my van. I lost access to most of my computer hardware. The eviction from my home has been timed for maximum effect as I was not present when it happened. I have only a single set of clothes and no means to get anything else. Please, if you use my software, consider asking everyone in the geospatial community if they are taking part in this extortion and why.**
+
 ![logo](https://raw.githubusercontent.com/mmomtchev/rlayers/master/rlayers-logo.svg)
 
 [![License: ISC](https://img.shields.io/github/license/mmomtchev/rlayers)](https://github.com/mmomtchev/rlayers/blob/master/LICENSE)
