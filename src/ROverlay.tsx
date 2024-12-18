@@ -39,6 +39,8 @@ export interface ROverlayProps extends PropsWithChildren<unknown> {
     autoPosition?: boolean;
     /** Called immediately on click */
     onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+    /** Stop event propagation */
+    stopEvent?: boolean;
 }
 
 /**
@@ -62,7 +64,8 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
         this.ol = new Overlay({
             autoPan: props.autoPan,
             offset: props.offset,
-            positioning: props.positioning
+            positioning: props.positioning,
+            stopEvent: props.stopEvent
         });
         this.containerRef = React.createRef();
     }
