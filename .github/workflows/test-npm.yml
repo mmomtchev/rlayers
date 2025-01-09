@@ -28,7 +28,7 @@ jobs:
               run: |
                   curl https://codeload.github.com/mmomtchev/rlayers/zip/refs/tags/v${{ github.event.inputs.rlayers }} --output repo.zip
                   unzip repo.zip
-                  mv rlayers-${{ github.event.inputs.rlayers }}/package.json .
+                  mv rlayers-${{ github.event.inputs.rlayers }}/package*.json .
                   mv rlayers-${{ github.event.inputs.rlayers }}/tsconfig*.json .
                   mv rlayers-${{ github.event.inputs.rlayers }}/jest.standalone.config.js jest.config.js
                   curl https://raw.githubusercontent.com/mmomtchev/rlayers/main/jest.standalone.config.js --output jest.config.js
