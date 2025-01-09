@@ -92,7 +92,7 @@
     "lru-cache": "^11.0.0"
   },
   "peerDependencies": {
-    "ol": "^10.2.0",
+    "ol": "^10.3.1",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -140,7 +140,7 @@
     "null-loader": "^4.0.1",
     "ol": "^10.2.0",
     "ol-mapbox-style": "^12.3.5",
-    "ol-mbtiles": "^3.1.0",
+    "ol-mbtiles": "^3.2.0",
     "prettier": "2.8.8",
     "prism-themes": "^1.6.0",
     "prismjs": "^1.28.0",
