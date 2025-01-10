@@ -1,8 +1,11 @@
 import proj4 from 'proj4';
 import {register} from 'ol/proj/proj4';
+import {TextEncoder, TextDecoder} from 'util';
 
 import ResizeObserver from 'resize-observer-polyfill';
 window.ResizeObserver = ResizeObserver;
+
+Object.assign(global, {TextDecoder, TextEncoder});
 
 proj4.defs(
     'EPSG:27700',
