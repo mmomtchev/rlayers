@@ -24,7 +24,7 @@ export default class RLayerVectorImage extends RLayerBaseVector<
     Feature,
     RLayerBaseVectorProps<Feature>
 > {
-    ol: LayerVectorImage<Feature>;
+    ol: LayerVectorImage<SourceVector<Feature>>;
     source: SourceVector<Feature>;
 
     protected createSource(props: Readonly<RLayerBaseVectorProps<Feature>>): BaseObject[] {
