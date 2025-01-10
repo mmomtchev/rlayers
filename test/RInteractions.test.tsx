@@ -267,6 +267,79 @@ describe('<RModify>', () => {
     });
 });
 
+describe('<RSelect>', () => {
+    it('should create a Select interaction', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RSelect>;
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RSelect ref={ref} />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RSelect);
+        unmount();
+    });
+    it('should support styles', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RSelect>;
+        const style = new Style({
+            stroke: new Stroke({
+                color: 'red',
+                width: 3
+            })
+        });
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector>
+                    <RInteraction.RSelect ref={ref} style={style} />
+                </RLayerVector>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RSelect);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const styleResult = (ref.current?.ol as any).style_ as Style;
+        expect(styleResult.getStroke()?.getWidth?.()).toBe(3);
+        unmount();
+    });
+    it('can be used directly inside a map', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RSelect>;
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RInteraction.RSelect ref={ref} />
+                <RLayerVector/>
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RSelect);
+        // Should have no layer filter
+        expect((ref.current?.ol as any).layerFilter_?.()).toBe(true);
+        unmount();
+    });
+    it('can be used inside a layer', async () => {
+        const ref = React.createRef() as React.RefObject<RInteraction.RSelect>;
+        const layerRef = React.createRef() as React.RefObject<RLayerVector>;
+        const otherLayerRef = React.createRef() as React.RefObject<RLayerVector>;
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVector ref={layerRef}>
+                    <RInteraction.RSelect ref={ref} />
+                </RLayerVector>
+                <RLayerVector ref={otherLayerRef} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(ref.current).toBeInstanceOf(RInteraction.RSelect);
+        // Should include a filter for the containing layer
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((ref.current?.ol as any).layerFilter_?.(layerRef.current?.ol)).toBe(true);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((ref.current?.ol as any).layerFilter_?.(otherLayerRef.current?.ol)).toBe(false);
+        unmount();
+    });
+});
+
 describe('<RBaseInteraction>', () => {
     it('should throw', async () => {
         // eslint-disable-next-line no-console
