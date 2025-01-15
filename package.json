@@ -122,7 +122,7 @@
     "documentation": "^14.0.1",
     "documentation-hipster": "^1.0.0",
     "eslint": "^8.16.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
