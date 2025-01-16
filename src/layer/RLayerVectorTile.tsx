@@ -113,7 +113,8 @@ export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> ext
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),
             source: this.source,
-            renderBuffer: this.props.renderBuffer
+            renderBuffer: this.props.renderBuffer,
+            className: this.props.className
         });
         this.eventSources = [this.ol, this.source];
         RFeature.initEventRelay(this.context.map);

@@ -13,6 +13,8 @@ import debug from '../debug';
  * @propsfor RLayerProps
  */
 export interface RLayerProps extends PropsWithChildren<unknown> {
+    /** A CSS class name to set to the layer element */
+    className?: string;
     /** State of the layer */
     visible?: boolean;
     /** Opacity when blending */
