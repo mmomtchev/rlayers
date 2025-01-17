@@ -44,7 +44,8 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps, I
         this.ol = new LayerTileWebGL({
             opacity: 0.9,
             source: this.source as unknown as SourceDataTile<DataTile>,
-            cacheSize: props.cacheSize
+            cacheSize: props.cacheSize,
+            className: props.className
         });
         this.eventSources = [this.ol, this.source];
     }

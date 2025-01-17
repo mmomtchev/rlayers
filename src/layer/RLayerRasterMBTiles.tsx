@@ -65,7 +65,7 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
     constructor(props: Readonly<RLayerRasterMBTilesProps>, context?: React.Context<RContextType>) {
         super(props, context);
         this.addon = import('ol-mbtiles');
-        this.ol = new LayerTile();
+        this.ol = new LayerTile({className: props.className});
         this.source = null;
         this.abort = null;
         this.createSource();

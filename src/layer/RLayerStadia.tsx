@@ -40,7 +40,7 @@ export default class RLayerStadia extends RLayerRaster<RLayerStadiaProps> {
             apiKey: this.props.apiKey,
             retina: this.props.retina ?? false
         });
-        this.ol = new LayerTile({source: this.source});
+        this.ol = new LayerTile({source: this.source, className: this.props.className});
         this.eventSources = [this.ol, this.source];
     }
 }

@@ -27,7 +27,8 @@ export default class ROSMWebGL extends RLayerWebGL<ROSMWebGLProps, ImageTile> {
         this.source = new OSM() as unknown as SourceDataTile<ImageTile>;
         this.ol = new LayerTileWebGL({
             source: this.source as unknown as SourceDataTile<DataTile>,
-            cacheSize: props.cacheSize
+            cacheSize: props.cacheSize,
+            className: props.className
         });
         this.eventSources = [this.ol, this.source];
     }

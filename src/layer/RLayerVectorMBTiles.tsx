@@ -105,7 +105,8 @@ export default class RLayerVectorMBTiles<
         this.addon = import('ol-mbtiles');
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),
-            renderBuffer: this.props.renderBuffer
+            renderBuffer: this.props.renderBuffer,
+            className: this.props.className
         });
         this.eventSources = [this.ol];
         RFeature.initEventRelay(this.context.map);
