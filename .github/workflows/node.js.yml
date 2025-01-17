@@ -109,8 +109,6 @@ jobs:
                   node-version: 20.x
             - run: npm i
             - run: npm run test
-              env:
-                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-            - run: npm run codecov
-              env:
-                  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+            - uses: codecov/codecov-action@v5
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
