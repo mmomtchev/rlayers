@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Polygon, Point} from 'ol/geom';
@@ -19,7 +19,7 @@ const coords: Record<string, Coordinate> = {
 };
 
 export default function Popups(): JSX.Element {
-    const popup = React.useRef<RPopup>();
+    const popup = React.useRef<RPopup>(null);
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>

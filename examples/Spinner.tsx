@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {RMap, RLayerTile} from 'rlayers';
 import spinnerIcon from './svg/pacman.svg';

@@ -1,5 +1,5 @@
-import React from 'react';
-import {RMap, RContextType} from 'rlayers';
+import React, {JSX} from 'react';
+import {RMap} from 'rlayers';
 import {default as RLayer, RLayerProps} from 'rlayers/layer/RLayer';
 
 import LayerTile from 'ol/layer/WebGLTile.js';

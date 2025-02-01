@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import 'ol/ol.css';
 

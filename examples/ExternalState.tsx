@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import 'ol/ol.css';
 import 'rlayers/control/layers.css';

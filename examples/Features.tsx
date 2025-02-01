@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';

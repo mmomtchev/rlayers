@@ -9,7 +9,7 @@
  * taken to avoid unnecessary re-rendering
  */
 
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import IGC from 'ol/format/IGC';
 import {getVectorContext} from 'ol/render';
@@ -76,8 +76,8 @@ export default function IGCComp(): JSX.Element {
     };
 
     // createRef instead of useRef here will severely impact performance
-    const igcVectorLayer = React.useRef<RLayerVector>();
-    const highlightVectorLayer = React.useRef<RLayerVector>();
+    const igcVectorLayer = React.useRef<RLayerVector>(null);
+    const highlightVectorLayer = React.useRef<RLayerVector>(null);
 
     return (
         <React.Fragment>
@@ -86,7 +86,7 @@ export default function IGCComp(): JSX.Element {
                 // Thus the useMemo
                 () =>
                     igcsDesc.map((igc, idx) => (
-                        <RStyle key={idx} ref={(el) => (styles.flightPath.current[idx] = el)}>
+                        <RStyle key={idx} ref={(el) => void (styles.flightPath.current[idx] = el)}>
                             <RStroke color={igc.c} width={3} />
                         </RStyle>
                     )),

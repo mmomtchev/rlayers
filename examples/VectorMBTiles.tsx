@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {FeatureLike} from 'ol/Feature';
 import {Style} from 'ol/style';

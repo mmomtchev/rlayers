@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat, transform} from 'ol/proj';
 import {LineString, Point} from 'ol/geom';
 import {Polyline} from 'ol/format';

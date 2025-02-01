@@ -1,8 +1,8 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {Feature} from 'ol';
-import {Geometry} from 'ol/geom';
+import {Point} from 'ol/geom';
 import 'ol/ol.css';
 
 import {RMap, RLayerHeatmap} from 'rlayers';
@@ -12,7 +12,7 @@ import RLayerStadia from 'rlayers/layer/RLayerStadia';
 // (this won't work in CodePen)
 import earthquakes from '!!file-loader!./data/earthquakes.geojson';
 type InputFormEventType = React.FormEvent<HTMLInputElement>;
-const reader = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
+const reader = new GeoJSON<Feature<Point>>({featureProjection: 'EPSG:3857', featureClass: Feature});
 
 export default function Heatmap(): JSX.Element {
     const [blur, setBlur] = React.useState(15);

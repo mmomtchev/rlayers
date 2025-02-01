@@ -2,7 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './example.css';
 import './ghp.css';
-import React from 'react';
+import React, {JSX} from 'react';
 import {HashRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import {VERSION as OL_VERSION} from 'ol';
 import semver from 'semver';

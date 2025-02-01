@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import proj4 from 'proj4';
 import {fromLonLat} from 'ol/proj';
 import {register} from 'ol/proj/proj4';

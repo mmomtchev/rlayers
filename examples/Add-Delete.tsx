@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Point} from 'ol/geom';
 import {Feature} from 'ol';
@@ -30,7 +30,7 @@ export default function Interactions(): JSX.Element {
                 })
         )
     );
-    const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
+    const vectorRef = React.useRef(null) as React.RefObject<RLayerVector>;
     return (
         <React.Fragment>
             <RMap
