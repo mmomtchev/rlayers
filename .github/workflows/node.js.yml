@@ -40,7 +40,9 @@ jobs:
               with:
                   node-version: 20.x
             - run: |
-                  npm i react@18 react-dom@18 react-test-renderer@18 @types/react@18 @types/react-dom@18 @testing-library/react@13
+                  npm i react@18 react-dom@18 react-test-renderer@18 \
+                    @types/react@18 @types/react-dom@18 @testing-library/react@13 \
+                    react-router@7.0.2
             - run: npm i
             - run: tsc
             - run: npm test
@@ -57,7 +59,9 @@ jobs:
               with:
                   node-version: 20.x
             - run: |
-                  npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 @types/react@18 @types/react-dom@18 @testing-library/react@13
+                  npm i react@18.1 react-dom@18.1 react-test-renderer@18.1 \
+                    @types/react@18 @types/react-dom@18 @testing-library/react@13 \
+                    react-router@7.0.2
             - run: npm i
             - run: tsc
             - run: npm test
@@ -74,7 +78,9 @@ jobs:
               with:
                   node-version: 20.x
             - run: |
-                  npm i react@18.2 react-dom@18.2 react-test-renderer@18.2 @types/react@18 @types/react-dom@18 @testing-library/react@13
+                  npm i react@18.2 react-dom@18.2 react-test-renderer@18.2 \
+                    @types/react@18 @types/react-dom@18 @testing-library/react@13 \
+                    react-router@7.0.2
             - run: npm i
             - run: tsc
             - run: npm test
@@ -91,7 +97,28 @@ jobs:
               with:
                   node-version: 20.x
             - run: |
-                  npm i react@18.3.1 react-dom@18.3.1 react-test-renderer@18.3.1 @types/react@18.3.2 @types/react-dom@18.0.5 @testing-library/react@15.0.7
+                  npm i react@18.3.1 react-dom@18.3.1 react-test-renderer@18.3.1 \
+                    @types/react@18.3.2 @types/react-dom@18.0.5 @testing-library/react@15.0.7 \
+                    react-router@7.0.2
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
+
+    react-19:
+        runs-on: ubuntu-latest
+
+        steps:
+            - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
+            - uses: actions/checkout@v4
+            - name: Use Node.js 20.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+            - run: |
+                  npm i react@19 react-dom@19 react-test-renderer@19 \
+                    @types/react@19 @types/react-dom@19 @testing-library/react@16.2.0 \
+                    react-router@7.1.5
             - run: npm i
             - run: tsc
             - run: npm test
