@@ -5,6 +5,7 @@ import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
+import debug from '../debug';
 
 /**
  * @propsfor RLayerTile
@@ -63,6 +64,7 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     protected refresh(prevProps?: RLayerTileProps): void {
         super.refresh(prevProps);
         if (prevProps?.tileGrid !== this.props.tileGrid || prevProps?.url !== this.props.url) {
+            debug('replacing source', this);
             this.createSource();
             this.ol.setSource(this.source);
             this.attachOldEventHandlers(this.source);

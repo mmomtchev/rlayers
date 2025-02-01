@@ -5,13 +5,19 @@ import spinnerIcon from './svg/pacman.svg';
 import 'ol/ol.css';
 
 export default function Layers(): JSX.Element {
-    const [loading, setLoading] = React.useState(0);
+    const [loading, setLoading] = React.useState(true);
+    const showSpinner = React.useCallback(() => setLoading(true), [setLoading]);
+    const hideSpinner = React.useCallback(() => setLoading(false), [setLoading]);
+    const origin = React.useMemo(() => ({center: fromLonLat([2.364, 48.82]), zoom: 4}), []);
     return (
-        <React.Fragment>
-            <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 4}}>
+        <>
+            <RMap
+                className='example-map'
+                initial={origin}
+                //onLoadStart={showSpinner}
+                onLoadEnd={hideSpinner}
+            >
                 <RLayerTile
-                    onTileLoadStart={() => setLoading((loading) => loading + 1)}
-                    onTileLoadEnd={() => setLoading((loading) => loading - 1)}
                     url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                     attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                 />
@@ -20,6 +26,6 @@ export default function Layers(): JSX.Element {
                 <img src={spinnerIcon} alt='spinner' />
                 <strong>{loading} Loading...</strong>
             </div>
-        </React.Fragment>
+        </>
     );
 }

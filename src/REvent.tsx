@@ -71,7 +71,10 @@ export class RlayersBase<P, S> extends React.PureComponent<P, S> {
                 debug('installing handler', this, p, newEvents[p]);
                 const prop = this.getHandlerProp(p);
                 if (!prop) throw new Error('Internal error');
-                handlers[p] = (e: unknown) => this.props[prop].call(this, e);
+                handlers[p] = (e: unknown) => {
+                    debug('handling event', e, this, this.props[prop]);
+                    return this.props[prop].call(this, e);
+                };
                 for (const source of eventSources) source.on(p as OLEvent, handlers[p]);
                 this.incrementHandlers(p);
             }
