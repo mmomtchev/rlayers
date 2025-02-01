@@ -1,5 +1,5 @@
-import React from 'react';
-import {RMap, RContextType} from 'rlayers';
+import React, {JSX} from 'react';
+import {RMap} from 'rlayers';
 import {default as RLayer, RLayerProps} from 'rlayers/layer/RLayer';
 
 import LayerTile from 'ol/layer/WebGLTile.js';
@@ -34,8 +34,8 @@ class RLayerGeoTIFF extends RLayer<RLayerGeoTIFFProps> {
     ol: LayerTile;
     source: GeoTIFF;
 
-    constructor(props: Readonly<RLayerGeoTIFFProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerGeoTIFFProps>) {
+        super(props);
         this.createSource();
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];

@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import {FeatureLike} from 'ol/Feature';
@@ -102,10 +102,8 @@ export default class RFeature<G extends Geometry = Geometry> extends RlayersBase
     ol: Feature<G>;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps<G>>, context?: React.Context<RContextType>) {
-        super(props, context);
-        if (!this?.context?.vectorlayer)
-            throw new Error('An RFeature must be part of a vector layer');
+    constructor(props: Readonly<RFeatureProps<G>>) {
+        super(props);
         if (props.feature) this.ol = props.feature;
         else
             this.ol = new Feature<G>({
@@ -113,7 +111,6 @@ export default class RFeature<G extends Geometry = Geometry> extends RlayersBase
                 geometry: props.geometry,
                 style: RStyle.getStyle(props.style)
             });
-        RFeature.initEventRelay(this.context.map);
         this.onchange = () => this.forceUpdate();
     }
 
@@ -291,6 +288,9 @@ export default class RFeature<G extends Geometry = Geometry> extends RlayersBase
     }
 
     render(): JSX.Element {
+        if (!this?.context?.vectorlayer)
+            throw new Error('An RFeature must be part of a vector layer');
+        RFeature.initEventRelay(this.context.map);
         const extent = this.ol?.getGeometry()?.getExtent();
         const center = extent && getCenter(extent);
         return (

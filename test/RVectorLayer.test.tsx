@@ -81,7 +81,7 @@ describe('<RLayerVector>', () => {
         unmount();
     });
     it('should call the loading features handlers', (done) => {
-        const map = React.createRef<RMap>();
+        const map = React.createRef<RMap>() as React.RefObject<RMap>;
         const ref = React.createRef<RLayerVector>();
         const handlerLoadStart = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
         const handlerLoadEnd = jest.fn(() => {
@@ -111,7 +111,7 @@ describe('<RLayerVector>', () => {
         unmount();
     });
     it('should call event handlers on features added after creation', async () => {
-        const map = React.createRef<RMap>();
+        const map = React.createRef<RMap>() as React.RefObject<RMap>;
         const ref = React.createRef<RLayerVector>();
         const handler = jest.fn(common.handlerCheckContext(RLayerVector, ['map'], [map]));
         const {unmount} = render(

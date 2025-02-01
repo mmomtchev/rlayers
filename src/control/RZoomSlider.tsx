@@ -3,7 +3,6 @@ import {Map} from 'ol';
 import {ZoomSlider} from 'ol/control';
 import {Options} from 'ol/control/ZoomSlider';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
@@ -23,8 +22,8 @@ export interface RZoomSliderProps extends RControlProps {
 export default class RZoomSlider extends RControlBase<RZoomSliderProps, Record<string, never>> {
     ol: ZoomSlider;
 
-    constructor(props: Readonly<RZoomSliderProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RZoomSliderProps>) {
+        super(props);
         this.ol = new ZoomSlider(this.toOLProps(props));
     }
 

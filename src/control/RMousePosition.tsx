@@ -2,7 +2,6 @@ import {default as OLMousePosition, Options} from 'ol/control/MousePosition';
 import {Coordinate} from 'ol/coordinate';
 import {ProjectionLike} from 'ol/proj';
 
-import {RContextType} from '../context';
 import RControlBase, {RControlProps} from './RControlBase';
 
 /**
@@ -32,8 +31,8 @@ export default class RMousePosition extends RControlBase<
 > {
     ol: OLMousePosition;
 
-    constructor(props: Readonly<RMousePositionProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RMousePositionProps>) {
+        super(props);
         this.ol = new OLMousePosition(this.toOLProps(props));
     }
 

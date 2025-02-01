@@ -5,7 +5,6 @@ import {Extent} from 'ol/extent';
 import {Size} from 'ol/size';
 
 import React from 'react';
-import {RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 
 /**
@@ -32,8 +31,8 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
     ol: LayerImage<SourceImage>;
     source: SourceImage;
 
-    constructor(props: Readonly<RLayerImageProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerImageProps>) {
+        super(props);
         this.createSource();
         this.ol = new LayerImage({source: this.source});
         this.eventSources = [this.ol, this.source];

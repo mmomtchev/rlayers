@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {RContextType} from './context';
 import {ROverlayBase, ROverlayProps} from './ROverlay';
 import {OLEvent} from './REvent';
 
@@ -37,8 +36,8 @@ export default class RPopup extends ROverlayBase<RPopupProps> {
     showing: number | undefined;
     hiding: number | undefined;
 
-    constructor(props: Readonly<RPopupProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RPopupProps>) {
+        super(props);
         this.visible = false;
     }
 

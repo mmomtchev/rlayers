@@ -176,7 +176,7 @@ describe('<RFeature>', () => {
     });
 
     it('should relay map events to features', () => {
-        const map = React.createRef<RMap>();
+        const map = React.createRef<RMap>() as React.RefObject<RMap>;
         const features = [React.createRef<RFeature>(), React.createRef<RFeature>()];
         const layer = React.createRef<RLayerVector>();
         const mapEvents = ['Click', 'SingleClick', 'DblClick', 'PointerDrag', 'PointerMove'];
@@ -286,7 +286,7 @@ describe('<RFeature>', () => {
     });
 
     it('should generate pointerenter, pointerleave and pointerdragend', () => {
-        const map = React.createRef<RMap>();
+        const map = React.createRef<RMap>() as React.RefObject<RMap>;
         const ref = [0, 1, 2].map(() => React.createRef<RFeature<Point>>());
         const layer = React.createRef<RLayerVector<Feature<Point>>>();
         const mapEvents = ['PointerEnter', 'PointerLeave', 'PointerDragEnd'];

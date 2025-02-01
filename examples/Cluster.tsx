@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
 import {createEmpty, extend, getHeight, getWidth} from 'ol/extent';
@@ -32,7 +32,7 @@ const extentFeatures = (features, resolution) => {
 export default function Cluster(): JSX.Element {
     const [distance, setDistance] = React.useState(20);
     const [selected, setSelected] = React.useState<string>('Click a cluster for details');
-    const earthquakeLayer = React.useRef();
+    const earthquakeLayer = React.useRef(null);
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([0, 0]), zoom: 1}}>

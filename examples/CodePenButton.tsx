@@ -53,7 +53,7 @@ const CodePenButton = React.memo(function CodePenButton(props: {
         });
     }, [props.text]);
 
-    const ref = React.useRef<HTMLFormElement>();
+    const ref = React.useRef<HTMLFormElement>(null);
 
     if (text && text.match(/in CodePen/)) return null;
     return (

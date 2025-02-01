@@ -1,7 +1,6 @@
 import {default as OLZoomToExtent, Options} from 'ol/control/ZoomToExtent';
 import {Extent} from 'ol/extent';
 
-import {RContext, RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 export interface RZoomToExtentProps extends RControlProps {
@@ -13,8 +12,8 @@ export interface RZoomToExtentProps extends RControlProps {
 export default class RZoomToExtent extends RControlBase<RZoomToExtentProps, Record<string, never>> {
     ol: OLZoomToExtent;
 
-    constructor(props: Readonly<RZoomToExtentProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RZoomToExtentProps>) {
+        super(props);
         this.ol = new OLZoomToExtent(this.toOLProps(props));
     }
 

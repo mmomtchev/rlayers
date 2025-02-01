@@ -5,7 +5,6 @@ import {TileJSON} from 'ol/source';
 import type {Options} from 'ol/source/TileJSON';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
@@ -28,8 +27,8 @@ export default class RLayerTileJSON extends RLayerRaster<RLayerTileJSONProps> {
     ol: LayerTile<TileJSON>;
     source: TileJSON;
 
-    constructor(props: Readonly<RLayerTileJSONProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerTileJSONProps>) {
+        super(props);
         this.source = new TileJSON({
             url: this.props.url,
             tileSize: this.props.tileSize

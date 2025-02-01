@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import {boundingExtent} from 'ol/extent';
 import {DragBoxEvent} from 'ol/interaction/DragBox';
@@ -36,7 +36,7 @@ export default function Interactions(): JSX.Element {
                 })
         )
     );
-    const vectorRef = React.useRef() as React.RefObject<RLayerVector>;
+    const vectorRef = React.useRef(null) as React.RefObject<RLayerVector>;
     return (
         <React.Fragment>
             <RMap className='example-map' initial={{center: fromLonLat([2.364, 48.82]), zoom: 11}}>

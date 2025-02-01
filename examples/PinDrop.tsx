@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {JSX, useCallback} from 'react';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import {Coordinate} from 'ol/coordinate';
 import {Point} from 'ol/geom';
@@ -23,7 +23,7 @@ export default function PinDrop(): JSX.Element {
             <RMap className='example-map' initial={{center: fromLonLat(coords.origin), zoom: 11}}>
                 <ROSM />
                 <RLayerVector>
-                    <RFeature
+                    <RFeature<Point>
                         geometry={new Point(fromLonLat(loc))}
                         // useCallback is here for performance reasons
                         // without it RFeature will have its props updated at every call

@@ -4,7 +4,6 @@ import Geolocation from 'ol/Geolocation';
 import BaseEvent from 'ol/events/Event';
 
 import {RlayersBase} from './REvent';
-import {RContextType} from './context';
 
 /**
  * @propsfor RGeolocation
@@ -36,10 +35,17 @@ export interface RGeolocationProps {
 export default class RGeolocation extends RlayersBase<RGeolocationProps, Record<string, never>> {
     ol: Geolocation;
 
-    constructor(props: Readonly<RGeolocationProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RGeolocationProps>) {
+        super(props);
+        this.ol = null;
+    }
+
+    render(): React.JSX.Element {
         if (!this?.context?.map) throw new Error('A Geolocation must be part of a map');
-        const projection = props.projection ?? this.context.map.getView().getProjection();
-        this.ol = new Geolocation({...props, projection});
+        if (this.ol === null) {
+            const projection = this.props.projection ?? this.context.map.getView().getProjection();
+            this.ol = new Geolocation({...this.props, projection});
+        }
+        return super.render();
     }
 }

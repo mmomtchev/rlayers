@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Text, Style, Fill, Stroke} from 'ol/style';
 
 import {RContext} from '../context';
@@ -40,6 +40,7 @@ export default class RBackground extends RBaseStyle<RBackgroundProps> {
     }
 
     render(): JSX.Element {
+        super.render();
         return (
             <div className='_rlayers_RStyle_RBackground'>
                 <RContext.Provider value={{...this.context, style: this.ol as unknown as Style}}>

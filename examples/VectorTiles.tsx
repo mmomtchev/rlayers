@@ -4,7 +4,7 @@
  * layers that appear only when zoomed in
  */
 
-import React, {useCallback, useMemo} from 'react';
+import React, {JSX, useCallback, useMemo} from 'react';
 import {Feature} from 'ol';
 import {fromLonLat} from 'ol/proj';
 import {MVT} from 'ol/format';

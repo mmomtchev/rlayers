@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {createRoot} from 'react-dom/client';
 import {Feature} from 'ol';
 import Style from 'ol/style/Style';
@@ -22,8 +22,8 @@ import debug from '../debug';
  * be supported rlayers either
  */
 export default class RStyleArray extends RStyle {
-    constructor(props: Readonly<RStyleProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RStyleProps>) {
+        super(props);
         this.childRefs = [];
         if (props.render) this.ol = this.style;
         else this.ol = [];
@@ -32,7 +32,8 @@ export default class RStyleArray extends RStyle {
     style = (f: Feature<Geometry>, r: number): Style | Style[] => {
         if (this.props.render) {
             const element = this.props.render(f, r);
-            React.Children.map(element.props.children, (child) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            React.Children.map((element.props as any).children, (child) => {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
                 if (React.isValidElement(child) && (child.type as Function) !== RStyle)
                     throw new TypeError('An RStyleArray should contain only RStyle elements');
@@ -40,7 +41,8 @@ export default class RStyleArray extends RStyle {
             const styleArray = [];
             const reactElement = (
                 <RContext.Provider value={{...this.context, styleArray}}>
-                    {element.props.children}
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {(element.props as any).children}
                 </RContext.Provider>
             );
             createRoot(document.createElement('div')).render(reactElement);

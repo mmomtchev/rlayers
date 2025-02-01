@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Control} from 'ol/control';
 
-import {RContextType} from '../context';
 import RControlBase, {RControlOptions, RControlProps} from './RControlBase';
 import {RLayerProps} from 'rlayers/layer/RLayer';
 
@@ -30,8 +29,8 @@ export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<RLayersProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayersProps>) {
+        super(props);
         this.targetRef = React.createRef();
         this.state = {collapsed: true, visible: [true]};
     }
@@ -69,7 +68,8 @@ export default class RLayers extends RControlBase<RLayersProps, RLayersState> {
         }) as boolean[];
         const labels = React.Children.map(this.props.children, (child) => {
             if (React.isValidElement(child)) {
-                return child.props.properties?.label ?? 'no label';
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                return (child.props as any).properties?.label ?? 'no label';
             }
         }) as string[];
         return (

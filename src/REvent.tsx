@@ -1,5 +1,5 @@
 import BaseObject from 'ol/Object';
-import React from 'react';
+import React, {JSX} from 'react';
 import {RContext, RContextType} from './context';
 import debug from './debug';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {LoadingStrategy, VectorSourceEvent} from 'ol/source/Vector';
 import RenderEvent from 'ol/render/Event';
 import BaseVector from 'ol/layer/BaseVector';
@@ -145,9 +145,8 @@ export default class RLayerBaseVector<
     >;
     source: SourceVector<F>;
 
-    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
-        super(props, context);
-        RFeature.initEventRelay(this.context.map);
+    constructor(props: Readonly<P>) {
+        super(props);
         this.eventSources = this.createSource(props);
         super.refresh();
     }
@@ -178,6 +177,8 @@ export default class RLayerBaseVector<
     }
 
     render(): JSX.Element {
+        super.render();
+        RFeature.initEventRelay(this.context.map);
         return (
             <div className='_rlayers_RLayerVector'>
                 <RContext.Provider

@@ -2,7 +2,6 @@ import React from 'react';
 import {Tile as LayerTile} from 'ol/layer';
 import BaseEvent from 'ol/events/Event';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
@@ -62,8 +61,8 @@ export default class RLayerRasterMBTiles extends RLayerRaster<RLayerRasterMBTile
     source: MBTiles.MBTilesRasterSource;
     private abort: AbortController;
 
-    constructor(props: Readonly<RLayerRasterMBTilesProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerRasterMBTilesProps>) {
+        super(props);
         this.addon = import('ol-mbtiles');
         this.ol = new LayerTile();
         this.source = null;

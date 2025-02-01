@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {fromLonLat} from 'ol/proj';
 import {Geometry, Point} from 'ol/geom';
 import {Geolocation as OLGeoLoc} from 'ol';

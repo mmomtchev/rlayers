@@ -3,7 +3,6 @@ import {Map} from 'ol';
 import {Zoom} from 'ol/control';
 import {Options} from 'ol/control/Zoom';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
@@ -32,8 +31,8 @@ export interface RZoomProps extends RControlProps {
 export default class RZoom extends RControlBase<RZoomProps, Record<string, never>> {
     ol: Zoom;
 
-    constructor(props: Readonly<RZoomProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RZoomProps>) {
+        super(props);
         this.ol = new Zoom(this.toOLProps(props));
     }
 

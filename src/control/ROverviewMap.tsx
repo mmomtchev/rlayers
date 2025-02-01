@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {OverviewMap} from 'ol/control';
 import {Options} from 'ol/control/OverviewMap';
 
@@ -33,8 +33,8 @@ export interface ROverviewProps extends RControlProps {
 export default class ROverviewMap extends RControlBase<ROverviewProps, Record<string, never>> {
     ol: OverviewMap;
 
-    constructor(props: Readonly<ROverviewProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<ROverviewProps>) {
+        super(props);
         this.ol = new OverviewMap(this.toOLProps(props));
     }
 

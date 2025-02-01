@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Size} from 'ol/size';
 import {Text, Style} from 'ol/style';
 
@@ -76,6 +76,7 @@ export default class RText extends RBaseStyle<RTextProps> {
     }
 
     render(): JSX.Element {
+        super.render();
         return (
             <div className='_rlayers_RStyle_RText'>
                 <RContext.Provider value={{...this.context, style: this.ol as unknown as Style}}>

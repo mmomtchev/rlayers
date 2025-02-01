@@ -5,7 +5,6 @@ import {WebGLTile as LayerTileWebGL} from 'ol/layer';
 import {DataTile as SourceDataTile, ImageTile as SourceImageTile} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {RContextType} from '../context';
 import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
 /**
@@ -38,8 +37,8 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps, I
     ol: LayerTileWebGL;
     source: SourceImageTile;
 
-    constructor(props: Readonly<RLayerTileWebGLProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerTileWebGLProps>) {
+        super(props);
         this.createSource();
         this.ol = new LayerTileWebGL({
             opacity: 0.9,

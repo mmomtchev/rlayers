@@ -4,7 +4,6 @@ import {Tile as LayerTile} from 'ol/layer';
 import {XYZ} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
@@ -43,8 +42,8 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
     ol: LayerTile<XYZ>;
     source: XYZ;
 
-    constructor(props: Readonly<RLayerTileProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerTileProps>) {
+        super(props);
         this.createSource();
         this.ol = new LayerTile({source: this.source});
         this.eventSources = [this.ol, this.source];

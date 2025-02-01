@@ -4,7 +4,6 @@ import {Tile as LayerTile} from 'ol/layer';
 // @ts-ignore
 import {StadiaMaps} from 'ol/source';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
@@ -33,8 +32,8 @@ export default class RLayerStadia extends RLayerRaster<RLayerStadiaProps> {
     ol: LayerTile<StadiaMaps>;
     source: StadiaMaps;
 
-    constructor(props: Readonly<RLayerStadiaProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerStadiaProps>) {
+        super(props);
         this.source = new StadiaMaps({
             layer: this.props.layer,
             apiKey: this.props.apiKey,

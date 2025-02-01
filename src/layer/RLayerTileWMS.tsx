@@ -2,7 +2,6 @@ import TileLayer from 'ol/layer/Tile';
 import TileWMS from 'ol/source/TileWMS';
 
 import React from 'react';
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 // TileWMS options from https://openlayers.org/en/latest/apidoc/module-ol_source_TileWMS-TileWMS.html
@@ -21,8 +20,8 @@ export default class RLayerTileWMS extends RLayerRaster<RLayerTileWMSProps> {
     ol: TileLayer<TileWMS>;
     source: TileWMS;
 
-    constructor(props: Readonly<RLayerTileWMSProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerTileWMSProps>) {
+        super(props);
         this.createSource();
         this.ol = new TileLayer({source: this.source});
         this.eventSources = [this.ol, this.source];
