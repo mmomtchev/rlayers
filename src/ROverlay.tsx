@@ -56,8 +56,6 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
 
     constructor(props: Readonly<P>) {
         super(props);
-        if (!this.context?.location)
-            throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({
             autoPan: props.autoPan,
             offset: props.offset,
@@ -112,6 +110,8 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
     }
 
     render(): JSX.Element {
+        if (!this.context?.location)
+            throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.setPosition();
         return (
             <div className='_rlayers_ROverlay'>

@@ -48,10 +48,10 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
+    static contextType: React.Context<RContextType>;
 
     constructor(props: Readonly<P>) {
         super(props);
-        if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }
 
     protected refresh(prevProps?: P): void {
@@ -84,6 +84,7 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
     }
 
     render(): JSX.Element {
+        if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
         return (
             <div className='_rlayers_RLayer'>
                 <RContext.Provider

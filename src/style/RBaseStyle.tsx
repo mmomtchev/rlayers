@@ -24,8 +24,7 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
 
     constructor(props: Readonly<P>) {
         super(props);
-        if (!this.context) throw new Error('A style property must be part of a style');
-        this.ol = this.create(props);
+        this.ol = null;
     }
 
     /* istanbul ignore next */
@@ -76,6 +75,10 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     }
 
     render(): JSX.Element {
+        if (!this.context) throw new Error('A style property must be part of a style');
+        if (this.ol === null) {
+            this.ol = this.create(this.props);
+        }
         return null;
     }
 }

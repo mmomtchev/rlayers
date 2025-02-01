@@ -90,6 +90,7 @@ export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> ext
 > {
     ol: LayerVectorTile<SourceVectorTile<F>, F>;
     source: SourceVectorTile<F>;
+    static contextType: React.Context<RContextType>;
 
     constructor(props: Readonly<RLayerVectorTileProps<F>>) {
         super(props);
@@ -116,7 +117,6 @@ export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> ext
             renderBuffer: this.props.renderBuffer
         });
         this.eventSources = [this.ol, this.source];
-        RFeature.initEventRelay(this.context.map);
     }
 
     protected incrementHandlers(ev: OLEvent): void {
@@ -149,6 +149,8 @@ export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> ext
     }
 
     render(): JSX.Element {
+        super.render();
+        RFeature.initEventRelay(this.context.map);
         return (
             <div className='_rlayers_RLayerVectorTile'>
                 <RContext.Provider

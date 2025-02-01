@@ -16,9 +16,7 @@ export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, n
 
     constructor(props: P) {
         super(props);
-        if (!this.context?.map?.addInteraction)
-            throw new Error('An interaction must be part of a map');
-        this.ol = this.createOL(props);
+        this.ol = null;
     }
 
     createOL(props: P): Interaction {
@@ -45,5 +43,12 @@ export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, n
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.context.map.removeInteraction(this.ol);
+    }
+
+    render(): React.JSX.Element {
+        if (!this.context?.map?.addInteraction)
+            throw new Error('An interaction must be part of a map');
+        if (this.ol === null) this.ol = this.createOL(this.props);
+        return super.render();
     }
 }

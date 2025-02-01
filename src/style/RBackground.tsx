@@ -40,6 +40,7 @@ export default class RBackground extends RBaseStyle<RBackgroundProps> {
     }
 
     render(): JSX.Element {
+        super.render();
         return (
             <div className='_rlayers_RStyle_RBackground'>
                 <RContext.Provider value={{...this.context, style: this.ol as unknown as Style}}>

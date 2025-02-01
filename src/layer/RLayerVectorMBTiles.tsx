@@ -108,7 +108,6 @@ export default class RLayerVectorMBTiles<
             renderBuffer: this.props.renderBuffer
         });
         this.eventSources = [this.ol];
-        RFeature.initEventRelay(this.context.map);
     }
 
     protected createSource(): void {
@@ -172,6 +171,7 @@ export default class RLayerVectorMBTiles<
     }
 
     render(): JSX.Element {
+        RFeature.initEventRelay(this.context.map);
         return (
             <div className='_rlayers_RLayerVectorMBTiles'>
                 <RContext.Provider

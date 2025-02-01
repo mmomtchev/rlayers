@@ -42,6 +42,7 @@ export default class RRegularBase<P extends RRegularBaseProps> extends RImage<P>
     }
 
     render(): JSX.Element {
+        super.render();
         return (
             <div className='_rlayers_RStyle'>
                 <RContext.Provider value={{...this.context, style: this as unknown as Style}}>

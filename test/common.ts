@@ -11,7 +11,7 @@ import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
 
 import {MapBrowserEvent, RContextType, RlayersBase, useOL, useRLayersComponent} from 'rlayers';
-import React from 'react';
+import React, {JSX} from 'react';
 
 export const mapProps = {
     initial: {center: fromLonLat([2.364, 48.82]), zoom: 11},

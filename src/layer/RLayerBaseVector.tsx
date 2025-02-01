@@ -147,7 +147,6 @@ export default class RLayerBaseVector<
 
     constructor(props: Readonly<P>) {
         super(props);
-        RFeature.initEventRelay(this.context.map);
         this.eventSources = this.createSource(props);
         super.refresh();
     }
@@ -178,6 +177,8 @@ export default class RLayerBaseVector<
     }
 
     render(): JSX.Element {
+        super.render();
+        RFeature.initEventRelay(this.context.map);
         return (
             <div className='_rlayers_RLayerVector'>
                 <RContext.Provider

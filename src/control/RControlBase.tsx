@@ -32,7 +32,6 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
 
     constructor(props: Readonly<P>) {
         super(props);
-        if (!this.context?.map) throw new Error('A control must be part of a map');
     }
 
     toOLProps(props: P): RControlOptions {
@@ -55,5 +54,10 @@ export default class RControlBase<P extends RControlProps, S> extends RlayersBas
     componentWillUnmount(): void {
         super.componentWillUnmount();
         this.context.map.removeControl(this.ol);
+    }
+
+    render(): React.JSX.Element {
+        if (!this.context?.map) throw new Error('A control must be part of a map');
+        return super.render();
     }
 }
