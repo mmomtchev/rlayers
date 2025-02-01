@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Image, Fill, Stroke, Style} from 'ol/style';
 
 import {RContext} from '../context';

@@ -5,7 +5,6 @@ import {WebGLTile as LayerTileWebGL} from 'ol/layer';
 import {OSM} from 'ol/source';
 import {DataTile as SourceDataTile, ImageTile as SourceImageTile} from 'ol/source';
 
-import {RContextType} from '../context';
 import {default as RLayerWebGL, RLayerWebGLProps} from './RLayerWebGL';
 
 /**
@@ -22,8 +21,8 @@ export interface ROSMWebGLProps extends RLayerWebGLProps {}
 export default class ROSMWebGL extends RLayerWebGL<ROSMWebGLProps, ImageTile> {
     source: SourceDataTile<ImageTile>;
 
-    constructor(props: Readonly<ROSMWebGLProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<ROSMWebGLProps>) {
+        super(props);
         this.source = new OSM() as unknown as SourceDataTile<ImageTile>;
         this.ol = new LayerTileWebGL({
             source: this.source as unknown as SourceDataTile<DataTile>,

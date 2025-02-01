@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Vector as LayerVector} from 'ol/layer';
 import {Vector as SourceVector, Cluster as SourceCluster} from 'ol/source';
 import BaseObject from 'ol/Object';

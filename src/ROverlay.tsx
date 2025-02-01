@@ -1,7 +1,6 @@
-import React, {MouseEvent, PropsWithChildren} from 'react';
+import React, {JSX, MouseEvent, PropsWithChildren} from 'react';
 import {Overlay} from 'ol';
 
-import {RContextType} from './context';
 import {RlayersBase} from './REvent';
 
 // TODO: Use the OpenLayers 7 type after OpenLayers 6 support
@@ -55,8 +54,8 @@ export class ROverlayBase<P extends ROverlayProps> extends RlayersBase<P, Record
     ol: Overlay;
     protected containerRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<P>) {
+        super(props);
         if (!this.context?.location)
             throw new Error('An overlay must be part of a location provider (ie RFeature)');
         this.ol = new Overlay({

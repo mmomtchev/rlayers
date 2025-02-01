@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
 import BaseEvent from 'ol/events/Event';
@@ -100,8 +100,8 @@ export default class RLayerVectorMBTiles<
     source: MBTiles.MBTilesVectorSource<F>;
     private abort: AbortController;
 
-    constructor(props: Readonly<RLayerVectorMBTilesProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerVectorMBTilesProps>) {
+        super(props);
         this.addon = import('ol-mbtiles');
         this.ol = new LayerVectorTile({
             style: RStyle.getStyle(this.props.style),

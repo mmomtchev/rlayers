@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Size} from 'ol/size';
 import {Text, Style} from 'ol/style';
 

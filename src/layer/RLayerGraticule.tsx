@@ -2,7 +2,6 @@ import LayerGraticule from 'ol/layer/Graticule';
 import {Extent} from 'ol/extent';
 
 import React from 'react';
-import {RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {RStyle, RStyleLike} from 'rlayers/style';
 import debug from 'rlayers/debug';
@@ -70,8 +69,8 @@ export interface RLayerGraticuleProps extends RLayerProps {
 export default class RLayerGraticule extends RLayer<RLayerGraticuleProps> {
     ol: LayerGraticule;
 
-    constructor(props: Readonly<RLayerGraticuleProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerGraticuleProps>) {
+        super(props);
         this.createSource();
     }
 

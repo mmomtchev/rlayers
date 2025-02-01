@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {Control as Control} from 'ol/control';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlOptions, RControlProps} from './RControlBase';
 
 /** A custom control that can contain an HTMLElement
@@ -16,8 +15,8 @@ export default class RCustom extends RControlBase<RControlProps, Record<string, 
     ol: Control;
     targetRef: React.RefObject<HTMLDivElement>;
 
-    constructor(props: Readonly<RControlProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RControlProps>) {
+        super(props);
         this.targetRef = React.createRef();
     }
 

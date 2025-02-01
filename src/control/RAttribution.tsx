@@ -2,7 +2,6 @@ import React from 'react';
 import {Attribution} from 'ol/control';
 import {Options} from 'ol/control/Attribution';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
@@ -23,8 +22,8 @@ export interface RAttributionProps extends RControlProps {
 export default class RAttribution extends RControlBase<RAttributionProps, Record<string, never>> {
     ol: Attribution;
 
-    constructor(props: Readonly<RAttributionProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RAttributionProps>) {
+        super(props);
         this.ol = new Attribution(this.toOLProps(props));
     }
 

@@ -25,9 +25,9 @@ class MyLayerMapbox extends RLayer<MyLayerMapboxProps> {
     // Tiled layers must extend RLayerRaster, non-tiled vector layers must extend RLayerVector
     // This allows you to have the same features as RLayers built-in components
     // Completely custom layers must extend RLayer
-    constructor(props: Readonly<MyLayerMapboxProps>, context?: React.Context<RContextType>) {
+    constructor(props: Readonly<MyLayerMapboxProps>) {
         // You must call the parent constructor
-        super(props, context);
+        super(props);
 
         // You must create the this.ol object which must be compatible with the this.ol of the parent
         this.ol = new VectorMapbox({

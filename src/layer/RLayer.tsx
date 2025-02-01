@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 import {Layer} from 'ol/layer';
 import {Source} from 'ol/source';
 import LayerRenderer from 'ol/renderer/Layer';
@@ -49,8 +49,8 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
     ol: Layer<Source, LayerRenderer<any>>;
     source: Source;
 
-    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<P>) {
+        super(props);
         if (!this.context?.map?.addLayer) throw new Error('A layer must be part of a map');
     }
 

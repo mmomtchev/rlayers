@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 import {createRoot} from 'react-dom/client';
 import {LRUCache} from 'lru-cache';
 import {Map, Feature} from 'ol';
@@ -32,7 +32,7 @@ export interface RStyleProps extends PropsWithChildren<unknown> {
 
 export type RStyleRef = React.RefObject<RStyle>;
 export type RStyleLike = RStyleRef | RStyle | StyleLike;
-export const useRStyle = (): RStyleRef => React.useRef();
+export const useRStyle = (): RStyleRef => React.useRef(undefined);
 export const createRStyle = (): RStyleRef => React.createRef();
 
 /**
@@ -55,8 +55,8 @@ export default class RStyle extends React.PureComponent<RStyleProps, Record<stri
     childRefs: RStyleRef[];
     cache: LRUCache<string, Style>;
 
-    constructor(props: Readonly<RStyleProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RStyleProps>) {
+        super(props);
         if (props.render) this.ol = this.style;
         else this.ol = new Style({zIndex: props.zIndex});
         if (props.render && props.cacheSize && props.cacheId)

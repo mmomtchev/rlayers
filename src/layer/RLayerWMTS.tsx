@@ -5,7 +5,6 @@ import {default as SourceWMTS, optionsFromCapabilities, Options} from 'ol/source
 import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 import BaseEvent from 'ol/events/Event';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 import debug from '../debug';
 
@@ -35,8 +34,8 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
     parser: WMTSCapabilities;
     options: Options;
 
-    constructor(props: Readonly<RLayerWMTSProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerWMTSProps>) {
+        super(props);
         this.ol = new LayerTile({source: this.source});
         this.parser = new WMTSCapabilities();
     }

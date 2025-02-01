@@ -2,7 +2,6 @@ import React from 'react';
 import {FullScreen} from 'ol/control';
 import {Options} from 'ol/control/FullScreen';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
@@ -29,8 +28,8 @@ export interface RFullScreenProps extends RControlProps {
 export default class RFullScreen extends RControlBase<RFullScreenProps, Record<string, never>> {
     ol: FullScreen;
 
-    constructor(props: Readonly<RFullScreenProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RFullScreenProps>) {
+        super(props);
         this.ol = new FullScreen(this.toOLProps(props));
     }
 

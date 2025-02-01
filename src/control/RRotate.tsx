@@ -2,7 +2,6 @@ import React from 'react';
 import {Rotate as OLRRotate} from 'ol/control';
 import {Options} from 'ol/control/Rotate';
 
-import {RContextType} from '../context';
 import {default as RControlBase, RControlProps} from './RControlBase';
 
 /**
@@ -23,8 +22,8 @@ export interface RRotateProps extends RControlProps {
 export default class RRotate extends RControlBase<RRotateProps, Record<string, never>> {
     ol: OLRRotate;
 
-    constructor(props: Readonly<RRotateProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RRotateProps>) {
+        super(props);
         this.ol = new OLRRotate(this.toOLProps(props));
     }
 

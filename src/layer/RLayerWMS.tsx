@@ -2,7 +2,6 @@ import ImageLayer from 'ol/layer/Image';
 import ImageWMS from 'ol/source/ImageWMS';
 
 import React from 'react';
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**
@@ -26,8 +25,8 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     ol: ImageLayer<ImageWMS>;
     source: ImageWMS;
 
-    constructor(props: Readonly<RLayerWMSProps>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerWMSProps>) {
+        super(props);
         this.createSource();
         this.ol = new ImageLayer({source: this.source});
         this.eventSources = [this.ol, this.source];

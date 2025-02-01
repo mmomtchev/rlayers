@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {JSX} from 'react';
 import {VectorTile as LayerVectorTile} from 'ol/layer';
 import {VectorTile as SourceVectorTile} from 'ol/source';
 import type {Options} from 'ol/source/VectorTile';
@@ -91,8 +91,8 @@ export default class RLayerVectorTile<F extends FeatureLike = RenderFeature> ext
     ol: LayerVectorTile<SourceVectorTile<F>, F>;
     source: SourceVectorTile<F>;
 
-    constructor(props: Readonly<RLayerVectorTileProps<F>>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RLayerVectorTileProps<F>>) {
+        super(props);
         this.source = new SourceVectorTile<F>({
             url: this.props.url,
             format: this.props.format,

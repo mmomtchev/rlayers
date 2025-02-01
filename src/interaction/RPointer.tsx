@@ -2,7 +2,6 @@ import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
 import Pointer from 'ol/interaction/Pointer';
 
-import {RContextType} from '../context';
 import {default as RBaseInteraction} from './RBaseInteraction';
 import debug from '../debug';
 

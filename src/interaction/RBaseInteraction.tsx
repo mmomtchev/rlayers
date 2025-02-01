@@ -1,7 +1,6 @@
 import React from 'react';
 import {Interaction} from 'ol/interaction';
 
-import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -15,8 +14,8 @@ export default class RBaseInteraction<P> extends RlayersBase<P, Record<string, n
     classProps: string[];
     ol: Interaction;
 
-    constructor(props: P, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: P) {
+        super(props);
         if (!this.context?.map?.addInteraction)
             throw new Error('An interaction must be part of a map');
         this.ol = this.createOL(props);

@@ -4,7 +4,6 @@ import {WebGLTile as LayerTileWebGL} from 'ol/layer';
 import {DataTile as SourceDataTile} from 'ol/source';
 import TileGrid from 'ol/tilegrid/TileGrid';
 
-import {RContextType} from '../context';
 import {default as RLayerRaster, RLayerRasterProps} from './RLayerRaster';
 
 /**

@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 import {Map as Map, MapBrowserEvent} from 'ol';
 import {Feature} from 'ol';
 import {FeatureLike} from 'ol/Feature';
@@ -102,8 +102,8 @@ export default class RFeature<G extends Geometry = Geometry> extends RlayersBase
     ol: Feature<G>;
     onchange: () => boolean | void;
 
-    constructor(props: Readonly<RFeatureProps<G>>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<RFeatureProps<G>>) {
+        super(props);
         if (!this?.context?.vectorlayer)
             throw new Error('An RFeature must be part of a vector layer');
         if (props.feature) this.ol = props.feature;

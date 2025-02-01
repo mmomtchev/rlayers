@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 
 import {RContext, RContextType} from '../context';
 import debug from '../debug';
@@ -22,8 +22,8 @@ export default class RBaseStyle<P extends RBaseStyleProps> extends React.PureCom
     ol: unknown;
     context: RContextType;
 
-    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<P>) {
+        super(props);
         if (!this.context) throw new Error('A style property must be part of a style');
         this.ol = this.create(props);
     }

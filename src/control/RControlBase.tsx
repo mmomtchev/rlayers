@@ -2,7 +2,6 @@ import React, {PropsWithChildren} from 'react';
 import {Control as Control} from 'ol/control';
 import {Options as OLOptions} from 'ol/control/Control';
 
-import {RContextType} from '../context';
 import {RlayersBase} from '../REvent';
 import debug from '../debug';
 
@@ -31,8 +30,8 @@ export interface RControlOptions extends OLOptions {
 export default class RControlBase<P extends RControlProps, S> extends RlayersBase<P, S> {
     ol: Control;
 
-    constructor(props: Readonly<P>, context?: React.Context<RContextType>) {
-        super(props, context);
+    constructor(props: Readonly<P>) {
+        super(props);
         if (!this.context?.map) throw new Error('A control must be part of a map');
     }
 

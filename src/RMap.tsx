@@ -1,4 +1,4 @@
-import React, {PropsWithChildren} from 'react';
+import React, {JSX, PropsWithChildren} from 'react';
 import {Map, View, MapBrowserEvent, MapEvent} from 'ol';
 import RenderEvent from 'ol/render/Event';
 import BaseEvent from 'ol/events/Event';
