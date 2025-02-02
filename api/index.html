@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>
         rlayers
-        3.3.1 | Documentation
+        3.4.0 | Documentation
     </title>
     <script src="bootstrap.bundle.min.js"></script>
     <link href="bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 <body>
     <div class="container d-flex flex-row">
         <div class="position-sticky nav-section list px-2">
-            <h1 class="mt-2 mb-3 me-2">rlayers 3.3.1</h1>
+            <h1 class="mt-2 mb-3 me-2">rlayers 3.4.0</h1>
             <ul class="list-group">
         <li class="list-group-item border-0">
             <div class="d-flex flex-row align-items-center">
@@ -3381,6 +3381,165 @@ can be used to stop OpenLayers from also panning the map
                 </tr>
                 <tr>
                     <td class="">
+                        <code>onLoadStart</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rmap">RMap</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_MapEvent-MapEvent.html#~MapEvent">MapEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called when the map starts loading
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onLoadEnd</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rmap">RMap</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_MapEvent-MapEvent.html#~MapEvent">MapEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Called when the map has completely loaded
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
+                        <code>onError</code>
+                    </td>
+                    <td class="">
+                        <code>        (
+            
+                    this:         <a href="#rmap">RMap</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        
+            , 
+                    e:         <a href="https://openlayers.org/en/latest/apidoc/module-ol_events_Event-BaseEvent.html#~BaseEvent">BaseEvent</a>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+        )
+         =>      void 
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+</code>
+                    </td>
+                    <td class="">
+                                            <p>
+                    Generic error handled
+        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="">
                         <code>properties</code>
                     </td>
                     <td class="">
@@ -3864,37 +4023,6 @@ Cannot be updated once the map is created.
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -5292,37 +5420,6 @@ can be used to stop OpenLayers from also panning the map
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                 <h7>Instance members</h7>
@@ -5534,37 +5631,6 @@ can be used to stop OpenLayers from also panning the map
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -6292,37 +6358,6 @@ can be used to stop OpenLayers from also panning the map
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -8025,37 +8060,6 @@ already present at creation, ie loaded via
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -8178,37 +8182,6 @@ already present at creation, ie loaded via
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -8285,37 +8258,6 @@ already present at creation, ie loaded via
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -8492,37 +8434,6 @@ See
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -8645,37 +8556,6 @@ Setting this value to true will override that.
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -8718,37 +8598,6 @@ Setting this value to true will override that.
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -8888,37 +8737,6 @@ and it is not compatible with RLayerVector.
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -9762,37 +9580,6 @@ Cannot be modified once set.</code>
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -9891,37 +9678,6 @@ See
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -10139,37 +9895,6 @@ See
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -10217,37 +9942,6 @@ See
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -10318,37 +10012,6 @@ See
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -10455,37 +10118,6 @@ See
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -10549,37 +10181,6 @@ See
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -10627,37 +10228,6 @@ See
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -10829,37 +10399,6 @@ can be used for CSS customization
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -10910,37 +10449,6 @@ can be used for CSS customization
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -11128,37 +10636,6 @@ can be used for CSS customization
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -11254,37 +10731,6 @@ can be used for CSS customization
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -11435,37 +10881,6 @@ can be used for CSS customization
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -11543,37 +10958,6 @@ can be used for CSS customization
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -11800,37 +11184,6 @@ automatically assigned as the default style of that layer
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -12202,37 +11555,6 @@ be supported rlayers either
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                         </section>
@@ -12275,37 +11597,6 @@ be supported rlayers either
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -13561,37 +12852,6 @@ The provided
                 <tr>
                     <td class=""><code>props</code></td>
                     <td class=""><code>        P
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -16994,37 +16254,6 @@ if it returns true, a drag sequence is started
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -17332,37 +16561,6 @@ if it returns true, a drag sequence is started
 </code></td>
                     <td class=""></td>
                 </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
         </tbody>
     </table>
                                                                                                 <h7>Properties</h7>
@@ -17508,37 +16706,6 @@ its performance (COOP/COEP, WASM compression, preloading...)
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
@@ -17836,37 +17003,6 @@ and it is not compatible with RLayerVector
     
 
         &gt;
-    
-    
-    
-    
-    
-</code></td>
-                    <td class=""></td>
-                </tr>
-                <tr>
-                    <td class=""><code>context</code></td>
-                    <td class=""><code>                        React.Context
-    
-    
-    
-    
-    
-        &lt;
-                    <a href="#rcontexttype">RContextType</a>
-    
-    
-    
-    
-    
-
-        &gt;
-    
-    
-    
-    
-    
- | undefined
     
     
     
