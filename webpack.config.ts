@@ -23,8 +23,13 @@ const webpackConfig = (env): webpack.Configuration => {
             path: path.join(__dirname, '/docs'),
             filename: 'bundle.js'
         },
-        // https://github.com/TypeStrong/ts-loader/issues/751
-        ignoreWarnings: [{message: /export .* was not found in/}],
+        ignoreWarnings: [
+            // https://github.com/TypeStrong/ts-loader/issues/751
+            {message: /export .* was not found in/},
+            // OpenLayers + React + rlayers is simply big
+            {message: /asset size exceeds/},
+            {message: /recommended size limit/}
+        ],
         module: {
             rules: [
                 {

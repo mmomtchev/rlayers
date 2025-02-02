@@ -8,6 +8,7 @@ import {ProjectionLike} from 'ol/proj';
 
 import {RContext} from './context';
 import {RlayersBase} from './REvent';
+import debug from './debug';
 
 /** Center and zoom level */
 export type RView = {
@@ -78,6 +79,12 @@ export interface RMapProps extends PropsWithChildren<unknown> {
     onRenderComplete?: (this: RMap, e: RenderEvent) => boolean | void;
     /** Called on every change */
     onChange?: (this: RMap, e: BaseEvent) => void;
+    /** Called when the map starts loading */
+    onLoadStart?: (this: RMap, e: MapEvent) => void;
+    /** Called when the map has completely loaded */
+    onLoadEnd?: (this: RMap, e: MapEvent) => void;
+    /** Generic error handled */
+    onError?: (this: RMap, e: BaseEvent) => void;
     /** A set of properties that can be accessed later by .get()/.getProperties() */
     properties?: Record<string, unknown>;
     /** Extent of the map, cannot be dynamically modified
@@ -151,7 +158,10 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
 
     componentDidMount(): void {
         super.componentDidMount();
-        this.ol.setTarget(this.target.current);
+        if (this.ol.getTarget() !== this.target.current) {
+            debug('Setting target', this, this.target.current);
+            this.ol.setTarget(this.target.current);
+        }
     }
 
     private updateView = (e: MapEvent): void => {
@@ -169,9 +179,13 @@ export default class RMap extends RlayersBase<RMapProps, Record<string, never>> 
         const view = this.ol.getView();
         for (const p of ['minZoom', 'maxZoom', 'constrainResolution']) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);
-            if (!prevProps || this.props[p] !== prevProps[p]) view['set' + m](this.props[p]);
+            if (this.props?.[p] !== prevProps?.[p]) {
+                debug('Setting', this, m, this.props[p]);
+                view['set' + m](this.props[p]);
+            }
         }
         if (this.props.view) {
+            debug('Setting view', this, this.props.view);
             view.setCenter(this.props.view[0].center);
 
             if (this.props.view[0].resolution === undefined) view.setZoom(this.props.view[0].zoom);

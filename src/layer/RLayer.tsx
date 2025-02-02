@@ -66,10 +66,15 @@ export default class RLayer<P extends RLayerProps> extends RlayersBase<P, Record
             'maxZoom'
         ]) {
             const m = p.charAt(0).toUpperCase() + p.substring(1);
-            if (this.props[p] !== (prevProps && prevProps[p])) this.ol['set' + m](this.props[p]);
+            if (this.props?.[p] !== prevProps?.[p]) {
+                debug('Setting', this, m, this.props[p]);
+                this.ol['set' + m](this.props[p]);
+            }
         }
-        if (this.source && this.props.attributions)
+        if (this.source && this.props.attributions !== prevProps?.attributions) {
+            debug('Setting attributions', this);
             this.source.setAttributions(this.props.attributions);
+        }
         if (this.props.properties) this.ol.setProperties(this.props.properties);
     }
 
