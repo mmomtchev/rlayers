@@ -55,7 +55,8 @@ export default class RLayerVector<
             format: this.props.format,
             loader: this.props.loader,
             wrapX: this.props.wrapX,
-            strategy: this.props.strategy
+            strategy: this.props.strategy,
+            attributions: this.props.attributions
         });
         this.ol = new LayerVector<SourceVector<F>, F>({
             ...props,

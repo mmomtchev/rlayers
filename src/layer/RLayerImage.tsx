@@ -43,7 +43,8 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
             url: this.props.url,
             projection: this.props.projection,
             imageExtent: this.props.extent,
-            imageSize: this.props.size
+            imageSize: this.props.size,
+            attributions: this.props.attributions
         };
 
         this.source = new SourceImage(options);

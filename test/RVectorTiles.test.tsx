@@ -8,6 +8,7 @@ import {RLayerVectorTile, RMap} from 'rlayers';
 import {RStyle, RCircle, RStroke} from 'rlayers/style';
 import * as common from './common';
 import CircleStyle from 'ol/style/Circle';
+import {ViewStateLayerStateExtent} from 'ol/View';
 
 const props = {
     url: 'https://rlayers.meteo.guru/tiles/admin/{z}/{x}/{y}',
@@ -234,6 +235,21 @@ describe('<RLayerVectorTiles>', () => {
                 ?.getStroke()
                 ?.getWidth()
         ).toBe(2);
+        unmount();
+    });
+    it('should create a vector tile layer', async () => {
+        const ref = React.createRef() as React.RefObject<RLayerVectorTile>;
+        const {container, unmount} = render(
+            <RMap {...common.mapProps}>
+                <RLayerVectorTile {...props} ref={ref} attributions='Attributed' />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(
+            ref.current.source.getAttributions()!(
+                undefined as unknown as ViewStateLayerStateExtent
+            )[0]
+        ).toBe('Attributed');
         unmount();
     });
 });

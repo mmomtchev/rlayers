@@ -56,7 +56,8 @@ export default class RLayerTile extends RLayerRaster<RLayerTileProps> {
             interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
             tileGrid: this.props.tileGrid,
-            crossOrigin: this.props.crossOrigin
+            crossOrigin: this.props.crossOrigin,
+            attributions: this.props.attributions
         });
         this.eventSources = [this.ol, this.source];
     }

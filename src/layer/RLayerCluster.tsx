@@ -39,7 +39,8 @@ export default class RLayerCluster extends RLayerBaseVector<Feature<Geometry>, R
             format: this.props.format,
             loader: this.props.loader,
             wrapX: this.props.wrapX,
-            strategy: this.props.strategy
+            strategy: this.props.strategy,
+            attributions: this.props.attributions
         });
         this.source = new SourceCluster<Feature<Geometry>>({
             source: this.cluster,

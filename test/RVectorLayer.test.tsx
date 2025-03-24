@@ -3,13 +3,14 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
 import {GeoJSON} from 'ol/format';
-import {Feature} from 'ol';
+import {Feature, View} from 'ol';
 import {FeatureLike} from 'ol/Feature';
 import {Geometry, Point} from 'ol/geom';
 import RenderFeature from 'ol/render/Feature';
 import JSONFeature from 'ol/format/JSONFeature';
 import SourceVector from 'ol/source/Vector';
 import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
+import {ViewStateLayerStateExtent} from 'ol/View';
 
 import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
@@ -287,6 +288,23 @@ describe('<RLayerVector>', () => {
         expect(refVector.current).toBeInstanceOf(RLayerVector);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((refVector.current?.source as any).wrapX_).toBeFalsy();
+        unmount();
+    });
+    it('should support attributions', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} attributions={'Attributed'} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        expect(
+            refVector.current.source.getAttributions()!(
+                undefined as unknown as ViewStateLayerStateExtent
+            )[0]
+        ).toBe('Attributed');
         unmount();
     });
 });

@@ -11,13 +11,13 @@ export default function Simple(): JSX.Element {
         <React.Fragment>
             <RMap width={'100%'} height={'60vh'} initial={{center: center, zoom: 11}}>
                 <RControl.RLayers>
-                    <ROSMWebGL properties={{label: 'OSM'}} />
                     <RLayerTileWebGL
                         properties={{label: 'OpenTopo'}}
                         url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                         attributions='Kartendaten: © OpenStreetMap-Mitwirkende, SRTM | Kartendarstellung: © OpenTopoMap (CC-BY-SA)'
                     />
                 </RControl.RLayers>
+                <RControl.RAttribution />
             </RMap>
             <div className={'my-4'}>
                 <strong>WebGL generally allows for a smoother animation experience</strong>

@@ -54,7 +54,8 @@ export default class RLayerTileWebGL extends RLayerWebGL<RLayerTileWebGLProps, I
             interpolate: !this.props.noIterpolation,
             projection: this.props.projection,
             tileGrid: this.props.tileGrid,
-            crossOrigin: 'anonymous'
+            crossOrigin: 'anonymous',
+            attributions: this.props.attributions
         });
         this.eventSources = [this.ol, this.source];
     }
