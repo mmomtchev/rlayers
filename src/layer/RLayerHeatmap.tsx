@@ -46,7 +46,8 @@ export default class RLayerHeatmap extends RLayerBaseVector<Feature<Point>, RLay
             format: this.props.format,
             loader: this.props.loader,
             wrapX: this.props.wrapX,
-            strategy: this.props.strategy
+            strategy: this.props.strategy,
+            attributions: this.props.attributions
         });
         this.ol = new LayerHeatmap<Feature<Point>>({...props, source: this.source});
         return [this.ol, this.source];

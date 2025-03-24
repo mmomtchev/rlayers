@@ -1,6 +1,7 @@
 import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 
+import {ViewStateLayerStateExtent} from 'ol/View';
 import {RLayerTileWebGL, RMap, ROSMWebGL} from 'rlayers';
 import * as common from './common';
 
@@ -26,6 +27,7 @@ describe('<RLayerTileWebGL>', () => {
                 <RLayerTileWebGL
                     url='https://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
                     ref={layer}
+                    attributions={'Attributed'}
                     cacheSize={1024}
                 />
             </RMap>
@@ -37,5 +39,11 @@ describe('<RLayerTileWebGL>', () => {
         expect((layer.current?.source as any).crossOrigin).toBeUndefined();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         expect((layer.current?.source as any).interpolate_).toBeTruthy();
+
+        expect(
+            layer.current.source.getAttributions()!(
+                undefined as unknown as ViewStateLayerStateExtent
+            )[0]
+        ).toBe('Attributed');
     });
 });

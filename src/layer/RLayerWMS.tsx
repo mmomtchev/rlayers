@@ -33,8 +33,8 @@ export default class RLayerWMS extends RLayerRaster<RLayerWMSProps> {
     }
 
     protected createSource(): void {
-        const {params, url, crossOrigin} = this.props;
-        const options = {params, url, crossOrigin};
+        const {params, url, crossOrigin, attributions} = this.props;
+        const options = {params, url, crossOrigin, attributions};
 
         this.source = new ImageWMS(options);
         this.eventSources = [this.ol, this.source];
