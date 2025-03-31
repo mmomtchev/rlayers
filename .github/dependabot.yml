@@ -17,8 +17,11 @@ updates:
           jest:
               patterns:
                   - '*jest*'
-    - package-ecosystem: "github-actions"
-      directory: "/"
+          react:
+              patterns:
+                  - '*react*'
+    - package-ecosystem: 'github-actions'
+      directory: '/'
       schedule:
-        interval: "weekly"
+          interval: 'weekly'
       open-pull-requests-limit: 1
