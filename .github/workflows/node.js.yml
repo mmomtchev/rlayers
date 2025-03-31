@@ -116,9 +116,28 @@ jobs:
               with:
                   node-version: 20.x
             - run: |
-                  npm i react@19 react-dom@19 react-test-renderer@19 \
-                    @types/react@19 @types/react-dom@19 @testing-library/react@16.2.0 \
+                  npm i react@19.0.0 react-dom@19.0.0 react-test-renderer@19.0.0 \
+                    @types/react@19.0.0 @types/react-dom@19.0.0 @testing-library/react@16.2.0 \
                     react-router@7.1.5
+            - run: npm i
+            - run: tsc
+            - run: npm test
+            - run: npm run build:examples
+
+    react-19-1:
+        runs-on: ubuntu-latest
+
+        steps:
+            - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
+            - uses: actions/checkout@v4
+            - name: Use Node.js 20.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+            - run: |
+                  npm i react@19 react-dom@19.1.0 react-test-renderer@19.1.0 \
+                    @types/react@19.0.12 @types/react-dom@19.0.4 @testing-library/react@16.2.0 \
+                    react-router@7.4.1
             - run: npm i
             - run: tsc
             - run: npm test
