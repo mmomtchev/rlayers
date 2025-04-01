@@ -12,15 +12,15 @@ export interface RPointerProps {
     /** Called on down event (click or touch)
      * if it returns true, a drag sequence is started
      */
-    handleDownEvent?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    handleDownEvent?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Called on every move event while dragging */
-    handleDragEvent?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    handleDragEvent?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Called on every event, use with care */
-    handleEvent?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    handleEvent?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Called on every pointer move, use with care */
-    handleMoveEvent?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    handleMoveEvent?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Called on up event (end of click or touch) */
-    handleUpEvent?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    handleUpEvent?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
 }
 
 /**

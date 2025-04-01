@@ -14,7 +14,7 @@ export interface RDragZoomProps {
      * @default ol-dragzoom */
     className?: string;
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Animation duration
      * @default 200 */
     duration?: number;

@@ -55,20 +55,41 @@ export interface RMapProps extends PropsWithChildren<unknown> {
      */
     projection?: ProjectionLike;
     /** Called immediately on click */
-    onClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onClick?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called on single click when the double click timer has expired */
-    onSingleClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onSingleClick?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called on double click */
-    onDblClick?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onDblClick?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called when the user starts panning the map */
-    onMoveStart?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onMoveStart?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called when the user stops panning the map */
-    onMoveEnd?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onMoveEnd?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called on every pointer move when dragging, `e.preventDefault()`
      * can be used to stop OpenLayers from also panning the map */
-    onPointerDrag?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerDrag?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called on every pointer movement, use with care */
-    onPointerMove?: (this: RMap, e: MapBrowserEvent<UIEvent>) => boolean | void;
+    onPointerMove?: (
+        this: RMap,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean | void;
     /** Called after a layer has been rendered */
     onPostRender?: (this: RMap, e: MapEvent) => boolean | void;
     /** Called before layers are composed */

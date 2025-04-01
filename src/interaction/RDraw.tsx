@@ -23,12 +23,12 @@ export interface RDrawProps {
         | 'Circle';
     /** An optionnal condition for triggering the interaction
      * @default noModifierKeys */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** An optional OpenLayers condition to allow the interaction to finish */
-    finishCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    finishCondition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** An optional OpenLayers condition to activate freehand drawing
      * @default shiftKeyOnly */
-    freehandCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    freehandCondition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /**
      * Style for rendering while drawing, supports only Openlayers styles.
      * Once the interaction is finished, the resulting feature will adopt

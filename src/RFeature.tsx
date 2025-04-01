@@ -15,7 +15,9 @@ import {FeatureHandlers, featureHandlersSymbol} from './layer/RLayerBaseVector';
 import RStyle, {RStyleLike} from './style/RStyle';
 import debug from './debug';
 
-export class RFeatureUIEvent<F extends FeatureLike> extends MapBrowserEvent<UIEvent> {
+export class RFeatureUIEvent<F extends FeatureLike> extends MapBrowserEvent<
+    PointerEvent | KeyboardEvent | WheelEvent
+> {
     target: F;
 }
 

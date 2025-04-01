@@ -11,7 +11,7 @@ import debug from '../debug';
  */
 export interface RMouseWheelZoomProps {
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Zoom speed
      * @default 1 */
     maxDelta?: number;
