@@ -143,7 +143,6 @@ export default class RLayerBaseVector<
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
         | WebGLPointsLayerRenderer
-        | WebGLVectorLayerRenderer
     >;
     source: SourceVector<F>;
 
