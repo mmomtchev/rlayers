@@ -24,9 +24,14 @@ export function createEvent(
     map: Map,
     coords?: Pixel,
     dragging?: boolean
-): MapBrowserEvent<UIEvent> {
+): MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent> {
     const event = {clientX: coords?.[0] ?? 10, clientY: coords?.[1] ?? 10} as unknown;
-    return new MapBrowserEvent<UIEvent>(evname.toLowerCase(), map, event as UIEvent, dragging);
+    return new MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>(
+        evname.toLowerCase(),
+        map,
+        event as PointerEvent | KeyboardEvent | WheelEvent,
+        dragging
+    );
 }
 
 export const _coords: Record<string, Coordinate> = {

@@ -19,6 +19,7 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
+import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer';
 
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;

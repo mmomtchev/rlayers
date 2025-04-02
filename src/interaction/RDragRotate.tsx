@@ -11,7 +11,7 @@ import debug from '../debug';
  */
 export interface RDragRotateProps {
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Animation duration
      * @default 250 */
     duration?: number;

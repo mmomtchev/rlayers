@@ -107,7 +107,7 @@ export default function IGCComp(): JSX.Element {
                 className='example-map'
                 initial={{center: origin, zoom: 9}}
                 onPointerMove={useCallback(
-                    (e: MapBrowserEvent<UIEvent>) => {
+                    (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => {
                         // This useCallback is very important -> without it
                         // onPointerMove will be a new anonymous function on every render
                         const source = igcVectorLayer.current.source;

@@ -13,13 +13,13 @@ export interface RDragBoxProps {
     /** A CSS class to be used for the box */
     className?: string;
     /** An optional OpenLayers condition */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** Minimum area that needs to be selected */
     minArea?: number;
     /** An optional OpenLayers condition */
     boxEndCondition?: (
         this: RDragBox,
-        e: MapBrowserEvent<UIEvent>,
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>,
         p1: Pixel,
         p2: Pixel
     ) => boolean;

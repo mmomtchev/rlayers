@@ -12,13 +12,15 @@ import debug from '../debug';
 export interface RModifyProps {
     /** An optionnal condition for triggering the interaction
      * @default primaryAction */
-    condition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    condition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** An optional OpenLayers condition to allow removal of the feature
      * @default (altKeyOnly+singleClick) */
-    deleteCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    deleteCondition?: (e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>) => boolean;
     /** An optional OpenLayers condition to allow adding of a vertex
      * @default true */
-    insertVertexCondition?: (e: MapBrowserEvent<UIEvent>) => boolean;
+    insertVertexCondition?: (
+        e: MapBrowserEvent<PointerEvent | KeyboardEvent | WheelEvent>
+    ) => boolean;
     /**
      * Style for rendering while drawing, supports only Openlayers styles.
      * Once the interaction is finished, the resulting feature will adopt

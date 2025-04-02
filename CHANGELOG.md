@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ##
 
+-   OpenLayers 10.5.0 support
 -   Add React 19.1 to the CI
 
 ## [3.5.0] 2025-02-05
