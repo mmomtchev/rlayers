@@ -5,12 +5,12 @@ import BaseVector from 'ol/layer/BaseVector';
 import CanvasVectorLayerRenderer from 'ol/renderer/canvas/VectorLayer';
 import CanvasVectorTileLayerRenderer from 'ol/renderer/canvas/VectorTileLayer';
 import CanvasVectorImageLayerRenderer from 'ol/renderer/canvas/VectorImageLayer';
-import WebGLPointsLayerRenderer from 'ol/renderer/webgl/PointsLayer';
+import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer';
 import {Vector as SourceVector} from 'ol/source';
-import FeatureFormat, {FeatureToFeatureClass} from 'ol/format/Feature';
+import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import BaseObject from 'ol/Object';
-import {FeatureClass, FeatureLike} from 'ol/Feature';
+import {FeatureLike} from 'ol/Feature';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
@@ -19,7 +19,6 @@ import {default as RStyle, RStyleLike} from '../style/RStyle';
 import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
-import WebGLVectorLayerRenderer from 'ol/renderer/webgl/VectorLayer';
 
 export const featureHandlersSymbol = '_rlayers_feature_handlers';
 export type FeatureHandlers = Record<OLEvent, number>;
@@ -142,7 +141,7 @@ export default class RLayerBaseVector<
         | CanvasVectorLayerRenderer
         | CanvasVectorTileLayerRenderer
         | CanvasVectorImageLayerRenderer
-        | WebGLPointsLayerRenderer
+        | WebGLVectorLayerRenderer
     >;
     source: SourceVector<F>;
 
