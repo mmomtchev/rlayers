@@ -140,7 +140,7 @@
     "markdown-loader": "^8.0.0",
     "null-loader": "^4.0.1",
     "ol": "^10.6.0",
-    "ol-mapbox-style": "^12.3.5",
+    "ol-mapbox-style": "^13.0.1",
     "ol-mbtiles": "^3.3.0",
     "prettier": "2.8.8",
     "prism-themes": "^1.6.0",
