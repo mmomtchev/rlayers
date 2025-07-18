@@ -1,6 +1,6 @@
 import React from 'react';
 import {Map, MapBrowserEvent} from 'ol';
-import {default as Draw, DrawEvent} from 'ol/interaction/Draw';
+import {default as Draw, type GeometryFunction, DrawEvent} from 'ol/interaction/Draw';
 import {StyleLike} from 'ol/style/Style';
 
 import {default as RPointer} from './RPointer';
@@ -47,6 +47,8 @@ export interface RDrawProps {
      * @default 12 */
     snapTolerance?: number;
 
+    geometryFunction?: GeometryFunction
+
     /** Called on draw start */
     onDrawStart?: (this: RDraw, e: DrawEvent) => void;
     /** Called on draw end */
@@ -65,7 +67,8 @@ export default class RDraw extends RPointer<RDrawProps> {
         'stopClick',
         'maxPoints',
         'minPoints',
-        'snapTolerance'
+        'snapTolerance',
+        "geometryFunction"
     ];
     ol: Draw;
 
