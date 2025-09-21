@@ -11,11 +11,12 @@ import FeatureFormat from 'ol/format/Feature';
 import {FeatureLoader, FeatureUrlFunction} from 'ol/featureloader';
 import BaseObject from 'ol/Object';
 import {FeatureLike} from 'ol/Feature';
+import {FlatStyleLike} from 'ol/style/flat';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayer, RLayerProps} from './RLayer';
 import {default as RFeature, RFeatureUIEvent} from '../RFeature';
-import {default as RStyle, RStyleLike} from '../style/RStyle';
+import {isOLFlatStyle, default as RStyle, RStyleLike} from '../style/RStyle';
 import {OLEvent, RlayersBase} from '../REvent';
 
 import debug from '../debug';
@@ -53,7 +54,7 @@ export interface RLayerBaseVectorProps<F extends FeatureLike> extends RLayerProp
     /** Use a custom loader instead of XHR */
     loader?: FeatureLoader<F>;
     /** OpenLayers default style for features without `style` */
-    style?: RStyleLike;
+    style?: RStyleLike | FlatStyleLike;
     /** OpenLayers option to specify LoadingStrategy default is `all` strategy */
     strategy?: LoadingStrategy;
     /**
@@ -157,8 +158,10 @@ export default class RLayerBaseVector<
 
     protected refresh(prevProps?: P): void {
         super.refresh(prevProps);
-        if (prevProps?.style !== this.props.style)
-            this.ol.setStyle(RStyle.getStyle(this.props.style));
+        if (prevProps?.style !== this.props.style) {
+            if (isOLFlatStyle(this.props.style)) this.ol.setStyle(this.props.style);
+            else this.ol.setStyle(RStyle.getStyle(this.props.style));
+        }
     }
 
     incrementHandlers(ev: OLEvent): void {

@@ -6,7 +6,7 @@ import Geometry from 'ol/geom/Geometry';
 import {FeatureLike} from 'ol/Feature';
 
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import {default as RStyle} from '../style/RStyle';
+import {isOLFlatStyle, default as RStyle} from '../style/RStyle';
 import BaseObject from 'ol/Object';
 import debug from '../debug';
 
@@ -36,9 +36,10 @@ export default class RLayerVectorImage extends RLayerBaseVector<
             strategy: this.props.strategy,
             attributions: this.props.attributions
         });
+        const style = isOLFlatStyle(props.style) ? props.style : RStyle.getStyle(props.style);
         this.ol = new LayerVectorImage({
             ...props,
-            style: RStyle.getStyle(this.props.style),
+            style: style,
             source: this.source
         });
         return [this.ol, this.source];
