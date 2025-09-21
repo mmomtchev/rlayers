@@ -38,10 +38,11 @@ export const useRStyle = (): RStyleRef => React.useRef(undefined);
 export const createRStyle = (): RStyleRef => React.createRef();
 
 export function isOLFlatStyle(style: RStyleLike | FlatStyleLike): style is FlatStyleLike {
+    if (!style) return false;
     if (Array.isArray(style)) return 'style' in style[0];
     if (typeof style === 'function') return false;
     if (style instanceof Style) return false;
-    if (style instanceof RStyle || style instanceof RStyleArray) return false;
+    if (style instanceof RStyle) return false;
     if ('current' in style) return false;
     return true;
 }

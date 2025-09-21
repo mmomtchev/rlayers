@@ -343,6 +343,19 @@ describe('<RLayerVector>', () => {
         expect(refVector.current.ol.getStyle()).toBe(flatStyle);
         unmount();
     });
+    it('should support composite OL flat styles', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} style={flatRules} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        expect(refVector.current.ol.getStyle()).toBe(flatRules);
+        unmount();
+    });
 });
 
 describe('<RLayerVectorImage>', () => {
