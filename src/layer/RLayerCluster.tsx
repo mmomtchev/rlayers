@@ -8,7 +8,7 @@ import {FeatureLike} from 'ol/Feature';
 
 import {RContext, RContextType} from '../context';
 import {default as RLayerBaseVector, RLayerBaseVectorProps} from './RLayerBaseVector';
-import {default as RStyle} from '../style/RStyle';
+import {isOLFlatStyle, default as RStyle} from '../style/RStyle';
 
 /**
  * @propsfor RLayerCluster
@@ -46,10 +46,11 @@ export default class RLayerCluster extends RLayerBaseVector<Feature<Geometry>, R
             source: this.cluster,
             distance: this.props.distance
         });
+        const style = isOLFlatStyle(props.style) ? props.style : RStyle.getStyle(props.style);
         this.ol = new LayerVector<SourceVector<Feature<Geometry>>, Feature<Geometry>>({
             ...props,
             source: this.source,
-            style: RStyle.getStyle(props.style)
+            style
         });
         return [this.ol, this.source, this.cluster];
     }

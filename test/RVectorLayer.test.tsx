@@ -11,6 +11,7 @@ import JSONFeature from 'ol/format/JSONFeature';
 import SourceVector from 'ol/source/Vector';
 import {Options as OLVectorTileOptions} from 'ol/source/VectorTile.js';
 import {ViewStateLayerStateExtent} from 'ol/View';
+import {FlatStyle} from 'ol/style/flat';
 
 import {RFeature, RLayerVector, RContext, RMap, RLayerVectorImage} from 'rlayers';
 import * as common from './common';
@@ -18,6 +19,28 @@ import * as common from './common';
 const parser = new GeoJSON({featureProjection: 'EPSG:3857', featureClass: Feature});
 const geojsonFeatures = JSON.parse(fs.readFileSync('examples/data/departements.geo.json', 'utf-8'));
 const features = parser.readFeatures(geojsonFeatures) as Feature<Geometry>[];
+
+const flatStyle = {
+    'stroke-color': 'yellow',
+    'stroke-width': 1.5,
+    'fill-color': 'orange'
+} as FlatStyle;
+const flatRules = [
+    {
+        filter: ['>', ['get', 'population'], 1_000_000],
+        style: {
+            'circle-radius': 10,
+            'circle-fill-color': 'red'
+        }
+    },
+    {
+        else: true,
+        style: {
+            'circle-radius': 5,
+            'circle-fill-color': 'blue'
+        }
+    }
+] as FlatStyle;
 
 describe('<RLayerVector>', () => {
     it('should create and remove a vector layer', async () => {
@@ -305,6 +328,32 @@ describe('<RLayerVector>', () => {
                 undefined as unknown as ViewStateLayerStateExtent
             )[0]
         ).toBe('Attributed');
+        unmount();
+    });
+    it('should support simple OL flat styles', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} style={flatStyle} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        expect(refVector.current.ol.getStyle()).toBe(flatStyle);
+        unmount();
+    });
+    it('should support composite OL flat styles', async () => {
+        const refVector = React.createRef() as React.RefObject<RLayerVector>;
+        const refMap = React.createRef() as React.RefObject<RMap>;
+        const {container, unmount} = render(
+            <RMap ref={refMap} {...common.mapProps}>
+                <RLayerVector ref={refVector} style={flatRules} />
+            </RMap>
+        );
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(refVector.current).toBeInstanceOf(RLayerVector);
+        expect(refVector.current.ol.getStyle()).toBe(flatRules);
         unmount();
     });
 });
