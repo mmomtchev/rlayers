@@ -21,7 +21,7 @@ jobs:
         steps:
             - run: echo "::add-mask::${{ secrets.STADIA_MAPS_API_KEY }}"
             - name: Use Node.js 20.x
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@v6
               with:
                   node-version: 20.x
             - name: Set up the unit tests
@@ -133,7 +133,7 @@ jobs:
 
         steps:
             - name: Use Node.js 20.x
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@v6
               with:
                   node-version: 20.x
             - run: git clone https://github.com/mmomtchev/rlayers-npm-tests.git
