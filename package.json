@@ -1,6 +1,6 @@
 {
   "name": "rlayers",
-  "version": "3.7.1",
+  "version": "3.8.0",
   "description": "React Components for OpenLayers",
   "main": "index.js",
   "types": "index.d.ts",
