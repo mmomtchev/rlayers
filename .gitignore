@@ -45,3 +45,7 @@ tsconfig.tsbuildinfo
 /RPopup.d.ts.map
 /RPopup.js
 /RPopup.js.map
+
+# IntelliJ IDEA
+.idea
+*.iml
