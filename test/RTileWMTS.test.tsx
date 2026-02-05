@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import React from 'react';
-import {fireEvent, render, RenderResult} from '@testing-library/react';
+import {render, RenderResult} from '@testing-library/react';
 import Projection from 'ol/proj/Projection';
 import {createXYZ} from 'ol/tilegrid';
 import {WMTS} from 'ol/source';
@@ -171,7 +171,7 @@ describe('<RLayerWMTS>', () => {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:27700');
                                 expect(this).toBeInstanceOf(RLayerWMTS);
                                 if (layer.current?.ol.getSource() !== source)
-                                    throw new Error('Unexpected rerender');
+                                    rej(new Error('Unexpected rerender'));
                                 res(undefined);
                             } catch (e) {
                                 rej(e);
@@ -200,7 +200,7 @@ describe('<RLayerWMTS>', () => {
                                 expect((opt.projection as Projection).getCode()).toBe('EPSG:2056');
                                 expect(this).toBeInstanceOf(RLayerWMTS);
                                 if (layer.current?.ol.getSource() === source)
-                                    throw new Error('Expected to rerender');
+                                    rej(new Error('Expected to rerender'));
                                 res(undefined);
                             } catch (e) {
                                 rej(e);
@@ -220,10 +220,10 @@ describe('<RLayerWMTS>', () => {
                         zIndex={5}
                         ref={layer}
                         visible={false}
-                        onCapabilities={function (opt) {
+                        onCapabilities={function (_) {
                             try {
                                 if (layer.current?.ol.getVisible() === true)
-                                    throw new Error('Expected to hide');
+                                    rej(new Error('Expected to hide'));
                                 res(undefined);
                             } catch (e) {
                                 rej(e);
@@ -236,4 +236,111 @@ describe('<RLayerWMTS>', () => {
             );
         });
     });
+
+    type WMTSTestSet = [
+        requestedProjection: string | undefined,
+        requestedMatrixSet: string | undefined,
+        expectedProjection: string | undefined,
+        expectedMatrixSet: string | undefined,
+        rerenderRequestedProjection: string | undefined,
+        rerenderRequestedMatrixSet: string | undefined,
+        rerenderExpected: boolean
+    ];
+
+    it.each<WMTSTestSet>([
+        ['EPSG:3857', undefined, 'EPSG:3857', 'DE_EPSG_3857_ADV', 'EPSG:3857', undefined, false],
+        [
+            'EPSG:3857',
+            undefined,
+            'EPSG:3857',
+            'DE_EPSG_3857_ADV',
+            'EPSG:3857',
+            'GLOBAL_WEBMERCATOR',
+            true
+        ],
+        [
+            'EPSG:3857',
+            'GLOBAL_WEBMERCATOR',
+            'EPSG:3857',
+            'GLOBAL_WEBMERCATOR',
+            'EPSG:3857',
+            'GLOBAL_WEBMERCATOR',
+            false
+        ]
+    ])(
+        'should consider projection %s and matrixSet %s to select WMTS source(%s, %s) ',
+        async (
+            requestedProjection,
+            requestedMatrixSet,
+            expectedProjection,
+            expectedMatrixSet,
+            rerenderRequestedProjection,
+            rerenderRequestedMatrixSet,
+            rerenderExpected
+        ) => {
+            WMTSCaps = fs.readFileSync(
+                path.join(__dirname, 'fixtures', 'sgx.geodatenzentrum.de.caps.xml'),
+                'utf-8'
+            );
+            const layer = React.createRef() as React.RefObject<RLayerWMTS>;
+            let renderResult: RenderResult | undefined | null;
+            let renderSource: WMTS | undefined | null;
+            await new Promise((res, rej) => {
+                renderResult = render(
+                    <RMap {...common.mapProps}>
+                        <RLayerWMTS
+                            zIndex={5}
+                            ref={layer}
+                            projection={requestedProjection}
+                            matrixSet={requestedMatrixSet}
+                            onCapabilities={function (opt) {
+                                try {
+                                    expect(this).toBeInstanceOf(RLayerWMTS);
+                                    expect(opt.projection).toBe(expectedProjection);
+                                    expect(opt.matrixSet).toBe(expectedMatrixSet);
+                                    expect(this.source.getMatrixSet()).toBe(expectedMatrixSet);
+                                    renderSource = layer.current?.ol.getSource();
+                                    res(undefined);
+                                } catch (e) {
+                                    rej(e);
+                                }
+                            }}
+                            url='https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/WMTSCapabilities.xml'
+                            layer='de_basemapde_web_raster_farbe'
+                        />
+                    </RMap>
+                );
+                expect(renderResult.container.innerHTML).toMatchSnapshot();
+            });
+            expect((layer.current?.source.getUrls() || [])[0]).toBe(
+                'https://sgx.geodatenzentrum.de/wmts_basemapde/tile/1.0.0/de_basemapde_web_raster_farbe/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
+            );
+            await new Promise((res, rej) => {
+                if (!renderResult) throw new Error('Failed rendering');
+                renderResult.rerender(
+                    <RMap {...common.mapProps}>
+                        <RLayerWMTS
+                            zIndex={5}
+                            ref={layer}
+                            projection={rerenderRequestedProjection}
+                            matrixSet={rerenderRequestedMatrixSet}
+                            onCapabilities={function (_) {
+                                try {
+                                    expect(this).toBeInstanceOf(RLayerWMTS);
+                                    expect(renderSource !== layer.current?.ol.getSource()).toBe(
+                                        rerenderExpected
+                                    );
+                                    res(undefined);
+                                } catch (e) {
+                                    rej(e);
+                                }
+                            }}
+                            url='https://sgx.geodatenzentrum.de/wmts_basemapde/1.0.0/WMTSCapabilities.xml'
+                            layer='de_basemapde_web_raster_farbe'
+                        />
+                    </RMap>
+                );
+            });
+        }
+    );
 });

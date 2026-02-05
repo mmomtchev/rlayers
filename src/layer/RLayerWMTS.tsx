@@ -20,6 +20,8 @@ export interface RLayerWMTSProps extends RLayerRasterProps {
     onSourceReady?: (this: RLayerWMTS, e: BaseEvent) => void;
     /** Called each time the component is rerendered if/after the WMTS capabilities have been acquired */
     onCapabilities?: (this: RLayerWMTS, opt: Options) => void;
+    /** Preferred matrix set when selecting the WMTS source */
+    matrixSet?: string;
 }
 
 /**
@@ -47,11 +49,14 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
             .then((text) => {
                 const caps = this.parser.read(text);
                 this.options = optionsFromCapabilities(caps, {
-                    layer: this.props.layer
+                    layer: this.props.layer,
+                    projection: this.props.projection,
+                    matrixSet: this.props.matrixSet
                 });
                 if (this.props.attributions) this.options.attributions = this.props.attributions;
                 this.options.crossOrigin = '';
                 if (this.props.projection) this.options.projection = this.props.projection;
+                if (this.props.matrixSet) this.options.matrixSet = this.props.matrixSet;
                 this.options.wrapX = false;
                 this.source = new SourceWMTS(this.options);
                 this.ol.setSource(this.source);
@@ -69,7 +74,12 @@ export default class RLayerWMTS extends RLayerRaster<RLayerWMTSProps> {
 
     protected refresh(prevProps?: RLayerWMTSProps): void {
         super.refresh();
-        if (prevProps?.url !== this.props.url || prevProps?.layer !== this.props.layer) {
+        if (
+            prevProps?.url !== this.props.url ||
+            prevProps?.layer !== this.props.layer ||
+            prevProps?.projection !== this.props.projection ||
+            prevProps?.matrixSet !== this.props.matrixSet
+        ) {
             this.createSource().then(() => {
                 this.ol.setSource(this.source);
                 this.attachOldEventHandlers(this.source);
