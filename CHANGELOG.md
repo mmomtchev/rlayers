@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [3.9.0] 2026-02-11
 
 -   OpenLayers 10.8.0
+-   [#631](https://github.com/mmomtchev/rlayers/pull/631), support custom projections and `matrixSet` for WMTS layers
 
 ## [3.8.0] 2025-11-05
 
