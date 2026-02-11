@@ -92,7 +92,7 @@
     "lru-cache": "^11.0.0"
   },
   "peerDependencies": {
-    "ol": "=10.7.0",
+    "ol": "=10.8.0",
     "react": ">=18",
     "react-dom": ">=18"
   },
@@ -139,7 +139,7 @@
     "jsdom-worker": "^0.3.0",
     "markdown-loader": "^8.0.0",
     "null-loader": "^4.0.1",
-    "ol": "=10.7.0",
+    "ol": "=10.8.0",
     "ol-mapbox-style": "^13.0.1",
     "ol-mbtiles": "^3.3.0",
     "prettier": "2.8.8",
