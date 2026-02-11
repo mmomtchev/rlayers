@@ -1,3 +1,0 @@
-//! Documented elsewhere in this file.
-
-//! Impl for importDb() when its 2nd arg is a function.
