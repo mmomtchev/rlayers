@@ -121,7 +121,7 @@
     "css-loader": "^7.0.0",
     "documentation": "^14.0.1",
     "documentation-hipster": "^1.0.0",
-    "eslint": "^8.16.0",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
