@@ -1,29 +1,18 @@
 version: 2
 updates:
-    - package-ecosystem: 'npm'
-      directory: '/'
-      schedule:
-          interval: 'daily'
-      cooldown:
-          default-days: 15
-      open-pull-requests-limit: 1
-      groups:
-          eslint:
-              patterns:
-                  - '*eslint*'
-              exclude-patterns:
-                  - '*prettier*'
-          prettier:
-              patterns:
-                  - '*prettier*'
-          jest:
-              patterns:
-                  - '*jest*'
-          react:
-              patterns:
-                  - '*react*'
-    - package-ecosystem: 'github-actions'
-      directory: '/'
-      schedule:
-          interval: 'weekly'
-      open-pull-requests-limit: 1
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "cron"
+      # node -p 'require("crypto").createHash("md5").update("rlayers").digest("buffer")[0] % 15'
+      cronjob: "0 5 4/15 * *"
+    open-pull-requests-limit: 1
+    groups:
+      npm:
+        patterns:
+        - "*"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 1
