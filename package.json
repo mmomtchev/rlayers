@@ -102,7 +102,7 @@
     "@babel/preset-env": "^7.25.4",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^1.0.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
@@ -163,9 +163,9 @@
     "ts-loader": "^9.3.0",
     "ts-node": "^10.8.0",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
-    "typescript": "=5.9.3",
+    "typescript": "=6.0.2",
     "webpack": "^5.20.1",
-    "webpack-cli": "^6.0.1",
+    "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.0.2"
   }
 }
