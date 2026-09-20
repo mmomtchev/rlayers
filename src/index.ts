@@ -4,7 +4,7 @@ export {VectorSourceEvent} from 'ol/source/Vector';
 
 export {RlayersBase} from './REvent';
 export {RContext, RContextType, useOL, useRLayersComponent} from './context';
-export {default as RMap, RMapProps} from './RMap';
+export {default as RMap, RMapProps, RView} from './RMap';
 
 export {default as RLayer, RLayerProps} from './layer/RLayer';
 export {default as RLayerTile, RLayerTileProps} from './layer/RLayerTile';
