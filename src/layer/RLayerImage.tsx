@@ -1,10 +1,8 @@
 import LayerImage from 'ol/layer/Image';
 import SourceImage from 'ol/source/ImageStatic';
-import {ProjectionLike} from 'ol/proj';
-import {Extent} from 'ol/extent';
+import {ProjectionLike, equivalent, get} from 'ol/proj';
+import {Extent, equals} from 'ol/extent';
 import {Size} from 'ol/size';
-
-import React from 'react';
 import {default as RLayer, RLayerProps} from './RLayer';
 
 /**
@@ -53,7 +51,34 @@ export default class RLayerImage extends RLayer<RLayerImageProps> {
 
     protected refresh(prevProps?: RLayerImageProps): void {
         super.refresh(prevProps);
-        if (this.props.url && prevProps?.url !== this.props.url) {
+
+        const prevProjection = get(prevProps?.projection);
+        const currentProjection = get(this.props.projection);
+        let isProjectionEquals = true;
+        if ((prevProjection && !currentProjection) || (!prevProjection && currentProjection)) {
+            isProjectionEquals = false;
+        } else {
+            if (prevProjection && currentProjection) {
+                isProjectionEquals = equivalent(prevProjection, currentProjection);
+            }
+        }
+
+        let isExtentEquals = true;
+        const prevExtent = prevProps?.extent;
+        const currentExtent = this.props.extent;
+        if ((prevExtent && !currentExtent) || (!prevExtent && currentExtent)) {
+            isExtentEquals = false;
+        } else {
+            if (prevExtent && currentExtent) {
+                isExtentEquals = equals(prevExtent, currentExtent);
+            }
+        }
+
+        if (
+            (this.props.url && prevProps?.url !== this.props.url) ||
+            !isProjectionEquals ||
+            !isExtentEquals
+        ) {
             this.createSource();
             this.ol.setSource(this.source);
             this.eventSources = [this.ol, this.source];
