@@ -13,12 +13,16 @@
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
+        "strict": false,
+        "strictNullChecks": false,
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "downlevelIteration": true,
+        "moduleResolution": "bundler",
         "skipLibCheck": true,
+        "rootDir": "./src",
+        "types": [
+            "node"
+        ],
         "paths": {
             "rlayers": [
                 "./src"
