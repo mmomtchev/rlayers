@@ -14,11 +14,9 @@
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "downlevelIteration": true,
+        "moduleResolution": "bundler",
         "paths": {
             "rlayers": [
                 "../src"

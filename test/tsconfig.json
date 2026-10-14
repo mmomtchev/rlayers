@@ -3,30 +3,38 @@
         "sourceMap": true,
         "noImplicitAny": false,
         "module": "commonjs",
-        "target": "es5",
+        "target": "es6",
         "lib": [
             "esnext",
             "dom",
             "dom.iterable"
         ],
+        "types": [
+            "jest"
+        ],
         "removeComments": true,
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
         "strict": true,
+        "strictNullChecks": false,
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "moduleResolution": "node",
-        "downlevelIteration": true,
+        "moduleResolution": "bundler",
         "paths": {
-            "rlayers": ["../src"],
-            "rlayers/*": ["../src/*"]
+            "rlayers": [
+                "../src"
+            ],
+            "rlayers/*": [
+                "../src/*"
+            ]
         }
     },
     "include": [
         ".",
         "../src"
     ],
-    "exclude": ["*.js"]
+    "exclude": [
+        "*.js"
+    ]
 }

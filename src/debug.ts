@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 /* istanbul ignore next */
 const debug =
     typeof process === 'undefined' || typeof process.env.RLAYERS_DEBUG === 'undefined'
