@@ -12,16 +12,10 @@ import {RMap, RLayerTile, RLayerWMTS} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerTile>', () => {
-    /*beforeAll(() => {
-        proj4.defs(
-            'EPSG:27700',
-            '+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 ' +
-                '+x_0=400000 +y_0=-100000 +ellps=airy ' +
-                '+towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 ' +
-                '+units=m +no_defs'
-        );
+    beforeAll(() => {
+        proj4.defs('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs +type=crs');
         register(proj4);
-    });*/
+    });
 
     it('should display a tiled XYZ layer', async () => {
         const {container} = render(
@@ -261,12 +255,12 @@ describe('<RLayerWMTS>', () => {
     ];
 
     it.each<WMTSTestSet>([
-        ['EPSG:3857', undefined, 'EPSG:3857', 'DE_EPSG_3857_ADV', 'EPSG:3857', undefined, false],
+        ['EPSG:3857', undefined, 'EPSG:3857', 'DE_EPSG_25832_ADV', 'EPSG:3857', undefined, false],
         [
             'EPSG:3857',
             undefined,
             'EPSG:3857',
-            'DE_EPSG_3857_ADV',
+            'DE_EPSG_25832_ADV',
             'EPSG:3857',
             'GLOBAL_WEBMERCATOR',
             true
