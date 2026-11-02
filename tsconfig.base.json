@@ -21,7 +21,8 @@
         "skipLibCheck": true,
         "rootDir": "./src",
         "types": [
-            "jest"
+            "jest",
+            "node"
         ],
         "paths": {
             "rlayers": [
