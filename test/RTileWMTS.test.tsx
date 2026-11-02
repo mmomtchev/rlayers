@@ -1,15 +1,22 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import React from 'react';
+import proj4 from 'proj4';
 import {render, RenderResult} from '@testing-library/react';
 import Projection from 'ol/proj/Projection';
 import {createXYZ} from 'ol/tilegrid';
 import {WMTS} from 'ol/source';
+import {register} from 'ol/proj/proj4';
 
 import {RMap, RLayerTile, RLayerWMTS} from 'rlayers';
 import * as common from './common';
 
 describe('<RLayerTile>', () => {
+    beforeAll(() => {
+        proj4.defs('EPSG:25832', '+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs +type=crs');
+        register(proj4);
+    });
+
     it('should display a tiled XYZ layer', async () => {
         const {container} = render(
             <RMap {...common.mapProps}>
@@ -248,12 +255,12 @@ describe('<RLayerWMTS>', () => {
     ];
 
     it.each<WMTSTestSet>([
-        ['EPSG:3857', undefined, 'EPSG:3857', 'DE_EPSG_3857_ADV', 'EPSG:3857', undefined, false],
+        ['EPSG:3857', undefined, 'EPSG:3857', 'DE_EPSG_25832_ADV', 'EPSG:3857', undefined, false],
         [
             'EPSG:3857',
             undefined,
             'EPSG:3857',
-            'DE_EPSG_3857_ADV',
+            'DE_EPSG_25832_ADV',
             'EPSG:3857',
             'GLOBAL_WEBMERCATOR',
             true
